@@ -1,0 +1,20 @@
+    2012-11-25T13:18:06-05:00 ERR (3): exception 'Zend_Mail_Protocol_Exception' with message '5.7.1 Username and Password not accepted. Learn more at
+ 5.7.1 http://support.google.com/mail/bin/answer.py?answer=14257 t12sm11648980ane.6
+' in F:\sistemas\joyeria\source\library\Zend\Mail\Protocol\Abstract.php:431
+Stack trace:
+#0 F:\sistemas\joyeria\source\library\Zend\Mail\Protocol\Smtp\Auth\Login.php(95): Zend_Mail_Protocol_Abstract->_expect(235)
+#1 F:\sistemas\joyeria\source\library\Zend\Mail\Protocol\Smtp.php(217): Zend_Mail_Protocol_Smtp_Auth_Login->auth()
+#2 F:\sistemas\joyeria\source\library\Zend\Mail\Transport\Smtp.php(200): Zend_Mail_Protocol_Smtp->helo('localhost')
+#3 F:\sistemas\joyeria\source\library\Zend\Mail\Transport\Abstract.php(348): Zend_Mail_Transport_Smtp->_sendMail()
+#4 F:\sistemas\joyeria\source\library\Zend\Mail.php(1194): Zend_Mail_Transport_Abstract->send(Object(Zend_Mail))
+#5 F:\sistemas\joyeria\source\library\Core\Mail.php(71): Zend_Mail->send(Object(Zend_Mail_Transport_Smtp))
+#6 F:\sistemas\joyeria\source\application\entitys\Menber.php(114): Core_Mail->send()
+#7 F:\sistemas\joyeria\source\application\entitys\Menber.php(92): Application_Entity_Menber->setMailMenberConfirmAccount('b2da0eced94c9c2...')
+#8 F:\sistemas\joyeria\source\application\modules\menber\controllers\CreateAccountController.php(20): Application_Entity_Menber->createMenber('123123')
+#9 F:\sistemas\joyeria\source\library\Zend\Controller\Action.php(516): Menber_CreateAccountController->indexAction()
+#10 F:\sistemas\joyeria\source\library\Zend\Controller\Dispatcher\Standard.php(308): Zend_Controller_Action->dispatch('indexAction')
+#11 F:\sistemas\joyeria\source\library\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#12 F:\sistemas\joyeria\source\library\Zend\Application\Bootstrap\Bootstrap.php(97): Zend_Controller_Front->dispatch()
+#13 F:\sistemas\joyeria\source\library\Zend\Application.php(366): Zend_Application_Bootstrap_Bootstrap->run()
+#14 F:\sistemas\joyeria\source\public\index.php(35): Zend_Application->run()
+#15 {main}

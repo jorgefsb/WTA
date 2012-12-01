@@ -1,0 +1,57 @@
+<?php $this->GetMesseger(); ?>
+[<a href="/admin/product/new">New Product</a>]
+<table>
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            Category
+        </td>
+        <td>
+            Status
+        </td>
+        <td>
+            Price
+        </td>
+        <td>
+            Limited Quality
+        </td>
+        <td>
+            Options
+        </td>
+    </tr>
+<?php 
+$arrayLimited = array('No','Yes');
+foreach($this->listingProduct as $index): ?>
+    <tr>
+        <td>
+            <?php echo $index['product_name']; ?>
+        </td>
+        <td>
+            <?php echo $index['category_name']; ?>
+        </td>
+        <td>
+            <?php if($index['product_public'] == 1){ ?>
+            Public
+            <?php } else { ?>
+            Not Public
+            <?php } ?>
+        </td>
+        <td>
+            <?php echo $index['product_price']; ?>
+        </td>
+        <td>
+            <?php echo $arrayLimited[$index['product_limited_quantity']]; ?>
+        </td>
+        <td>
+            [<a href="/admin/product/edit/id/<?php echo $index['product_id']; ?>">Edit</a>]
+            <?php if($index['product_public'] == 1){ ?>
+            [<a href="/admin/product/unpublish/id/<?php echo $index['product_id']; ?>">unpublis</a>]
+            <?php } else { ?>
+            [<a href="/admin/product/publish/id/<?php echo $index['product_id']; ?>">publish</a>]
+            <?php } ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
