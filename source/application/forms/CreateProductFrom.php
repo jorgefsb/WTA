@@ -27,6 +27,7 @@ class Application_Form_CreateProductFrom extends Core_Form {
         $this->addElement(new Zend_Form_Element_Textarea('description',
                         array(
                             'label' => 'Description',
+                            'class'=>'cleditor',
                 )));
 
 

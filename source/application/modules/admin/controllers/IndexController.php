@@ -6,13 +6,8 @@ class Admin_IndexController extends Core_Controller_ActionAdmin
         parent::init();
     }
     public function indexAction()
-    {                   
-        
+    { 
+        $this->_helper->layout->setLayout('layout-admin-login');
     } 
-    public function deleteAction()
-    {
-        
-    }
-    
 }
 
