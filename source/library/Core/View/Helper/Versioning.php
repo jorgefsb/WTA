@@ -7,7 +7,7 @@
  *
  * @author eanaya
  */
-class Core_View_Helper_S extends Zend_View_Helper_Abstract
+class Core_View_Helper_Versioning extends Zend_View_Helper_Abstract
 {
 
     protected static $_lastCommit;
@@ -16,7 +16,7 @@ class Core_View_Helper_S extends Zend_View_Helper_Abstract
      * @param  String
      * @return string
      */
-    public function s($file)
+    public function versioning($file)
     {
         /**
          * @todo cache to avoid file reading frequently

@@ -1,4 +1,3 @@
-<?php $this->GetMesseger(); ?>
 [<a href="/admin/product/new">New Product</a>]
 <table>
     <tr>
@@ -49,7 +48,7 @@ foreach($this->listingProduct as $index): ?>
             <?php if($index['product_public'] == 1){ ?>
             [<a href="/admin/product/unpublish/id/<?php echo $index['product_id']; ?>">unpublis</a>]
             <?php } else { ?>
-            [<a href="/admin/product/publish/id/<?php echo $index['product_id']; ?>">publish</a>]
+            [<a href="/admin/product/publish/id/<?php echo $index['product_id']; ?>"><li class="icon-eye-open">publish</li></a>]
             <?php } ?>
         </td>
     </tr>

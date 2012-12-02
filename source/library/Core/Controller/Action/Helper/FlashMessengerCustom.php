@@ -16,7 +16,7 @@ class Core_Controller_Action_Helper_FlashMessengerCustom
      * @var array
      */
     private $_levels = array('debug', 'info', 'success', 'warning', 'error');
-
+    
     /**
      * Agrega un mensaje
      * 
@@ -30,7 +30,6 @@ class Core_Controller_Action_Helper_FlashMessengerCustom
         $msg = new stdClass();
         $msg->message = $message;
         $msg->level = $level;
-        
         parent::addMessage($msg);
     }
     

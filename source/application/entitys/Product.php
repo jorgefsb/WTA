@@ -72,6 +72,7 @@ class Application_Entity_Product extends Core_Entity {
     }
 
     function update() {
+        $filter = new Core_SeoUrl();
         $modelProduct = new Application_Model_Product();
         $data = $this->setParamsDataBase();
         $data['product_slug'] = $filter->urlFriendly($this->_name,'-').'-  '.$this->_id  ;

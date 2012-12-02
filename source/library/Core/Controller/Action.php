@@ -15,10 +15,7 @@ class Core_Controller_Action extends Zend_Controller_Action {
     protected $_flashMessenger;
 
     public function init() {
-        
-        $this->_flashMessenger = $this->_helper->getHelper('flashMessenger');     
-//        $this->view->fmsgs = $this->_flashMessenger->getMessages();
-
+        $this->_flashMessenger = new Core_Controller_Action_Helper_FlashMessengerCustom();
         parent::init();
     }
 
