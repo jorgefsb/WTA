@@ -38,26 +38,35 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 
             ),
             array(
+                'label' => 'Actress',
+                'id' => 'actress',
+                'module' => 'admin',
+                'controller' => 'actress',
+                'action' => 'index',
+                'order' => 3
+                
+            ),
+            array(
                 'label' => 'Orders',
                 'id' => 'order-list',
                 'module' => 'admin',
                 'controller' => 'order-list',
                 'action' => 'email-preferences',
-                'order' => 3
+                'order' => 4
             ),
             array(
                 'label' => 'Menbers',
                 'id' => 'menbers',
                 'module' => 'admin',
                 'controller' => 'menbers',
-                'order' => 4
+                'order' => 5
             ),
             array(
                 'label' => 'Shopping reports',
                 'id' => 'shopping-reports',
                 'module' => 'admin',
                 'controller' => 'shopping-reports',
-                'order' => 5
+                'order' => 6
             ),
         );
         $this->setRegisterNavigation($container);

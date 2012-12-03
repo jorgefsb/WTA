@@ -3,11 +3,11 @@
 class Application_Model_Product extends Core_Model {
 
     protected $_tableProduct;
-    protected $_tableCategory;
+    protected $_tableActress;
 
     public function __construct() {
         $this->_tableProduct = new Application_Model_DbTable_Product();
-        $this->_tableCategory = new Application_Model_DbTable_Category();
+        $this->_tableActress = new Application_Model_DbTable_Actress();
     }
     /**
      * metodo getProduct(), devuelve todos los datos de un Product
@@ -61,7 +61,7 @@ class Application_Model_Product extends Core_Model {
                          array(
                              'pr.product_id',
                              'pr.product_name',
-                             'pr.product_category',
+                             'pr.product_actress',
                              'pr.product_description',
                              'pr.product_publish_date',
                              'pr.product_price',
@@ -69,14 +69,31 @@ class Application_Model_Product extends Core_Model {
                              'pr.product_limited_quantity',
                              'pr.product_create_date',
                              'pr.product_public',
-                             'cat.category_name',
-                             'cat.category_id',
-                             'cat.category_public',
+                             'ac.actress_name',
                              )
                         )
-                 ->join(array('cat'=>$this->_tableCategory->getName()), 'cat.category_id=pr.product_category','')
+                 ->joinLeft(array('ac'=>$this->_tableActress->getName()), 'ac.actress_id=pr.product_actress','')
+                 ->order('product_order asc')
                  ->query();
         $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+     public function getOrderlast(){
+        $sql = $this->_tableProduct->select()
+                ->from($this->_tableProduct->getName(),'product_order')
+                ->where('product_order >= 0')
+                ->order('product_order desc')
+                ->limit(1);
+        return $this->_tableProduct->getAdapter()->fetchOne($sql);
+    }
+    
+    public function getProductForOrder($orden){
+        $smt = $this->_tableProduct
+                ->select()
+                ->where('product_order=?', $orden)
+                ->query();
+        $result = $smt->fetch();
         $smt->closeCursor();
         return $result;
     }

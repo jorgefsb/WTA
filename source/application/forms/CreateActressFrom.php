@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_CreateCategoryFrom extends Core_Form {
+class Application_Form_CreateActressFrom extends Core_Form {
 
     //put your code here
     function init() {
@@ -14,6 +14,15 @@ class Application_Form_CreateCategoryFrom extends Core_Form {
                             'maxlength' => '200',
                             'size' => '40'
                 )));
+        $element = new Zend_Form_Element_File('img');
+        $element->setLabel('Upload an image:')
+                ->setDestination(APPLICATION_PATH.
+                        '/../public/dinamic/temp/');
+        $element->addValidator('Count', false, 1);
+        $element->addValidator('Size', false, 502400);
+        $element->addValidator('Extension', false, 'jpg,png');
+        $this->addElement($element);
+        
         $this->addElement(new Zend_Form_Element_Textarea('description',
                         array(
                             'label' => 'Description',
@@ -26,7 +35,7 @@ class Application_Form_CreateCategoryFrom extends Core_Form {
                     )));
 
 
-        $this->addElement(new Zend_Form_Element_Submit('Create Category',
+        $this->addElement(new Zend_Form_Element_Submit('Create Actress',
                         array('attribs' => array(
                                 'class' => 'submit-button'
                         ))));

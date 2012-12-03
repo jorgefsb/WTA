@@ -40,7 +40,7 @@ class Application_Entity_Image extends Core_Entity {
         'height' => 50
     );
     static $CELEBRITY_REDIMENCION_ORIGIN = array(
-        'name' => 'origin',
+        'name' => 'celebrity',
         'width' => 20,
         'height' => 50
     );
