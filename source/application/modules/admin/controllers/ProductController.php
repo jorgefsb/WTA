@@ -99,6 +99,15 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $this->_redirect('/admin/product');
     }
     
+    public function celebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('id'));
+    }
+    public function addCelebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('id'));
+    }
+    
 
 }
 
