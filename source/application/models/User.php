@@ -25,13 +25,33 @@ class Application_Model_User extends Core_Model {
      * @param $idUser    id de la User  
      * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
      */
-    function getUserForIdConfirm($idConfirm) {
-        $smt = $this->_tableUser->select()
-                ->where('user_id_confirm =?', $idConfirm)
-                ->query();
-        $result = $smt->fetch();
-        $smt->closeCursor();
-        return $result;
+    function userExistEmail($email,$id) {
+        $sql = $this->_tableUser->select()
+                ->from($this->_tableUser->getName(),'user_mail')
+                ->where('user_mail =?', $email);
+        $mailConfirm = $this->_tableUser->getAdapter()->fetchOne($sql);
+        if($mailConfirm){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+    /**
+     * metodo getUser(), devuelve todos los datos de un User
+     * @param $idUser    id de la User  
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     */
+    function userExistEmailOther($email,$id) {
+        $sql = $this->_tableUser->select()
+                ->from($this->_tableUser->getName(),'user_mail')
+                ->where('user_mail =?', $email)
+                ->where('user_id !=?', $id);
+        $mailConfirm = $this->_tableUser->getAdapter()->fetchOne($sql);
+        if($mailConfirm){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
     /**
      * metodo insert(), registra los datos de la User 

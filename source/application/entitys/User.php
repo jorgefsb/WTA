@@ -9,7 +9,6 @@ class Application_Entity_User extends Core_Entity {
 
     protected $_id;
     protected $_name;
-    protected $_user;
     protected $_mail;
     protected $_active;
 
@@ -20,8 +19,8 @@ class Application_Entity_User extends Core_Entity {
     function __construct() {
         
     }
-    
-    static function listing(){
+
+    static function listing() {
         $modelUser = new Application_Model_User();
         return $modelUser->listing();
     }
@@ -65,8 +64,16 @@ class Application_Entity_User extends Core_Entity {
     }
 
     function update() {
+        $data = $this->setParamsDataBase();
         $modelUser = new Application_Model_User();
-        return $modelUser->update($this->setParamsDataBase(), $this->_id);
+        if ($modelUser->userExistEmailOther($data['user_mail'], $this->_id)) {
+            $this->_message = 'the mail "' . $data['user_mail'] . '" is being used by another user';
+            return false;
+        } else {
+            $modelUser = new Application_Model_User();
+            $this->_message = 'Registration ok';
+            return $modelUser->update($data, $this->_id);
+        }
     }
 
     /*
@@ -80,11 +87,16 @@ class Application_Entity_User extends Core_Entity {
         $modelUser = new Application_Model_User();
         $this->_active = 1;
         $data = $this->setParamsDataBase();
+        if ($modelUser->userExistEmail($data['user_mail'])) {
+            $this->_message = 'the mail "' . $data['user_mail'] . '" is being used by another user';
+            return false;
+        }
         $data['user_create_date'] = date('Y-m-d H:i:s');
         $data['user_password'] = $this->encriptaPassword($password);
         $id = $modelUser->insert($data);
         if ($id != false) {
             $this->_id = $id;
+            $this->_message = 'Registration ok';
             return true;
         } else {
             $this->_message = 'Registration to failure';
@@ -171,14 +183,20 @@ class Application_Entity_User extends Core_Entity {
         return substr($value, 0, strrpos($value, '$$')) . '$$';
     }
 
+    function reserPassword($password) {
+        $modelUser = new Application_Model_User();
+        $data['user_password'] = $this->encriptaPassword($password);
+        return $modelUser->update($data, $this->_id);
+    }
+
     function passwordReset($password, $passwordTemp) {
         $modelUser = new Application_Model_User();
-        $passwordTempPresent = $modelUser->getpasswordTemp($this->_id); 
-        if($passwordTempPresent==''){
+        $passwordTempPresent = $modelUser->getpasswordTemp($this->_id);
+        if ($passwordTempPresent == '') {
             $this->_message = 'Do not have an authorization code for this action';
             return FALSE;
         }
-        if ($passwordTemp == $passwordTempPresent ) {
+        if ($passwordTemp == $passwordTempPresent) {
             $data['user_password'] = $this->encriptaPassword($password);
             $data['menbar_password_reset'] = '';
             $modelUser->update($data, $this->_id);

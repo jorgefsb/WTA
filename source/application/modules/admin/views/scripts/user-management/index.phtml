@@ -37,13 +37,11 @@
             <?php echo $index['user_mail']; ?>
         </td>
         <td>
-            <a class="btn btn-info" href="/admin/user-management/up/id/<?php echo $index['user_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>
-            <a class="btn btn-info" href="/admin/user-management/down/id/<?php echo $index['user_id']; ?>"><span class="icon-arrow-down icon-white"></span> Down</a>
             <a class="btn btn-info" href="/admin/user-management/edit/id/<?php echo $index['user_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
             <?php if($index['user_active'] == 1){ ?>
-            <a class="btn btn-info" href="/admin/user-management/unpublish/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublis</a>
+            <a class="btn btn-info" href="/admin/user-management/unpublish/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-close icon-white"></span> Active</a>
             <?php } else { ?>
-            <a class="btn btn-info" href="/admin/user-management/publish/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
+            <a class="btn btn-info" href="/admin/user-management/publish/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-open icon-white"></span> Inactive</a>
             <?php } ?>
         </td>
     </tr>
