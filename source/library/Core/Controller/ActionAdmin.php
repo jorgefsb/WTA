@@ -3,9 +3,13 @@
 class Core_Controller_ActionAdmin extends Core_Controller_Action {
 
     protected $_sessionAdmin;
+    protected $_identityUserAdmin;
     
     public function init() {
         parent::init();
+        
+        $this->_identityUserAdmin = Zend_Auth::getInstance()->getIdentity();
+        
         $this->_sessionAdmin = new Zend_Session_Namespace('sessionAdmin');
         $this->getNavigationSuperAdmin();
         $this->_helper->layout->setLayout('layout-admin');
@@ -16,6 +20,10 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
         }
         $this->view->headTitle()->setSeparator(' - ');
         $this->view->headTitle('WTA Admin!');
+        if($this->getRequest()->getControllerName()!='login'
+                && empty($this->_identityUserAdmin)){
+            $this->redirect('/admin/login');
+        }
     }
     
     protected function getNavigationSuperAdmin() {
