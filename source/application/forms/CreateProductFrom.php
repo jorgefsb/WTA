@@ -14,10 +14,10 @@ class Application_Form_CreateProductFrom extends Core_Form {
                             'maxlength' => '200',
                             'size' => '40'
                 )));
-        $this->addElement(new Zend_Form_Element_Select('actress',
+        $this->addElement(new Zend_Form_Element_Select('designer',
                 array(
-                    'label' => 'Actress * ',
-                    'multiOptions' => Core_Utils::fetchPairs(Application_Entity_Actress::listingActress())
+                    'label' => 'Designer * ',
+                    'multiOptions' => Core_Utils::fetchPairs(Application_Entity_Designer::listing())
                             )));
 
         $this->addElement(new Zend_Form_Element_Textarea('description',

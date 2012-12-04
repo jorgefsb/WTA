@@ -8,6 +8,9 @@
     <thead>
     <tr>
         <th>
+            Type
+        </th>
+        <th>
             Name
         </th>
         <th>
@@ -23,6 +26,9 @@
     </thead>
 <?php foreach($this->listingUser as $index): ?>
     <tr>
+        <td>
+            <?php echo $index['user_type_name']; ?>
+        </td>
         <td>
             <?php echo $index['user_name']; ?>
         </td>

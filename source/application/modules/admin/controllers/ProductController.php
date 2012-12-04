@@ -20,6 +20,8 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product = new Application_Entity_Product();
                 $product->setPropertie('_name', $form->getValue('name'));
                 $product->setPropertie('_description', $form->getValue('description'));
+                $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
+                $product->setPropertie('_designer', $form->getValue('designer'));
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
@@ -40,6 +42,8 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $properties = $product->getProperties();
         $arrayPopulate['name'] = $properties['_name'];
         $arrayPopulate['description'] = $properties['_description'];
+        $arrayPopulate['descriptionDesigner'] = $properties['_descriptionDesigner'];
+        $arrayPopulate['designer'] = $properties['_designer'];
         $arrayPopulate['limitedQuantity'] = $properties['_limitedQuantity'];
         $arrayPopulate['public'] = $properties['_public'];
         $arrayPopulate['price'] = $properties['_price'];
@@ -48,6 +52,8 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $product->setPropertie('_name', $form->getValue('name'));
                 $product->setPropertie('_description', $form->getValue('description'));
+                $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
+                $product->setPropertie('_designer', $form->getValue('designer'));
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));

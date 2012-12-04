@@ -4,10 +4,12 @@ class Application_Model_Product extends Core_Model {
 
     protected $_tableProduct;
     protected $_tableActress;
+    protected $_tableProductActress;
 
     public function __construct() {
         $this->_tableProduct = new Application_Model_DbTable_Product();
         $this->_tableActress = new Application_Model_DbTable_Actress();
+        $this->_tableProductActress = new Application_Model_DbTable_ProductActress();
     }
     /**
      * metodo getProduct(), devuelve todos los datos de un Product
@@ -61,20 +63,22 @@ class Application_Model_Product extends Core_Model {
                          array(
                              'pr.product_id',
                              'pr.product_name',
-                             'pr.product_actress',
                              'pr.product_description',
                              'pr.product_publish_date',
                              'pr.product_price',
+                             'pr.product_price_menber',
                              'pr.product_in_stock',
                              'pr.product_limited_quantity',
                              'pr.product_create_date',
                              'pr.product_public',
-                             'ac.actress_name',
+                             'product_actress' => new Zend_Db_Expr("GROUP_CONCAT(a.actress_name SEPARATOR ',')"),
                              )
                         )
-                 ->joinLeft(array('ac'=>$this->_tableActress->getName()), 'ac.actress_id=pr.product_actress','')
+                 ->joinLeft(array('pra'=>$this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id','')
+                 ->joinLeft(array('a'=>$this->_tableActress->getName()), 'a.actress_id=pra.product_actress_actress_id','')
                  ->order('product_order asc')
-                 ->query();
+                 ->group('pr.product_id');
+                 $smt = $smt->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();
         return $result;

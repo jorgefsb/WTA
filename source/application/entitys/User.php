@@ -70,10 +70,16 @@ class Application_Entity_User extends Core_Entity {
     function update() {
         $data = $this->setParamsDataBase();
         $modelUser = new Application_Model_User();
+        
         if ($modelUser->userExistEmailOther($data['user_mail'], $this->_id)) {
             $this->_message = 'the mail "' . $data['user_mail'] . '" is being used by another user';
             return false;
         } else {
+            $userAnt = new Application_Entity_User();
+            $userAnt->identify($this->_id);
+            if($userAnt->_userType == 1){
+                $data['user_type_id'] = 1;
+            }
             $modelUser = new Application_Model_User();
             $this->_message = 'Registration ok';
             return $modelUser->update($data, $this->_id);
@@ -155,7 +161,7 @@ class Application_Entity_User extends Core_Entity {
         $auth = Zend_Auth::getInstance();
         $adapter = new Zend_Auth_Adapter_DbTable(Zend_Registry::get('multidb'),
                         'userautentificate',
-                        'user_mail',
+                        'user_login',
                         'user_password');
         $adapter->setIdentity($usuario);
         $contrasenia = $this->getPassword($usuario);
@@ -168,8 +174,10 @@ class Application_Entity_User extends Core_Entity {
         if ($result->isValid()) {
             $data = $adapter->getResultRowObject(null, 'user_password');
             $auth->getStorage()->write($data);
+            
             return TRUE;
         } else {
+            $this->_message = 'Autentificate Error';
             return FALSE;
         }
     }

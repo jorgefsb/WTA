@@ -10,6 +10,8 @@ class Application_Entity_Product extends Core_Entity {
     protected $_id;
     protected $_name;
     protected $_description;
+    protected $_descriptionDesigner;
+    protected $_designer;
     protected $_price;
     protected $_inStock;
     protected $_limitedQuantity;
@@ -28,6 +30,8 @@ class Application_Entity_Product extends Core_Entity {
         $this->_id = $data['product_id'];
         $this->_name = $data['product_name'];
         $this->_description = $data['product_description'];
+        $this->_descriptionDesigner = $data['product_description_designer'];
+        $this->_designer = $data['product_designer'];
         $this->_price = $data['product_price'];
         $this->_inStock = $data['product_in_stock'];
         $this->_limitedQuantity = $data['product_limited_quantity'];
@@ -68,6 +72,8 @@ class Application_Entity_Product extends Core_Entity {
         $data['product_limited_quantity'] = $this->_limitedQuantity;
         $data['product_public'] = $this->_public;
         $data['product_order'] = $this->_order;
+        $data['product_description_designer'] = $this->_descriptionDesigner;
+        $data['product_designer'] = $this->_designer;
         return $this->cleanArray($data);
     }
 

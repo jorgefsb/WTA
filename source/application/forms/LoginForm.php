@@ -4,7 +4,7 @@ class Application_Form_LoginForm extends Core_Form {
     function init() {
         parent::init();
         $this->setMethod('Post');
-        $this->addElement(new Zend_Form_Element_Text('mail',
+        $this->addElement(new Zend_Form_Element_Text('login',
                 array(
                     'required' => true,
                     'label' => 'User',
