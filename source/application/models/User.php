@@ -38,6 +38,18 @@ class Application_Model_User extends Core_Model {
      * @param array             $data   array con los datos de la User array('column'=>'valor')
      * @return bolean or int    devuelve un entero en caso de que el registro sea exitos        
      */
+    public function listing() {
+        $smt = $this->_tableUser->select()
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+    /**
+     * metodo insert(), registra los datos de la User 
+     * @param array             $data   array con los datos de la User array('column'=>'valor')
+     * @return bolean or int    devuelve un entero en caso de que el registro sea exitos        
+     */
     public function insert($data) {
         if ($this->_tableUser->insert($data)) {
             return $this->_tableUser->getAdapter()->lastInsertId();

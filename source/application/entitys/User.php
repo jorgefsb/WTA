@@ -9,13 +9,9 @@ class Application_Entity_User extends Core_Entity {
 
     protected $_id;
     protected $_name;
-    protected $_lastName;
+    protected $_user;
     protected $_mail;
-    protected $_linkConfirm;
-    protected $_idConfirm;
     protected $_active;
-    protected $_confirm;
-    protected $_avatar;
 
     /**
      * __Construct         
@@ -23,6 +19,11 @@ class Application_Entity_User extends Core_Entity {
      */
     function __construct() {
         
+    }
+    
+    static function listing(){
+        $modelUser = new Application_Model_User();
+        return $modelUser->listing();
     }
 
     private function asocParams($data) {
@@ -48,22 +49,6 @@ class Application_Entity_User extends Core_Entity {
     }
 
     /*
-     * metodo identify(), obtiene los datos de un mienbro
-     *
-     * @param $idUser
-     * @return void
-     */
-
-    private function identifyForIdConfirm($idConfirm) {
-        $modelUser = new Application_Model_User();
-        $data = $modelUser->getUserForIdConfirm($idConfirm);
-        if ($data != '') {
-            $this->asocParams($data);
-        }
-        return $data;
-    }
-
-    /*
      * metodo setParamsDataBase()
      *
      * @param 
@@ -74,6 +59,7 @@ class Application_Entity_User extends Core_Entity {
         $data['user_id'] = $this->_id;
         $data['user_name'] = $this->_name;
         $data['user_mail'] = $this->_mail;
+        $data['user_login'] = $this->_mail;
         $data['user_active'] = $this->_active;
         return $this->cleanArray($data);
     }
@@ -93,7 +79,6 @@ class Application_Entity_User extends Core_Entity {
     function createUser($password) {
         $modelUser = new Application_Model_User();
         $this->_active = 1;
-        $this->_confirm = 0;
         $data = $this->setParamsDataBase();
         $data['user_create_date'] = date('Y-m-d H:i:s');
         $data['user_password'] = $this->encriptaPassword($password);
@@ -203,20 +188,6 @@ class Application_Entity_User extends Core_Entity {
             $this->_message = 'The value of the authorization code is not correct';
             return FALSE;
         }
-    }
-
-    function sendPasswordReset() {
-        $modelUser = new Application_Model_User();
-        $mail = new Core_Mail();
-        $mail->addDestinatario($this->_mail);
-        $mail->setAsunto('Password Reset');
-        $mensaje = '<b>Password Reset</b> <p>';
-        $passwordTemp = $this->generaPasswordTemp();
-        $mensaje .= 'Password to reset it: ' . $passwordTemp;
-        $mail->setMensaje($mensaje);
-        $mail->send();
-        $data['menbar_password_reset'] = $passwordTemp;
-        $modelUser->update($data, $this->_id);
     }
 
 }
