@@ -21,6 +21,7 @@ class Admin_UserManagementController extends Core_Controller_ActionAdmin {
                 $user->setPropertie('_name', $form->getValue('name'));
                 $user->setPropertie('_mail', $form->getValue('user'));
                 $user->setPropertie('_active', $form->getValue('active'));
+                $user->setPropertie('_userType', $form->getValue('userType'));
                 if ($user->createUser($form->getValue('password'))) {
                     $this->_flashMessenger->addMessage($user->getMessage());
                 } else {
@@ -41,12 +42,14 @@ class Admin_UserManagementController extends Core_Controller_ActionAdmin {
         $arrayPopulate['name'] = $properties['_name'];
         $arrayPopulate['user'] = $properties['_mail'];
         $arrayPopulate['active'] = $properties['_active'];
+        $arrayPopulate['userType'] = $properties['_userType'];
         $form->populate($arrayPopulate);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $user->setPropertie('_name', $form->getValue('name'));
                 $user->setPropertie('_mail', $form->getValue('user'));
                 $user->setPropertie('_active', $form->getValue('active'));
+                $user->setPropertie('_userType', $form->getValue('userType'));
                 if ($user->update()!==FALSE) {
                     if($form->getValue('password')!=''){
                         $user->reserPassword($form->getValue('password'));
@@ -61,12 +64,18 @@ class Admin_UserManagementController extends Core_Controller_ActionAdmin {
         $this->view->form = $form;
     }
 
-    public function publishAction() {
-        
+    public function activeAction() {
+        $user = new Application_Entity_User();
+        $user->identify($this->getRequest()->getParam('id'));
+        $user->active();
+        $this->_redirect('/admin/user-management/');
     }
 
-    public function unpublishAction() {
-        
+    public function inactiveAction() {
+        $user = new Application_Entity_User();
+        $user->identify($this->getRequest()->getParam('id'));
+        $user->inactive();
+        $this->_redirect('/admin/user-management/');
     }
 
     public function upAction() {

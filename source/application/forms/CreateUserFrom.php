@@ -24,6 +24,12 @@ class Application_Form_CreateUserFrom extends Core_Form {
                             'size' => '40'
                 )));
         
+        $this->addElement(new Zend_Form_Element_Select('userType',
+                array(
+                    'label' => 'Type * ',
+                    'multiOptions' => Core_Utils::fetchPairs(Application_Entity_User::getUserType())
+                            )));
+        
         $this->addElement(new Zend_Form_Element_Password('password',
                         array(
                             'label' => 'Password * ',

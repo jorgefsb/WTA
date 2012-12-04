@@ -3,9 +3,11 @@
 class Application_Model_User extends Core_Model {
 
     protected $_tableUser;
+    protected $_tableUserType;
 
     public function __construct() {
         $this->_tableUser = new Application_Model_DbTable_User();
+        $this->_tableUserType = new Application_Model_DbTable_UserType();
     }
     /**
      * metodo getUser(), devuelve todos los datos de un User
@@ -59,7 +61,21 @@ class Application_Model_User extends Core_Model {
      * @return bolean or int    devuelve un entero en caso de que el registro sea exitos        
      */
     public function listing() {
-        $smt = $this->_tableUser->select()
+        $smt = $this->_tableUser
+                ->getAdapter()
+                ->select()
+                ->from(array('u'=>$this->_tableUser->getName()),array(
+                    'u.user_id',
+                    'u.user_name',
+                    'u.user_login',
+                    'u.user_password',
+                    'u.user_mail',
+                    'u.user_active',
+                    'u.user_create_date',
+                    'u.user_type_id',
+                    'ut.user_type_name'
+                ))
+                ->join(array('ut'=>$this->_tableUserType->getName()),'ut.user_type_id=u.user_type_id','')
                 ->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();
@@ -100,6 +116,15 @@ class Application_Model_User extends Core_Model {
                         array('user_password'))
                 ->where('user_mail = ?',$usuario);
        return $this->_tableUser->getAdapter()->fetchOne($sql);
+    }
+    
+    function getUserType(){
+        $smt = $this->_tableUserType->select()
+                ->where('user_type_id != ?',1)
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
     }
     
 

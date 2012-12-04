@@ -39,9 +39,9 @@
         <td>
             <a class="btn btn-info" href="/admin/user-management/edit/id/<?php echo $index['user_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
             <?php if($index['user_active'] == 1){ ?>
-            <a class="btn btn-info" href="/admin/user-management/unpublish/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-close icon-white"></span> Active</a>
+            <a class="btn btn-info" href="/admin/user-management/inactive/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-close icon-white"></span> Active</a>
             <?php } else { ?>
-            <a class="btn btn-info" href="/admin/user-management/publish/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-open icon-white"></span> Inactive</a>
+            <a class="btn btn-info" href="/admin/user-management/active/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-open icon-white"></span> Inactive</a>
             <?php } ?>
         </td>
     </tr>

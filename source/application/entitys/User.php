@@ -11,7 +11,9 @@ class Application_Entity_User extends Core_Entity {
     protected $_name;
     protected $_mail;
     protected $_active;
-
+    protected $_userType;
+    
+    
     /**
      * __Construct         
      *
@@ -30,6 +32,7 @@ class Application_Entity_User extends Core_Entity {
         $this->_name = $data['user_name'];
         $this->_mail = $data['user_mail'];
         $this->_active = $data['user_active'];
+        $this->_userType = $data['user_type_id'];
     }
 
     /*
@@ -60,6 +63,7 @@ class Application_Entity_User extends Core_Entity {
         $data['user_mail'] = $this->_mail;
         $data['user_login'] = $this->_mail;
         $data['user_active'] = $this->_active;
+        $data['user_type_id'] = $this->_userType;
         return $this->cleanArray($data);
     }
 
@@ -206,6 +210,21 @@ class Application_Entity_User extends Core_Entity {
             $this->_message = 'The value of the authorization code is not correct';
             return FALSE;
         }
+    }
+    static function getUserType(){
+         $modelUser = new Application_Model_User();
+         return $modelUser->getUserType();
+    }
+    
+    function active(){
+        $modelUser = new Application_Model_User();
+        $data['user_active'] = '1';
+        return $modelUser->update($data, $this->_id);
+    }
+    function inactive(){
+        $modelUser = new Application_Model_User();
+        $data['user_active'] = '0';
+        return $modelUser->update($data, $this->_id);
     }
 
 }
