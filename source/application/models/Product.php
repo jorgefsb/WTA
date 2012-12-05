@@ -113,6 +113,8 @@ class Application_Model_Product extends Core_Model {
                              'pra.product_actress_commission',
                              'pra.product_actress_img',
                              'pra.product_actress_active',
+                             'pra.product_actress_product_id',
+                             'pra.product_actress_actress_id',
                              )
                         )
                  ->join(array('pra'=>$this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id','')

@@ -133,12 +133,15 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
     public function editCelebrityAction() {
         $product = new Application_Entity_Product();
         $product->identify($this->getRequest()->getParam('product'));
+        $productActress = $product->getProductActress($this->getRequest()->getParam('celebrity'));
         $actress = new Application_Entity_Actress();
         $actress->identify($this->getRequest()->getParam('celebrity'));
         $form = new Application_Form_EditProductCelebrityFrom();
-        $form->getElement('nameActress')->setValue($actress->getPropertie('_name'));
-        $form->getElement('actress')->setValue($actress->getPropertie('_id'));
-        
+        $dataForm['nameActress']=$actress->getPropertie('_name');
+        $dataForm['actress']=$actress->getPropertie('_id');
+        $dataForm['commission']=$productActress['product_actress_commission'];
+        $dataForm['active']=$productActress['product_actress_active'];
+        $form->populate($dataForm);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $product->addActress(

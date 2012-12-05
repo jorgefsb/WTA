@@ -55,7 +55,10 @@
                         <?php } else { ?>
                             <a class="btn btn-mini btn-info" href="/admin/product/publish-celebrity/product/<?php echo $this->product; ?>/id/<?php echo $index['product_actress_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
                         <?php } ?>
-                            <a class="btn btn-mini btn-info" href="/admin/product/delete-celebrity/id/<?php echo $index['product_actress_id']; ?>"><span class="icon-remove icon-white"></span> Delete</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/edit-celebrity/product/<?php echo $this->product ?>/celebrity/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/delete-celebrity/product/<?php echo $this->product ?>/celebrity/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-remove icon-white"></span> Eliminar</a>
+                            
+                            
                     </td>
                 </tr>
         <?php endforeach; ?>

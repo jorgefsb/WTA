@@ -175,14 +175,17 @@ class Application_Entity_Product extends Core_Entity {
             $this->update();
         }
     }
-
+    
+    public function getProductActress($idActress){
+        $modelProductActress = new Application_Model_ProductActress();
+        return $modelProductActress->getProductActress($this->_id, $idActress);
+    }
  
     
     public function addActress($idActress, $imagenTem, $comision, $active) {
-
-        $modelProduct = new Application_Model_Product();
         $modelProductActress = new Application_Model_ProductActress();
-        $product = $modelProductActress->getProductActress($this->_id, $idActress);
+        $modelProduct = new Application_Model_Product();
+        $product = $this->getProductActress($this->_id, $idActress);
         if ($product == FALSE) {
             $data['product_actress_product_id'] = $this->_id;
             $data['product_actress_actress_id'] = $idActress;
