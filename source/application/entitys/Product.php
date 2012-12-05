@@ -185,7 +185,7 @@ class Application_Entity_Product extends Core_Entity {
     public function addActress($idActress, $imagenTem, $comision, $active) {
         $modelProductActress = new Application_Model_ProductActress();
         $modelProduct = new Application_Model_Product();
-        $product = $this->getProductActress($this->_id, $idActress);
+        $product = $this->getProductActress($idActress);
         if ($product == FALSE) {
             $data['product_actress_product_id'] = $this->_id;
             $data['product_actress_actress_id'] = $idActress;
@@ -206,16 +206,16 @@ class Application_Entity_Product extends Core_Entity {
         return $modelProduct->listingActrees($this->_id);
     }
 
-    function publishCelebrity() {
-        $this->_public = 1;
-        $this->update();
-        $this->_message = 'satisfactory record';
+    function publishCelebrity($idActress) {
+        $modelProductActress = new Application_Model_ProductActress();
+        $data['product_actress_active'] = 1;
+        return $modelProductActress->update($data, $this->_id, $idActress);
     }
 
-    function unpublishCelebrity() {
-        $this->_public = '0';
-        $this->update();
-        $this->_message = 'satisfactory record';
+    function unpublishCelebrity($idActress) {
+        $modelProductActress = new Application_Model_ProductActress();
+        $data['product_actress_active'] = '0';
+        return $modelProductActress->update($data, $this->_id, $idActress);
     }
 
 }

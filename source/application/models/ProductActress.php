@@ -17,6 +17,7 @@ class Application_Model_ProductActress extends Core_Model {
      * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
      */
     function getProductActress($idProduct,$idActress) {
+        //print_r(func_get_args());
         $smt = $this->_tableProductActress->select()
                 ->where('product_actress_product_id =?', $idProduct)
                 ->where('product_actress_actress_id =?', $idActress)
