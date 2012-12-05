@@ -90,6 +90,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $this->_flashMessenger->addMessage($product->getMessage());
         $this->_redirect('/admin/product');
     }
+    
 
     public function downAction() {
         $product = new Application_Entity_Product();
@@ -101,11 +102,72 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
     
     public function celebrityAction() {
         $product = new Application_Entity_Product();
-        $product->identify($this->getRequest()->getParam('id'));
+        $product->identify($this->getRequest()->getParam('product'));
+        $this->view->product = $product->getPropertie('_id');
+        $this->view->name = $product->getPropertie('_name');
+        $paginator = Zend_Paginator::factory($product->listingActrees());
+        $paginator->setCurrentPageNumber($this->_getParam('page'));
+        $paginator->setItemCountPerPage(6);
+        $this->view->listingActrees = $paginator;
+        
     }
     public function addCelebrityAction() {
         $product = new Application_Entity_Product();
-        $product->identify($this->getRequest()->getParam('id'));
+        $product->identify($this->getRequest()->getParam('product'));
+        $form = new Application_Form_CreateProductCelebrityFrom();
+        
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                $product->addActress(
+                        $form->getValue('actress'), 
+                        '', 
+                        $form->getValue('commission'), 
+                        $form->getValue('active')
+                        );
+                $this->_flashMessenger->addMessage($product->getMessage());
+                $this->_redirect('/admin/product/celebrity/product/'.$product->getPropertie('_id'));
+            }
+        }
+        $this->view->form = $form;
+    }
+    public function editCelebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $actress = new Application_Entity_Actress();
+        $actress->identify($this->getRequest()->getParam('celebrity'));
+        $form = new Application_Form_EditProductCelebrityFrom();
+        $form->getElement('nameActress')->setValue($actress->getPropertie('_name'));
+        $form->getElement('actress')->setValue($actress->getPropertie('_id'));
+        
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                $product->addActress(
+                        $form->getValue('actress'), 
+                        '', 
+                        $form->getValue('commission'), 
+                        $form->getValue('active')
+                        );
+                $this->_flashMessenger->addMessage($product->getMessage());
+                $this->_redirect('/admin/product/celebrity/product/'.$product->getPropertie('_id'));
+            }
+        }
+        $this->view->form = $form;
+    }
+    
+    public function publishCelebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $product->publishCelebrity($this->getRequest()->getParam('id'));
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product/celebrity/product/'.$product->getPropertie('_id'));
+    }
+
+    public function unpublishCelebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $product->unpublishCelebrity($this->getRequest()->getParam('id'));
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product/celebrity/product/'.$product->getPropertie('_id'));
     }
     
 

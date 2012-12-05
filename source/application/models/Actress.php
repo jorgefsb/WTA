@@ -58,6 +58,26 @@ class Application_Model_Actress extends Core_Model {
         return $result;
     }
     
+    public function listingProduct($product){
+        $smt = $this->_tableActress
+                ->getAdapter()
+                ->select()
+                ->from(array('a'=>$this->_tableActress->getName()),
+                array(
+                    'a.actress_id',
+                    'a.actress_name',
+                    )
+                )
+                ->join(array('pa'=>$this->_tableProductActres->getName()), 
+                        'a.actress_id!=pa.product_actress_product_id','')
+                ->where('actress_order=?', $orden)
+                ->order('actress_order asc')
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+    
     public function getOrderlast(){
         $sql = $this->_tableActress->select()
                 ->from($this->_tableActress->getName(),'actress_order')

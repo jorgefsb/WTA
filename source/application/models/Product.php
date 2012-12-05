@@ -101,6 +101,28 @@ class Application_Model_Product extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
+    function listingActrees($idProduct){
+        $smt = $this->_tableProduct
+                 ->getAdapter()
+                 ->select()
+                 ->from(
+                         array('pr'=>$this->_tableProduct->getName()),
+                         array(
+                             'pra.product_actress_id',
+                             'a.actress_name',
+                             'pra.product_actress_commission',
+                             'pra.product_actress_img',
+                             'pra.product_actress_active',
+                             )
+                        )
+                 ->join(array('pra'=>$this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id','')
+                 ->join(array('a'=>$this->_tableActress->getName()), 'a.actress_id=pra.product_actress_actress_id','')
+                 ->where('pr.product_id=?',$idProduct);
+                 $smt = $smt->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
     
     
 
