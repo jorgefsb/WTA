@@ -3,11 +3,13 @@
 class Application_Model_Product extends Core_Model {
 
     protected $_tableProduct;
-    protected $_tableCategory;
+    protected $_tableActress;
+    protected $_tableProductActress;
 
     public function __construct() {
         $this->_tableProduct = new Application_Model_DbTable_Product();
-        $this->_tableCategory = new Application_Model_DbTable_Category();
+        $this->_tableActress = new Application_Model_DbTable_Actress();
+        $this->_tableProductActress = new Application_Model_DbTable_ProductActress();
     }
     /**
      * metodo getProduct(), devuelve todos los datos de un Product
@@ -61,22 +63,41 @@ class Application_Model_Product extends Core_Model {
                          array(
                              'pr.product_id',
                              'pr.product_name',
-                             'pr.product_category',
                              'pr.product_description',
                              'pr.product_publish_date',
                              'pr.product_price',
+                             'pr.product_price_menber',
                              'pr.product_in_stock',
                              'pr.product_limited_quantity',
                              'pr.product_create_date',
                              'pr.product_public',
-                             'cat.category_name',
-                             'cat.category_id',
-                             'cat.category_public',
+                             'product_actress' => new Zend_Db_Expr("GROUP_CONCAT(a.actress_name SEPARATOR ',')"),
                              )
                         )
-                 ->join(array('cat'=>$this->_tableCategory->getName()), 'cat.category_id=pr.product_category','')
-                 ->query();
+                 ->joinLeft(array('pra'=>$this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id','')
+                 ->joinLeft(array('a'=>$this->_tableActress->getName()), 'a.actress_id=pra.product_actress_actress_id','')
+                 ->order('product_order asc')
+                 ->group('pr.product_id');
+                 $smt = $smt->query();
         $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+     public function getOrderlast(){
+        $sql = $this->_tableProduct->select()
+                ->from($this->_tableProduct->getName(),'product_order')
+                ->where('product_order >= 0')
+                ->order('product_order desc')
+                ->limit(1);
+        return $this->_tableProduct->getAdapter()->fetchOne($sql);
+    }
+    
+    public function getProductForOrder($orden){
+        $smt = $this->_tableProduct
+                ->select()
+                ->where('product_order=?', $orden)
+                ->query();
+        $result = $smt->fetch();
         $smt->closeCursor();
         return $result;
     }

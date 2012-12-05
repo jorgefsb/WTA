@@ -3,10 +3,10 @@
         <h2>Product List</h2>
     </div>
     <div class="box-content">
-        <a class="btn btn-small btn-primary" href="/admin/product/new">New Product</a>
+        <a class="btn btn-small btn-primary" href="/admin/product/add-celebrity">Add Celebrity</a>
 
         
-        <table class="table">
+<!--        <table class="table">
             <thead>
                 <tr>
                     <th>
@@ -62,13 +62,13 @@
                         <?php } else { ?>
                             <a class="btn btn-mini btn-info" href="/admin/product/publish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
                         <?php } ?>
-                            <a class="btn btn-mini btn-info" href="/admin/product/celebrity/id/<?php echo $index['product_id']; ?>"><span class="icon-user icon-white"></span> Celebrity</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/add-celebrity/id/<?php echo $index['product_id']; ?>"><span class="icon-user icon-white"></span> Celebrity</a>
                     </td>
                 </tr>
         <?php endforeach; ?>
-        </table>
+        </table>-->
 <?php
-        echo $this->paginationControl($this->listingProduct, 'Sliding', '/paginatorcontrol/product.phtml');
+        //echo $this->paginationControl($this->listingProduct, 'Sliding', '/paginatorcontrol/product.phtml');
         ?>
     </div>
 </div>

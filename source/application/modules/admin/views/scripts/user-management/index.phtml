@@ -1,0 +1,60 @@
+<div class="box span12">
+    <div class="box-header well" data-original-title>
+        <h2>Actress List</h2>
+    </div>
+    <div class="box-content">
+<a class="btn btn-small btn-primary" href="/admin/user-management/new">New User</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Type
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            mail
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+    </thead>
+<?php foreach($this->listingUser as $index): ?>
+    <tr>
+        <td>
+            <?php echo $index['user_type_name']; ?>
+        </td>
+        <td>
+            <?php echo $index['user_name']; ?>
+        </td>
+        <td>
+            <?php if($index['user_active'] == 1){ ?>
+            <samp class="label label-success">Public</samp>
+            <?php } else { ?>
+            <samp class="label">Inactive</samp>
+            <?php } ?>
+        </td>
+        <td>
+            <?php echo $index['user_mail']; ?>
+        </td>
+        <td>
+            <a class="btn btn-info" href="/admin/user-management/edit/id/<?php echo $index['user_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+            <?php if($index['user_active'] == 1){ ?>
+            <a class="btn btn-info" href="/admin/user-management/inactive/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-close icon-white"></span> Active</a>
+            <?php } else { ?>
+            <a class="btn btn-info" href="/admin/user-management/active/id/<?php echo $index['user_id']; ?>"><span class="icon-eye-open icon-white"></span> Inactive</a>
+            <?php } ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php
+        echo $this->paginationControl($this->listingUser, 'Sliding', '/paginatorcontrol/user-management.phtml');
+        ?>
+</div>
+</div>

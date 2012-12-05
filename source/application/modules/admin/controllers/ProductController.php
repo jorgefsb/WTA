@@ -19,8 +19,9 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $product = new Application_Entity_Product();
                 $product->setPropertie('_name', $form->getValue('name'));
-                $product->setPropertie('_category', $form->getValue('category'));
                 $product->setPropertie('_description', $form->getValue('description'));
+                $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
+                $product->setPropertie('_designer', $form->getValue('designer'));
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
@@ -40,8 +41,9 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $form = new Application_Form_CreateProductFrom();
         $properties = $product->getProperties();
         $arrayPopulate['name'] = $properties['_name'];
-        $arrayPopulate['category'] = $properties['_category'];
         $arrayPopulate['description'] = $properties['_description'];
+        $arrayPopulate['descriptionDesigner'] = $properties['_descriptionDesigner'];
+        $arrayPopulate['designer'] = $properties['_designer'];
         $arrayPopulate['limitedQuantity'] = $properties['_limitedQuantity'];
         $arrayPopulate['public'] = $properties['_public'];
         $arrayPopulate['price'] = $properties['_price'];
@@ -49,8 +51,9 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $product->setPropertie('_name', $form->getValue('name'));
-                $product->setPropertie('_category', $form->getValue('category'));
                 $product->setPropertie('_description', $form->getValue('description'));
+                $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
+                $product->setPropertie('_designer', $form->getValue('designer'));
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
@@ -80,6 +83,31 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $this->_flashMessenger->addMessage($product->getMessage());
         $this->_redirect('/admin/product');
     }
+    public function upAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('id'));
+        $product->upOrder();
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product');
+    }
+
+    public function downAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('id'));
+        $product->downOrder();
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product');
+    }
+    
+    public function celebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('id'));
+    }
+    public function addCelebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('id'));
+    }
+    
 
 }
 
