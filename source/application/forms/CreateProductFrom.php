@@ -15,7 +15,7 @@ class Application_Form_CreateProductFrom extends Core_Form {
                             'size' => '40'
                 )));
         $this->addElement(new Zend_Form_Element_Select('designer',
-                array(
+                array(  
                     'label' => 'Designer * ',
                     'multiOptions' => 
                     Core_Utils::fetchPairs(
@@ -71,14 +71,14 @@ class Application_Form_CreateProductFrom extends Core_Form {
                 array(
                     'label'=>'Active ',
                     'value'=>'1',
-                    'required'=>true,
+                   // 'required'=>true,
                     )));
         
         $this->addElement(new Zend_Form_Element_Checkbox('limitedQuantity',
                 array(
                     'label'=>'Limited Quantity',
                     'value'=>'1',
-                    'required'=>true,
+                   // 'required'=>true,
                     )));
 
 

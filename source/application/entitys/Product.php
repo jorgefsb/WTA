@@ -224,5 +224,24 @@ class Application_Entity_Product extends Core_Entity {
         $data['product_actress_active'] = '0';
         return $modelProductActress->update($data, $this->_id, $idActress);
     }
+    
+    function addSize($size){
+        $modelProduct = new Application_Model_Product();
+        if($modelProduct->existSize($this->_id, $size)){
+            return false;
+        }
+        
+        $data['product_size_product_id']=$this->_id;
+        $data['product_size_size_id']=$size;
+        return $modelProduct->insertSize($data);
+    }
+    function deleteSize($size){
+        $modelProduct = new Application_Model_Product();
+        return $modelProduct->deleteSize($this->_id,$size);
+    }
+    function getSize() {
+        $modelProduct = new Application_Model_Product();
+        return $modelProduct->getSize($this->_id);
+    }
 
 }

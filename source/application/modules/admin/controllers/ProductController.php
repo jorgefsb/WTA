@@ -28,6 +28,9 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_designType', $form->getValue('designType'));
                 $product->setPropertie('_collectionType', $form->getValue('collectionType'));
                 $product->createProduct();
+                foreach($form->getValue('size') as $index){
+                    $product->addSize($index);
+                }
                // echo APPLICATION_PUBLIC.'/dinamic/temp/1.jpg';
                 $product->addImage(APPLICATION_PUBLIC.'/dinamic/temp/1.jpg', '1.jpg');
                 $this->_flashMessenger->addMessage($product->getMessage());
@@ -51,6 +54,8 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $arrayPopulate['price'] = $properties['_price'];
         $arrayPopulate['collectionType'] = $properties['_collectionType'];
         $arrayPopulate['designType'] = $properties['_designType'];
+        $arrayPopulate['size'] = array_keys(Core_Utils::fetchPairs($product->getSize()));
+        
         $form->populate($arrayPopulate);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
@@ -64,6 +69,25 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_designType', $form->getValue('designType'));
                 $product->setPropertie('_collectionType', $form->getValue('collectionType'));
                 $product->update();
+                $sizesProduct = $product->getSize();
+                $valueSizes = $form->getValue('size');
+                $eliminar=array();
+                foreach($sizesProduct as $index){
+                    if(!in_array($index['product_size_size_id'], $valueSizes)){
+                        $eliminar[] = $index['product_size_size_id'];
+                        unset($valueSizes[array_search($index['product_size_size_id'],$valueSizes)]);
+                    }
+                }
+                if(!empty($eliminar)){
+                    foreach($eliminar as $index){
+                        $product->deleteSize($index);
+                    }
+                }
+                if(!empty($valueSizes)){
+                    foreach($valueSizes as $index){
+                        $product->addSize($index);
+                    }
+                }
                 $this->_flashMessenger->addMessage($product->getMessage());
                 $this->_redirect('/admin/product/edit/id/'.$this->getRequest()->getParam('id'));
             }
