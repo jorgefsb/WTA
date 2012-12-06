@@ -13,11 +13,15 @@ class Application_Entity_Product extends Core_Entity {
     protected $_descriptionDesigner;
     protected $_designer;
     protected $_price;
+    protected $_priceMenber;
     protected $_inStock;
     protected $_limitedQuantity;
     protected $_public;
     protected $_slug;
     protected $_order;
+    protected $_designType;
+    protected $_collectionType;
+
     /**
      * __Construct         
      *
@@ -33,12 +37,14 @@ class Application_Entity_Product extends Core_Entity {
         $this->_descriptionDesigner = $data['product_description_designer'];
         $this->_designer = $data['product_designer'];
         $this->_price = $data['product_price'];
+        $this->_priceMenber = $data['product_price_menber'];
         $this->_inStock = $data['product_in_stock'];
         $this->_limitedQuantity = $data['product_limited_quantity'];
         $this->_public = $data['product_public'];
         $this->_slug = $data['product_slug'];
         $this->_order = $data['product_order'];
-        
+        $this->_designType = $data['product_design_type'];
+        $this->_collectionType = $data['product_collection_type'];
     }
 
     /*
@@ -68,12 +74,16 @@ class Application_Entity_Product extends Core_Entity {
         $data['product_name'] = $this->_name;
         $data['product_description'] = $this->_description;
         $data['product_price'] = $this->_price;
+        $data['product_price_menber'] = $this->_priceMenber;
         $data['product_in_stock'] = $this->_inStock;
         $data['product_limited_quantity'] = $this->_limitedQuantity;
         $data['product_public'] = $this->_public;
         $data['product_order'] = $this->_order;
         $data['product_description_designer'] = $this->_descriptionDesigner;
         $data['product_designer'] = $this->_designer;
+        $data['product_design_type'] = $this->_designType;
+        $data['product_collection_type'] = $this->_collectionType;
+
         return $this->cleanArray($data);
     }
 
@@ -81,7 +91,7 @@ class Application_Entity_Product extends Core_Entity {
         $filter = new Core_SeoUrl();
         $modelProduct = new Application_Model_Product();
         $data = $this->setParamsDataBase();
-        $data['product_slug'] = $filter->urlFriendly($this->_name,'-').'-'.$this->_id  ;
+        $data['product_slug'] = $filter->urlFriendly($this->_name, '-') . '-' . $this->_id;
         return $modelProduct->update($data, $this->_id);
     }
 
@@ -108,23 +118,25 @@ class Application_Entity_Product extends Core_Entity {
             false;
         }
     }
-    
-    static function listingProduct(){
+
+    static function listingProduct() {
         $modelProduct = new Application_Model_Product();
         return $modelProduct->listing();
     }
-    function publish(){
+
+    function publish() {
         $this->_public = 1;
         $this->update();
         $this->_message = 'satisfactory record';
     }
-    function unpublish(){
+
+    function unpublish() {
         $this->_public = '0';
         $this->update();
         $this->_message = 'satisfactory record';
     }
-    
-    function addImage($temp,$name,$descripcion='') {
+
+    function addImage($temp, $name, $descripcion='') {
         $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
         $image->setPropertie('_name', $name);
         $image->setPropertie('_temp', $temp);
@@ -136,41 +148,103 @@ class Application_Entity_Product extends Core_Entity {
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_CARRUSEL);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_SMALL);
     }
-    private function getSigOrder(){
+
+    private function getSigOrder() {
         $modelProduct = new Application_Model_Product();
-        $num = (int)$modelProduct->getOrderlast();
-        return ($num+1);
+        $num = (int) $modelProduct->getOrderlast();
+        return ($num + 1);
     }
-    public function upOrder(){
-        if($this->_order>1){
+
+    public function upOrder() {
+        if ($this->_order > 1) {
             $modelProduct = new Application_Model_Product();
-            $data = $modelProduct->getProductForOrder($this->_order-1);
+            $data = $modelProduct->getProductForOrder($this->_order - 1);
             $entityProduct = new Application_Entity_Product();
             $entityProduct->identify($data['product_id']);
             $dataEntity['_id'] = $data['product_id'];
-            $dataEntity['_order'] = $data['product_order']+1;
+            $dataEntity['_order'] = $data['product_order'] + 1;
             $entityProduct->setProperties($dataEntity);
             $entityProduct->update();
-            $this->_order = ($this->_order-1);
+            $this->_order = ($this->_order - 1);
             $this->update();
         }
     }
-    
-    public function downOrder(){
+
+    public function downOrder() {
         $modelProduct = new Application_Model_Product();
         $lastorderProduct = $modelProduct->getOrderlast();
-        if($this->_order<$lastorderProduct){
-            $data = $modelProduct->getProductForOrder($this->_order+1);
+        if ($this->_order < $lastorderProduct) {
+            $data = $modelProduct->getProductForOrder($this->_order + 1);
             $entityProduct = new Application_Entity_Product();
             $entityProduct->identify($data['product_id']);
             $dataEntity['_id'] = $data['product_id'];
-            $dataEntity['_order'] = $data['product_order']-1;
+            $dataEntity['_order'] = $data['product_order'] - 1;
             $entityProduct->setProperties($dataEntity);
             $entityProduct->update();
-            $this->_order = ($this->_order+1);
+            $this->_order = ($this->_order + 1);
             $this->update();
         }
     }
     
+    public function getProductActress($idActress){
+        $modelProductActress = new Application_Model_ProductActress();
+        return $modelProductActress->getProductActress($this->_id, $idActress);
+    }
+ 
+    
+    public function addActress($idActress, $imagenTem, $comision, $active) {
+        $modelProductActress = new Application_Model_ProductActress();
+        $modelProduct = new Application_Model_Product();
+        $product = $this->getProductActress($idActress);
+        if ($product == FALSE) {
+            $data['product_actress_product_id'] = $this->_id;
+            $data['product_actress_actress_id'] = $idActress;
+            $data['product_actress_active'] = $active;
+            $data['product_actress_commission'] = $comision;
+            return $modelProductActress->insert($data);
+        } else {
+            $data['product_actress_product_id'] = $this->_id;
+            $data['product_actress_actress_id'] = $idActress;
+            $data['product_actress_active'] = $active;
+            $data['product_actress_commission'] = $comision;
+            return $modelProductActress->update($data, $this->_id, $idActress);
+        }
+    }
+
+    public function listingActrees() {
+        $modelProduct = new Application_Model_Product();
+        return $modelProduct->listingActrees($this->_id);
+    }
+
+    function publishCelebrity($idActress) {
+        $modelProductActress = new Application_Model_ProductActress();
+        $data['product_actress_active'] = 1;
+        return $modelProductActress->update($data, $this->_id, $idActress);
+    }
+
+    function unpublishCelebrity($idActress) {
+        $modelProductActress = new Application_Model_ProductActress();
+        $data['product_actress_active'] = '0';
+        return $modelProductActress->update($data, $this->_id, $idActress);
+    }
+    
+    function addSize($size){
+        $modelProduct = new Application_Model_Product();
+        if($modelProduct->existSize($this->_id, $size)){
+            return false;
+        }
+        
+        $data['product_size_product_id']=$this->_id;
+        $data['product_size_size_id']=$size;
+        return $modelProduct->insertSize($data);
+    }
+    function deleteSize($size){
+        $modelProduct = new Application_Model_Product();
+        return $modelProduct->deleteSize($this->_id,$size);
+    }
+    function getSize() {
+        $modelProduct = new Application_Model_Product();
+        return $modelProduct->getSize($this->_id);
+    }
 
 }

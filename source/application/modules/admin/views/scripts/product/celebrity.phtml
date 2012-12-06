@@ -1,12 +1,12 @@
 <div class="box span12">
     <div class="box-header well" data-original-title>
-        <h2>Product List</h2>
+        <h2>Product: <?php echo $this->name; ?></h2>
     </div>
     <div class="box-content">
-        <a class="btn btn-small btn-primary" href="/admin/product/add-celebrity">Add Celebrity</a>
+        <a class="btn btn-small btn-primary" href="/admin/product/add-celebrity/product/<?php echo $this->product ?>">Add Celebrity</a>
 
         
-<!--        <table class="table">
+        <table class="table">
             <thead>
                 <tr>
                     <th>
@@ -16,13 +16,10 @@
                         Status
                     </th>
                     <th>
-                        Actress
+                        commissions
                     </th>
                     <th>
-                        Price
-                    </th>
-                    <th>
-                        Limited Quality
+                        Image
                     </th>
                     <th>
                         Options
@@ -31,44 +28,43 @@
             </thead>
             <?php
             $arrayLimited = array('No', 'Yes');
-            foreach ($this->listingProduct as $index):
+            foreach ($this->listingActrees as $index):
                 ?>
                 <tr>
                     <td>
-    <?php echo $index['product_name']; ?>
+    <?php echo $index['actress_name']; ?>
                     </td>
                     <td>
-                        <?php if ($index['product_public'] == 1) { ?>
+                        <?php if ($index['product_actress_active'] == 1) { ?>
                             <samp class="label label-success">Public</samp>
                         <?php } else { ?>
                             <samp class="label">Inactive</samp>
     <?php } ?>
                     </td>
+                    
                     <td>
-    <?php echo $index['product_actress']; ?>
+    <?php echo $index['product_actress_commission']; ?>
                     </td>
                     <td>
-    <?php echo $index['product_price']; ?>
+    <?php echo $index['product_actress_img']; ?>
                     </td>
                     <td>
-    <?php echo $arrayLimited[$index['product_limited_quantity']]; ?>
-                    </td>
-                    <td>
-                        <a class="btn btn-mini btn-info" href="/admin/product/up/id/<?php echo $index['product_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>
-                        <a class="btn btn-mini btn-info" href="/admin/product/down/id/<?php echo $index['product_id']; ?>"><span class="icon-arrow-down icon-white"></span> Down</a>
-                        <a class="btn btn-mini btn-info" href="/admin/product/edit/id/<?php echo $index['product_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
-                        <?php if ($index['product_public'] == 1) { ?>
-                            <a class="btn btn-mini btn-info" href="/admin/product/unpublish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublis</a>
+                        
+                        <?php if ($index['product_actress_active'] == 1) { ?>
+                            <a class="btn btn-mini btn-info" href="/admin/product/unpublish-celebrity/product/<?php echo $this->product; ?>/id/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublis</a>
                         <?php } else { ?>
-                            <a class="btn btn-mini btn-info" href="/admin/product/publish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/publish-celebrity/product/<?php echo $this->product; ?>/id/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
                         <?php } ?>
-                            <a class="btn btn-mini btn-info" href="/admin/product/add-celebrity/id/<?php echo $index['product_id']; ?>"><span class="icon-user icon-white"></span> Celebrity</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/edit-celebrity/product/<?php echo $this->product ?>/celebrity/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/delete-celebrity/product/<?php echo $this->product ?>/celebrity/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-remove icon-white"></span> Eliminar</a>
+                            
+                            
                     </td>
                 </tr>
         <?php endforeach; ?>
-        </table>-->
+        </table>
 <?php
-        //echo $this->paginationControl($this->listingProduct, 'Sliding', '/paginatorcontrol/product.phtml');
+        echo $this->paginationControl($this->listingActrees, 'Sliding', '/paginatorcontrol/product-celebrity.phtml',array('product'=>$this->product));
         ?>
     </div>
 </div>

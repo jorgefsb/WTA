@@ -25,7 +25,13 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
+                $product->setPropertie('_designType', $form->getValue('designType'));
+                $product->setPropertie('_collectionType', $form->getValue('collectionType'));
+                $product->setPropertie('_priceMenber', $form->getValue('priceMenber'));
                 $product->createProduct();
+                foreach($form->getValue('size') as $index){
+                    $product->addSize($index);
+                }
                // echo APPLICATION_PUBLIC.'/dinamic/temp/1.jpg';
                 $product->addImage(APPLICATION_PUBLIC.'/dinamic/temp/1.jpg', '1.jpg');
                 $this->_flashMessenger->addMessage($product->getMessage());
@@ -47,6 +53,11 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $arrayPopulate['limitedQuantity'] = $properties['_limitedQuantity'];
         $arrayPopulate['public'] = $properties['_public'];
         $arrayPopulate['price'] = $properties['_price'];
+        $arrayPopulate['collectionType'] = $properties['_collectionType'];
+        $arrayPopulate['priceMenber'] = $properties['_priceMenber'];
+        $arrayPopulate['designType'] = $properties['_designType'];
+        $arrayPopulate['size'] = array_keys(Core_Utils::fetchPairs($product->getSize()));
+        
         $form->populate($arrayPopulate);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
@@ -57,7 +68,29 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
+                $product->setPropertie('_priceMenber', $form->getValue('priceMenber'));
+                $product->setPropertie('_designType', $form->getValue('designType'));
+                $product->setPropertie('_collectionType', $form->getValue('collectionType'));
                 $product->update();
+                $sizesProduct = $product->getSize();
+                $valueSizes = $form->getValue('size');
+                $eliminar=array();
+                foreach($sizesProduct as $index){
+                    if(!in_array($index['product_size_size_id'], $valueSizes)){
+                        $eliminar[] = $index['product_size_size_id'];
+                        unset($valueSizes[array_search($index['product_size_size_id'],$valueSizes)]);
+                    }
+                }
+                if(!empty($eliminar)){
+                    foreach($eliminar as $index){
+                        $product->deleteSize($index);
+                    }
+                }
+                if(!empty($valueSizes)){
+                    foreach($valueSizes as $index){
+                        $product->addSize($index);
+                    }
+                }
                 $this->_flashMessenger->addMessage($product->getMessage());
                 $this->_redirect('/admin/product/edit/id/'.$this->getRequest()->getParam('id'));
             }
@@ -90,6 +123,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $this->_flashMessenger->addMessage($product->getMessage());
         $this->_redirect('/admin/product');
     }
+    
 
     public function downAction() {
         $product = new Application_Entity_Product();
@@ -101,11 +135,76 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
     
     public function celebrityAction() {
         $product = new Application_Entity_Product();
-        $product->identify($this->getRequest()->getParam('id'));
+        $product->identify($this->getRequest()->getParam('product'));
+        $this->view->product = $product->getPropertie('_id');
+        $this->view->name = $product->getPropertie('_name');
+        $paginator = Zend_Paginator::factory($product->listingActrees());
+        $paginator->setCurrentPageNumber($this->_getParam('page'));
+        $paginator->setItemCountPerPage(6);
+        $this->view->listingActrees = $paginator;
+        
     }
     public function addCelebrityAction() {
         $product = new Application_Entity_Product();
-        $product->identify($this->getRequest()->getParam('id'));
+        $product->identify($this->getRequest()->getParam('product'));
+        $form = new Application_Form_CreateProductCelebrityFrom();
+        
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                $product->addActress(
+                        $form->getValue('actress'), 
+                        '', 
+                        $form->getValue('commission'), 
+                        $form->getValue('active')
+                        );
+                $this->_flashMessenger->addMessage($product->getMessage());
+                $this->_redirect('/admin/product/celebrity/product/'.$product->getPropertie('_id'));
+            }
+        }
+        $this->view->form = $form;
+    }
+    public function editCelebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $productActress = $product->getProductActress($this->getRequest()->getParam('celebrity'));
+        $actress = new Application_Entity_Actress();
+        $actress->identify($this->getRequest()->getParam('celebrity'));
+        echo $actress->getPropertie('_id');
+        $form = new Application_Form_EditProductCelebrityFrom();
+        $dataForm['nameActress']=$actress->getPropertie('_name');
+        $dataForm['actress'] = $actress->getPropertie('_id');
+        $dataForm['commission']=$productActress['product_actress_commission'];
+        $dataForm['active']=$productActress['product_actress_active'];
+        $form->populate($dataForm);
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                $product->addActress(
+                        $form->getValue('actress'), 
+                        '', 
+                        $form->getValue('commission'), 
+                        $form->getValue('active')
+                        );
+                $this->_flashMessenger->addMessage($product->getMessage());
+                $this->_redirect('/admin/product/celebrity/product/'.$product->getPropertie('_id'));
+            }
+        }
+        $this->view->form = $form;
+    }
+    
+    public function publishCelebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $product->publishCelebrity($this->getRequest()->getParam('id'));
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product/celebrity/product/'.$product->getPropertie('_id'));
+    }
+
+    public function unpublishCelebrityAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $product->unpublishCelebrity($this->getRequest()->getParam('id'));
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product/celebrity/product/'.$product->getPropertie('_id'));
     }
     
 
