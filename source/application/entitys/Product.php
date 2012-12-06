@@ -266,5 +266,12 @@ class Application_Entity_Product extends Core_Entity {
         $modelProduct = new Application_Model_Product();
         return $modelProduct->getSize($this->_id);
     }
+    
+    function listingImg(){
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
+        return $image->listingImage(
+                Application_Entity_Image::TIPE_IMAGE_PRODUCT, 
+                $this->_id);
+    }
 
 }

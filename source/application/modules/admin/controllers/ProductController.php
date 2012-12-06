@@ -33,7 +33,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                     $product->addSize($index);
                 }
                 // echo APPLICATION_PUBLIC.'/dinamic/temp/1.jpg';
-                $product->addImage(APPLICATION_PUBLIC . '/dinamic/temp/1.jpg', '1.jpg');
+                
                 $this->_flashMessenger->addMessage($product->getMessage());
                 $this->_redirect('/admin/product/');
             }
@@ -143,6 +143,17 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $paginator->setItemCountPerPage(6);
         $this->view->listingActrees = $paginator;
     }
+    
+    public function imageAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $this->view->product = $product->getPropertie('_id');
+        $this->view->name = $product->getPropertie('_name');
+        $paginator = Zend_Paginator::factory($product->listingImg());
+        $paginator->setCurrentPageNumber($this->_getParam('page'));
+        $paginator->setItemCountPerPage(6);
+        $this->view->listingImage = $paginator;
+    }
 
     public function addCelebrityAction() {
         $product = new Application_Entity_Product();
@@ -171,6 +182,37 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                         $extension == '' ? '' : ($element->getDestination() . '/' . $nameImg . '.' . $extension), 
                         $extension == '' ? '' : ($nameImg . '.' . $extension)
                 );
+                $this->_flashMessenger->addMessage($product->getMessage());
+                $this->_redirect('/admin/product/celebrity/product/' . $product->getPropertie('_id'));
+            }
+        }
+        $this->view->form = $form;
+    }
+    
+    public function addImageAction(){
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $form = new Application_Form_CreateProductImageFrom();
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                $filter = new Core_SeoUrl();
+                $extension = pathinfo($form->getElement('img')->getFileName(), PATHINFO_EXTENSION);
+                $nameImg = mt_rand(10, 999) . '_' . urlencode($filter->urlFriendly($product->getPropertie('_name'), '-'));
+                $element = $form->getElement('img');
+                if ($extension != '') {
+                    $element->addFilter(
+                            'Rename', array(
+                        'target' =>
+                        $element->getDestination() . '/' . $nameImg . '.' . $extension
+                            )
+                    );
+                    $element->receive();
+                }
+                $product->addImage(
+                        $element->getDestination() . '/' . $nameImg . '.' . $extension,
+                        $nameImg . '.' . $extension,
+                        $form->getElement('description')
+                        );
                 $this->_flashMessenger->addMessage($product->getMessage());
                 $this->_redirect('/admin/product/celebrity/product/' . $product->getPropertie('_id'));
             }

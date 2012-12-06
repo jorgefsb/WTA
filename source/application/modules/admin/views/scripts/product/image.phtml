@@ -1,0 +1,50 @@
+<div class="box span12">
+    <div class="box-header well" data-original-title>
+        <h2>Product: <?php echo $this->name; ?></h2>
+    </div>
+    <div class="box-content">
+        <a class="btn btn-small btn-primary" href="/admin/product/add-image/product/<?php echo $this->product ?>">Add Iimage</a>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        description
+                    </th>
+
+                    <th>
+                        Options
+                    </th>
+                </tr>
+            </thead>
+            <?php
+            foreach ($this->listingImage as $index):
+                ?>
+                <tr>
+                    <td>
+                        <?php echo $index['image_name']; ?>
+                    </td>
+                    <td>
+                        <img width="50" height="50" src="<?php echo DINAMIC_URL . '/product/thumbs/' . $index['image_name']; ?>"/>
+                    </td>
+                    <td>
+                        <?php echo $index['image_description']; ?>
+                    </td>
+                    <td>
+                        <a class="btn btn-mini btn-info" href="/admin/product/delete-image/product/<?php echo $this->product ?>/image/<?php echo $index['image_id']; ?>"><span class="icon-remove icon-white"></span> Eliminar</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php
+        echo $this->paginationControl($this->listingImage, 'Sliding', '/paginatorcontrol/product-image.phtml', array('product' => $this->product));
+        ?>
+    </div>
+</div>
