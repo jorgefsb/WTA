@@ -27,6 +27,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_price', $form->getValue('price'));
                 $product->setPropertie('_designType', $form->getValue('designType'));
                 $product->setPropertie('_collectionType', $form->getValue('collectionType'));
+                $product->setPropertie('_priceMenber', $form->getValue('priceMenber'));
                 $product->createProduct();
                 foreach($form->getValue('size') as $index){
                     $product->addSize($index);
@@ -53,6 +54,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $arrayPopulate['public'] = $properties['_public'];
         $arrayPopulate['price'] = $properties['_price'];
         $arrayPopulate['collectionType'] = $properties['_collectionType'];
+        $arrayPopulate['priceMenber'] = $properties['_priceMenber'];
         $arrayPopulate['designType'] = $properties['_designType'];
         $arrayPopulate['size'] = array_keys(Core_Utils::fetchPairs($product->getSize()));
         
@@ -66,6 +68,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
+                $product->setPropertie('_priceMenber', $form->getValue('priceMenber'));
                 $product->setPropertie('_designType', $form->getValue('designType'));
                 $product->setPropertie('_collectionType', $form->getValue('collectionType'));
                 $product->update();

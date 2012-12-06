@@ -13,6 +13,7 @@ class Application_Entity_Product extends Core_Entity {
     protected $_descriptionDesigner;
     protected $_designer;
     protected $_price;
+    protected $_priceMenber;
     protected $_inStock;
     protected $_limitedQuantity;
     protected $_public;
@@ -36,6 +37,7 @@ class Application_Entity_Product extends Core_Entity {
         $this->_descriptionDesigner = $data['product_description_designer'];
         $this->_designer = $data['product_designer'];
         $this->_price = $data['product_price'];
+        $this->_priceMenber = $data['product_price_menber'];
         $this->_inStock = $data['product_in_stock'];
         $this->_limitedQuantity = $data['product_limited_quantity'];
         $this->_public = $data['product_public'];
@@ -72,6 +74,7 @@ class Application_Entity_Product extends Core_Entity {
         $data['product_name'] = $this->_name;
         $data['product_description'] = $this->_description;
         $data['product_price'] = $this->_price;
+        $data['product_price_menber'] = $this->_priceMenber;
         $data['product_in_stock'] = $this->_inStock;
         $data['product_limited_quantity'] = $this->_limitedQuantity;
         $data['product_public'] = $this->_public;

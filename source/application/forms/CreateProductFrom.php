@@ -57,6 +57,11 @@ class Application_Form_CreateProductFrom extends Core_Form {
                             'required' => true,
                             'label' => 'Price'
                 )));
+        $this->addElement(new Zend_Form_Element_Text('priceMenber',
+                        array(
+                            'required' => true,
+                            'label' => 'Price Menber'
+                )));
         
         $this->addElement(new Zend_Form_Element_MultiCheckbox('size',
                         array(
