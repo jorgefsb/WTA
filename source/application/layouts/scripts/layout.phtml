@@ -1,16 +1,173 @@
-<?php $this->doctype() ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
         <?php $this->headTitle() ?>
         <?php $this->headMeta() ?>
         <?php $this->headLink() ?>
 
         <?php $this->headScript() ?>
-        <?php $this->headStyle() ?>       
+        <?php $this->headStyle() ?>      
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="<?php echo STATIC_URL . '/front/'; ?>bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="<?php echo STATIC_URL . '/front/'; ?>bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="<?php echo STATIC_URL . '/front/'; ?>css/bgstretcher.css" rel="stylesheet">
+
+        <link href="<?php echo STATIC_URL . '/front/'; ?>css/wta.css" rel="stylesheet">
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/bgstretcher.js"></script> 
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/wta.js"></script>
+
     </head>
     <body>
+        <div id="bgslider"></div> <!-- SLIDER -->
+
+        <div class="container-fluid"> 
+
+            <div id="header">
+                <div class="navbar navbar-inverse"> <!-- MENU  -->
+                    <div class="navbar-inner">
+
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".menu1">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+
+
+                        <div class="nav-collapse collapse menu1">
+                            <ul class="nav">
+                                <li><a href="" title="" >About WTA</a></li>
+                                <li><a href="" title="" >PRESS</a></li>
+                                <li><a href="" title="" >CALENDAR</a></li>                            
+                            </ul>
+
+                            <div class="pull-right">
+                                <a class="btn" >
+                                    <strong>Sign in</strong> or <strong>Become a member</strong>
+                                </a>                                                                
+
+                                <a class="btn" id="btnShoppingCart">
+                                    <strong>Shopping cart</strong>
+                                </a>
+                                
+                                <div id="shoppingCart"><!-- SHOPPING CART -->
+                                
+                                    <h3>Your shopping list</h3>                       
+                                    
+                                    <div class="prod"><!-- PRODUCT -->
+                                        
+                                        <div class="prices">
+                                            <div>Guest price <strong class="prec1 line-through"><br/>$526.00</strong></div>
+                                            <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
+                                        </div>
+                                        
+                                        <img src="<?php echo STATIC_URL . '/front/images/sp_prod1.png'; ?>" title="" alt="" />
+                                        
+                                        <div class="info">
+                                            <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
+                                            <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
+                                        </div>
+                                        
+                                        <div class="controls">
+                                            <label class="size">SIZE <select ><option>7 1/2</option></select></label>
+                                            <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
+                                            <a href="" class="remove" >remove</a>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="prod"><!-- PRODUCT -->
+                                        
+                                        <div class="prices">
+                                            <div>Guest price <strong class="prec1"><br/>$526.00</strong></div>
+                                            <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
+                                        </div>
+                                        
+                                        <img src="<?php echo STATIC_URL . '/front/images/sp_prod2.png'; ?>" title="" alt="" />
+                                        
+                                        <div class="info">
+                                            <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
+                                            <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
+                                        </div>
+                                        
+                                        <div class="controls">
+                                            <label class="size">SIZE <select ><option>7 1/2</option></select></label>
+                                            <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
+                                            <a href="" class="remove" >remove</a>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="rowtotal">
+                                        <span>Subtotal</span>
+                                        <span class="ntotal">$1,275.00</span>
+                                        <a href="" class="checkout btn" >Checkh out</a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="contentBody"><!-- CONTENT -->
+
                 <?php echo $this->layout()->content ?>
+            </div>
+
+
+            <div id="footer"> <!-- FOOTER -->
+
+                <div class="navbar navbar-inverse"> <!-- MENU  -->
+                    <div class="navbar-inner">
+
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".menu2">
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <div class="nav-collapse collapse menu2">
+                            <ul class="nav">
+                                <li><a href="" title="" >Home</a></li>
+                                <li><a href="" title="" >Affiliates</a></li>
+                                <li><a href="" title="" >Terms of service</a></li>
+                                <li><a href="" title="" >Rewarding our members</a></li>
+                                <li><a href="" title="" >Help</a></li>
+                                <li><a href="" title="" >Privacy</a></li>
+                            </ul>
+
+                            <div class="pull-right">
+                                <a class="btn facebook" >
+                                </a>
+
+                                <a class="btn twitter">
+                                </a>
+
+                                <a class="contactus">
+                                    Contact us
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <blockquote>
+                    Copyrights 2012 - Wetheadorned.com                              
+                </blockquote>
+
+            </div>
+
+        </div>               
 
     </body>
 </html>

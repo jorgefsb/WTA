@@ -1,0 +1,5 @@
+db/.*
+docs/.*
+resource/.*
+util/.*
+source/nbproject
