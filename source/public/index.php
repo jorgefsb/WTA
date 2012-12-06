@@ -1,4 +1,7 @@
 <?php
+
+if ( !defined('__DIR__') ) define('__DIR__', dirname(__FILE__)); 
+
 // Define path to application directory
 ini_set('session.auto_start', 0);
 error_reporting(E_ALL);
