@@ -25,6 +25,8 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
+                $product->setPropertie('_designType', $form->getValue('designType'));
+                $product->setPropertie('_collectionType', $form->getValue('collectionType'));
                 $product->createProduct();
                // echo APPLICATION_PUBLIC.'/dinamic/temp/1.jpg';
                 $product->addImage(APPLICATION_PUBLIC.'/dinamic/temp/1.jpg', '1.jpg');
@@ -47,6 +49,8 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $arrayPopulate['limitedQuantity'] = $properties['_limitedQuantity'];
         $arrayPopulate['public'] = $properties['_public'];
         $arrayPopulate['price'] = $properties['_price'];
+        $arrayPopulate['collectionType'] = $properties['_collectionType'];
+        $arrayPopulate['designType'] = $properties['_designType'];
         $form->populate($arrayPopulate);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
@@ -57,6 +61,8 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
+                $product->setPropertie('_designType', $form->getValue('designType'));
+                $product->setPropertie('_collectionType', $form->getValue('collectionType'));
                 $product->update();
                 $this->_flashMessenger->addMessage($product->getMessage());
                 $this->_redirect('/admin/product/edit/id/'.$this->getRequest()->getParam('id'));

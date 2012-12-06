@@ -17,19 +17,38 @@ class Application_Form_CreateProductFrom extends Core_Form {
         $this->addElement(new Zend_Form_Element_Select('designer',
                 array(
                     'label' => 'Designer * ',
-                    'multiOptions' => Core_Utils::fetchPairs(Application_Entity_Designer::listing())
+                    'multiOptions' => 
+                    Core_Utils::fetchPairs(
+                            Application_Entity_Designer::listing()
+                            )
+                            )));
+        $this->addElement(new Zend_Form_Element_Select('designType',
+                array(
+                    'label' => 'Design Type * ',
+                    'multiOptions' => 
+                    Core_Utils::fetchPairs(
+                            Application_Entity_DesignType::listingDesignType()
+                            )
+                            )));
+        $this->addElement(new Zend_Form_Element_Select('collectionType',
+                array(
+                    'label' => 'Collection Type* ',
+                    'multiOptions' => 
+                    Core_Utils::fetchPairs(
+                            Application_Entity_CollectionType::listingCollectionType()
+                            )
                             )));
 
         $this->addElement(new Zend_Form_Element_Textarea('description',
                         array(
                             'label' => 'Product Description',
-                            'class'=>'cleditor',
+                            //'class'=>'cleditor',
                 )));
         
         $this->addElement(new Zend_Form_Element_Textarea('descriptionDesigner',
                         array(
                             'label' => 'Designer Description',
-                            'class'=>'cleditor',
+                           // 'class'=>'cleditor',
                 )));
 
 
@@ -38,10 +57,15 @@ class Application_Form_CreateProductFrom extends Core_Form {
                             'required' => true,
                             'label' => 'Price'
                 )));
-        $this->addElement(new Zend_Form_Element_Text('size',
+        
+        $this->addElement(new Zend_Form_Element_MultiCheckbox('size',
                         array(
-                            'required' => true,
-                            'label' => 'Size'
+                            //'required' => true,
+                            'label' => 'Size',
+                            'multiOptions' =>  
+                            Core_Utils::fetchPairs(
+                                    Application_Entity_Size::listingSize()
+                                    ),
                 )));
         $this->addElement(new Zend_Form_Element_Checkbox('public',
                 array(

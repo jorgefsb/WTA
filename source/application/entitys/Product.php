@@ -18,6 +18,8 @@ class Application_Entity_Product extends Core_Entity {
     protected $_public;
     protected $_slug;
     protected $_order;
+    protected $_designType;
+    protected $_collectionType;
 
     /**
      * __Construct         
@@ -39,6 +41,8 @@ class Application_Entity_Product extends Core_Entity {
         $this->_public = $data['product_public'];
         $this->_slug = $data['product_slug'];
         $this->_order = $data['product_order'];
+        $this->_designType = $data['product_design_type'];
+        $this->_collectionType = $data['product_collection_type'];
     }
 
     /*
@@ -74,6 +78,9 @@ class Application_Entity_Product extends Core_Entity {
         $data['product_order'] = $this->_order;
         $data['product_description_designer'] = $this->_descriptionDesigner;
         $data['product_designer'] = $this->_designer;
+        $data['product_design_type'] = $this->_designType;
+        $data['product_collection_type'] = $this->_collectionType;
+
         return $this->cleanArray($data);
     }
 
