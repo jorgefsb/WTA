@@ -6,8 +6,6 @@ class Application_Form_CreateProductImageFrom extends Core_Form {
     function init() {
         parent::init();
         $this->setMethod('Post');
-        
-
         $this->addElement(new Zend_Form_Element_Textarea('description',
                         array(
                             'label' => 'Description * ',
@@ -18,6 +16,7 @@ class Application_Form_CreateProductImageFrom extends Core_Form {
                 ->setDestination(APPLICATION_PATH.
                         '/../public/dinamic/temp/');
         $element->addValidator('Count', false, 1);
+        $element->setRequired(true);
         $element->addValidator('Size', false, 502400);
         $element->addValidator('Extension', false, 'jpg,png');
         $this->addElement($element);

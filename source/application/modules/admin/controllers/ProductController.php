@@ -258,10 +258,51 @@ $this->view->headScript()->appendScript(
                 $product->addImage(
                         $element->getDestination() . '/' . $nameImg . '.' . $extension,
                         $nameImg . '.' . $extension,
-                        $form->getElement('description')
+                        $form->getElement('description')->getValue()
                         );
                 $this->_flashMessenger->addMessage($product->getMessage());
-                $this->_redirect('/admin/product/celebrity/product/' . $product->getPropertie('_id'));
+                $this->_redirect('/admin/product/image/product/' . $product->getPropertie('_id'));
+            }
+        }
+        $this->view->form = $form;
+    }
+    public function editImageAction(){
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $form = new Application_Form_CreateProductImageFrom();
+        $form->getElement('img')->setRequired(FALSE);
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
+        $image->identify($this->getRequest()->getParam('image'));
+        $form->getElement('description')->setValue($image->getPropertie('_description')) ;
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                $filter = new Core_SeoUrl();
+                
+                if(is_string($form->getElement('img')->getFileName()) &&
+                        $form->getElement('img')->getFileName()!=''){
+                $extension = pathinfo($form->getElement('img')->getFileName(), PATHINFO_EXTENSION);
+                }else{
+                    $extension='';
+                }
+                $nameImg = mt_rand(10, 999) . '_' . urlencode($filter->urlFriendly($product->getPropertie('_name'), '-'));
+                $element = $form->getElement('img');
+                if ($extension != '') {
+                    $element->addFilter(
+                            'Rename', array(
+                        'target' =>
+                        $element->getDestination() . '/' . $nameImg . '.' . $extension
+                            )
+                    );
+                    $element->receive();
+                }
+                $product->editImage(
+                        $this->getRequest()->getParam('image'),
+                        $extension!=''?($element->getDestination() . '/' . $nameImg . '.' . $extension):'',
+                        $extension!=''?($nameImg . '.' . $extension):'',
+                        $form->getElement('description')->getValue()
+                        );
+                $this->_flashMessenger->addMessage($product->getMessage());
+                $this->_redirect('/admin/product/image/product/' . $product->getPropertie('_id'));
             }
         }
         $this->view->form = $form;

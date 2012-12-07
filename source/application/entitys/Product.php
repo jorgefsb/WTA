@@ -159,6 +159,22 @@ class Application_Entity_Product extends Core_Entity {
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBS);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_CARRUSEL);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_SMALL);
+        $this->_message = 'satisfactory record';
+    }
+    function editImage($idImagen, $temp='', $name='', $descripcion='') {
+        
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
+        $image->identify($idImagen);
+        $image->setPropertie('_name', $name);
+        $image->setPropertie('_temp', $temp);
+        $image->setPropertie('_description', $descripcion);
+        $image->setPropertie('_idTable', $this->_id);
+        $image->update();
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBNAILS);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBS);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_CARRUSEL);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_SMALL);
+        $this->_message = 'satisfactory record';
     }
 
     function addImageActress($temp, $name, $idcelebrety, $descripcion='') {

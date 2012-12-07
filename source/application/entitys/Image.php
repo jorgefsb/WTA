@@ -112,6 +112,13 @@ class Application_Entity_Image extends Core_Entity {
      * @return array
      */
 
+    function asocParams($data) {
+        $this->_id = $data['image_id'] ;
+        $this->_name = $data['image_name'];
+        $this->_description = $data['image_description'];
+        $this->_idTable = $data['image_id_table'];
+        $this->_type = $data['image_type'];
+    }
     function setParamsDataBase() {
         $data['image_id'] = $this->_id;
         $data['image_name'] = $this->_name;
@@ -123,7 +130,14 @@ class Application_Entity_Image extends Core_Entity {
 
     function update() {
         $modelImage = new Application_Model_Image();
-        return $modelImage->update($this->setParamsDataBase(), $this->_id);
+        $data = $this->setParamsDataBase();
+        if ($this->_temp!='' && $this->existFile($this->_temp)) {
+            $this->redimensionImagen($this->_redimencionOrigin, 1);
+            $img = new Application_Entity_Image($this->_type);
+            $img->identify($this->_id);
+            $img->deleteImg();
+        }
+        return $modelImage->update($data, $this->_id);
     }
 
     /*
@@ -163,6 +177,32 @@ class Application_Entity_Image extends Core_Entity {
         }
         $modelImage = new Application_Model_Image();
         $modelImage->delete($this->_id);
+    }
+    
+    function deleteImgRed($rd){
+        unlink(APPLICATION_PUBLIC . '/dinamic/' . $this->_type .'/'.$rd['name']. '/' . $this->_name);
+    }
+    
+    function deleteImg() {
+        if ($this->existFile()) {
+            unlink(APPLICATION_PUBLIC . '/dinamic/' . $this->_type . '/' . $this->_name);
+            switch ($this->_type) {
+            case self::TIPE_IMAGE_PRODUCT:
+                $this->deleteImgRed(self::$PRODUCT_REDIMENCION_THUMBNAILS);
+                $this->deleteImgRed(self::$PRODUCT_REDIMENCION_CARRUSEL);
+                $this->deleteImgRed(self::$PRODUCT_REDIMENCION_SMALL);
+                $this->deleteImgRed(self::$PRODUCT_REDIMENCION_THUMBS);
+                break;
+            case self::TIPE_IMAGE_CELEBRITY:
+                $this->deleteImgRed(self::$CELEBRITY_REDIMENCION_THUMBNAILS);
+                break;
+            case self::TIPE_IMAGE_PRODUCTCELEBRITY:
+                $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_MINI);
+                $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS);
+                break;
+        }
+        }
+        
     }
 
     function existFile($file='') {
