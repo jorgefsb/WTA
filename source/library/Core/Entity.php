@@ -64,7 +64,7 @@ abstract class Core_Entity {
                 unset($data[$index]);
             }else{
                 if($value=='NULL'){
-                    $data[$index]='';
+                    $data[$index]=NULL;
                 }
             }
             

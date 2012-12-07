@@ -40,7 +40,7 @@
         <link rel="shortcut icon" href="img/favicon.ico">
         <?php $this->headLink() ?>
 
-        <?php $this->headScript() ?>
+        
         <?php $this->headStyle() ?>       
     </head>
     <body>
@@ -250,5 +250,6 @@
             var url_satic='<?php echo STATIC_URL . '/admin/'; ?>';
         </script>
         <script src="<?php echo $this->versioning('/admin/js/charisma.js'); ?>"></script>
+        <?php echo $this->headScript() ?>
     </body>
 </html>

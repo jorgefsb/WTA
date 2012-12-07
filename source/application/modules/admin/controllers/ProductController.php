@@ -14,6 +14,23 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
     }
 
     public function newAction() {
+        
+$this->view->headScript()->appendScript(
+"
+        if($('input[name=limitedQuantity]').is(':checked')){
+            $('input[name=cantLimitedQuantity]').removeAttr('disabled');
+            $('input[name=cantLimitedQuantity]').attr('disabled', 'disabled');
+        }
+        $('input[name=limitedQuantity]').click(function() {  
+            if($('input[name=limitedQuantity]').is(':checked')){
+                $('input[name=cantLimitedQuantity]').removeAttr('disabled');
+            } else {
+                $('input[name=cantLimitedQuantity]').attr('value', '');
+                $('input[name=cantLimitedQuantity]').attr('disabled', 'disabled');
+            }
+        });      
+"
+);
         $form = new Application_Form_CreateProductFrom();
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
@@ -23,6 +40,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
                 $product->setPropertie('_designer', $form->getValue('designer'));
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
+                $product->setPropertie('_cantLimitedQuantity', $form->getValue('cantLimitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
                 $product->setPropertie('_designType', $form->getValue('designType'));
@@ -32,8 +50,6 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 foreach ($form->getValue('size') as $index) {
                     $product->addSize($index);
                 }
-                // echo APPLICATION_PUBLIC.'/dinamic/temp/1.jpg';
-                
                 $this->_flashMessenger->addMessage($product->getMessage());
                 $this->_redirect('/admin/product/');
             }
@@ -42,6 +58,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
     }
 
     public function editAction() {
+       
         $product = new Application_Entity_Product();
         $product->identify($this->getRequest()->getParam('id'));
         $form = new Application_Form_CreateProductFrom();
@@ -51,6 +68,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         $arrayPopulate['descriptionDesigner'] = $properties['_descriptionDesigner'];
         $arrayPopulate['designer'] = $properties['_designer'];
         $arrayPopulate['limitedQuantity'] = $properties['_limitedQuantity'];
+        $arrayPopulate['cantLimitedQuantity'] = $properties['_cantLimitedQuantity'];
         $arrayPopulate['public'] = $properties['_public'];
         $arrayPopulate['price'] = $properties['_price'];
         $arrayPopulate['collectionType'] = $properties['_collectionType'];
@@ -66,6 +84,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
                 $product->setPropertie('_designer', $form->getValue('designer'));
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
+                $product->setPropertie('_cantLimitedQuantity', $form->getValue('cantLimitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
                 $product->setPropertie('_priceMenber', $form->getValue('priceMenber'));
@@ -96,6 +115,31 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
             }
         }
         $this->view->form = $form;
+        
+        if ($product->getPropertie('_cantBuy')>0) {
+        $scriptCantLimit = "$('#cantLimitedQuantity-element').
+            append('<p><strong>Amount Buy: ".$product->getPropertie('_cantBuy')." </strong></p>');";
+        }else{
+            $scriptCantLimit='';
+        }
+         $this->view->headScript()->appendScript(
+                 
+"
+        if($('input[name=limitedQuantity]').is(':checked')){
+            $('input[name=cantLimitedQuantity]').removeAttr('disabled');
+            
+        }
+        $('input[name=limitedQuantity]').click(function() {  
+            if($('input[name=limitedQuantity]').is(':checked')){
+                $('input[name=cantLimitedQuantity]').removeAttr('disabled');
+            } else {
+                $('input[name=cantLimitedQuantity]').attr('value', '');
+                $('input[name=cantLimitedQuantity]').attr('disabled', 'disabled');
+            }
+        });  
+        
+        ".$scriptCantLimit
+);
     }
 
 //    public function deleteAction(){

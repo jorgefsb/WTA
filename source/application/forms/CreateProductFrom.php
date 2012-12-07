@@ -82,11 +82,15 @@ class Application_Form_CreateProductFrom extends Core_Form {
         $this->addElement(new Zend_Form_Element_Checkbox('limitedQuantity',
                 array(
                     'label'=>'Limited Quantity',
-                    'value'=>'1',
+                    //'options'=>array('checked'=>false),
+                   // 'value'=>'1',
                    // 'required'=>true,
                     )));
-
-
+        $this->addElement(new Zend_Form_Element_Text('cantLimitedQuantity',
+                        array(
+                            'label' => 'Amount Limited Quantity',
+                                'disabled'=>true
+                )));
         $this->addElement(new Zend_Form_Element_Submit('Create Product',
                         array('attribs' => array(
                                 'class' => 'submit-button'
