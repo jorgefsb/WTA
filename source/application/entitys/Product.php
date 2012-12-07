@@ -148,6 +148,17 @@ class Application_Entity_Product extends Core_Entity {
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_CARRUSEL);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_SMALL);
     }
+    function addImageActress($temp, $name,$idcelebrety,$descripcion='') {
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCTCELEBRITY);
+        $image->setPropertie('_name', $name);
+        $image->setPropertie('_temp', $temp);
+        $image->setPropertie('_description', $descripcion);
+        $image->setPropertie('_idTable', $this->_id.$idcelebrety);
+        $image->createImage();
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCTCELEBRITY_REDIMENCION_MINI);
+        
+    }
 
     private function getSigOrder() {
         $modelProduct = new Application_Model_Product();
@@ -192,7 +203,7 @@ class Application_Entity_Product extends Core_Entity {
     }
  
     
-    public function addActress($idActress, $imagenTem, $comision, $active) {
+    public function addActress($idActress,$comision, $active, $imagenTem='',$nameImage ='') {
         $modelProductActress = new Application_Model_ProductActress();
         $modelProduct = new Application_Model_Product();
         $product = $this->getProductActress($idActress);
@@ -200,13 +211,22 @@ class Application_Entity_Product extends Core_Entity {
             $data['product_actress_product_id'] = $this->_id;
             $data['product_actress_actress_id'] = $idActress;
             $data['product_actress_active'] = $active;
-            $data['product_actress_commission'] = $comision;
+            $data['product_actress_commission'] = $nameImage;
+            $data['product_actress_img'] = $nameImage;
+            if($imagenTem!='' && $nameImage !=''){
+                $this->addImageActress($imagenTem, $nameImage,$idcelebrety,$descripcion='');
+            }
             return $modelProductActress->insert($data);
+            
         } else {
             $data['product_actress_product_id'] = $this->_id;
             $data['product_actress_actress_id'] = $idActress;
             $data['product_actress_active'] = $active;
             $data['product_actress_commission'] = $comision;
+            $data['product_actress_img'] = $nameImage;
+            if($imagenTem!='' && $nameImage !=''){
+                $this->addImageActress($imagenTem, $nameImage,$idcelebrety,$descripcion='');
+            }
             return $modelProductActress->update($data, $this->_id, $idActress);
         }
     }
@@ -245,6 +265,13 @@ class Application_Entity_Product extends Core_Entity {
     function getSize() {
         $modelProduct = new Application_Model_Product();
         return $modelProduct->getSize($this->_id);
+    }
+    
+    function listingImg(){
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
+        return $image->listingImage(
+                Application_Entity_Image::TIPE_IMAGE_PRODUCT, 
+                $this->_id);
     }
 
 }

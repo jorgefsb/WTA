@@ -44,6 +44,23 @@ class Application_Entity_Image extends Core_Entity {
         'width' => 20,
         'height' => 50
     );
+    
+    const TIPE_IMAGE_PRODUCTCELEBRITY = 'productCelebrity';
+    static $PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS = array(
+        'name' => 'thumbnails',
+        'width' => 100,
+        'height' => 100
+    );
+    static $PRODUCTCELEBRITY_REDIMENCION_MINI = array(
+        'name' => 'mini',
+        'width' => 50,
+        'height' => 50
+    );
+    static $PRODUCTCELEBRITY_REDIMENCION_ORIGIN = array(
+        'name' => 'productCelebrity',
+        'width' => 200,
+        'height' => 200
+    );
     protected $_id;
     protected $_name;
     protected $_description;
@@ -65,6 +82,10 @@ class Application_Entity_Image extends Core_Entity {
             case self::TIPE_IMAGE_CELEBRITY:
                 $this->_type = self::TIPE_IMAGE_CELEBRITY;
                 $this->_redimencionOrigin = self::$CELEBRITY_REDIMENCION_ORIGIN;
+                break;
+            case self::TIPE_IMAGE_PRODUCTCELEBRITY:
+                $this->_type = self::TIPE_IMAGE_PRODUCTCELEBRITY;
+                $this->_redimencionOrigin = self::$PRODUCTCELEBRITY_REDIMENCION_ORIGIN;
                 break;
         }
     }
