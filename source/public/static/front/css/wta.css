@@ -21,14 +21,14 @@ html, body{background: #0c0c0c; padding: 0px}
 #header .pull-right{margin-right: 10px; }
 #header .navbar .nav > li > a{ color: #FFF; text-transform: uppercase; font-size: 11px; padding: 12px 15px}
 #header .navbar .nav > li > a:hover{ background: #161616}
-#header .nav-collapse  .btn{background: #191919; color: #666; font-size: 12px; box-shadow: none; text-shadow: none}
-#header .nav-collapse  .btn strong{color: #FFF; }
+#header .navbar-inner  .btn{background: #191919; color: #666; font-size: 12px; box-shadow: none; text-shadow: none}
+#header .navbar-inner  .btn strong{color: #FFF; }
 
 
 
 /* FOOTER */
-#footer{padding: 0 20px 0 20px; background: #0c0c0c;  min-height: 90px;}
-#footer .navbar-inner{font-size: 12px; font-family: Arial-Narrow, Arial, Helvetica; }
+#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px;}
+#footer .navbar-inner{font-size: 12px; font-family: Arial-Narrow, Arial, Helvetica; padding: 0 20px; background: #010101;}
 #footer .navbar .nav > li > a{color: #555; }
 #footer .navbar .nav > li > a:hover{color: #FFF; }
 #footer .facebook{ background: url('../images/socialmedia.png') 0 0 no-repeat; width: 25px;  height: 25px; padding: 4px 0; box-shadow: none}
@@ -40,24 +40,45 @@ html, body{background: #0c0c0c; padding: 0px}
 
 
 /* CONTENIDO */
-#contentBody{padding-top: 1px; min-height: 631px; /*background: rgba(255, 255, 255, .2);*/ text-align: center; position: relative; z-index: 20}
+#contentBody{padding-top: 1px; min-height: 627px; /*background: rgba(255, 255, 255, .2);*/ text-align: center; position: relative; z-index: 20}
 
 
-#contentBody .logo{ margin-top: 150px; }
+#contentBody .logo{ margin-top: 130px; }
 #contentBody .logo p{text-transform: uppercase; font-size: 20px; color: #e2e2e2; margin-top: 30px; line-height: 22px;}
 #contentBody .logo p span{color: #FFF; font-style: italic; font-family: Banda , helvetica, sans-serif;}
 
-#lissections{color: #FFF; margin-top: 45px;}
-#lissections li{display: inline-block}
-#lissections li{width: 18%; min-width:150px;  text-align: center; margin: 0 10px; }
-#lissections li a{ text-align: center; font-family: Georgia, Arial, Helvetica; text-transform: uppercase; color: #bab9ba; text-decoration: none; font-size: 16px; font-weight: bold; }
-#lissections li a span{display: block; border-bottom: 4px solid #FFF; }
-#lissections li a:hover{ color: #FFF; }
-#lissections li a:hover img{ opacity: 1; }
-#lissections li a img{ display: block; opacity: 0; transition: all 500ms ease 0s; width: auto; margin: 0 auto; }
+#lissections{color: #FFF; margin-top: 45px; border-bottom: 1px solid #7e7e7e; margin-left: 0px;}
+#lissections > li{display: inline-block; vertical-align: top; font-size: 15px;}
+#lissections  li{ text-align: center; margin: 0 10px; position: relative; list-style: none}
+#lissections  li a{ text-align: center; font-family: Arial; text-transform: uppercase; color: #bab9ba; text-decoration: none; font-size: 16px; font-weight: bold;  }
+#lissections > li a span{display: block; border-bottom: 3px solid transparent; padding-bottom: 5px; font-family: Georgia, Arial, Helvetica; }
+#lissections > li:hover a span{border-bottom: 3px solid #FFF; }
+#lissections li:hover > a{ color: #FFF; }
+
+#lissections li  ul{ display: block; opacity: 0; transition: all 500ms ease 0s; position: absolute; top: 50px; font-family: Arial, Helvetica, sans-serif}
+#lissections > li { cursor: pointer}
+#lissections > li > ul{ top: 50px; margin-left: 0px; width: 100%;}
+#lissections li:hover > ul{ opacity: 1; }
+#lissections > li >  ul > li{margin: 0px auto 10px; position: relative; z-index: 19; height: 20px; }
+#lissections > li >  ul > li > a{ font-size: 15px; color:#FFF}
+#lissections > li >  ul > li > span{font-weight: bold}
 
 
-#shoppingCart{background: rgba(28,28,28, .82);  width: 450px; position: absolute; right:10px; margin-top: -1px; border-radius: 3px; box-shadow: none; padding: 0 15px 15px 15px; color: #e2e2e2; display: none;}
+#lissections li ul li > ul{top: 0px; right: -140px; z-index: 20; opacity: 0; width: 150px;}
+/*#lissections li ul li:hover > ul{ opacity: 1; }*/
+#lissections li ul li > ul a{color: #7b7b7b !important; text-transform: lowercase; font-size: 11px; z-index: 20;}
+#lissections li ul li > ul a:hover{color: #fff !important;}
+#lissections li ul li > ul li{position: relative; z-index: 20;}
+#lissections .menGift ul li{font-size: 12px; font-family: 'Times New Roman';}
+#lissections .menGift ul li div{font-size: 15px; font-family: Arial, Helvetica, sans-serif; }
+#lissections .menGift ul li div span{font-size: 10px; display: block; margin-top: 10px; line-height: 11px;}
+
+#lissections .linea_separacion{width: 30px; height: 1px; background: #5e5e5e; margin: 8px auto; }
+
+
+
+
+#shoppingCart{background: rgba(28,28,28, .82);  width: 450px; position: absolute; right:10px; top:34px; border-radius: 3px; box-shadow: none; padding: 0 15px 15px 15px; color: #e2e2e2; display: none; z-index: 500;}
 #shoppingCart h3{font-size: 11px; font-family: 'Times New Roman'; text-transform: uppercase; font-weight: normal; line-height: 16px; margin-left: 7px; margin-bottom: 0px;}
 #shoppingCart .prod{position: relative; padding-top: 35px; background: url('../images/line_slist.png') bottom center no-repeat;}
 #shoppingCart .prod img{float: left; margin-right: 20px; margin-top: -10px }
@@ -87,22 +108,62 @@ html, body{background: #0c0c0c; padding: 0px}
 #shoppingCart .rowtotal span{margin-left: 80px; font-size: 16px;}
 #shoppingCart .rowtotal span.ntotal{font-size: 20px; font-style: italic}
 
+#shoppingCart .checkout.btn{background: #343434; margin-left: 20px; color: #eee;}
+
 .caret{border-top: 4px solid #FFF;}
 
 .line-through{text-decoration: line-through}
 
+.linea-degr-right, .linea-degr-left{background: url(../images/lines_lr.png) left center no-repeat; width: 92px; height: 1px; display: inline-block; vertical-align: middle;}
+.linea-degr-left{ margin-right: 15px;}
+.linea-degr-right{background-position: right center; margin-left: 15px}
+
+
+@media (max-width: 512px) {
+    #shoppingCart{width: 100%; background: #141414; right: 0px; padding: 5px 0px 10px;;}
+    #shoppingCart img{width: 60px;}
+    
+    #shoppingCart .prod{padding-top: 10px; margin: 10px 15px;}
+    #shoppingCart .prod .info{min-height: 60px;}
+   
+    #shoppingCart .prod .controls{clear: both; text-align: center}
+    #shoppingCart .rowtotal  span{margin-left: 50px}
+    
+    #header .navbar-inner .btn{font-size: 11px !important;}
+}
+    
+
+@media (max-width: 1115px) {
+    #lissections > li {max-width: 140px;}    
+    #lissections > li > ul{top: 80px; }
+    #lissections > li > ul > li > a {font-size: 12px; }
+}
+
 @media (max-width: 730px) {
     #bgslider{ position: absolute; width: 100%; height: auto; overflow: visible}
     #bgslider div{width: 100%;  overflow: visible}
-    #bgslider div img{z-index: 1; opacity: 1 !important; margin: 0 !important; position: relative; max-width: 100%;}
+    #bgslider div img{z-index: 1; opacity: .6 !important; margin: 0 !important; position: relative; max-width: 100%;}
     #bgslider div span{display: none;}
     
-    #contentBody .logo{ margin-top: 50px; }
-    #contentBody .logo p{ font-size: 18px; margin-top: 20px; line-height: 20px;}
+    #contentBody .logo{ margin-top: 25px; }
+    #contentBody .logo p{ font-size: 15px; margin-top: 20px; line-height: 20px;}
    
     
     
-    #lissections li {margin-bottom: 20px !important; width: 40%;}
-    #lissections li a img{ display:  none; }
+    /*#lissections li {margin-bottom: 20px !important; width: 40%;}*/
+    /*#lissections li a img{ display:  none; }*/
+    
+    #lissections > li {display: block; max-width: 100%; text-align: center; margin-bottom: 25px;}
+    #lissections > li ul{display: block; opacity: 1; position: relative; top: auto; }
+    #lissections > li ul li{height: auto; }
+    #lissections > li ul li ul{display: block;  opacity: 1 !important; position: relative !important;; top: 0px; margin: 0 auto !important; right: auto;}
+    #lissections > li a span{border-bottom: 1px solid #FFF; }
+    #lissections > li:hover a span{border-bottom: 1px solid #FFF ;}
+  
+    #lissections .menGift img{display: block;  margin:  0 auto;}
+    
+    .linea-degr-right, .linea-degr-left{width: 50px;}
+    
+    #shoppingCart{}
     
 }

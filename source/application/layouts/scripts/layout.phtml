@@ -37,6 +37,18 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
+                        
+                        
+                                
+                        <div class="pull-right">
+                            <a class="btn" >
+                                <strong>Sign in</strong> or <strong>Become a member</strong>
+                            </a>       
+                            <a class="btn" id="btnShoppingCart">
+                                <strong>Shopping cart</strong>
+                            </a>
+
+                        </div>
 
 
                         <div class="nav-collapse collapse menu1">
@@ -46,77 +58,67 @@
                                 <li><a href="" title="" >CALENDAR</a></li>                            
                             </ul>
 
-                            <div class="pull-right">
-                                <a class="btn" >
-                                    <strong>Sign in</strong> or <strong>Become a member</strong>
-                                </a>                                                                
-
-                                <a class="btn" id="btnShoppingCart">
-                                    <strong>Shopping cart</strong>
-                                </a>
-                                
-                                <div id="shoppingCart"><!-- SHOPPING CART -->
-                                
-                                    <h3>Your shopping list</h3>                       
-                                    
-                                    <div class="prod"><!-- PRODUCT -->
-                                        
-                                        <div class="prices">
-                                            <div>Guest price <strong class="prec1 line-through"><br/>$526.00</strong></div>
-                                            <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
-                                        </div>
-                                        
-                                        <img src="<?php echo STATIC_URL . '/front/images/sp_prod1.png'; ?>" title="" alt="" />
-                                        
-                                        <div class="info">
-                                            <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
-                                            <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
-                                        </div>
-                                        
-                                        <div class="controls">
-                                            <label class="size">SIZE <select ><option>7 1/2</option></select></label>
-                                            <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
-                                            <a href="" class="remove" >remove</a>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                    <div class="prod"><!-- PRODUCT -->
-                                        
-                                        <div class="prices">
-                                            <div>Guest price <strong class="prec1"><br/>$526.00</strong></div>
-                                            <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
-                                        </div>
-                                        
-                                        <img src="<?php echo STATIC_URL . '/front/images/sp_prod2.png'; ?>" title="" alt="" />
-                                        
-                                        <div class="info">
-                                            <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
-                                            <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
-                                        </div>
-                                        
-                                        <div class="controls">
-                                            <label class="size">SIZE <select ><option>7 1/2</option></select></label>
-                                            <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
-                                            <a href="" class="remove" >remove</a>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                    <div class="rowtotal">
-                                        <span>Subtotal</span>
-                                        <span class="ntotal">$1,275.00</span>
-                                        <a href="" class="checkout btn" >Checkh out</a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-
                         </div>
 
 
                     </div>
                 </div>
+            </div>
+                
+                <div id="shoppingCart"><!-- SHOPPING CART -->
+                
+                <h3>Your shopping list</h3>                       
+                                        
+                <div class="prod"><!-- PRODUCT -->
+
+                    <div class="prices">
+                        <div>Guest price <strong class="prec1 line-through"><br/>$526.00</strong></div>
+                        <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
+                    </div>
+                                            
+                    <img src="<?php echo STATIC_URL . '/front/images/sp_prod1.png'; ?>" title="" alt="" />
+                                            
+                    <div class="info">
+                        <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
+                        <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
+                    </div>
+                                            
+                    <div class="controls">
+                        <label class="size">SIZE <select ><option>7 1/2</option></select></label>
+                        <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
+                        <a href="" class="remove" >remove</a>
+                    </div>
+                                            
+                </div>
+                                        
+                <div class="prod"><!-- PRODUCT -->
+
+                    <div class="prices">
+                        <div>Guest price <strong class="prec1"><br/>$526.00</strong></div>
+                        <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
+                    </div>
+                                            
+                    <img src="<?php echo STATIC_URL . '/front/images/sp_prod2.png'; ?>" title="" alt="" />
+                                            
+                    <div class="info">
+                        <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
+                        <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
+                    </div>
+                                            
+                    <div class="controls">
+                        <label class="size">SIZE <select ><option>7 1/2</option></select></label>
+                        <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
+                        <a href="" class="remove" >remove</a>
+                    </div>
+                                            
+                </div>
+                                        
+                <div class="rowtotal">
+                    <span>Subtotal</span>
+                    <span class="ntotal">$1,275.00</span>
+                    <a href="" class="checkout btn" >Check out</a>
+                </div>
+                                        
             </div>
 
             <div id="contentBody"><!-- CONTENT -->
@@ -162,7 +164,7 @@
                 </div>
 
                 <blockquote>
-                    Copyrights 2012 - Wetheadorned.com                              
+                    <span class="linea-degr-left"></span>Copyrights 2012 - Wetheadorned.com<span class="linea-degr-right"></span>
                 </blockquote>
 
             </div>
