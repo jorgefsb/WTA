@@ -23,6 +23,7 @@ class Application_Entity_Product extends Core_Entity {
     protected $_designType;
     protected $_collectionType;
     protected $_cantBuy;
+    protected $_code;
 
     /**
      * __Construct         
@@ -49,6 +50,7 @@ class Application_Entity_Product extends Core_Entity {
         $this->_designType = $data['product_design_type'];
         $this->_collectionType = $data['product_collection_type'];
         $this->_cantBuy = $data['product_cant_buy'];
+        $this->_code = $data['product_code'];
     }
 
     /*
@@ -61,7 +63,7 @@ class Application_Entity_Product extends Core_Entity {
     function identify($idProduct) {
         $modelProduct = new Application_Model_Product();
         $data = $modelProduct->getProduct($idProduct);
-        print_r($data);
+        //print_r($data);
         if ($data != '') {
             $this->asocParams($data);
         }
@@ -89,6 +91,7 @@ class Application_Entity_Product extends Core_Entity {
         $data['product_designer'] = $this->_designer;
         $data['product_design_type'] = $this->_designType;
         $data['product_collection_type'] = $this->_collectionType;
+        $data['product_code'] = $this->_code;
         if ($data['product_limited_quantity'] != 1) {
             $data['product_cant_limited_quantity'] = 'NULL';
             $data['product_cant_buy'] = 'NULL';

@@ -66,15 +66,18 @@ class Application_Model_Product extends Core_Model {
                         array('pr' => $this->_tableProduct->getName()), array(
                     'pr.product_id',
                     'pr.product_name',
+                    'pr.product_code',
                     'pr.product_description',
                     'pr.product_publish_date',
                     'pr.product_price',
                     'pr.product_price_menber',
                     'pr.product_in_stock',
                     'pr.product_limited_quantity',
+                    'pr.product_cant_limited_quantity',
+                    'pr.product_cant_buy',
                     'pr.product_create_date',
                     'pr.product_public',
-                    'product_actress' => new Zend_Db_Expr("GROUP_CONCAT(a.actress_name SEPARATOR ',')"),
+                    'product_actress' => new Zend_Db_Expr("GROUP_CONCAT(a.actress_name SEPARATOR ', ')"),
                         )
                 )
                 ->joinLeft(array('pra' => $this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id', '')

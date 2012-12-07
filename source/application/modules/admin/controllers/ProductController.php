@@ -36,6 +36,7 @@ $this->view->headScript()->appendScript(
             if ($form->isValid($this->getRequest()->getParams())) {
                 $product = new Application_Entity_Product();
                 $product->setPropertie('_name', $form->getValue('name'));
+                $product->setPropertie('_code', $form->getValue('code'));
                 $product->setPropertie('_description', $form->getValue('description'));
                 $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
                 $product->setPropertie('_designer', $form->getValue('designer'));
@@ -64,6 +65,7 @@ $this->view->headScript()->appendScript(
         $form = new Application_Form_CreateProductFrom();
         $properties = $product->getProperties();
         $arrayPopulate['name'] = $properties['_name'];
+        $arrayPopulate['code'] = $properties['_code'];
         $arrayPopulate['description'] = $properties['_description'];
         $arrayPopulate['descriptionDesigner'] = $properties['_descriptionDesigner'];
         $arrayPopulate['designer'] = $properties['_designer'];
@@ -80,6 +82,7 @@ $this->view->headScript()->appendScript(
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $product->setPropertie('_name', $form->getValue('name'));
+                $product->setPropertie('_code', $form->getValue('code'));
                 $product->setPropertie('_description', $form->getValue('description'));
                 $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
                 $product->setPropertie('_designer', $form->getValue('designer'));
