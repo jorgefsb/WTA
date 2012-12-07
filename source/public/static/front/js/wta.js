@@ -11,7 +11,15 @@ var WTA = (function(){
      *  Iniciamos efectos y funcionalidades del home
      */
     this.Home = function(){
-        //that.bgSlider('#bgslider');
+
+        $('#lissections').find('>li li').hover(function(){            
+            $(this).find('ul').animate({opacity:1}, 200);
+            $(this).css('z-index', 41);
+        }, function(){
+            $(this).find('ul').stop(true, true).animate({opacity:0}, 100);
+            $(this).css('z-index', 19);
+        })
+        
     };
     
     /*
