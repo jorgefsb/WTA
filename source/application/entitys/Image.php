@@ -39,12 +39,17 @@ class Application_Entity_Image extends Core_Entity {
         'width' => 20,
         'height' => 50
     );
+    static $CELEBRITY_REDIMENCION_MINI = array(
+        'name' => 'mini',
+        'width' => 50,
+        'height' => 50
+    );
     static $CELEBRITY_REDIMENCION_ORIGIN = array(
         'name' => 'celebrity',
         'width' => 20,
         'height' => 50
     );
-    
+
     const TIPE_IMAGE_PRODUCTCELEBRITY = 'productCelebrity';
     static $PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS = array(
         'name' => 'thumbnails',
@@ -95,11 +100,21 @@ class Application_Entity_Image extends Core_Entity {
      *
      * @param $idImage
      * @return void
+     * si la tabla tiene un solo elemento se puede obtener 
+     * los datos con el id de la tabla y el tipo; en caso contrario
+     * se identifica con el id de la tabla Imagen
      */
 
-    function identify($idImage) {
+    function identify($idImage='') {
+        $data = '';
         $modelImage = new Application_Model_Image();
-        $data = $modelImage->getImage($idImage);
+        if ($idImage != '') {
+            $data = $modelImage->getImage($idImage);
+        } else {
+            if ($this->_idTable != '') {
+                $data = $modelImage->getImageTable($this->_idTable, $this->_type);
+            }
+        }
         if ($data != '') {
             $this->asocParams($data);
         }
@@ -113,12 +128,13 @@ class Application_Entity_Image extends Core_Entity {
      */
 
     function asocParams($data) {
-        $this->_id = $data['image_id'] ;
+        $this->_id = $data['image_id'];
         $this->_name = $data['image_name'];
         $this->_description = $data['image_description'];
         $this->_idTable = $data['image_id_table'];
         $this->_type = $data['image_type'];
     }
+
     function setParamsDataBase() {
         $data['image_id'] = $this->_id;
         $data['image_name'] = $this->_name;
@@ -131,7 +147,7 @@ class Application_Entity_Image extends Core_Entity {
     function update() {
         $modelImage = new Application_Model_Image();
         $data = $this->setParamsDataBase();
-        if ($this->_temp!='' && $this->existFile($this->_temp)) {
+        if ($this->_temp != '' && $this->existFile($this->_temp)) {
             $this->redimensionImagen($this->_redimencionOrigin, 1);
             $img = new Application_Entity_Image($this->_type);
             $img->identify($this->_id);
@@ -178,31 +194,30 @@ class Application_Entity_Image extends Core_Entity {
         $modelImage = new Application_Model_Image();
         $modelImage->delete($this->_id);
     }
-    
-    function deleteImgRed($rd){
-        unlink(APPLICATION_PUBLIC . '/dinamic/' . $this->_type .'/'.$rd['name']. '/' . $this->_name);
+
+    function deleteImgRed($rd) {
+        unlink(APPLICATION_PUBLIC . '/dinamic/' . $this->_type . '/' . $rd['name'] . '/' . $this->_name);
     }
-    
+
     function deleteImg() {
         if ($this->existFile()) {
             unlink(APPLICATION_PUBLIC . '/dinamic/' . $this->_type . '/' . $this->_name);
             switch ($this->_type) {
-            case self::TIPE_IMAGE_PRODUCT:
-                $this->deleteImgRed(self::$PRODUCT_REDIMENCION_THUMBNAILS);
-                $this->deleteImgRed(self::$PRODUCT_REDIMENCION_CARRUSEL);
-                $this->deleteImgRed(self::$PRODUCT_REDIMENCION_SMALL);
-                $this->deleteImgRed(self::$PRODUCT_REDIMENCION_THUMBS);
-                break;
-            case self::TIPE_IMAGE_CELEBRITY:
-                $this->deleteImgRed(self::$CELEBRITY_REDIMENCION_THUMBNAILS);
-                break;
-            case self::TIPE_IMAGE_PRODUCTCELEBRITY:
-                $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_MINI);
-                $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS);
-                break;
+                case self::TIPE_IMAGE_PRODUCT:
+                    $this->deleteImgRed(self::$PRODUCT_REDIMENCION_THUMBNAILS);
+                    $this->deleteImgRed(self::$PRODUCT_REDIMENCION_CARRUSEL);
+                    $this->deleteImgRed(self::$PRODUCT_REDIMENCION_SMALL);
+                    $this->deleteImgRed(self::$PRODUCT_REDIMENCION_THUMBS);
+                    break;
+                case self::TIPE_IMAGE_CELEBRITY:
+                    $this->deleteImgRed(self::$CELEBRITY_REDIMENCION_THUMBNAILS);
+                    break;
+                case self::TIPE_IMAGE_PRODUCTCELEBRITY:
+                    $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_MINI);
+                    $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS);
+                    break;
+            }
         }
-        }
-        
     }
 
     function existFile($file='') {
@@ -228,7 +243,7 @@ class Application_Entity_Image extends Core_Entity {
         }
 
         $coreImage->load($filename);
-        $coreImage->resize($redimension['width'], $redimension['height'],1);
+        $coreImage->resize($redimension['width'], $redimension['height'], 1);
         $coreImage->save($fileSave);
     }
 

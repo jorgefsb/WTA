@@ -277,7 +277,6 @@ $this->view->headScript()->appendScript(
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $filter = new Core_SeoUrl();
-                
                 if(is_string($form->getElement('img')->getFileName()) &&
                         $form->getElement('img')->getFileName()!=''){
                 $extension = pathinfo($form->getElement('img')->getFileName(), PATHINFO_EXTENSION);
