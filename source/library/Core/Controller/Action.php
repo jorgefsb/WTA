@@ -13,8 +13,10 @@ class Core_Controller_Action extends Zend_Controller_Action {
      * @var App_Controller_Action_Helper_FlashMessengerCustom
      */
     protected $_flashMessenger;
+    protected $_session;
 
     public function init() {
+        $this->_session = new Zend_Session_Namespace('sessionGeneral');
         $this->_flashMessenger = new Core_Controller_Action_Helper_FlashMessengerCustom();
         parent::init();
     }
