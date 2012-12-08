@@ -1,0 +1,46 @@
+<?php 
+    # Imprimimos el menu Change Section
+    echo $this->partial('index/change_section.phtml', array('section'=>'Limited Quantity'));
+?>
+<div  id="contentBody" class="designers" >
+
+    <div  class="imgProd">
+        <img src="<?php echo STATIC_URL.'/front/images/R_25.png' ?>" />
+    </div>
+    
+    <div class="info">
+        <h1>T.CYIA</h1>
+        <h3><span class="linea-degr-left"></span>Article #9<span class="linea-degr-right"></span></h3>
+        <h2>TALL SHARK TOOH CUFF</h2>
+        
+        <p>
+            <strong>T.CYIA</strong>  large cuff features a bright antique nickel shark tooth with oxidized nickel details. It sits atop an oxidized nickel cuff. 
+The cuff is 3 2/8" long, shark is 2.5" at widest and 3" long.
+        </p>
+        
+        <div class="precios">
+            <div>
+                <span>Guest price</span>
+                <strong class="inactivo">$699.00</strong>
+            </div>
+
+
+            <div >
+                <span>member price</span>
+                <strong class="activo">$475.00</strong>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+
+<?php 
+    # Imprimimos el menu Change Section
+    echo $this->partial('index/slider_products.phtml', array('section'=>'Exclusive Collections', 'data'=>$this->products, 'title'=>'LIMITED QUANTITY ITEMS'));
+?>
+
+<script>
+    //WTA.Home();
+    WTA.zoom('.imgProd');
+</script>
