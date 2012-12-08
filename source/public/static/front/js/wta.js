@@ -1,7 +1,6 @@
 $(document).ready(function(){
     WTA.shoppingCart();
     
-		
 });
 
 var WTA = (function(){
@@ -106,31 +105,80 @@ var WTA = (function(){
             }));
             
         }
-        
-        /*
-        $(div).bgStretcher({
-            images: ['images/3girls.jpg', 'images/3girls-red.jpg', 'images/3girls-blue.jpg'],
-            imageWidth: 1400, 
-            imageHeight: 671, 
-            slideDirection: 'N',
-            slideShowSpeed: 1000,
-            transitionEffect: 'fade',
-            sequenceMode: 'normal',
-            resizeProportionally: false,
-            buttonPrev: '#prev',
-            buttonNext: '#next',
-            pagination: false,
-            anchoring: 'left center',
-            anchoringImg: 'left center',
-            preloadImg: true
-        });
-        */
+      
     };
     
     this.shoppingCart = function(){
         $('#btnShoppingCart').click(function(){
             $('#shoppingCart').slideToggle();
         })
+    };
+    
+    this.zoom = function(selector){
+        
+        var $objs = $(selector);
+        
+        if(!$objs.length){return;}
+        if( $objs.get(0).tagName.toLowerCase() != 'img' ) {  
+            $objs = $objs.find('> img');
+        }
+        
+        if(!$objs.length){return;}
+        
+        $objs.addpowerzoom({
+            defaultpower:1,
+            magnifiersize: [270, 270] 
+        });  
+        
+    }
+    
+    this.iniMenuSections = function(visible){
+        $('#change_section').find('.submenu-btn').click(function(){
+            var $this = $(this);
+            $('.submenu-content').slideToggle();
+        });
+        if(!visible){
+            $('.submenu-content').css('display', 'none');
+        }
+        
+    }
+    
+    this.slider_products = function(){
+       
+       
+        $('#slider').carouFredSel({
+            auto: false,
+            responsive: true,
+            width: '100%',
+            scroll: 2,            
+            mousewheel: true,
+            swipe: {
+                    onMouse: true,
+                    onTouch: true
+            },
+            items: {
+                width: 400,
+                //	height: '30%',	//	optionally resize item-height
+                visible: {
+                    min: 1,
+                    max: 3
+                }
+            },
+            prev: '#prev2',
+            next: '#next2'            
+        });
+        
+        var bar = $('#slider_products').find('.bar')
+        
+        bar.click(function(){
+          $('#slider_products').find('.slider-content').slideToggle();
+          $('#slider').trigger('updateSizes');
+        });
+        
+        setTimeout(function(){
+            bar.trigger('click');
+        }, 1500)
+        
     }
     
     return this;
