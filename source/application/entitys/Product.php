@@ -16,11 +16,14 @@ class Application_Entity_Product extends Core_Entity {
     protected $_priceMenber;
     protected $_inStock;
     protected $_limitedQuantity;
+    protected $_cantLimitedQuantity;
     protected $_public;
     protected $_slug;
     protected $_order;
     protected $_designType;
     protected $_collectionType;
+    protected $_cantBuy;
+    protected $_code;
 
     /**
      * __Construct         
@@ -40,11 +43,14 @@ class Application_Entity_Product extends Core_Entity {
         $this->_priceMenber = $data['product_price_menber'];
         $this->_inStock = $data['product_in_stock'];
         $this->_limitedQuantity = $data['product_limited_quantity'];
+        $this->_cantLimitedQuantity = $data['product_cant_limited_quantity'];
         $this->_public = $data['product_public'];
         $this->_slug = $data['product_slug'];
         $this->_order = $data['product_order'];
         $this->_designType = $data['product_design_type'];
         $this->_collectionType = $data['product_collection_type'];
+        $this->_cantBuy = $data['product_cant_buy'];
+        $this->_code = $data['product_code'];
     }
 
     /*
@@ -57,6 +63,7 @@ class Application_Entity_Product extends Core_Entity {
     function identify($idProduct) {
         $modelProduct = new Application_Model_Product();
         $data = $modelProduct->getProduct($idProduct);
+        //print_r($data);
         if ($data != '') {
             $this->asocParams($data);
         }
@@ -77,13 +84,18 @@ class Application_Entity_Product extends Core_Entity {
         $data['product_price_menber'] = $this->_priceMenber;
         $data['product_in_stock'] = $this->_inStock;
         $data['product_limited_quantity'] = $this->_limitedQuantity;
+        $data['product_cant_limited_quantity'] = $this->_cantLimitedQuantity;
         $data['product_public'] = $this->_public;
         $data['product_order'] = $this->_order;
         $data['product_description_designer'] = $this->_descriptionDesigner;
         $data['product_designer'] = $this->_designer;
         $data['product_design_type'] = $this->_designType;
         $data['product_collection_type'] = $this->_collectionType;
-
+        $data['product_code'] = $this->_code;
+        if ($data['product_limited_quantity'] != 1) {
+            $data['product_cant_limited_quantity'] = 'NULL';
+            $data['product_cant_buy'] = 'NULL';
+        }
         return $this->cleanArray($data);
     }
 
@@ -147,17 +159,33 @@ class Application_Entity_Product extends Core_Entity {
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBS);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_CARRUSEL);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_SMALL);
+        $this->_message = 'satisfactory record';
     }
-    function addImageActress($temp, $name,$idcelebrety,$descripcion='') {
+    function editImage($idImagen, $temp='', $name='', $descripcion='') {
+        
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
+        $image->identify($idImagen);
+        $image->setPropertie('_name', $name);
+        $image->setPropertie('_temp', $temp);
+        $image->setPropertie('_description', $descripcion);
+        $image->setPropertie('_idTable', $this->_id);
+        $image->update();
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBNAILS);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBS);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_CARRUSEL);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_SMALL);
+        $this->_message = 'satisfactory record';
+    }
+
+    function addImageActress($temp, $name, $idcelebrety, $descripcion='') {
         $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCTCELEBRITY);
         $image->setPropertie('_name', $name);
         $image->setPropertie('_temp', $temp);
         $image->setPropertie('_description', $descripcion);
-        $image->setPropertie('_idTable', $this->_id.$idcelebrety);
+        $image->setPropertie('_idTable', $this->_id . $idcelebrety);
         $image->createImage();
         $image->redimensionImagen(Application_Entity_Image::$PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCTCELEBRITY_REDIMENCION_MINI);
-        
     }
 
     private function getSigOrder() {
@@ -196,14 +224,13 @@ class Application_Entity_Product extends Core_Entity {
             $this->update();
         }
     }
-    
-    public function getProductActress($idActress){
+
+    public function getProductActress($idActress) {
         $modelProductActress = new Application_Model_ProductActress();
         return $modelProductActress->getProductActress($this->_id, $idActress);
     }
- 
-    
-    public function addActress($idActress,$comision, $active, $imagenTem='',$nameImage ='') {
+
+    public function addActress($idActress, $comision, $active, $imagenTem='', $nameImage ='') {
         $modelProductActress = new Application_Model_ProductActress();
         $modelProduct = new Application_Model_Product();
         $product = $this->getProductActress($idActress);
@@ -213,19 +240,18 @@ class Application_Entity_Product extends Core_Entity {
             $data['product_actress_active'] = $active;
             $data['product_actress_commission'] = $nameImage;
             $data['product_actress_img'] = $nameImage;
-            if($imagenTem!='' && $nameImage !=''){
-                $this->addImageActress($imagenTem, $nameImage,$idcelebrety,$descripcion='');
+            if ($imagenTem != '' && $nameImage != '') {
+                $this->addImageActress($imagenTem, $nameImage, $idcelebrety, $descripcion = '');
             }
             return $modelProductActress->insert($data);
-            
         } else {
             $data['product_actress_product_id'] = $this->_id;
             $data['product_actress_actress_id'] = $idActress;
             $data['product_actress_active'] = $active;
             $data['product_actress_commission'] = $comision;
             $data['product_actress_img'] = $nameImage;
-            if($imagenTem!='' && $nameImage !=''){
-                $this->addImageActress($imagenTem, $nameImage,$idcelebrety,$descripcion='');
+            if ($imagenTem != '' && $nameImage != '') {
+                $this->addImageActress($imagenTem, $nameImage, $idcelebrety, $descripcion = '');
             }
             return $modelProductActress->update($data, $this->_id, $idActress);
         }
@@ -247,31 +273,32 @@ class Application_Entity_Product extends Core_Entity {
         $data['product_actress_active'] = '0';
         return $modelProductActress->update($data, $this->_id, $idActress);
     }
-    
-    function addSize($size){
+
+    function addSize($size) {
         $modelProduct = new Application_Model_Product();
-        if($modelProduct->existSize($this->_id, $size)){
+        if ($modelProduct->existSize($this->_id, $size)) {
             return false;
         }
-        
-        $data['product_size_product_id']=$this->_id;
-        $data['product_size_size_id']=$size;
+
+        $data['product_size_product_id'] = $this->_id;
+        $data['product_size_size_id'] = $size;
         return $modelProduct->insertSize($data);
     }
-    function deleteSize($size){
+
+    function deleteSize($size) {
         $modelProduct = new Application_Model_Product();
-        return $modelProduct->deleteSize($this->_id,$size);
+        return $modelProduct->deleteSize($this->_id, $size);
     }
+
     function getSize() {
         $modelProduct = new Application_Model_Product();
         return $modelProduct->getSize($this->_id);
     }
-    
-    function listingImg(){
+
+    function listingImg() {
         $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
         return $image->listingImage(
-                Application_Entity_Image::TIPE_IMAGE_PRODUCT, 
-                $this->_id);
+                        Application_Entity_Image::TIPE_IMAGE_PRODUCT, $this->_id);
     }
 
 }

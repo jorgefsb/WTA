@@ -16,13 +16,26 @@ class Admin_ActressController extends Core_Controller_ActionAdmin
         $form = new Application_Form_CreateActressFrom();
         if($this->getRequest()->isPost()){
             if($form->isValid($this->getRequest()->getParams())){
+                $filter = new Core_SeoUrl();
+                $extension = pathinfo($form->getElement('img')->getFileName(), PATHINFO_EXTENSION);
+                $nameImg = mt_rand(10, 999) . '_' . urlencode($filter->urlFriendly($form->getValue('name'), '-'));
+                $element = $form->getElement('img');
+                if ($extension != '') {
+                    $element->addFilter(
+                            'Rename', array(
+                        'target' =>
+                        $element->getDestination() . '/' . $nameImg . '.' . $extension
+                            )
+                    );
+                    $element->receive();
+                }
                 $actress = new Application_Entity_Actress();
-                $temp = $form->getElement('img')->getDestination().'/'.$form->getValue('img');
+                $temp = $element->getDestination() . '/' . $nameImg . '.' . $extension;
                 $actress->setPropertie('_name', $form->getValue('name'));
                 $actress->setPropertie('_description', $form->getValue('description'));
                 $actress->setPropertie('_public', $form->getValue('public'));
                 $actress->createActress();
-                $actress->addImage($temp, $form->getValue('img'));
+                $actress->addImage($temp, $nameImg . '.' . $extension);
                 $this->_flashMessenger->addMessage($actress->getMessage());
                 $this->_redirect('/admin/actress/');
             }
@@ -30,22 +43,48 @@ class Admin_ActressController extends Core_Controller_ActionAdmin
         $this->view->form = $form;
     }
     public function editAction(){
-        $Actress = new Application_Entity_Actress();
-        $Actress->identify($this->getRequest()->getParam('id'));
+        $actress = new Application_Entity_Actress();
+        $actress->identify($this->getRequest()->getParam('id'));
         $form = new Application_Form_CreateActressFrom();
         $form->setAction('/admin/actress/edit/id/'.$this->getRequest()->getParam('id'));
-        $properties = $Actress->getProperties();
+        $properties = $actress->getProperties();
         $arrayPopulate['name'] = $properties['_name'];
         $arrayPopulate['description'] = $properties['_description'];
         $arrayPopulate['public'] = $properties['_public'];
         $form->populate($arrayPopulate);
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_CELEBRITY);
+        $image->setPropertie('_idTable', $actress->getPropertie('_id'));
+        $image->identify();
         if($this->getRequest()->isPost()){
             if($form->isValid($this->getRequest()->getParams())){
-                $Actress->setPropertie('_name', $form->getValue('name'));
-                $Actress->setPropertie('_description', $form->getValue('description'));
-                $Actress->setPropertie('_public', $form->getValue('public'));
-                $Actress->update();
-                $this->_flashMessenger->addMessage($Actress->getMessage());
+                $filter = new Core_SeoUrl();
+                if(is_string($form->getElement('img')->getFileName()) &&
+                        $form->getElement('img')->getFileName()!=''){
+                $extension = pathinfo($form->getElement('img')->getFileName(), PATHINFO_EXTENSION);
+                }else{
+                    $extension='';
+                }
+                $nameImg = mt_rand(10, 999) . '_' . urlencode($filter->urlFriendly($form->getValue('name'), '-'));
+                $element = $form->getElement('img');
+                if ($extension != '') {
+                    $element->addFilter(
+                            'Rename', array(
+                        'target' =>
+                        $element->getDestination() . '/' . $nameImg . '.' . $extension
+                            )
+                    );
+                    $element->receive();
+                }
+                $actress->setPropertie('_name', $form->getValue('name'));
+                $actress->setPropertie('_description', $form->getValue('description'));
+                $actress->setPropertie('_public', $form->getValue('public'));
+                $actress->update();
+                $actress->editImg(
+                        $image->getPropertie('_id'), 
+                        $extension!=''?($element->getDestination() . '/' . $nameImg . '.' . $extension):'',
+                        $extension!=''?($nameImg . '.' . $extension):''
+                    );
+                $this->_flashMessenger->addMessage($actress->getMessage());
                 $this->_redirect('/admin/actress/edit/id/'.$this->getRequest()->getParam('id'));
             }
         }
@@ -53,17 +92,17 @@ class Admin_ActressController extends Core_Controller_ActionAdmin
     }
     
     public function publishAction(){
-        $Actress = new Application_Entity_Actress();
-        $Actress->identify($this->getRequest()->getParam('id'));
-        $Actress->publish();
-        $this->_flashMessenger->addMessage($Actress->getMessage());
+        $actress = new Application_Entity_Actress();
+        $actress->identify($this->getRequest()->getParam('id'));
+        $actress->publish();
+        $this->_flashMessenger->addMessage($actress->getMessage());
         $this->_redirect('/admin/actress');
     }
     public function unpublishAction(){
-        $Actress = new Application_Entity_Actress();
-        $Actress->identify($this->getRequest()->getParam('id'));
-        $Actress->unpublish();
-        $this->_flashMessenger->addMessage($Actress->getMessage());
+        $actress = new Application_Entity_Actress();
+        $actress->identify($this->getRequest()->getParam('id'));
+        $actress->unpublish();
+        $this->_flashMessenger->addMessage($actress->getMessage());
         $this->_redirect('/admin/actress');
     }
      public function upAction() {

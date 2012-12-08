@@ -14,15 +14,34 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
     }
 
     public function newAction() {
+        
+$this->view->headScript()->appendScript(
+"
+        if($('input[name=limitedQuantity]').is(':checked')){
+            $('input[name=cantLimitedQuantity]').removeAttr('disabled');
+            $('input[name=cantLimitedQuantity]').attr('disabled', 'disabled');
+        }
+        $('input[name=limitedQuantity]').click(function() {  
+            if($('input[name=limitedQuantity]').is(':checked')){
+                $('input[name=cantLimitedQuantity]').removeAttr('disabled');
+            } else {
+                $('input[name=cantLimitedQuantity]').attr('value', '');
+                $('input[name=cantLimitedQuantity]').attr('disabled', 'disabled');
+            }
+        });      
+"
+);
         $form = new Application_Form_CreateProductFrom();
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $product = new Application_Entity_Product();
                 $product->setPropertie('_name', $form->getValue('name'));
+                $product->setPropertie('_code', $form->getValue('code'));
                 $product->setPropertie('_description', $form->getValue('description'));
                 $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
                 $product->setPropertie('_designer', $form->getValue('designer'));
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
+                $product->setPropertie('_cantLimitedQuantity', $form->getValue('cantLimitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
                 $product->setPropertie('_designType', $form->getValue('designType'));
@@ -32,8 +51,6 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 foreach ($form->getValue('size') as $index) {
                     $product->addSize($index);
                 }
-                // echo APPLICATION_PUBLIC.'/dinamic/temp/1.jpg';
-                
                 $this->_flashMessenger->addMessage($product->getMessage());
                 $this->_redirect('/admin/product/');
             }
@@ -42,15 +59,18 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
     }
 
     public function editAction() {
+       
         $product = new Application_Entity_Product();
         $product->identify($this->getRequest()->getParam('id'));
         $form = new Application_Form_CreateProductFrom();
         $properties = $product->getProperties();
         $arrayPopulate['name'] = $properties['_name'];
+        $arrayPopulate['code'] = $properties['_code'];
         $arrayPopulate['description'] = $properties['_description'];
         $arrayPopulate['descriptionDesigner'] = $properties['_descriptionDesigner'];
         $arrayPopulate['designer'] = $properties['_designer'];
         $arrayPopulate['limitedQuantity'] = $properties['_limitedQuantity'];
+        $arrayPopulate['cantLimitedQuantity'] = $properties['_cantLimitedQuantity'];
         $arrayPopulate['public'] = $properties['_public'];
         $arrayPopulate['price'] = $properties['_price'];
         $arrayPopulate['collectionType'] = $properties['_collectionType'];
@@ -62,10 +82,12 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $product->setPropertie('_name', $form->getValue('name'));
+                $product->setPropertie('_code', $form->getValue('code'));
                 $product->setPropertie('_description', $form->getValue('description'));
                 $product->setPropertie('_descriptionDesigner', $form->getValue('descriptionDesigner'));
                 $product->setPropertie('_designer', $form->getValue('designer'));
                 $product->setPropertie('_limitedQuantity', $form->getValue('limitedQuantity'));
+                $product->setPropertie('_cantLimitedQuantity', $form->getValue('cantLimitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
                 $product->setPropertie('_priceMenber', $form->getValue('priceMenber'));
@@ -96,6 +118,31 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
             }
         }
         $this->view->form = $form;
+        
+        if ($product->getPropertie('_cantBuy')>0) {
+        $scriptCantLimit = "$('#cantLimitedQuantity-element').
+            append('<p><strong>Amount Buy: ".$product->getPropertie('_cantBuy')." </strong></p>');";
+        }else{
+            $scriptCantLimit='';
+        }
+         $this->view->headScript()->appendScript(
+                 
+"
+        if($('input[name=limitedQuantity]').is(':checked')){
+            $('input[name=cantLimitedQuantity]').removeAttr('disabled');
+            
+        }
+        $('input[name=limitedQuantity]').click(function() {  
+            if($('input[name=limitedQuantity]').is(':checked')){
+                $('input[name=cantLimitedQuantity]').removeAttr('disabled');
+            } else {
+                $('input[name=cantLimitedQuantity]').attr('value', '');
+                $('input[name=cantLimitedQuantity]').attr('disabled', 'disabled');
+            }
+        });  
+        
+        ".$scriptCantLimit
+);
     }
 
 //    public function deleteAction(){
@@ -211,10 +258,50 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
                 $product->addImage(
                         $element->getDestination() . '/' . $nameImg . '.' . $extension,
                         $nameImg . '.' . $extension,
-                        $form->getElement('description')
+                        $form->getElement('description')->getValue()
                         );
                 $this->_flashMessenger->addMessage($product->getMessage());
-                $this->_redirect('/admin/product/celebrity/product/' . $product->getPropertie('_id'));
+                $this->_redirect('/admin/product/image/product/' . $product->getPropertie('_id'));
+            }
+        }
+        $this->view->form = $form;
+    }
+    public function editImageAction(){
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $form = new Application_Form_CreateProductImageFrom();
+        $form->getElement('img')->setRequired(FALSE);
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
+        $image->identify($this->getRequest()->getParam('image'));
+        $form->getElement('description')->setValue($image->getPropertie('_description')) ;
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($this->getRequest()->getParams())) {
+                $filter = new Core_SeoUrl();
+                if(is_string($form->getElement('img')->getFileName()) &&
+                        $form->getElement('img')->getFileName()!=''){
+                $extension = pathinfo($form->getElement('img')->getFileName(), PATHINFO_EXTENSION);
+                }else{
+                    $extension='';
+                }
+                $nameImg = mt_rand(10, 999) . '_' . urlencode($filter->urlFriendly($product->getPropertie('_name'), '-'));
+                $element = $form->getElement('img');
+                if ($extension != '') {
+                    $element->addFilter(
+                            'Rename', array(
+                        'target' =>
+                        $element->getDestination() . '/' . $nameImg . '.' . $extension
+                            )
+                    );
+                    $element->receive();
+                }
+                $product->editImage(
+                        $this->getRequest()->getParam('image'),
+                        $extension!=''?($element->getDestination() . '/' . $nameImg . '.' . $extension):'',
+                        $extension!=''?($nameImg . '.' . $extension):'',
+                        $form->getElement('description')->getValue()
+                        );
+                $this->_flashMessenger->addMessage($product->getMessage());
+                $this->_redirect('/admin/product/image/product/' . $product->getPropertie('_id'));
             }
         }
         $this->view->form = $form;

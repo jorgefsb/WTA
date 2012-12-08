@@ -10,6 +10,9 @@
             <thead>
                 <tr>
                     <th>
+                        Code
+                    </th>
+                    <th>
                         Name
                     </th>
                     <th>
@@ -22,8 +25,9 @@
                         Price
                     </th>
                     <th>
-                        Limited Quality
+              Limited Quality
                     </th>
+                    
                     <th>
                         Options
                     </th>
@@ -34,6 +38,9 @@
             foreach ($this->listingProduct as $index):
                 ?>
                 <tr>
+                    <td>
+    <?php echo $index['product_code']; ?>
+                    </td>
                     <td>
     <?php echo $index['product_name']; ?>
                     </td>
@@ -51,7 +58,13 @@
     <?php echo $index['product_price']; ?>
                     </td>
                     <td>
-    <?php echo $arrayLimited[$index['product_limited_quantity']]; ?>
+    <?php echo $arrayLimited[$index['product_limited_quantity']].'<br>'; 
+    if($index['product_limited_quantity']){
+        echo 'Amount : '.(int)$index['product_cant_limited_quantity'].'<br>';
+        echo 'Buy : '.(int)$index['product_cant_buy'];
+    }
+    
+    ?>
                     </td>
                     <td>
                         <a class="btn btn-mini btn-info" href="/admin/product/up/id/<?php echo $index['product_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>

@@ -17,6 +17,9 @@
             Description
         </th>
         <th>
+            Img
+        </th>
+        <th>
             Options
         </th>
     </tr>
@@ -35,6 +38,9 @@
         </td>
         <td>
             <?php echo $index['actress_description']; ?>
+        </td>
+        <td>
+           <img width="50" height="50" src="<?php echo DINAMIC_URL . '/celebrity/mini/' . $index['actress_img']; ?>"/>
         </td>
         <td>
             <a class="btn btn-info" href="/admin/actress/up/id/<?php echo $index['actress_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>

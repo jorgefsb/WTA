@@ -38,7 +38,8 @@
                         <?php echo $index['image_description']; ?>
                     </td>
                     <td>
-                        <a class="btn btn-mini btn-info" href="/admin/product/delete-image/product/<?php echo $this->product ?>/image/<?php echo $index['image_id']; ?>"><span class="icon-remove icon-white"></span> Eliminar</a>
+                        <a class="btn btn-mini btn-info" href="/admin/product/edit-image/product/<?php echo $this->product ?>/image/<?php echo $index['image_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+                        <a class="btn btn-mini btn-info" href="/admin/product/delete-image/product/<?php echo $this->product ?>/image/<?php echo $index['image_id']; ?>"><span class="icon-remove icon-white"></span> Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

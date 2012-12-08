@@ -22,6 +22,21 @@ class Application_Model_Image extends Core_Model {
         return $result;
     }
     /**
+     * metodo getImage(), devuelve todos los datos de un Image
+     * @param $idImage    id de la Image  
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     */
+    function getImageTable($idTable,$tipo) {
+        
+        $smt = $this->_tableImage->select()
+                ->where('image_id_table =?', $idTable)
+                ->where('image_type =?', $tipo)
+                ->query();
+        $result = $smt->fetch();
+        $smt->closeCursor();
+        return $result;
+    }
+    /**
      * metodo insert(), registra los datos de la Image 
      * @param array             $data   array con los datos de la Image array('column'=>'valor')
      * @return bolean or int    devuelve un entero en caso de que el registro sea exitos        
