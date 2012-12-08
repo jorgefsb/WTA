@@ -266,6 +266,14 @@ $this->view->headScript()->appendScript(
         }
         $this->view->form = $form;
     }
+    public function deleteImageAction(){
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
+        $image->identify($this->getRequest()->getParam('image'));
+        $image->delete();
+        $this->_redirect('/admin/product/image/product/' . $product->getPropertie('_id'));
+    }
     public function editImageAction(){
         $product = new Application_Entity_Product();
         $product->identify($this->getRequest()->getParam('product'));

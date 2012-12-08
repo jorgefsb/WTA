@@ -187,7 +187,7 @@ class Application_Entity_Image extends Core_Entity {
         return $modelImage->listing($tipeImagen, $idTable);
     }
 
-    function delete($id) {
+    function delete($id='') {
         if ($this->existFile()) {
             unlink(APPLICATION_PUBLIC . '/dinamic/' . $this->_type . '/' . $this->_name);
         }
