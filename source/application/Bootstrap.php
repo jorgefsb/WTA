@@ -12,6 +12,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 || define('DINAMIC_URL', $app['dinamicUrl']);
         defined('BASE_URL')
                 || define('BASE_URL', $app['siteUrl']);
+        defined('NAME_SITE')
+                || define('NAME_SITE', $app['siteName']);
         $doctypeHelper = new Zend_View_Helper_Doctype();
         $doctypeHelper->doctype(Zend_View_Helper_Doctype::XHTML1_TRANSITIONAL);
     }
