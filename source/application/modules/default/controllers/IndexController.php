@@ -28,6 +28,15 @@ class Default_IndexController extends Core_Controller_ActionDefault
         
     }
     
+    public function cartAction(){
+        $this->_helper->layout->disableLayout();
+        
+    }
+    
+    
+    public function addtocartAction(){
+                
+    }
     
     
 }
