@@ -1,6 +1,6 @@
 $(document).ready(function(){
     WTA.shoppingCart();
-    
+    WTA.addToCart();
 });
 
 var WTA = (function(){
@@ -108,12 +108,55 @@ var WTA = (function(){
       
     };
     
+    /********************************* CART *************************************/
+    /*
+     * Agregamos al carrito
+     **/
+    this.addToCart = function(){
+        $('.addToCart').click(function(e){
+            e.preventDefault();
+            var $this = $(this);
+            var code = $this.data('code');
+            if( !(/^\s*$/).test( code ) ){
+                
+            }
+        })
+    }
+    
+    this.updateCart = function(callback){
+        $('#shoppingCart').find('>div').load('/index/cart', function(response, status, xhr) {
+            if (status == "error") {
+                var msg = "Sorry but there was an error ";
+                //$('#shoppingCart').html(msg + xhr.status + " " + xhr.statusText);
+                $('#shoppingCart').html(msg);
+            }
+            $.bootstrap_selects();
+            callback();
+        });
+
+    }
+    
     this.shoppingCart = function(){
         $('#btnShoppingCart').click(function(){
-            $('#shoppingCart').slideToggle();
+            var $this = $(this);
+            if( $this.hasClass('activo') ){ // oculta
+                $this.removeClass('activo');
+                $('#shoppingCart').slideUp();
+            }else{
+                that.updateCart(function(){$('#shoppingCart').slideDown();});
+                $this.addClass('activo');
+                
+            }
         })
     };
     
+    /********************************* / CART *************************************/
+    
+    /********************************* ZOOM *************************************/
+    
+    /*
+     *Crea el efecto de zoom en las imagenes 
+     */
     this.zoom = function(selector){
         
         var $objs = $(selector);
@@ -142,10 +185,13 @@ var WTA = (function(){
         }
         
     }
+    /********************************* /ZOOM *************************************/
     
+    /********************************* SLIDER PRODUCTOS *************************************/
+    /*
+     * Genera el slider de los productos 
+     */
     this.slider_products = function(){
-       
-       
         $('#slider').carouFredSel({
             auto: false,
             responsive: true,
@@ -180,6 +226,10 @@ var WTA = (function(){
         }, 1500)
         
     }
+    /********************************* SLIDER PRODUCTOS *************************************/
+    
+    
+    
     
     return this;
     
@@ -190,20 +240,24 @@ var WTA = (function(){
  * Plugin  de bootstrap para los selectores
  */
 jQuery(function($){
-        $('select').each(function(i, e){
-                if (!($(e).data('convert') == 'no')) {
-                        $(e).hide().wrap('<div class="btn-group" id="select-group-' + i + '" />');
-                        var select = $('#select-group-' + i);
-                        var current = ($(e).val()) ? $(e).val(): '&nbsp;';
-                        select.html('<input type="hidden" value="' + $(e).val() + '" name="' + $(e).attr('name') + '" id="' + $(e).attr('id') + '" class="' + $(e).attr('class') + '" /><a class="btn" href="javascript:;">' + current + '</a><a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="caret"></span></a><ul class="dropdown-menu"></ul>');
-                        $(e).find('option').each(function(o,q) {
-                                select.find('.dropdown-menu').append('<li><a href="javascript:;" data-value="' + $(q).attr('value') + '">' + $(q).text() + '</a></li>');
-                                if ($(q).attr('selected')) select.find('.dropdown-menu li:eq(' + o + ')').click();
-                        });
-                        select.find('.dropdown-menu a').click(function() {
-                                select.find('input[type=hidden]').val($(this).data('value')).change();
-                                select.find('.btn:eq(0)').text($(this).text());
-                        });
-                }
-        });
+    $.bootstrap_selects = function(){
+            $('select').each(function(i, e){
+                    if (!($(e).data('convert') == 'no')) {
+                            $(e).hide().wrap('<div class="btn-group" id="select-group-' + i + '" />');
+                            var select = $('#select-group-' + i);
+                            var current = ($(e).val()) ? $(e).val(): '&nbsp;';
+                            select.html('<input type="hidden" value="' + $(e).val() + '" name="' + $(e).attr('name') + '" id="' + $(e).attr('id') + '" class="' + $(e).attr('class') + '" /><a class="btn" href="javascript:;">' + current + '</a><a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="caret"></span></a><ul class="dropdown-menu"></ul>');
+                            $(e).find('option').each(function(o,q) {
+                                    select.find('.dropdown-menu').append('<li><a href="javascript:;" data-value="' + $(q).attr('value') + '">' + $(q).text() + '</a></li>');
+                                    if ($(q).attr('selected')) select.find('.dropdown-menu li:eq(' + o + ')').click();
+                            });
+                            select.find('.dropdown-menu a').click(function() {
+                                    select.find('input[type=hidden]').val($(this).data('value')).change();
+                                    select.find('.btn:eq(0)').text($(this).text());
+                            });
+                    }
+            });
+    };
+    
+    $.bootstrap_selects();
 });
