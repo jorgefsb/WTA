@@ -15,7 +15,7 @@ class Menber_LoginController extends Core_Controller_ActionMenber {
             $entityMenber = new Application_Entity_Menber();
             if ($loginForm->isValid($this->_getAllParams())) {
                 if ($entityMenber->autentificate(
-                        $loginForm->getElement('login')->getValue(), 
+                        $loginForm->getElement('email')->getValue(), 
                         $loginForm->getElement('password')->getValue())) {
                     $this->getNavigationMenber();
                     $arrayResponse['response'] = 1;
