@@ -116,7 +116,7 @@ class Application_Entity_Menber extends Core_Entity {
         $data['menber_id_confirm'] = $this->createIdConfirm();
         $data['menber_password'] = $this->encriptaPassword($password);
         $id = $modelMenber->insert($data);
-        if ($id != false) {
+        if ($id != FALSE) {
             $this->_id = $id;
             $this->setMailAdmin();
             $this->setMailMenberConfirmAccount($data['menber_id_confirm']);
@@ -124,10 +124,10 @@ class Application_Entity_Menber extends Core_Entity {
                     we will send an email to ' .
                     $this->_mail .
                     ' to confirm your account';
-            return true;
+            return TRUE;
         } else {
             $this->_message = 'Registration to failure';
-            false;
+            return FALSE;
         }
     }
 
@@ -252,8 +252,10 @@ class Application_Entity_Menber extends Core_Entity {
         if ($result->isValid()) {
             $data = $adapter->getResultRowObject(null, 'menber_password');
             $auth->getStorage()->write($data);
+            $this->_message = 'Successful Authentication';
             return TRUE;
         } else {
+            $this->_message = 'Incorrect Authentication';
             return FALSE;
         }
     }
