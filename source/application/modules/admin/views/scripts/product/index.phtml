@@ -19,7 +19,7 @@
                         Status
                     </th>
                     <th>
-                        Actress
+                        Celebrity
                     </th>
                     <th>
                         Price
@@ -74,7 +74,7 @@
                         <a class="btn btn-mini btn-info" href="/admin/product/celebrity/product/<?php echo $index['product_id']; ?>"><span class="icon-user icon-white"></span> Celebrity</a>
                             <a class="btn btn-mini btn-info" href="/admin/product/image/product/<?php echo $index['product_id']; ?>"><span class="icon-picture icon-white"></span> Image</a>
                         <?php if ($index['product_public'] == 1) { ?>
-                            <a class="btn btn-mini btn-info" href="/admin/product/unpublish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublis</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/unpublish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublish</a>
                         <?php } else { ?>
                             <a class="btn btn-mini btn-info" href="/admin/product/publish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
                         <?php } ?>
