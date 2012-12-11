@@ -1,5 +1,5 @@
-<?php $this->doctype() ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
         <?php $this->headTitle() ?>
@@ -10,6 +10,14 @@
         <?php $this->headStyle() ?>       
     </head>
     <body>
+                <?php echo $this->getMessegerAdmin(); ?>
+                <?php echo $this->navigation()->menu()->render(); ?>
+                <?php echo $this->navigation()
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setLinkLast(true)
+                        ->setSeparator(" &raquo; " . PHP_EOL); 
+                ?>
                 <?php echo $this->layout()->content ?>
 
     </body>

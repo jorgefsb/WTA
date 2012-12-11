@@ -1,6 +1,6 @@
 <?php
 
-class Menber_LoginController extends Core_Controller_ActionDefault       
+class Menber_LoginController extends Core_Controller_ActionMenber       
 {
     public function init() {
         parent::init();
@@ -12,9 +12,11 @@ class Menber_LoginController extends Core_Controller_ActionDefault
         if($this->getRequest()->isPost()){
             if($loginForm->isValid($this->_getAllParams())){
                 if($entityMenber->autentificate(
-                        $loginForm->getElement('mail')->getValue(),
+                        $loginForm->getElement('login')->getValue(),
                         $loginForm->getElement('password')->getValue())) {
-                $this->_redirect('/menber');
+                $this->getNavigationMenber();  
+                $this->getMessenger()->info('Login Correct');
+                $this->_redirect('/menber/dashboard');
                 }
             }
         }

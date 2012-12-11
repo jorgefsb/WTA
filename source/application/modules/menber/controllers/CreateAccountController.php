@@ -1,6 +1,6 @@
 <?php
 
-class Menber_CreateAccountController extends Core_Controller_ActionDefault       
+class Menber_CreateAccountController extends Core_Controller_ActionMenber 
 {
     public function init() {
         parent::init();
@@ -18,7 +18,7 @@ class Menber_CreateAccountController extends Core_Controller_ActionDefault
                 $entityMenber->setPropertie('_mail', 
                         $form->getElement('mail')->getValue());
                 $entityMenber->createMenber($form->getElement('password')->getValue());
-                $this->_flashMessenger->addMessage($entityMenber->getMessage());
+                $this->getMessenger()->info($entityMenber->getMessage());
                 $this->_redirect('/menber/create-account');
             }
         }
