@@ -225,6 +225,19 @@ class Application_Entity_Product extends Core_Entity {
         }
     }
 
+    public function del(){
+        $model = new Application_Model_Product();
+        $dataEntity['product_order'] = NULL;
+        $dataEntity['product_delete'] = 1;
+        $model->update($dataEntity, $this->_id);
+        $orden = $this->_order;
+        $products = $model->selectProductLowerPriority($orden);
+        foreach($products as $index){
+            $data = array('product_order'=>((int)$index['product_order']-1));
+            $model->update($data, $index['product_id']);
+        }
+        
+    }
     public function getProductActress($idActress) {
         $modelProductActress = new Application_Model_ProductActress();
         return $modelProductActress->getProductActress($this->_id, $idActress);

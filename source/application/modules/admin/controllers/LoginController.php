@@ -13,7 +13,7 @@ class Admin_LoginController extends Core_Controller_ActionAdmin {
             if ($form->isValid($this->getRequest()->getParams())) {
                 $user = new Application_Entity_User();
                 if ($user->autentificate(
-                        $form->getValue('login'), 
+                        $form->getValue('email'), 
                         $form->getValue('password'))) {
                     $this->_redirect('/admin/');
                 }else{
@@ -21,8 +21,8 @@ class Admin_LoginController extends Core_Controller_ActionAdmin {
                     $this->_redirect('/admin/login');
                 }
             } else {
-                
-                $this->view->login = $form->getValue('login');
+                echo 'asdasd';
+                $this->view->login = $form->getValue('email');
                 $this->view->password = $form->getValue('password');
             }
         }

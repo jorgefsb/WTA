@@ -179,6 +179,13 @@ $this->view->headScript()->appendScript(
         $this->_flashMessenger->addMessage($product->getMessage());
         $this->_redirect('/admin/product');
     }
+    public function delAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('id'));
+        $product->del();
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product');
+    }
 
     public function celebrityAction() {
         $product = new Application_Entity_Product();

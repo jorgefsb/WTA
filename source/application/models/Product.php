@@ -83,6 +83,7 @@ class Application_Model_Product extends Core_Model {
                 ->joinLeft(array('pra' => $this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id', '')
                 ->joinLeft(array('a' => $this->_tableActress->getName()), 'a.actress_id=pra.product_actress_actress_id', '')
                 ->order('product_order asc')
+                ->where('product_delete = 0')
                 ->group('pr.product_id');
         $smt = $smt->query();
         $result = $smt->fetchAll();
@@ -178,6 +179,15 @@ class Application_Model_Product extends Core_Model {
         $where[] = $this->_tableProductSize->getAdapter()
                 ->quoteInto('product_size_size_id =?', $size);
         return $this->_tableProductSize->delete($where);
+    }
+    
+    public function selectProductLowerPriority($order){
+        $smt = $this->_tableProduct->select()
+                ->where('product_order >?', $order)
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
     }
 
 }
