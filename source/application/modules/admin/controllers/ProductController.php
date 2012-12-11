@@ -9,7 +9,7 @@ class Admin_ProductController extends Core_Controller_ActionAdmin {
     public function indexAction() {
         $paginator = Zend_Paginator::factory(Application_Entity_Product::listingProduct());
         $paginator->setCurrentPageNumber($this->_getParam('page'));
-        $paginator->setItemCountPerPage(6);
+        $paginator->setItemCountPerPage(15);
         $this->view->listingProduct = $paginator;
     }
 
@@ -176,6 +176,13 @@ $this->view->headScript()->appendScript(
         $product = new Application_Entity_Product();
         $product->identify($this->getRequest()->getParam('id'));
         $product->downOrder();
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product');
+    }
+    public function delAction() {
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('id'));
+        $product->del();
         $this->_flashMessenger->addMessage($product->getMessage());
         $this->_redirect('/admin/product');
     }

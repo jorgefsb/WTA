@@ -46,7 +46,7 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 
             ),
             array(
-                'label' => 'Actress',
+                'label' => 'Celebrity',
                 'id' => 'actress',
                 'module' => 'admin',
                 'controller' => 'actress',

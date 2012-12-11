@@ -174,7 +174,7 @@ class Application_Entity_User extends Core_Entity {
         if ($result->isValid()) {
             $data = $adapter->getResultRowObject(null, 'user_password');
             $auth->getStorage()->write($data);
-            
+            $this->_message = 'Autentificate Ok';
             return TRUE;
         } else {
             $this->_message = 'Autentificate Error';

@@ -63,18 +63,18 @@ class Application_Form_CreateProductFrom extends Core_Form {
         $this->addElement(new Zend_Form_Element_Text('price',
                         array(
                             'required' => true,
-                            'label' => 'Price'
+                            'label' => 'Guest Price'
                 )));
         $this->addElement(new Zend_Form_Element_Text('priceMenber',
                         array(
                             'required' => true,
-                            'label' => 'Price Menber'
+                            'label' => 'Member Price'
                 )));
         
         $this->addElement(new Zend_Form_Element_MultiCheckbox('size',
                         array(
                             //'required' => true,
-                            'label' => 'Size',
+                            'label' => 'Ring Size',
                             'multiOptions' =>  
                             Core_Utils::fetchPairs(
                                     Application_Entity_Size::listingSize()

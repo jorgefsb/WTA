@@ -19,7 +19,7 @@
                         Status
                     </th>
                     <th>
-                        Actress
+                        Celebrity
                     </th>
                     <th>
                         Price
@@ -69,11 +69,12 @@
                     <td>
                         <a class="btn btn-mini btn-info" href="/admin/product/up/id/<?php echo $index['product_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>
                         <a class="btn btn-mini btn-info" href="/admin/product/down/id/<?php echo $index['product_id']; ?>"><span class="icon-arrow-down icon-white"></span> Down</a>
-                        <a class="btn btn-mini btn-info" href="/admin/product/edit/id/<?php echo $index['product_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a><p></p>
+                        <a class="btn btn-mini btn-info" href="/admin/product/edit/id/<?php echo $index['product_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+                        <a class="btn btn-mini btn-info" href="/admin/product/del/id/<?php echo $index['product_id']; ?>"><span class="icon-trash icon-white"></span> Del</a><p></p>
                         <a class="btn btn-mini btn-info" href="/admin/product/celebrity/product/<?php echo $index['product_id']; ?>"><span class="icon-user icon-white"></span> Celebrity</a>
                             <a class="btn btn-mini btn-info" href="/admin/product/image/product/<?php echo $index['product_id']; ?>"><span class="icon-picture icon-white"></span> Image</a>
                         <?php if ($index['product_public'] == 1) { ?>
-                            <a class="btn btn-mini btn-info" href="/admin/product/unpublish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublis</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/unpublish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublish</a>
                         <?php } else { ?>
                             <a class="btn btn-mini btn-info" href="/admin/product/publish/id/<?php echo $index['product_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
                         <?php } ?>

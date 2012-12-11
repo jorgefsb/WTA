@@ -6,7 +6,7 @@ class Application_Form_CreateAccountForm extends Core_Form {
     function init() {
         parent::init();
         $this->setMethod('Post');
-        $this->addElement(new Zend_Form_Element_Text('firstName',
+        $this->addElement(new Zend_Form_Element_Text('firstname',
                         array(
                             'label' => 'First Name * ',
                             'required' => true,
@@ -15,7 +15,7 @@ class Application_Form_CreateAccountForm extends Core_Form {
                             'size' => '40'
                 )));
 
-        $this->addElement(new Zend_Form_Element_Text('lastName',
+        $this->addElement(new Zend_Form_Element_Text('lastname',
                         array(
                             'label' => 'Last Name * ',
                             'required' => true,
@@ -31,20 +31,28 @@ class Application_Form_CreateAccountForm extends Core_Form {
             new Zend_Validate_EmailAddress()
         );
 
-        $this->addElement(new Zend_Form_Element_Text('mail',
+        $this->addElement(new Zend_Form_Element_Text('email',
                         array(
                             'label' => 'Email * ',
                             'required' => true,
                             'validators' => $validatorsEmail
                 )));
-
-
-        $this->addElement(new Zend_Form_Element_Password('password',
+        $this->addElement(new Zend_Form_Element_Password('password1',
                         array(
                             'label' => 'Password ',
+                            'required' => true,
                             'validators' => array(
                                 new Zend_Validate_StringLength(array('min'=>8)))
                 )));
+        $this->addElement(new Zend_Form_Element_Password('password2',
+                        array(
+                            'label' => 'Comfirm Password ',
+                            'required' => true,
+                            'validators' => array(
+                                new Zend_Validate_Identical(),
+                                new Zend_Validate_StringLength(array('min'=>8)))
+                )));
+        
         $this->addElement(new Zend_Form_Element_Submit('Create Account',
                         array('attribs' => array(
                                 'class' => 'submit-button'
@@ -52,6 +60,11 @@ class Application_Form_CreateAccountForm extends Core_Form {
     }
 
     public function isValid($data) {
+        
+            $passwordConfirm = $this->getElement('password2');
+            $validator = $passwordConfirm->getValidator('Identical')
+                  ->setToken($data['password1']);
+        
         return parent::isValid($data);
     }
 
