@@ -1,0 +1,56 @@
+<div class="wLight">
+    <div id="signin">
+        <div>
+
+            <form name="signin" method="post">
+                <h2>SIGN IN</h2>
+                <span class="instrucciones">Sign in with your WTA account</span>
+                <input type="text" name="email" placeholder="Email address"class="error" />
+                <input type="password" name="password"  placeholder="Password"   />
+                <!-- label><input type="checkbox" name="remember" value="1" /> Remember my session</labe l-->
+                <input type="submit" value="SIGN IN" />
+
+                <a class="forgot liLight" href="/index/forgotpass">FORGOT MY  <strong>PASSWORD</strong></a>
+
+            </form>
+
+        </div>
+
+        <div>
+
+            <form name="register" method="post">
+                <h2>REGISTER</h2>
+                <span class="instrucciones">Create a new account and become a member</span>
+
+                <div>
+                    <input type="text" name="firstname" id="firstname" placeholder="First name" />                        
+                    <input type="text" name="lastname" id="lastname" placeholder="Last name" />
+                </div>
+
+                <label>
+                    <span class="error">Your Email address is invalid, please use  a proper email  syntax</span>
+                    <input type="text" name="email"  placeholder="Email address"  class="error" />
+                </label>
+
+                <span class="passwordinstr">Your password must have at least 8 characters.</span>
+
+                <div>
+
+                    <input type="password" name="password1" id="password1"  placeholder="Password"  class="error" />
+                    <input type="password" name="password2" id="password2"  placeholder="Confirm Password"   />
+                </div>
+
+                <label class="privacy">
+                    <input type="checkbox" name="remember" value="1" /> 
+                    I have accepted the <a href="" target="__blank">User Agreement.</a>
+                </label>
+                <input type="submit" value="SIGN IN" />
+            </form>
+
+        </div>
+        <div class="closex">X</div>
+    </div>
+</div>
+<script>
+    WTA.lightbox();
+</script>

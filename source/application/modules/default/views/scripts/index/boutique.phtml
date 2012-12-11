@@ -1,17 +1,9 @@
 <?php 
     # Imprimimos el menu Change Section
-    echo $this->partial('index/change_section.phtml', array('section'=>'Designers'));
+    echo $this->partial('index/change_section.phtml', array('section'=>'CAMERON RICHARDSON BOUTIQUE'));
 ?>
-
-<div id="change_category">
-    <span>Choose another category</span>
-    <select>
-        <option>algo</option>
-        <option>junto con otro</option>
-    </select>
-</div>
-<div  id="contentBody" class="designers" >        
     
+<div id="contentBody" class="boutique">
     
     <div class="btns-options" >
         <a href="" class="btn addToCart" data-code="45">
@@ -21,43 +13,43 @@
     </div>
     
     <div  class="imgProd">
-        <img src="<?php echo STATIC_URL.'/front/images/R_25.png' ?>" />
+        <img src="<?php echo STATIC_URL . '/front/images/ivana-prod.jpg' ?>" />
     </div>
-    
+        
     <div class="info">
-        <h1>T.CYIA</h1>
+        <h1>
+            <span class="name1">IVANA</span>
+            <span class="name2">MILICEVIC</span>
+        </h1>
         <h3><span class="linea-degr-left"></span>Article #9<span class="linea-degr-right"></span></h3>
-        <h2>TALL SHARK TOOH CUFF</h2>
-        
+        <h2>THE RESURRECTION</h2>
+            
         <p>
-            <strong>T.CYIA</strong>  large cuff features a bright antique nickel shark tooth with oxidized nickel details. It sits atop an oxidized nickel cuff. 
-The cuff is 3 2/8" long, shark is 2.5" at widest and 3" long.
+            <strong>T.Cyia's</strong>  choker features two ram head skulls that kiss at the middle. It opens at the front and features a hinge mechanism at the back. It is made of bronze with a 24 kt gold plate or rose gold plate that has been E-coated to protect the integrity of its plating. The choker is 15" an the width of the horns when choker fully closed is 8" .
         </p>
-        
+            
         <div class="precios">
             <div>
                 <span>Guest price</span>
                 <strong class="inactivo">$699.00</strong>
             </div>
-
-
+                
+                
             <div >
                 <span>member price</span>
                 <strong class="activo">$475.00</strong>
             </div>
         </div>
-        
+            
     </div>
-    
-    
+        
 </div>
 
 <?php 
-    # Imprimimos el Slider de productos
-    echo $this->partial('index/slider_products.phtml', array('section'=>'Exclusive Collections', 'data'=>$this->products, 'title'=>'luv aj’s SHARK TEETH  collection'));
+    echo $this->partial('index/slider_products_boutique.phtml', array('data'=>$this->products, 'title'=>'ivana Milicevic BOUTIQUE'));
 ?>
-
+    
 <script>
-    //WTA.Home();
-    WTA.zoom('.imgProd');
+    
+    
 </script>
