@@ -264,23 +264,10 @@ class Application_Entity_Menber extends Core_Entity {
         return substr($value, 0, strrpos($value, '$$')) . '$$';
     }
 
-    function passwordReset($password, $passwordTemp) {
+    function passwordReset($password) {
         $modelMenber = new Application_Model_Menber();
-        $passwordTempPresent = $modelMenber->getpasswordTemp($this->_id); 
-        if($passwordTempPresent==''){
-            $this->_message = 'Do not have an authorization code for this action';
-            return FALSE;
-        }
-        if ($passwordTemp == $passwordTempPresent ) {
-            $data['menber_password'] = $this->encriptaPassword($password);
-            $data['menbar_password_reset'] = '';
-            $modelMenber->update($data, $this->_id);
-            $this->_message = 'The password is reset correctly';
-            return TRUE;
-        } else {
-            $this->_message = 'The value of the authorization code is not correct';
-            return FALSE;
-        }
+        $data['menber_password'] = $this->encriptaPassword($password);
+        $modelMenber->update($data, $this->_id);
     }
 
     function sendPasswordReset() {

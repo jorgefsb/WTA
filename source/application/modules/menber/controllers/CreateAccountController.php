@@ -1,6 +1,6 @@
 <?php
 
-class Menber_CreateAccountController extends Core_Controller_ActionDefault       
+class Menber_CreateAccountController extends Core_Controller_ActionMenber 
 {
     public function init() {
         parent::init();

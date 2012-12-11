@@ -16,7 +16,7 @@ class Menber_IndexController extends Core_Controller_ActionMenber
         $entity->identify($this->_identity->menber_id);
         if($this->getRequest()->isPost()){
             $entity->sendPasswordReset();
-            $this->_flashMessenger->addMessage('Sent an email with the temporary password');
+            $this->getMessenger()->info('Sent an email with the temporary password');
             $this->_redirect('/menber/index/password-reset');
         }
     }
@@ -31,7 +31,7 @@ class Menber_IndexController extends Core_Controller_ActionMenber
                         $form->getElement('password')->getValue(),
                         $form->getElement('passwordTemp')->getValue()
                         );
-                $this->_flashMessenger->addMessage($entityMenber->getMessage());
+                $this->getMessenger()->info($entityMenber->getMessage());
                 $this->_redirect('/menber/index/password-reset');
             }
         }

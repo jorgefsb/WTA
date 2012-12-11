@@ -16,11 +16,9 @@ class Admin_LoginController extends Core_Controller_ActionAdmin {
                         $form->getValue('login'), 
                         $form->getValue('password'))) {
                     $this->_redirect('/admin/');
-                    
                 }else{
                     $this->_flashMessenger->error($user->getMessage());
                     $this->_redirect('/admin/login');
-                    
                 }
             } else {
                 
