@@ -267,7 +267,6 @@ input.error{border: 1px solid #a03333 !important}
 
 
 /* ########################################### */
-
 .wLight {width:618px; margin:auto;  position: relative; display: none;}
 .sAbout span{ color:#FFF;font-family:"Times New Roman", Times, serif}
 .sAbout span{ color: #FFF}
@@ -276,7 +275,7 @@ input.error{border: 1px solid #a03333 !important}
 .sAbout p{ color:#747474; }
 .sAbout p span:first-child { font-size: 20px;font-family:"Times New Roman", Times, serif; padding-bottom: 5px; border-bottom: solid 1px #222222   }
 
-.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(http://wta/static/front/images/pareja.png); height: 370px  }
+.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(../images/pareja.png); height: 370px  }
 
 .sAbout .colLeft a{ background-color:#121212; border-radius:5px; display: block; height:41px; line-height: 41px; text-align: center;  width:100px; color: #ff4f4f;}
 .sAbout{border: 10px solid rgb(100, 100, 100);	border: 10px solid rgba(254, 252, 254, 0.3);-moz-background-clip: padding;-webkit-background-clip: padding;background-clip: padding-box;}
@@ -292,16 +291,17 @@ input.error{border: 1px solid #a03333 !important}
 .aWraper .aBack{ width:100%; position: relative}
 .aWraper .aBack > div:first-child{ display: inline-block; width:35%;}
 .aWraper .aBack > div{ display: inline-block; width:  40%; vertical-align: top}
-.aWraper .aBack > div.secondCol {    margin-left: 2%;    position:relative;    padding-top: 16%;}
+.aWraper .aBack > div.secondCol {    margin-left: 2%;    position:relative;   padding-top: 10%;}
 .aWraper .aBack > div > div:first-child {    border-top: medium none #222222;    color: #FFFFFF;    margin-bottom: 35px;    padding-top: 8px;    font-family: "Times New Roman",Times,serif;}
 .aBack > div > div:first-child{}
 .aWraper .aBack > div > div > div:first-child{ margin-right:8%}
 .aWraper .aBack > div > div > div{ display: inline-block; width:45%; color:#696969 }
 .aWraper .aBack > div > div > div > div {    color: #FFFFFF;    font-family: "Times New Roman",Times,serif;    font-size: 30px;    left: -24px;    margin-bottom: 3px;    position: relative;}
 .aWraper .aBack > div > div > div > div span{color:#696969; font-style: italic}
+.aWraper .aBack .torres_float{ vertical-align:top;  }
+
 
 .aWraper img {  max-width:90%;}
-
 /* ########################################### */
 
 
@@ -523,6 +523,7 @@ input.error{border: 1px solid #a03333 !important}
  	}
  	.sAbout .colLeft {
  		width: 99%;
+ 		background: none;
  	}
  	.sAbout .colLeft .leer_mas {
  			float: right;

@@ -73,6 +73,9 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->_helper->layout->disableLayout();  
     }
     
+    public function termsAction(){
+         
+    }
     
     
     public function rewardingMembersAction(){
