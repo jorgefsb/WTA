@@ -14,7 +14,8 @@ class Menber_LoginController extends Core_Controller_ActionMenber
                 if($entityMenber->autentificate(
                         $loginForm->getElement('login')->getValue(),
                         $loginForm->getElement('password')->getValue())) {
-                $this->getNavigationMenber();    
+                $this->getNavigationMenber();  
+                $this->getMessenger()->info('Login Correct');
                 $this->_redirect('/menber/dashboard');
                 }
             }

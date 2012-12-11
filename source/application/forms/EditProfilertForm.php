@@ -38,14 +38,16 @@ class Application_Form_EditProfilertForm extends Core_Form {
 
         $this->addElement(new Zend_Form_Element_Password('password',
                         array(
-                            'label' => 'Password '
+                            'label' => 'Password ',
+                            'validators' => array(
+                                new Zend_Validate_StringLength(array('min'=>8)))
                 )));
-        
-        
         $this->addElement(new Zend_Form_Element_Password('confirmPassword',
                         array(
                             'label' => 'Comfirm Password ',
-                            'validators' => array(new Zend_Validate_Identical())
+                            'validators' => array(
+                                new Zend_Validate_Identical(),
+                                new Zend_Validate_StringLength(array('min'=>8)))
                 )));
         
         $this->addElement(new Zend_Form_Element_Submit('Create Account',

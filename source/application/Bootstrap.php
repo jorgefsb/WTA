@@ -55,16 +55,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
     }
 
-    public function _initTranslate() {
-        $translator = new Zend_Translate(
-                        Zend_Translate::AN_ARRAY,
-                        APPLICATION_PATH . '/configs/languages/',
-                        'es',
-                        array('scan' => Zend_Translate::LOCALE_DIRECTORY)
-        );
-
-        Zend_Validate_Abstract::setDefaultTranslator($translator);
-    }
+//    public function _initTranslate() {
+//        $translator = new Zend_Translate(
+//                        Zend_Translate::AN_ARRAY,
+//                        APPLICATION_PATH . '/configs/languages/',
+//                        'es',
+//                        array('scan' => Zend_Translate::LOCALE_DIRECTORY)
+//        );
+//
+//        Zend_Validate_Abstract::setDefaultTranslator($translator);
+//    }
 
 //    protected function _initZFDebug()
 //    {

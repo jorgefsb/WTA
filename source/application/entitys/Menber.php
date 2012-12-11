@@ -90,7 +90,14 @@ class Application_Entity_Menber extends Core_Entity {
 
     function update() {
         $modelMenber = new Application_Model_Menber();
-        return $modelMenber->update($this->setParamsDataBase(), $this->_id);
+
+        if ($modelMenber->update($this->setParamsDataBase(), $this->_id) !== FALSE) {
+            $this->_message = 'Registration was successful';
+            return true;
+        } else {
+            $this->_message = 'registration fails';
+            return false;
+        }
     }
 
     /*
@@ -255,9 +262,9 @@ class Application_Entity_Menber extends Core_Entity {
         return substr(strrchr($value, '$$'), 1);
     }
 
-    protected function getPassword($usuario) {
+    protected function getPassword($mail) {
         $modelMenber = new Application_Model_Menber();
-        return $modelMenber->getpassword($usuario);
+        return $modelMenber->getpassword($mail);
     }
 
     function getValueSegurityPassword($value) {
@@ -270,18 +277,47 @@ class Application_Entity_Menber extends Core_Entity {
         $modelMenber->update($data, $this->_id);
     }
 
-    function sendPasswordReset() {
+    function sendPasswordRecovery($mail) {
         $modelMenber = new Application_Model_Menber();
-        $mail = new Core_Mail();
-        $mail->addDestinatario($this->_mail);
-        $mail->setAsunto('Password Reset');
-        $mensaje = '<b>Password Reset</b> <p>';
         $passwordTemp = $this->generaPasswordTemp();
-        $mensaje .= 'Password to reset it: ' . $passwordTemp;
-        $mail->setMensaje($mensaje);
-        $mail->send();
         $data['menbar_password_reset'] = $passwordTemp;
-        $modelMenber->update($data, $this->_id);
+        if ($modelMenber->insertPasswordReset($passwordTemp, $mail)) {
+            $objMail = new Core_Mail();
+            $objMail->addDestinatario($mail);
+            $objMail->setAsunto('Password Recovery');
+            $mensaje = '<b>Password Recovery</b> <p>';
+            $mensaje.= '<a href="' . BASE_URL . '/menber/recovery-account/confirm?id=' . $passwordTemp . '">link</a>';
+            $objMail->setMensaje($mensaje);
+            $objMail->send();
+            return true;
+        } else {
+            $this->_message = 'Email Not Found';
+            return false;
+        }
+    }
+
+    function passwordRecovery($token, $password) {
+        $modelMenber = new Application_Model_Menber();
+        if ($this->confirmTokenRecoveryAccount($token)) {
+            $data['menber_password'] = $this->encriptaPassword($password);
+            $data['menbar_password_reset'] = Null;
+            $modelMenber->update($data, $this->_id);
+            $this->_message = 'The password is reset correctly';
+            return TRUE;
+        }else{
+            $this->_message = 'Registration fails';
+            return FALSE;
+        }
+    }
+
+    function confirmTokenRecoveryAccount($token) {
+        $modelMenber = new Application_Model_Menber();
+        if ($id = $modelMenber->isTokenPasswordReset($token)) {
+            $this->identify($id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

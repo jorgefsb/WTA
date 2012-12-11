@@ -7,6 +7,7 @@ class Application_Model_Menber extends Core_Model {
     public function __construct() {
         $this->_tableMenber = new Application_Model_DbTable_Menber();
     }
+
     /**
      * metodo getMenber(), devuelve todos los datos de un Menber
      * @param $idMenber    id de la Menber  
@@ -20,6 +21,7 @@ class Application_Model_Menber extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
+
     /**
      * metodo getMenber(), devuelve todos los datos de un Menber
      * @param $idMenber    id de la Menber  
@@ -33,6 +35,7 @@ class Application_Model_Menber extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
+
     /**
      * metodo insert(), registra los datos de la Menber 
      * @param array             $data   array con los datos de la Menber array('column'=>'valor')
@@ -45,13 +48,13 @@ class Application_Model_Menber extends Core_Model {
             return false;
         }
     }
-     /**
+
+    /**
      * metodo update(), registra los datos de la Menber 
      * @param array     $data           array con los datos de la Menber array('column'=>'valor')
      * @param int       $idMenber  id de la Menber
      * @return bolean   
      */
-
     public function update($data, $idMenber) {
         if ($idMenber != '') {
             $where = $this->_tableMenber->getAdapter()
@@ -61,22 +64,39 @@ class Application_Model_Menber extends Core_Model {
             return false;
         }
     }
-    
-    function getpassword($usuario){
+
+    function getpassword($usuario) {
         $sql = $this->_tableMenber->select()
-                ->from($this->_tableMenber->getName(),
-                        array('menber_password'))
-                ->where('menber_mail = ?',$usuario);
-       return $this->_tableMenber->getAdapter()->fetchOne($sql);
+                ->from($this->_tableMenber->getName(), array('menber_password'))
+                ->where('menber_mail = ?', $usuario);
+        return $this->_tableMenber->getAdapter()->fetchOne($sql);
     }
-    function getpasswordTemp($menberId){
+
+    /**
+     * metodo insert(), registra los datos de la Menber 
+     * @param array             $data   array con los datos de la Menber array('column'=>'valor')
+     * @return bolean or int    devuelve un entero en caso de que el registro sea exitos        
+     */
+    public function insertPasswordReset($passwordTemp, $mail) {
+        if ($passwordTemp != '' && $mail != '') {
+            $data['menbar_password_reset'] = $passwordTemp;
+            $where = $this->_tableMenber->getAdapter()
+                    ->quoteInto('menber_mail =?', $mail);
+            return $this->_tableMenber->update($data, $where);
+        } else {
+            return false;
+        }
+    }
+
+    public function isTokenPasswordReset($token) {
+        if ($token == '') {
+            return FALSE;
+        }
         $sql = $this->_tableMenber->select()
-                ->from($this->_tableMenber->getName(),
-                        array('menbar_password_reset'))
-                ->where('menber_id = ?',$menberId);
-       return $this->_tableMenber->getAdapter()->fetchOne($sql);
+                ->from($this->_tableMenber->getName(), array('menber_id'))
+                ->where('menbar_password_reset = ?', $token);
+        return $this->_tableMenber->getAdapter()->fetchOne($sql);
     }
-    
 
 }
 

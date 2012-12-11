@@ -18,14 +18,15 @@ class Menber_EditProfilerController extends Core_Controller_ActionMenber
        $form->populate($values);
        if($this->getRequest()->isPost()){
            if($form->isValid($this->getRequest()->getParams(),$this->_identity->menber_id)){
-               echo'registrado';
                $menber->setPropertie('_name', $form->getValue('firstName'));
                $menber->setPropertie('_lastName', $form->getValue('lastName'));
                $menber->setPropertie('_mail', $form->getValue('mail'));
                $menber->update();
-               if($form->getValue('password') != ''){
+               $this->getMessenger()->info($menber->getMessage());
+               if($form->getValue('password') != '') {
                    $menber->passwordReset($form->getValue('password'));
                }
+               $this->_redirect('/menber/edit-profiler');
            }
        }
        $this->view->form = $form;

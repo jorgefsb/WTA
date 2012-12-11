@@ -10,15 +10,14 @@
         <?php $this->headStyle() ?>       
     </head>
     <body>
-        <?php echo $this->navigation()->menu()->render(); ?>
-        <?php 
-        $class = new ReflectionClass($this->navigation()->breadcrumbs());
-        echo $this->navigation()
-                ->breadcrumbs()
-                ->setMinDepth(0)
-                ->setLinkLast(true)
-                ->setSeparator(" &raquo; " . PHP_EOL); 
-        ?>
+                <?php echo $this->getMessegerAdmin(); ?>
+                <?php echo $this->navigation()->menu()->render(); ?>
+                <?php echo $this->navigation()
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setLinkLast(true)
+                        ->setSeparator(" &raquo; " . PHP_EOL); 
+                ?>
                 <?php echo $this->layout()->content ?>
 
     </body>
