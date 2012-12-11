@@ -1,7 +1,7 @@
 /* Font */
 @font-face { font-family: Banda; src: url('banda.otf'); } @font-face { font-family: Banda; font-weight: bold; src: url('Banda-Bold.otf'); }
 
-html, body{background: #000; padding: 0px}
+html, body{background: #0c0c0c; padding: 0px}
 
 .navbar-inverse  .navbar-inner{margin-left: 0; background: #0c0c0c; background: rgba(11, 11, 11, .8);  border: 0px; filter: none;}
 .navbar-inner{padding: 0px;}
@@ -322,8 +322,10 @@ input.error{border: 1px solid #a03333 !important}
     
      #contentBody.boutique .imgProd{width: 55%; }
      #contentBody.boutique .info {width: 40%; }
-    
+
      .aWraper .aBack > div > div > div > div {    font-size:20px;    }
+     .aWraper .aBack > div{width: 62%;}
+     .aWraper .aBack #image_mujer{vertical-align: bottom;}
      
 }
 
@@ -365,8 +367,28 @@ input.error{border: 1px solid #a03333 !important}
      #signin > div{width: 300px; display: block; }
      
      
-    .wLight{width:513px;}
-    .wContact > div:first-child{ width:40%}
+     .wLight{width:513px;}
+     .wContact > div:first-child{ width:40%}
+
+     .aWraper .aBack > div{width: 62%;}
+     .aWraper .aBack > div{
+         width: 61%;
+     }
+     .aWraper .aBack .torres_float{
+         vertical-align: top;
+     }
+
+     .aWraper .aBack #image_mujer{
+         vertical-align: bottom;
+     }
+     .aWraper .aBack > div > div:first-child{
+
+         padding-top: 0px;
+     }
+     .aWraper .aBack > div.secondCol {
+         padding-top: 6%;
+     }
+
 
     
 }
@@ -401,6 +423,22 @@ input.error{border: 1px solid #a03333 !important}
     .sAbout div{ display: inline-block;  }
     .wLight{width:295px;}
     .sAbout .colLeft > div { margin: 0px auto auto 0px;}
+    
+    
+    .aWraper .aBack > div{
+    	
+    	 width: 100%;
+    }
+     .aWraper .aBack #image_mujer{
+     	  width: 100%;
+ 	 }
+ 	.aWraper .aBack > div > div > div > div{
+    	left:0px;
+    }
+
+   .aWraper .aBack .torres_float{
+   	 vertical-align: top;
+   	}
     
 }
 
@@ -453,7 +491,44 @@ input.error{border: 1px solid #a03333 !important}
      #signin input[type=text], #signin input[type=password]{ display: block; width: 90%;}
     
     
-    .aWraper .aBack > div:first-child {    width: 30%;}
+    
+    .aWraper .aBack #image_mujer{
+    	 width: 100%;
+
+    }
+    .aWraper .aBack > div.secondCol {
+     	width: 100%;
+     	padding-top:5%;
+
+    }
+    .aWraper .aBack .torres_float{
+   
+    	 width:100%;
+    }
+    .aWraper .aBack > div > div > div > div{
+    	left:0px;
+    }
+    .aWraper .aBack > div > div > div:first-child{
+    	margin-bottom: 23px !important;
+    }
+    .aWraper .aBack > div > div:first-child{
+    		
+    		padding-top: 0px;
+
+    }
+   /* .aWraper .aBack > div:first-child {    width:100%;  }*/
     .aWraper .aBack > div {    width:66%;}
+ 	.sAbout > div {
+ 		width: 100%;
+ 	}
+ 	.sAbout .colLeft {
+ 		width: 99%;
+ 	}
+ 	.sAbout .colLeft .leer_mas {
+ 			float: right;
+    		
+    		margin: 0px;
+    		display: block;
+    }
     
 }

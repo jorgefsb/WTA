@@ -36,7 +36,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function cartAction(){
         $this->_helper->layout->disableLayout();
         
-        $this->view->nprod = $this->_session->count;
+        $this->view->nprod = $this->_session->count;    
         
     }
     
@@ -73,6 +73,11 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->_helper->layout->disableLayout();  
     }
     
+    
+    
+    public function rewardingMembersAction(){
+
+    }
     
     
 }

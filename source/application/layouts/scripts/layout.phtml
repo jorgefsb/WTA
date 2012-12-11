@@ -15,6 +15,7 @@
         <link href="<?php echo STATIC_URL . '/front/'; ?>css/bgstretcher.css" rel="stylesheet">
 
         <link href="<?php echo STATIC_URL . '/front/'; ?>css/wta.css" rel="stylesheet">
+        <link href="/static/front/css/static.css"  rel="stylesheet" />
 
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>bootstrap/js/bootstrap.min.js"></script>
@@ -37,7 +38,7 @@
         <div class="container-fluid"> 
 
             <div id="header">
-                <img src="<?php echo STATIC_URL?>/front/images/wta-small.png" id="logo-small" />
+                <a href="/" id="logo-small" ><img src="<?php echo STATIC_URL?>/front/images/wta-small.png"  /></a>
                 <div class="navbar navbar-inverse"> <!-- MENU  -->
                     <div class="navbar-inner">
 
@@ -50,7 +51,7 @@
 
 
                         <div class="pull-right">
-                            <a class="btn liLight" href="/index/signin" >
+                            <a class="btn liLight" href="/sign-in" >
                                 <strong>Sign in</strong> or <strong>Become a member</strong>
                             </a>       
                             <a class="btn" id="btnShoppingCart">
@@ -62,7 +63,7 @@
 
                         <div class="nav-collapse collapse menu1">
                             <ul class="nav">
-                                <li><a href="/index/smallabout" title="" class="liLight">About WTA</a></li>
+                                <li><a href="/about-wta" title="" class="liLight">About WTA</a></li>
                                 <li><a href="" title="" >PRESS</a></li>
                                 <li><a href="" title="" >CALENDAR</a></li>                            
                             </ul>
@@ -155,12 +156,12 @@
 
                         <div class="nav-collapse collapse menu2">
                             <ul class="nav">
-                                <li><a href="" title="" >Home</a></li>
-                                <li><a href="" title="" >Affiliates</a></li>
-                                <li><a href="" title="" >Terms of service</a></li>
-                                <li><a href="" title="" >Rewarding our members</a></li>
-                                <li><a href="" title="" >Help</a></li>
-                                <li><a href="" title="" >Privacy</a></li>
+                                <li><a href="/" title="" >Home</a></li>
+                                <li><a href="/affiliates" title="" >Affiliates</a></li>
+                                <li><a href="/terms-of-service" title="" >Terms of service</a></li>
+                                <li><a href="/rewarding-our-members" title="" >Rewarding our members</a></li>
+                                <li><a href="/help" title="" >Help</a></li>
+                                <li><a href="/privacy" title="" >Privacy</a></li>
                             </ul>
 
                             <div class="pull-right">
