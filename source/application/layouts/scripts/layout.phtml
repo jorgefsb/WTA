@@ -24,9 +24,12 @@
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.mousewheel.js"></script> 
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.touchSwipe.js"></script> 
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.ba-throttle-debounce.js"></script>         
+        
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.tinyscrollbar.min.js"></script>         
 
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/wta.js"></script>
-
+        
+        <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     </head>
     <body>
         <div id="bgslider"></div> <!-- SLIDER -->
@@ -34,6 +37,7 @@
         <div class="container-fluid"> 
 
             <div id="header">
+                <img src="<?php echo STATIC_URL?>/front/images/wta-small.png" id="logo-small" />
                 <div class="navbar navbar-inverse"> <!-- MENU  -->
                     <div class="navbar-inner">
 
@@ -46,7 +50,7 @@
 
 
                         <div class="pull-right">
-                            <a class="btn" >
+                            <a class="btn liLight" href="/index/signin" >
                                 <strong>Sign in</strong> or <strong>Become a member</strong>
                             </a>       
                             <a class="btn" id="btnShoppingCart">
@@ -58,7 +62,7 @@
 
                         <div class="nav-collapse collapse menu1">
                             <ul class="nav">
-                                <li><a href="" title="" >About WTA</a></li>
+                                <li><a href="/index/smallabout" title="" class="liLight">About WTA</a></li>
                                 <li><a href="" title="" >PRESS</a></li>
                                 <li><a href="" title="" >CALENDAR</a></li>                            
                             </ul>
@@ -73,8 +77,13 @@
             <div id="shoppingCart"><!-- SHOPPING CART -->
 
                 <h3>Your shopping list</h3>                       
-                <div>
-                    
+                <div id="scrollbar1">
+                    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                        <div class="viewport">
+                            <div class="overview">
+                                
+                            </div>
+                        </div>
                 </div>
 <?php /*
                 <div class="prod"><!-- PRODUCT -->
@@ -161,7 +170,7 @@
                                 <a class="btn twitter">
                                 </a>
 
-                                <a class="contactus">
+                                <a class="contactus liLight" href="/index/contactus">
                                     Contact us
                                 </a>
 
@@ -179,5 +188,22 @@
 
         </div>               
 
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </body>
 </html>
