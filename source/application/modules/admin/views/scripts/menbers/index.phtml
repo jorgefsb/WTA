@@ -1,0 +1,57 @@
+<div class="box span12">
+    <div class="box-header well" data-original-title>
+        <h2>Actress List</h2>
+    </div>
+    <div class="box-content">
+        <form method="get" >
+            Search: <input type="text" id="search" name="search"/>
+        </form>
+<table class="table">
+    <thead>
+    <tr>
+        
+        <th>
+            Name
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            mail
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+    </thead>
+<?php foreach($this->listingMenber as $index): ?>
+    <tr>
+        
+        <td>
+            <?php echo $index['menber_name']; ?>
+        </td>
+        <td>
+            <?php if($index['menber_active'] == 1){ ?>
+            <samp class="label label-success">Active</samp>
+            <?php } else { ?>
+            <samp class="label">Inactive</samp>
+            <?php } ?>
+        </td>
+        <td>
+            <?php echo $index['menber_mail']; ?>
+        </td>
+        <td>
+            <?php if($index['menber_active'] == 1){ ?>
+            <a class="btn btn-info" href="/admin/menbers/inactive/id/<?php echo $index['menber_id']; ?>"><span class="icon-eye-close icon-white"></span> Inactive</a>
+            <?php } else { ?>
+            <a class="btn btn-info" href="/admin/menbers/active/id/<?php echo $index['menber_id']; ?>"><span class="icon-eye-open icon-white"></span> Active</a>
+            <?php } ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php
+        echo $this->paginationControl($this->listingMenber, 'Sliding', '/paginatorcontrol/menbers.phtml',array('search'=>$this->search));
+        ?>
+</div>
+</div>

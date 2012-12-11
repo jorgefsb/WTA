@@ -35,6 +35,38 @@ class Application_Model_Menber extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
+    /**
+     * metodo getMenber(), devuelve todos los datos de un Menber
+     * @param $idMenber    id de la Menber  
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     */
+    function getMenbers() {
+        $smt = $this->_tableMenber->select()
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+    /**
+     * metodo getMenber(), devuelve todos los datos de un Menber
+     * @param $idMenber    id de la Menber  
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     */
+    function searchMenber($value) {
+        $smt = $this->_tableMenber->select();
+        if ($value!='') {
+            $where = $this->_tableMenber->getAdapter()->quoteInto('menber_name like ?', '%'.$value.'%');
+            $smt->orWhere($where);
+            $where = $this->_tableMenber->getAdapter()->quoteInto('menber_mail like ?', '%'.$value.'%');
+            $smt->orWhere($where);
+            $where = $this->_tableMenber->getAdapter()->quoteInto('menber_last_name like ?', '%'.$value.'%');
+            $smt->orWhere($where);
+        }
+        $smt = $smt->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
 
     /**
      * metodo insert(), registra los datos de la Menber 

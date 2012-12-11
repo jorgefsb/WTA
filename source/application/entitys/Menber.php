@@ -304,7 +304,7 @@ class Application_Entity_Menber extends Core_Entity {
             $modelMenber->update($data, $this->_id);
             $this->_message = 'The password is reset correctly';
             return TRUE;
-        }else{
+        } else {
             $this->_message = 'Registration fails';
             return FALSE;
         }
@@ -318,6 +318,27 @@ class Application_Entity_Menber extends Core_Entity {
         } else {
             return false;
         }
+    }
+
+    static function listing() {
+        $modelMenber = new Application_Model_Menber();
+        return $modelMenber->getMenbers();
+    }
+    static function searchMenber($value) {
+        $modelMenber = new Application_Model_Menber();
+        return $modelMenber->searchMenber($value);
+    }
+
+    function active() {
+        $modelMenber = new Application_Model_Menber();
+        $data['menber_active'] = '1';
+        return $modelMenber->update($data, $this->_id);
+    }
+
+    function inactive() {
+        $modelMenber = new Application_Model_Menber();
+        $data['menber_active'] = '0';
+        return $modelMenber->update($data, $this->_id);
     }
 
 }
