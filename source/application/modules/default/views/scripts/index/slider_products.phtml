@@ -1,3 +1,10 @@
+<?php
+
+    $_products = $this->data; 
+    $_urlBase = $this->url_base; 
+
+?>
+
 <div id="slider_products"><!-- CONTENT -->
 
             <div class="bar">
@@ -14,7 +21,24 @@
         </div>
         <div id="slider-div">
             <ul id="slider">
-                <li>
+                <?php if( !empty($_products) ): ?>
+                    <?php foreach($_products as $product): ?>
+                        <li>
+                            <a href="<?php echo $_urlBase. 
+                                                                    (empty($this->category) ? '' : urlencode(strtolower($product[$this->category])).'/')
+                                                                    .$product['product_slug'] ?>">
+                                <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
+                            </a>
+                            <div>
+                                <?php echo $product['product_code'] ? 'Item # '.$product['product_code'] : '' ; ?> 
+                                <strong><?php echo $product['product_name']; ?></strong>
+                                <span><?php echo $product['designer_name'] . ' - ' . $product['collection_type_name']; ?>  </span>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                
+                <!--li>
                     <a href="">
                         <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
                         <div>
@@ -94,7 +118,7 @@
                             <span>LUV AJ - Oxidized brass detailing on a shiny </span>
                         </div>
                     </a>
-                </li>
+                </li -->
             </ul>
             <a id="prev2" class="prev" href="#"></a>
             <a id="next2" class="next" href="#"></a>

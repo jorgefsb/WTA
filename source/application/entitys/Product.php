@@ -313,5 +313,67 @@ class Application_Entity_Product extends Core_Entity {
         return $image->listingImage(
                         Application_Entity_Image::TIPE_IMAGE_PRODUCT, $this->_id);
     }
+        
+    function designersWithTypes(){
+        $_product = new Application_Model_Product();
+        $res = $_product->designersWithTypes();
+        $result = array();
+        foreach($res as $row){
+            $result[$row['designer_name']][] = $row['design_type_name'];
+        }
+        return $result;
+    }    
+    
+    function collectionsTypesAvailables(){
+        $_product = new Application_Model_Product();
+        $res = $_product->collectionsTypesAvailables();
+        return $res;
+    }
+    
+    
+    function boutiquesAvailables(){
+        $_product = new Application_Model_Product();
+        $res = $_product->boutiquesAvailables();
+        return $res;
+    }
+    
+    
+    function listingLimitedQuantity(){
+        $_product = new Application_Model_Product();
+        $res = $_product->listingLimitedQuantity();
+        return $res;
+    }
+    
+    function getProductsByDesignType($category){
+        $_product = new Application_Model_Product();
+        if( !empty($category)){
+            $res = $_product->listingSimple(array('dt.design_type_name = ?'=>$category));
+        }else{
+            $res = $_product->listingSimple();
+        }
+        return $res;
+        
+    }
+    
+    
+    function getProductsByCollectionType($category){
+        $_product = new Application_Model_Product();
+        if( !empty($category)){
+            $res = $_product->listingSimple(array('ct.collection_type_name = ?'=>$category));
+        }else{
+            $res = $_product->listingSimple();
+        }
+        return $res;
+        
+    }
+    
+    
+    
+    function getProductsLimitedQuantity(){
+        $_product = new Application_Model_Product();
+        $res = $_product->listingSimple(array('product_limited_quantity = ?'=>1, '(product_cant_limited_quantity-product_cant_buy) > ?'=> 0));
+        return $res;
+        
+    }
 
 }

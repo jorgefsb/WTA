@@ -202,6 +202,155 @@ class Application_Model_Product extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
+    
+    
+    /*
+     * metodo listingWithTypesAssoc(), regresa el listado de diseñadores con los tipos de diseño de los productos relacionados
+     * 
+     * @param 
+     *  @return array
+     */
+     public function designersWithTypes() {        
+         
+        $smt = $this->_tableProduct->getAdapter()
+                ->select()
+                ->from(
+                        array('pr' => $this->_tableProduct->getName()), '')
+                ->joinInner(array('de'=>$this->_tableDesigner->getName() ), 'pr.product_designer = de.designer_id', 'de.designer_name')
+                ->joinInner(array('det'=>$this->_tableDesignerType->getName() ), 'pr.product_design_type = det.design_type_id', 'det.design_type_name')
+                ->where('pr.product_public = 1 and pr.product_delete <> 1')
+                ->group(array('product_designer', 'product_design_type'))
+                ->order(array('designer_name','design_type_name'))
+                ->query();
+        
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+                
+        return $result;
+        
+    }
+    
+    
+    
+    /*
+     * metodo collectionsTypesAvailables(), regresa el listado de los tipos de colecciones disponibles
+     * 
+     * @param 
+     *  @return array
+     */
+     public function collectionsTypesAvailables() {        
+
+        $smt = $this->_tableProduct->getAdapter()
+                ->select()
+                ->from(
+                        array('pr' => $this->_tableProduct->getName()), '')
+                ->joinInner(array('cot'=>$this->_tableCollectionType->getName() ), 'pr.product_collection_type = cot.collection_type_id', 'cot.collection_type_name')
+                ->where('pr.product_public = 1 and pr.product_delete <> 1')
+                ->group('collection_type_name')
+                ->order(array('collection_type_name'))
+                ->query();
+        
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+                
+        return $result;
+        
+    }
+    
+    
+    /*
+     * metodo boutiquesAvailables(), regresa el listado de las Boutiques disponibles
+     * 
+     * @param 
+     *  @return array
+     */
+    public function boutiquesAvailables(){
+        $smt = $this->_tableProductActress->getAdapter()
+                ->select()
+                ->from(
+                        array('pra' => $this->_tableProductActress->getName()), '')
+                ->joinInner(array('pro'=>$this->_tableProduct->getName()), 'pra.product_actress_product_id = pro.product_id', '')
+                ->joinInner(array('bou'=>$this->_tableActress->getName() ), 'pra.product_actress_actress_id = bou.actress_id', 'bou.actress_name')
+                ->where('pro.product_public = 1 and pro.product_delete <> 1')
+                ->group('actress_name')
+                ->order(array('actress_name'))
+                ->query();
+        
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+                
+        return $result;
+    }
+    
+    
+    /*
+     * metodo listingLimitedQuantity(), regresa el listado de los productos limitados
+     * 
+     * @param 
+     *  @return array
+     */
+    function listingLimitedQuantity() {
+        $smt = $this->_tableProduct->getAdapter()
+                ->select()
+                ->from(
+                        array('pro'=>$this->_tableProduct->getName()), array('product_id', 'product_name', 'product_code', 'product_slug', 'product_cant_limited_quantity', 'product_cant_buy'))
+                ->where('product_public = 1 and product_delete <> 1  and product_limited_quantity = 1 and (product_cant_limited_quantity-product_cant_buy) > 0 ')
+                ->order('product_name')
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+    
+    
+    /*
+     * metodo listingSimple() regresa los productos activos por datos basico
+     * 
+     * @param array $filtros arreglo associativo con las condiciones array($text => $value)
+     *  @return array
+     */
+    public function listingSimple($filtros=array()) {
+
+        $where = array();
+        $where[] = 'product_delete <> 1';
+        if( !empty($filtros)){
+            foreach($filtros as $filtro=>$value){
+                $where[] = $this->_tableProduct->getAdapter()->quoteInto($filtro, $value);
+            }
+        }
+        //print_r($where);die();
+        $smt = $this->_tableProduct
+                ->getAdapter()
+                ->select()
+                ->from(
+                        array('pr' => $this->_tableProduct->getName()), array(
+                    'pr.product_id',
+                    'pr.product_name',
+                    'pr.product_code',
+                    'pr.product_slug',
+                    'ct.collection_type_name',
+                    'dt.design_type_name',
+                    'd.designer_name',
+                    'product_actress' => new Zend_Db_Expr("GROUP_CONCAT(a.actress_name SEPARATOR ', ')"),
+                        )
+                )
+                ->joinLeft(array('pra' => $this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id', '')
+                ->joinLeft(array('a' => $this->_tableActress->getName()), 'a.actress_id=pra.product_actress_actress_id', '')
+                ->joinLeft(array('dt' => $this->_tableDesignerType->getName()), 'pr.product_design_type=dt.design_type_id', '')
+                ->joinLeft(array('d' => $this->_tableDesigner->getName()), 'pr.product_designer=d.designer_id', '')
+                ->joinLeft(array('ct' => $this->_tableCollectionType->getName()), 'pr.product_collection_type=ct.collection_type_id', '')
+
+                ->order('product_order asc')
+                ->where(implode(' and ', $where))
+                ->group('pr.product_id');
+        $smt = $smt->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+
 
 }
+
+
 

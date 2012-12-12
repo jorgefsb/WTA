@@ -1,8 +1,12 @@
 $(document).ready(function(){
     WTA.shoppingCart();
     WTA.addToCart();
-    WTA.lightbox();
+    WTA.lightbox();    
 });
+
+$(window).load(function(){
+    WTA.choose_category();
+})
 
 var WTA = (function(){
     var that = this;
@@ -296,6 +300,17 @@ var WTA = (function(){
     }
     /********************************* SLIDER PRODUCTOS *************************************/
     
+    this.choose_category = function(){
+        var $choosecat = $('#choosecat');
+        if($choosecat .length){
+            $choosecat .change(function(){
+                var url = $choosecat.val();
+                if(url){
+                    window.location.href = url;
+                }
+            });
+        }
+    }
     
     
     
@@ -313,14 +328,14 @@ jQuery(function($){
                     if (!($(e).data('convert') == 'no')) {
                             $(e).hide().wrap('<div class="btn-group" id="select-group-' + i + '" />');
                             var select = $('#select-group-' + i);
-                            var current = ($(e).val()) ? $(e).val(): '&nbsp;';
+                            var current = ($(e).val()) ? $(e).find('option:selected').text(): '&nbsp;';
                             select.html('<input type="hidden" value="' + $(e).val() + '" name="' + $(e).attr('name') + '" id="' + $(e).attr('id') + '" class="' + $(e).attr('class') + '" /><a class="btn" href="javascript:;">' + current + '</a><a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="caret"></span></a><ul class="dropdown-menu"></ul>');
                             $(e).find('option').each(function(o,q) {
                                     select.find('.dropdown-menu').append('<li><a href="javascript:;" data-value="' + $(q).attr('value') + '">' + $(q).text() + '</a></li>');
                                     if ($(q).attr('selected')) select.find('.dropdown-menu li:eq(' + o + ')').click();
                             });
                             select.find('.dropdown-menu a').click(function() {
-                                    select.find('input[type=hidden]').val($(this).data('value')).change();
+                                    select.find('input[type=hidden]').val($(this).data('value')).trigger('change');
                                     select.find('.btn:eq(0)').text($(this).text());
                             });
                     }

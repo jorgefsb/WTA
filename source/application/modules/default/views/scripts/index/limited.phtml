@@ -1,6 +1,6 @@
 <?php 
     # Imprimimos el menu Change Section
-    echo $this->partial('index/change_section.phtml', array('section'=>'Limited quantity'));
+    echo $this->partial('index/change_section.phtml', array('section'=>'Limited quantity', 'menu'=>$this->menu));
 ?>
 
 <div  id="contentBody" class="exclusive" >
@@ -10,9 +10,9 @@
     </div>
     
     <div class="info">
-        <h1>ABELLONA</h1>
-        <h3><span class="linea-degr-left"></span>Article #29<span class="linea-degr-right"></span></h3>
-        <h2>T. CYIA</h2>
+        <h1><?php echo $this->product['_name']; ?></h1>
+        <h3><span class="linea-degr-left"></span>Article #<?php echo $this->product['_code']; ?><span class="linea-degr-right"></span></h3>
+        <h2><?php echo $this->product['designer']['_name']; ?></h2>
         
         <a href="" class="details">Details</a> /
         <a href="" class="details">SEE HOW MANY ITEMS ARE LEFT?</a>
@@ -26,38 +26,46 @@
             <div class="precios">
                 <div>
                     <span>Guest price</span>
-                    <strong class="inactivo">$699.00</strong>
+                    <strong class="inactivo">$<?php echo number_format($this->product['_price'], 2); ?></strong>
                 </div>
 
 
                 <div >
                     <span>member price</span>
-                    <strong class="activo">$475.00</strong>
+                    <strong class="activo">$<?php echo number_format($this->product['_priceMenber'],2); ?></strong>
                 </div>
             </div>
             
         </div>
         
         <div class="btns-options" >
-            <a href="" class="btn addToCart" data-code="45">
+            <a href="" class="btn addToCart" data-code="<?php echo $this->product['_id']; ?>">
                 Add to my car
             </a>
             <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwetheadorned.com%2F&media=http%3A%2F%2Fdev.wetheadorned.com%2Fstatic%2Ffront%2Fimages%2FR_25.png" class="pin-it-button btn" count-layout="horizontal">Pin It</a>
         </div>
     </div>
     
-    <a href="" class="prev3"></a>
-    <a href="" class="next3"></a>
+    
+    <a href="<?php echo $this->urlBase.$this->prev; ?>" class="prev3"></a>
+    <a href="<?php echo $this->urlBase.$this->next; ?>" class="next3"></a>
     
 </div>
 <?php 
     # Imprimimos el menu Change Section
-    echo $this->partial('index/slider_products.phtml', array('section'=>'Exclusive Collections', 'data'=>$this->products, 'title'=>'SPRING SUMMER COLLECTION'));
+    //echo $this->partial('index/slider_products.phtml', array('section'=>'Limited Quantity Items', 'data'=>$this->products, 'title'=>'SPRING SUMMER COLLECTION'));
+    echo $this->partial('index/slider_products.phtml', 
+                                    array('section'=>'Limited Quantity Items', 
+                                            'data'=>$this->sliderProducts, 
+                                            'url_base'=>$this->urlBase, 
+                                            'title'=>'Limited Quantity Items'
+                                            ));
+
 ?>
 
 <script>
     //WTA.Home();
     
-    WTA.Exlusive();
+    WTA.Exclusive();
     WTA.zoom('.imgProd');
 </script>
