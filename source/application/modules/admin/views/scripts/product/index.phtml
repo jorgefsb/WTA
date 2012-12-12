@@ -25,6 +25,15 @@
                         Price
                     </th>
                     <th>
+                        Designer
+                    </th>
+                    <th>
+                        Designer Type
+                    </th>
+                    <th>
+                        Collection Type
+                    </th>
+                    <th>
               Limited Quality
                     </th>
                     
@@ -35,6 +44,7 @@
             </thead>
             <?php
             $arrayLimited = array('No', 'Yes');
+            
             foreach ($this->listingProduct as $index):
                 ?>
                 <tr>
@@ -55,13 +65,27 @@
     <?php echo $index['product_actress']; ?>
                     </td>
                     <td>
-    <?php echo $index['product_price']; ?>
+                        Guest Price : <?php echo $index['product_price']; ?>
+                        <p></p>
+                        Member Price : <?php echo $index['product_price_menber']; ?>
                     </td>
+                    
+                    <td>
+    <?php echo $index['designer_name']; ?>
+                    </td>
+                    <td>
+    <?php echo $index['design_type_name']; ?>
+                    </td>
+                    <td>
+    <?php echo $index['collection_type_name']; ?>
+                    </td>
+                    
+                    
                     <td>
     <?php echo $arrayLimited[$index['product_limited_quantity']].'<br>'; 
     if($index['product_limited_quantity']){
         echo 'Amount : '.(int)$index['product_cant_limited_quantity'].'<br>';
-        echo 'Buy : '.(int)$index['product_cant_buy'];
+        echo 'Purchased : '.(int)$index['product_cant_buy'];
     }
     
     ?>

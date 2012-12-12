@@ -19,7 +19,7 @@ class Application_Form_CreateActressFrom extends Core_Form {
                 ->setDestination(APPLICATION_PATH.
                         '/../public/dinamic/temp/');
         $element->addValidator('Count', false, 1);
-        $element->addValidator('Size', false, 502400);
+        //$element->addValidator('Size', false, 502400);
         $element->addValidator('Extension', false, 'jpg,png');
         $this->addElement($element);
         
@@ -35,7 +35,7 @@ class Application_Form_CreateActressFrom extends Core_Form {
                     )));
 
 
-        $this->addElement(new Zend_Form_Element_Submit('Create Actress',
+        $this->addElement(new Zend_Form_Element_Submit('Save',
                         array('attribs' => array(
                                 'class' => 'submit-button'
                         ))));

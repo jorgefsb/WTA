@@ -1,9 +1,9 @@
 <div class="box span12">
     <div class="box-header well" data-original-title>
-        <h2>Actress List</h2>
+        <h2>Celebrity List</h2>
     </div>
     <div class="box-content">
-<a class="btn btn-small btn-primary" href="/admin/actress/new">New Actress</a>
+<a class="btn btn-small btn-primary" href="/admin/actress/new">New Celebrity</a>
 <table class="table">
     <thead>
     <tr>
@@ -43,13 +43,14 @@
            <img width="50" height="50" src="<?php echo DINAMIC_URL . '/celebrity/mini/' . $index['actress_img']; ?>"/>
         </td>
         <td>
-            <a class="btn btn-info" href="/admin/actress/up/id/<?php echo $index['actress_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>
-            <a class="btn btn-info" href="/admin/actress/down/id/<?php echo $index['actress_id']; ?>"><span class="icon-arrow-down icon-white"></span> Down</a>
-            <a class="btn btn-info" href="/admin/actress/edit/id/<?php echo $index['actress_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+            <a class="btn btn-mini btn-info" href="/admin/actress/up/id/<?php echo $index['actress_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>
+            <a class="btn btn-mini btn-info" href="/admin/actress/down/id/<?php echo $index['actress_id']; ?>"><span class="icon-arrow-down icon-white"></span> Down</a>
+            <a class="btn btn-mini btn-info" href="/admin/actress/edit/id/<?php echo $index['actress_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+<!--            <a class="btn btn-mini btn-info" href="/admin/actress/del/id/<?php echo $index['actress_id']; ?>"><span class="icon-trash icon-white"></span> Del</a>-->
             <?php if($index['actress_public'] == 1){ ?>
-            <a class="btn btn-info" href="/admin/actress/unpublish/id/<?php echo $index['actress_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublis</a>
+            <a class="btn btn-mini btn-info" href="/admin/actress/unpublish/id/<?php echo $index['actress_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublish</a>
             <?php } else { ?>
-            <a class="btn btn-info" href="/admin/actress/publish/id/<?php echo $index['actress_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
+            <a class="btn btn-mini btn-info" href="/admin/actress/publish/id/<?php echo $index['actress_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
             <?php } ?>
         </td>
     </tr>

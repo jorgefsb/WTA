@@ -107,11 +107,24 @@ class Application_Entity_Actress extends Core_Entity {
         $this->update();
         $this->_message = 'satisfactory record';
     }
+    function del($idActress){
+//        $modelProducAcctres = new Application_Model_ProductActress();
+//        $productActress = $modelProducAcctres->getAllProducActress($idActress);
+//        foreach ($productActress as $index) {
+//            unlink($filename);
+//        }
+//        
+//        $modelProducAcctres->deleteActress($idActress);
+//        $this->_message = 'satisfactory record';
+    }
     
     static function listingActress(){
         $modelActress = new Application_Model_Actress();
         return $modelActress->listing();
-        
+    }
+    static function listingActressPublicNotProduct($idProduct){
+        $modelActress = new Application_Model_Actress();
+        return $modelActress->listingPublicNotProduct($idProduct);
     }
     
     private function getSigOrder(){

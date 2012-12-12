@@ -38,7 +38,7 @@
                         <?php if ($index['product_actress_active'] == 1) { ?>
                             <samp class="label label-success">Public</samp>
                         <?php } else { ?>
-                            <samp class="label">Inactive</samp>
+                            <samp class="label">UnPublic</samp>
     <?php } ?>
                     </td>
                     
@@ -51,7 +51,7 @@
                     <td>
                         
                         <?php if ($index['product_actress_active'] == 1) { ?>
-                            <a class="btn btn-mini btn-info" href="/admin/product/unpublish-celebrity/product/<?php echo $this->product; ?>/id/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublis</a>
+                            <a class="btn btn-mini btn-info" href="/admin/product/unpublish-celebrity/product/<?php echo $this->product; ?>/id/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublish</a>
                         <?php } else { ?>
                             <a class="btn btn-mini btn-info" href="/admin/product/publish-celebrity/product/<?php echo $this->product; ?>/id/<?php echo $index['product_actress_actress_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
                         <?php } ?>
