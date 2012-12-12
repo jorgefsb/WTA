@@ -120,6 +120,13 @@ class Admin_ActressController extends Core_Controller_ActionAdmin
         $this->_flashMessenger->addMessage($actress->getMessage());
         $this->_redirect('/admin/actress');
     }
+    public function delAction() {
+        $actress = new Application_Entity_Actress();
+        $actress->identify($this->getRequest()->getParam('id'));
+        $actress->del();
+        $this->_flashMessenger->addMessage($actress->getMessage());
+        $this->_redirect('/admin/actress');
+    }
     
     
 }

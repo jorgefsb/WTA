@@ -26,7 +26,7 @@ class Application_Form_EditProductCelebrityFrom extends Core_Form {
                 ->setDestination(APPLICATION_PATH.
                         '/../public/dinamic/temp/');
         $element->addValidator('Count', false, 1);
-        $element->addValidator('Size', false, 502400);
+       // $element->addValidator('Size', false, 502400);
         $element->addValidator('Extension', false, 'jpg,png');
         $this->addElement($element);
         $this->addElement(new Zend_Form_Element_Checkbox('active',

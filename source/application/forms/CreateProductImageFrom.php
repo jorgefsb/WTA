@@ -17,7 +17,7 @@ class Application_Form_CreateProductImageFrom extends Core_Form {
                         '/../public/dinamic/temp/');
         $element->addValidator('Count', false, 1);
         $element->setRequired(true);
-        $element->addValidator('Size', false, 502400);
+       // $element->addValidator('Size', false, 502400);
         $element->addValidator('Extension', false, 'jpg,png');
         $this->addElement($element);
         $this->addElement(new Zend_Form_Element_Submit('Send',

@@ -6,12 +6,18 @@ class Application_Model_Product extends Core_Model {
     protected $_tableActress;
     protected $_tableProductActress;
     protected $_tableProductSize;
+    protected $_tableDesignerType;
+    protected $_tableDesigner;
+    protected $_tableCollectionType;
 
     public function __construct() {
         $this->_tableProduct = new Application_Model_DbTable_Product();
         $this->_tableActress = new Application_Model_DbTable_Actress();
         $this->_tableProductActress = new Application_Model_DbTable_ProductActress();
         $this->_tableProductSize = new Application_Model_DbTable_ProductSize();
+        $this->_tableDesignerType = new Application_Model_DbTable_DesignType();
+        $this->_tableDesigner= new Application_Model_DbTable_Designer();
+        $this->_tableCollectionType = new Application_Model_DbTable_CollectionType();
     }
 
     /**
@@ -77,11 +83,18 @@ class Application_Model_Product extends Core_Model {
                     'pr.product_cant_buy',
                     'pr.product_create_date',
                     'pr.product_public',
+                    'ct.collection_type_name',
+                    'dt.design_type_name',
+                    'd.designer_name',
                     'product_actress' => new Zend_Db_Expr("GROUP_CONCAT(a.actress_name SEPARATOR ', ')"),
                         )
                 )
                 ->joinLeft(array('pra' => $this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id', '')
                 ->joinLeft(array('a' => $this->_tableActress->getName()), 'a.actress_id=pra.product_actress_actress_id', '')
+                ->joinLeft(array('dt' => $this->_tableDesignerType->getName()), 'pr.product_design_type=dt.design_type_id', '')
+                ->joinLeft(array('d' => $this->_tableDesigner->getName()), 'pr.product_designer=d.designer_id', '')
+                ->joinLeft(array('ct' => $this->_tableCollectionType->getName()), 'pr.product_collection_type=ct.collection_type_id', '')
+
                 ->order('product_order asc')
                 ->where('product_delete = 0')
                 ->group('pr.product_id');

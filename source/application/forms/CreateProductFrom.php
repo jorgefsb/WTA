@@ -50,13 +50,13 @@ class Application_Form_CreateProductFrom extends Core_Form {
         $this->addElement(new Zend_Form_Element_Textarea('description',
                         array(
                             'label' => 'Product Description',
-                            //'class'=>'cleditor',
+                            'class'=>'cleditor',
                 )));
         
         $this->addElement(new Zend_Form_Element_Textarea('descriptionDesigner',
                         array(
                             'label' => 'Designer Description',
-                           // 'class'=>'cleditor',
+                            'class'=>'cleditor',
                 )));
 
 
@@ -99,7 +99,7 @@ class Application_Form_CreateProductFrom extends Core_Form {
                             'label' => 'Amount Limited Quantity',
                                 'disabled'=>true
                 )));
-        $this->addElement(new Zend_Form_Element_Submit('Create Product',
+        $this->addElement(new Zend_Form_Element_Submit('Save',
                         array('attribs' => array(
                                 'class' => 'submit-button'
                         ))));

@@ -3,9 +3,11 @@
 class Application_Model_Actress extends Core_Model {
 
     protected $_tableActress;
+    protected $_tableProductActress;
 
     public function __construct() {
         $this->_tableActress = new Application_Model_DbTable_Actress();
+        $this->_tableProductActress = new Application_Model_DbTable_ProductActress();
     }
     /**
      * metodo getActress(), devuelve todos los datos de un Actress
@@ -93,6 +95,27 @@ class Application_Model_Actress extends Core_Model {
                 ->where('actress_order=?', $orden)
                 ->query();
         $result = $smt->fetch();
+        $smt->closeCursor();
+        return $result;
+    }
+    
+    public function listingPublicNotProduct($idProduct){
+        $subSelect = $this->_tableProductActress
+                ->select()
+                ->from($this->_tableProductActress->getName(),array('product_actress_actress_id'))
+                ->where('product_actress_product_id=?',$idProduct);
+        $smt = $this->_tableActress
+                ->getAdapter()
+                ->select()
+                ->from(array('a'=>$this->_tableActress->getName()),
+                        array(
+                            'a.actress_id',
+                            'a.actress_name',
+                            'a.actress_public',
+                            ))
+                ->where("actress_id NOT IN ? ", $subSelect);
+        $smt = $smt->query();
+        $result = $smt->fetchAll();
         $smt->closeCursor();
         return $result;
     }

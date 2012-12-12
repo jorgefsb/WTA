@@ -11,12 +11,13 @@ class Application_Model_ProductActress extends Core_Model {
         $this->_tableActress = new Application_Model_DbTable_Actress();
         $this->_tableProduct = new Application_Model_DbTable_Product();
     }
+
     /**
      * metodo getProductActress(), devuelve todos los datos de un ProductActress
      * @param $idProductActress    id de la ProductActress  
      * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
      */
-    function getProductActress($idProduct,$idActress) {
+    function getProductActress($idProduct, $idActress) {
         //print_r(func_get_args());
         $smt = $this->_tableProductActress->select()
                 ->where('product_actress_product_id =?', $idProduct)
@@ -26,6 +27,16 @@ class Application_Model_ProductActress extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
+    
+    function getAllProducActress($idActress) {
+        $smt = $this->_tableProductActress->select()
+                ->where('product_actress_actress_id =?', $idActress)
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+
     /**
      * metodo insert(), registra los datos de la ProductActress 
      * @param array             $data   array con los datos de la ProductActress array('column'=>'valor')
@@ -38,14 +49,14 @@ class Application_Model_ProductActress extends Core_Model {
             return false;
         }
     }
-     /**
+
+    /**
      * metodo update(), registra los datos de la ProductActress 
      * @param array     $data           array con los datos de la ProductActress array('column'=>'valor')
      * @param int       $idProductActress  id de la ProductActress
      * @return bolean   
      */
-
-    public function update($data, $idProduct,$idActress) {
+    public function update($data, $idProduct, $idActress) {
         if ($idProduct != '' && $idActress != '') {
             $where[] = $this->_tableProductActress->getAdapter()
                     ->quoteInto('product_actress_product_id =?', $idProduct);
@@ -56,12 +67,16 @@ class Application_Model_ProductActress extends Core_Model {
             return false;
         }
     }
-    
-    
-    
-    
-    
-    
+
+    public function deleteActress($idActress) {
+        if ($idActress != '') {
+            $where = $this->_tableProductActress->getAdapter()
+                    ->quoteInto('product_actress_actress_id =?', $idActress);
+            return $this->_tableProductActress->delete($where);
+        } else {
+            return FALSE;
+        }
+    }
 
 }
 

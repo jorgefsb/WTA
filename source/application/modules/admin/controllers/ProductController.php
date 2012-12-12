@@ -212,7 +212,7 @@ $this->view->headScript()->appendScript(
     public function addCelebrityAction() {
         $product = new Application_Entity_Product();
         $product->identify($this->getRequest()->getParam('product'));
-        $form = new Application_Form_CreateProductCelebrityFrom();
+        $form = new Application_Form_CreateProductCelebrityFrom('',$product->getPropertie('_id'));
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getParams())) {
@@ -379,6 +379,10 @@ $this->view->headScript()->appendScript(
         $product->unpublishCelebrity($this->getRequest()->getParam('id'));
         $this->_flashMessenger->addMessage($product->getMessage());
         $this->_redirect('/admin/product/celebrity/product/' . $product->getPropertie('_id'));
+    }
+    
+    public function deleteCelebrityAction(){
+        
     }
 
 }
