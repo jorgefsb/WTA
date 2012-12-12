@@ -241,9 +241,9 @@ class Application_Entity_Image extends Core_Entity {
             $fileSave = APPLICATION_PUBLIC . '/dinamic/' . $redimension['name'] . '/' . $this->_name;
             $filename = $this->_temp;
         }
-
+        
         $coreImage->load($filename);
-        $coreImage->resize($redimension['width'], $redimension['height'], 1);
+        $coreImage->resize($redimension['width'], $redimension['height']);
         $coreImage->save($fileSave);
     }
 
