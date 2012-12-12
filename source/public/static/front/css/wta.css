@@ -37,7 +37,7 @@ html, body{background: #0c0c0c; padding: 0px}
 #footer .contactus:hover {color: #FFF;}
 
 #footer blockquote{color: #FFF; border: 0px; text-align: center; font-size: 11px; margin-top: 10px;}
-
+#logo-small{position: absolute; z-index: 2000; top:2px; left: 50%; margin-left: -34px;}
 
 /* CONTENIDO */
 #contentBody{padding-top: 1px; min-height: 627px; /*background: rgba(255, 255, 255, .2);*/ text-align: center; position: relative; z-index: 20}
@@ -338,8 +338,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0d0d0', end
     
     .linea-degr-right, .linea-degr-left{width: 50px;}
     
-
-
+    #logo-small{left: 5px; margin-left: 0px; }
     .wLight{width:513px;}
     .wContact > div:first-child{ width:40%}
 
@@ -451,6 +450,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0d0d0', end
     
 }
 @media (max-width: 320px) {
+	 #logo-small{display: none;}
 	 .comming_soon {  width:278px !important;  }
 }
 

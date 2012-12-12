@@ -2,5 +2,6 @@ source/nbproject
 source/nbproject/*
 source/data/log
 source/data/cache
+source/application/configs/application.ini
 source/application/configs/private.ini
 
