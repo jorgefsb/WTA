@@ -64,6 +64,9 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function contactusAction(){
         $this->_helper->layout->disableLayout();        
     }
+    public function comingSoonAction(){
+        $this->_helper->layout->disableLayout();        
+    }
     
     public function signinAction(){
         $this->_helper->layout->disableLayout();  
@@ -74,7 +77,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
     }
     
     public function termsAction(){
-         
+
     }
     
     
