@@ -1,7 +1,7 @@
 /* Font */
 @font-face { font-family: Banda; src: url('banda.otf'); } @font-face { font-family: Banda; font-weight: bold; src: url('Banda-Bold.otf'); }
 
-html, body{background: #000; padding: 0px}
+html, body{background: #0c0c0c; padding: 0px}
 
 .navbar-inverse  .navbar-inner{margin-left: 0; background: #0c0c0c; background: rgba(11, 11, 11, .8);  border: 0px; filter: none;}
 .navbar-inner{padding: 0px;}
@@ -155,7 +155,7 @@ html, body{background: #000; padding: 0px}
 #scrollbar1 .disable{ display: none; }
 .noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
 
-                    
+
 
 
 .caret{border-top: 4px solid #FFF;}
@@ -267,7 +267,6 @@ input.error{border: 1px solid #a03333 !important}
 
 
 /* ########################################### */
-
 .wLight {width:618px; margin:auto;  position: relative; display: none;}
 .sAbout span{ color:#FFF;font-family:"Times New Roman", Times, serif}
 .sAbout span{ color: #FFF}
@@ -276,7 +275,7 @@ input.error{border: 1px solid #a03333 !important}
 .sAbout p{ color:#747474; }
 .sAbout p span:first-child { font-size: 20px;font-family:"Times New Roman", Times, serif; padding-bottom: 5px; border-bottom: solid 1px #222222   }
 
-.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(http://wta/static/front/images/pareja.png); height: 370px  }
+.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(../images/pareja.png); height: 370px  }
 
 .sAbout .colLeft a{ background-color:#121212; border-radius:5px; display: block; height:41px; line-height: 41px; text-align: center;  width:100px; color: #ff4f4f;}
 .sAbout{border: 10px solid rgb(100, 100, 100);	border: 10px solid rgba(254, 252, 254, 0.3);-moz-background-clip: padding;-webkit-background-clip: padding;background-clip: padding-box;}
@@ -292,39 +291,95 @@ input.error{border: 1px solid #a03333 !important}
 .aWraper .aBack{ width:100%; position: relative}
 .aWraper .aBack > div:first-child{ display: inline-block; width:35%;}
 .aWraper .aBack > div{ display: inline-block; width:  40%; vertical-align: top}
-.aWraper .aBack > div.secondCol {    margin-left: 2%;    position:relative;    padding-top: 16%;}
+.aWraper .aBack > div.secondCol {    margin-left: 2%;    position:relative;   padding-top: 10%;}
 .aWraper .aBack > div > div:first-child {    border-top: medium none #222222;    color: #FFFFFF;    margin-bottom: 35px;    padding-top: 8px;    font-family: "Times New Roman",Times,serif;}
 .aBack > div > div:first-child{}
 .aWraper .aBack > div > div > div:first-child{ margin-right:8%}
 .aWraper .aBack > div > div > div{ display: inline-block; width:45%; color:#696969 }
 .aWraper .aBack > div > div > div > div {    color: #FFFFFF;    font-family: "Times New Roman",Times,serif;    font-size: 30px;    left: -24px;    margin-bottom: 3px;    position: relative;}
 .aWraper .aBack > div > div > div > div span{color:#696969; font-style: italic}
-
-.aWraper img {  max-width:90%;}
+.aWraper .aBack .torres_float{ vertical-align:top;  }
 
 /* ########################################### */
 
+/*  SECCION  DE  COMING SOON */
+.comming_soon {    
+    color:#999;
+    min-height: 253px;
+    position: absolute;
+    background-color: black;
+    z-index: 1000;
+    padding: 10px;
+    border-radius: 10px;
+    width: 536px;
+    background: rgba(0,0,0,0.5);
+}
+
+.comming_soon .contenido{
+    background: #fff;
+    border-radius: 10px;
+    min-height: 245px;
+    background: #d0d0d0; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2QwZDBkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMzJSIgc3RvcC1jb2xvcj0iI2Y0ZjRmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iI2Y3ZjdmNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjY2NjY2MiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(left,  #d0d0d0 0%, #f4f4f4 33%, #f7f7f7 60%, #cccccc 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#d0d0d0), color-stop(33%,#f4f4f4), color-stop(60%,#f7f7f7), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #d0d0d0 0%,#f4f4f4 33%,#f7f7f7 60%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #d0d0d0 0%,#f4f4f4 33%,#f7f7f7 60%,#cccccc 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #d0d0d0 0%,#f4f4f4 33%,#f7f7f7 60%,#cccccc 100%); /* IE10+ */
+    background: linear-gradient(to right,  #d0d0d0 0%,#f4f4f4 33%,#f7f7f7 60%,#cccccc 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0d0d0', endColorstr='#cccccc',GradientType=1 ); /* IE6-8 */
+
+}
+.comming_soon .titulo{
+    font-size:44px;
+    text-align: center;
+    color:#353636;
+    position: relative;
+    top: 40px;
+}
+.comming_soon .contenido .subtitulo{
+    color:#c1c2c1;
+    display: block;
+    font-size:26px;
+    margin:15px  0px 10px 0px;
+}
+.comming_soon .contenido .leyenda{
+    text-align: center;
+    position: relative;
+    top: 64px;
+    color: #2d2d2d;
+
+    max-width: 390px;
+    margin:0px auto;
+}
+.comming_soon .closex{color: #8F8F8F;left: -7px;position: relative;text-align: right;top: 3px;z-index: 9999;cursor: pointer;}
+
+/* FIN DE SECCION DE COMING SONG */
+
 
 /* AJUSTES EN RESOLUCIONES CHICAS */
-    
+
 
 @media (max-width: 1115px) {
     #lissections > li {max-width: 140px;}
     #lissections > li > ul{top: 80px; }
     #lissections > li > ul > li > a { font-size: 12px; }
     #shoppingCart .prod .controls label.quantity {margin-left: 30px}
-    
+
     #slider_products #slider li img{max-width: 50px}
     #slider_products #slider li div{font-size: 12px;}
-    
+
     #contentBody.celebrity div a div span.name{font-size: 30px; line-height: 33px}
-    
-    
-     #contentBody.boutique .imgProd{width: 55%; }
-     #contentBody.boutique .info {width: 40%; }
-    
-     .aWraper .aBack > div > div > div > div {    font-size:20px;    }
-     
+
+
+    #contentBody.boutique .imgProd{width: 55%; }
+    #contentBody.boutique .info {width: 40%; }
+
+    .aWraper .aBack > div > div > div > div {    font-size:20px;    }
+    .aWraper .aBack > div{width: 62%;}
+    .aWraper .aBack #image_mujer{vertical-align: bottom;}
+
 }
 
 @media (max-width: 730px) {
@@ -332,43 +387,63 @@ input.error{border: 1px solid #a03333 !important}
     #bgslider div{width: 100%;  overflow: visible}
     #bgslider div img{z-index: 1; opacity: .6 !important; margin: 0 !important; position: relative; max-width: 100%;}
     #bgslider div span{display: none;}
-    
+
     #contentBody .logo{ margin-top: 25px; }
     #contentBody .logo p{ font-size: 15px; margin-top: 20px; line-height: 20px;}
-   
-    
-    
+
+
+
     /*#lissections li {margin-bottom: 20px !important; width: 40%;}*/
     /*#lissections li a img{ display:  none; }*/
-    
+
     #lissections > li {display: block; max-width: 100%; text-align: center; margin-bottom: 25px;}
     #lissections > li ul{display: block; opacity: 1; position: relative; top: auto; }
     #lissections > li ul li{height: auto; }
     #lissections > li ul li ul{display: block;  opacity: 1 !important; position: relative !important;; top: 0px; margin: 0 auto !important; right: auto;}
     #lissections > li a span{border-bottom: 1px solid #FFF; }
     #lissections > li:hover a span{border-bottom: 1px solid #FFF ;}
-    
+
     #lissections .menGift img{display: block;  margin:  0 auto;}
-    
+
     .linea-degr-right, .linea-degr-left{width: 50px;}
-    
+
     #logo-small{left: 5px; margin-left: 0px;}
-    
+
     #contentBody.celebrity div a{display: block; width: 90%; margin: 0 auto;}
-    
-    
+
+
     #contentBody.boutique{text-align: center; }
-     #contentBody.boutique .imgProd{width: 80%; }
-     #contentBody.boutique .info {width: auto; }
-    
-     #signin{width: 400px; background: #000; position: absolute; z-index: 2000; top: 50px; left: 50%; margin-left: -200px; font-family: Arial; padding: 20px; border-radius: 8px; }
-     #signin > div{width: 300px; display: block; }
-     
-     
+    #contentBody.boutique .imgProd{width: 80%; }
+    #contentBody.boutique .info {width: auto; }
+
+    #signin{width: 400px; background: #000; position: absolute; z-index: 2000; top: 50px; left: 50%; margin-left: -200px; font-family: Arial; padding: 20px; border-radius: 8px; }
+    #signin > div{width: 300px; display: block; }
+
+
     .wLight{width:513px;}
     .wContact > div:first-child{ width:40%}
 
-    
+    .aWraper .aBack > div{width: 62%;}
+    .aWraper .aBack > div{
+        width: 61%;
+    }
+    .aWraper .aBack .torres_float{
+        vertical-align: top;
+    }
+
+    .aWraper .aBack #image_mujer{
+        vertical-align: bottom;
+    }
+    .aWraper .aBack > div > div:first-child{
+
+        padding-top: 0px;
+    }
+    .aWraper .aBack > div.secondCol {
+        padding-top: 6%;
+    }
+
+
+
 }
 
 
@@ -378,30 +453,48 @@ input.error{border: 1px solid #a03333 !important}
     #shoppingCart > div{max-height: none; overflow: hidden}
     #shoppingCart .prod{padding-top: 10px; margin: 10px 15px;}
     #shoppingCart .prod .info{min-height: 60px;}
-   
+
     #shoppingCart .prod .controls{clear: both; text-align: center}
     #shoppingCart .rowtotal  span{margin-left: 50px}        
     #shoppingCart .prod .prices {position: static; text-align: right}
-    
+
     #scrollbar1 { width: 100%; clear: both; margin: 20px 0 10px; }
     #scrollbar1 .viewport { width: 100%; height: 100%;}
     #scrollbar1 .overview{position: static}
-    
+
     #header .navbar-inner .btn{font-size: 11px !important;}
-    
+
     #change_section > span {min-width: 100px;}
-    
-    
+
+
     #forgotpass{width: 210px; left: 0px; margin: 0px; font-family: Arial; padding: 20px; }
     #forgotpass h2{font-size: 18px; line-height: 20px;}
     #forgotpass input[type=submit]{margin-left: 2px; vertical-align: middle}
     #forgotpass input[type=text]{display: block; width: auto !important;}
-    
+
     .sAbout p{ color:#747474; display: inline-block ; }
     .sAbout div{ display: inline-block;  }
     .wLight{width:295px;}
     .sAbout .colLeft > div { margin: 0px auto auto 0px;}
+
+
+    .aWraper .aBack > div{
+
+        width: 100%;
+    }
+    .aWraper .aBack #image_mujer{
+        width: 100%;
+    }
+    .aWraper .aBack > div > div > div > div{
+        left:0px;
+    }
+
+    .aWraper .aBack .torres_float{
+        vertical-align: top;
+    }
     
+    .comming_soon {  width: 320px !important;}
+
 }
 
 
@@ -412,10 +505,10 @@ input.error{border: 1px solid #a03333 !important}
     #shoppingCart .prod .controls .remove {margin-left: 30px; }
     #shoppingCart .rowtotal span {margin-left: 10px; }
     #shoppingCart > div{max-height: none; overflow: hidden}
-            
+
     #scrollbar1 { width: 100%; clear: both; margin: 20px 0 10px; }
     #scrollbar1 .viewport { width: 100%; height: 100%;}
-    
+
     #header .navbar-inner .btn{font-size: 10px !important; padding: 3px 5px}
 
     .imgProd { width: 280px; }
@@ -423,7 +516,7 @@ input.error{border: 1px solid #a03333 !important}
     #contentBody .info {width: 300px; margin: 0 auto}
     #contentBody .next3,  #contentBody .prev3{display: none}
     #powerzoom, #powerzoom div{display: none !important;}
-    
+
     #change_section > span{width: 130px}
     #change_section .submenu-content {padding: 10px 0 10px;}
     .submenu-content > ul{margin: 0 auto; }
@@ -433,27 +526,70 @@ input.error{border: 1px solid #a03333 !important}
     .submenu-content > ul > li ul li a, .submenu-content > ul > li ul li span{font-size: 11px;}
     .submenu-content > ul > li > ul > li {margin-bottom: 10px; display: inline-block; margin:  10px 10px; vertical-align: top; }
 
-    
+
     #slider_products .bar .wetheadorned {display: none}
     #slider_products .slider-content div.collectionsName{display: block}
     #slider_products #slider-div{margin: 0 auto}
-    
+
     #slider_products .caroufredsel_wrapper{overflow: visible !important; height: auto !important;}
     #slider_products ul#slider{position: static !important; width: 100% !important; height: auto !important;}
     #slider_products #slider li {display: inline-block !important; width: auto !important; padding: 10px; min-height: auto !important; }
     #slider_products #slider li div {display: none !important;}
-    
 
-    
-    
+
+
+
     #logo-small{display: none;}
-    
-     #signin{width: 300px; background: #000; position: absolute; z-index: 2000; top: 100px; left: 50%; font-family: Arial; padding: 20px; border-radius: 8px; }
-     #signin > div{width: 200px; display: block; }
-     #signin input[type=text], #signin input[type=password]{ display: block; width: 90%;}
-    
-    
-    .aWraper .aBack > div:first-child {    width: 30%;}
+
+    #signin{width: 300px; background: #000; position: absolute; z-index: 2000; top: 100px; left: 50%; font-family: Arial; padding: 20px; border-radius: 8px; }
+    #signin > div{width: 200px; display: block; }
+    #signin input[type=text], #signin input[type=password]{ display: block; width: 90%;}
+
+
+
+    .aWraper .aBack #image_mujer{
+        width: 100%;
+
+    }
+    .aWraper .aBack > div.secondCol {
+        width: 100%;
+        padding-top:5%;
+
+    }
+    .aWraper .aBack .torres_float{
+
+        width:100%;
+    }
+    .aWraper .aBack > div > div > div > div{
+        left:0px;
+    }
+    .aWraper .aBack > div > div > div:first-child{
+        margin-bottom: 23px !important;
+    }
+    .aWraper .aBack > div > div:first-child{
+
+        padding-top: 0px;
+
+    }
+    /* .aWraper .aBack > div:first-child {    width:100%;  }*/
     .aWraper .aBack > div {    width:66%;}
-    
+    .sAbout > div {
+        width: 100%;
+    }
+    .sAbout .colLeft {
+        width: 99%;
+    }
+    .sAbout .colLeft .leer_mas {
+        float: right;
+
+        margin: 0px;
+        display: block;
+    }
+    .comming_soon {  width: 320px !important;  }
+
+}
+
+@media (max-width: 320px) {
+        #logo-small{display: none;}
+        .comming_soon {  width:278px !important;  }
 }
