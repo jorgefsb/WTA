@@ -43,7 +43,7 @@ class Application_Form_CreateProductCelebrityFrom extends Core_Form {
                     'value'=>'1',
                     'required'=>true,
                     )));
-        $this->addElement(new Zend_Form_Element_Submit('Create Product',
+        $this->addElement(new Zend_Form_Element_Submit('Send',
                         array('attribs' => array(
                                 'class' => 'submit-button'
                         ))));

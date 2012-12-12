@@ -9,7 +9,7 @@ class Application_Form_CreateProductImageFrom extends Core_Form {
         $this->addElement(new Zend_Form_Element_Textarea('description',
                         array(
                             'label' => 'Description * ',
-                            'required' => true,
+                          //  'required' => true,
                 )));
         $element = new Zend_Form_Element_File('img');
         $element->setLabel('Upload an image:')
