@@ -67,7 +67,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $_product->identify($id_prod);
         
         $properties = $_product->getProperties();
-        
+        $properties['images'] = $_product->listingImg();
         $_designer = new Application_Entity_Designer();
         $_designer->identify($properties['_designer']);
         
@@ -112,13 +112,14 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $_product->identify($id_prod);
         
         $properties = $_product->getProperties();
-        
+        $properties['images'] = $_product->listingImg();
         $_designer = new Application_Entity_Designer();
         $_designer->identify($properties['_designer']);
         
         $properties['designer'] = $_designer->getProperties();
                 
         $this->view->product = $properties;
+        
         
         // Obtenemos el prev y next
         $prev = null;
@@ -173,7 +174,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $_product->identify($id_prod);
         
         $properties = $_product->getProperties();
-        
+        $properties['images'] = $_product->listingImg();
         $_designer = new Application_Entity_Designer();
         $_designer->identify($properties['_designer']);
         
@@ -215,7 +216,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $_product->identify($id_prod);
         
         $properties = $_product->getProperties();
-        
+        $properties['images'] = $_product->listingImg();
         $_designer = new Application_Entity_Designer();
         $_designer->identify($properties['_designer']);
         
@@ -282,7 +283,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         
         $_designer = new Application_Entity_Designer();
         $_designer->identify($properties['_designer']);
-        
+        $properties['images'] = $_product->listingImg();
         $properties['sizes'] = $_product->getSize($properties['_id']);
         $properties['designer'] = $_designer->getProperties();
         

@@ -20,7 +20,7 @@
                     <?php foreach($_products as $product): ?>
                         <li>
                             <a href="<?php echo $_urlBase.$product['product_slug'] ?>">
-                                <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
+                                <img src="<?php echo DINAMIC_URL.'/product/thumbs/'.$product['image']; ?>" />
                             </a>
                             <a href="<?php echo $_urlBase.$product['product_slug'] ?>" class="dsc">
                                 <?php echo $product['product_code'] ? 'Item #'.$product['product_code'] : '' ; ?> 
