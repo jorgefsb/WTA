@@ -255,15 +255,45 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function cartAction(){
         $this->_helper->layout->disableLayout();
         
-        $this->view->nprod = $this->_session->count;    
+        //$this->view->nprod = $this->_session->count;    
+        
+        $this->view->cart = $this->_session->cart;    
+        
+        //print_r($this->view->cart);die();
         
     }
     
     
     public function addtocartAction(){
         $this->_helper->layout->disableLayout();
-        $this->_session->count++;
-        $return = array('ok'=>true);
+        //$this->_session->count++;
+        
+        $code = $this->getRequest()->getParam('code', 0);
+        
+        
+        if ( !$this->_session->cart ){
+            $this->_session->cart = array();        
+        }
+        
+        $_product = new Application_Entity_Product();
+        $_product->identify($code);
+        
+        $properties = $_product->getProperties();
+        
+        $_designer = new Application_Entity_Designer();
+        $_designer->identify($properties['_designer']);
+        
+        $properties['sizes'] = $_product->getSize($properties['_id']);
+        $properties['designer'] = $_designer->getProperties();
+        
+        $properties['count'] = 1;
+        
+        
+        
+        
+        $this->_session->cart[] = $properties;
+        
+        //$return = array('ok'=>true);
         //die(json_encode($return));
         $this->view->ok = 1;
         

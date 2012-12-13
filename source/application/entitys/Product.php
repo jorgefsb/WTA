@@ -376,6 +376,7 @@ class Application_Entity_Product extends Core_Entity {
         return $res;
         
     }
+    
     function deleteActress($idActress){
         $modelProductActress = new Application_Model_ProductActress();
         $this->_message = 'satisfactory record';

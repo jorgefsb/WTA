@@ -128,8 +128,8 @@ html, body{background: #0c0c0c; padding: 0px}
 #shoppingCart .prod .info .dsc{font-size: 10px;}
 #shoppingCart .prod .controls label{font-size: 11px;  display: inline-block;; color: #888888}
 /*#shoppingCart .prod .controls select{width: 100px; background: #272727; border: 0px;  border-radius: 3px;}*/
-#shoppingCart .prod .controls input{width: 30px; background: #272727;  border: 0px; border-radius: 3px; text-align: center; vertical-align: inherit; padding: 2px 2px; color: #989898}
-#shoppingCart .prod .controls label.quantity{margin-left: 60px}
+#shoppingCart .prod .controls input{width: 30px; background: #272727;  border: 0px; border-radius: 3px; text-align: center; vertical-align: inherit; padding: 2px 2px; color: #989898; display: inline-block}
+#shoppingCart .prod .controls label.quantity{margin-left: 60px; ;}
 #shoppingCart .prod .controls .remove{background: #343434;  border: 0px; border-radius: 3px; text-align: center; padding: 5px 10px; color: #fff; margin-left: 70px; font-size: 12px; font-family: 'Times New Roman'; }
 
 #shoppingCart .btn-group {vertical-align: super; margin-left: 5px; }
