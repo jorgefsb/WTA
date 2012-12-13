@@ -128,8 +128,8 @@ html, body{background: #0c0c0c; padding: 0px}
 #shoppingCart .prod .info .dsc{font-size: 10px;}
 #shoppingCart .prod .controls label{font-size: 11px;  display: inline-block;; color: #888888}
 /*#shoppingCart .prod .controls select{width: 100px; background: #272727; border: 0px;  border-radius: 3px;}*/
-#shoppingCart .prod .controls input{width: 30px; background: #272727;  border: 0px; border-radius: 3px; text-align: center; vertical-align: inherit; padding: 2px 2px; color: #989898}
-#shoppingCart .prod .controls label.quantity{margin-left: 60px}
+#shoppingCart .prod .controls input{width: 30px; background: #272727;  border: 0px; border-radius: 3px; text-align: center; vertical-align: inherit; padding: 2px 2px; color: #989898; display: inline-block}
+#shoppingCart .prod .controls label.quantity{margin-left: 60px; ;}
 #shoppingCart .prod .controls .remove{background: #343434;  border: 0px; border-radius: 3px; text-align: center; padding: 5px 10px; color: #fff; margin-left: 70px; font-size: 12px; font-family: 'Times New Roman'; }
 
 #shoppingCart .btn-group {vertical-align: super; margin-left: 5px; }
@@ -220,9 +220,9 @@ html, body{background: #0c0c0c; padding: 0px}
 #slider_products .slider-content div.collectionsName p{font-size: 11px; color: #7b7b7b}
 #slider_products #slider-div{display: block; margin-left: 300px; margin-top: -90px; margin-right: 40px; position: relative}
 #slider_products #slider li{display:  inline-block; min-height: 130px;}
-#slider_products #slider li div{display: inline-block; min-width: 130px; max-width: 200px; margin-left: 15px; vertical-align: middle; color: #FFF; font-size: 13px;}
-#slider_products #slider li div strong{font-style: italic}
-#slider_products #slider li div span{display: block; line-height: 14px; font-size: 11px; margin-top: 2px;}
+#slider_products #slider li a.dsc{display: inline-block; min-width: 130px; max-width: 200px; margin-left: 15px; vertical-align: middle; color: #FFF; font-size: 13px;}
+#slider_products #slider li a.dsc strong{font-style: italic}
+#slider_products #slider li a.dsc span{display: block; line-height: 14px; font-size: 11px; margin-top: 2px;}
 #slider_products #slider-div .caroufredsel_wrapper{margin: 0px !important;}
 #slider_products #prev2, #slider_products #next2{width: 26px; height: 32px; background: url('../images/arrows2.png') no-repeat; position: absolute;  cursor: pointer; display: block}
 #slider_products #prev2{top: 30%; right: 101%; background-position: 0 0; }

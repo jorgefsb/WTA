@@ -48,6 +48,23 @@ class Application_Entity_Actress extends Core_Entity {
             $this->asocParams($data);
         }
     }
+    
+    
+    /*
+     * metodo identify(), obtiene los datos de un mienbro
+     *
+     * @param $idActress
+     * @return void
+     */
+
+    function identifyByName($nameActress) {
+        $modelActress = new Application_Model_Actress();
+        $data = $modelActress->getActressByName($nameActress);
+        
+        if ($data != '') {
+            $this->asocParams($data);
+        }
+    }
 
     /*
      * metodo setParamsDataBase()
@@ -193,6 +210,21 @@ class Application_Entity_Actress extends Core_Entity {
         }
     }
 
+    public function getProductsSimple(){
+        $modelActress = new Application_Model_Actress();
+        $res = $modelActress->listingProducts($this->_id);
+        
+        $result = array();
+        foreach( $res as $row){
+            $result [] = $row['product_actress_product_id'];
+        }        
+        
+        $_product = new Application_Model_Product();
+        $res = $_product->listingSimple(array('product_id in (?)'=>$result));
+        return $res;
+        
+        return $result;
+    }
     
 
 }

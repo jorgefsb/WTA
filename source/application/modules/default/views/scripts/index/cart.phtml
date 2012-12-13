@@ -1,28 +1,45 @@
 <?php 
-
-    $nprod = (int)$this->nprod;
+    $total = 0;
+    $nprod = count($this->cart);
     if($nprod){
-        for($i=0; $i<$nprod; $i++){
+        foreach($this->cart as $prod){
+            $total += $prod['_priceMenber'];
 ?>
 
             <div class="prod"><!-- PRODUCT -->
 
                 <div class="prices">
-                    <div>Guest price <strong class="prec1 line-through"><br/>$526.00</strong></div>
-                    <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
+                    <div>Guest price <strong class="prec1 line-through"><br/>$<?php echo number_format($prod['_price'],2) ?></strong></div>
+                    <div>Member price <strong class="prec2"><br/>$<?php echo number_format($prod['_priceMenber'],2) ?></strong></div>                                        
                 </div>
 
                 <img src="<?php echo STATIC_URL . '/front/images/sp_prod1.png'; ?>" title="" alt="" />
 
                 <div class="info">
-                    <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
-                    <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
+                    <span class="name">Item #<?php echo $prod['_code']; ?><strong><em><?php echo $prod['_name']; ?></em></strong></span>
+                    <span class="dsc"><?php echo $prod['designer']['_name']; ?></span>
                 </div>
 
                 <div class="controls">
-                    <label class="size">SIZE <select ><option>7 1/2</option></select></label>
-                    <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
-                    <a href="" class="remove" >remove</a>
+                    <label class="size">
+                    <?php 
+                        if( !empty($prod['sizes']) ){
+                    ?>
+                            SIZE 
+                            <select><option>--</option>
+                                <?php
+                                    foreach($prod['sizes'] as $size){
+                                        echo '<option>'.$size.'</option>';
+                                    }
+                                ?>
+                                </select>
+                    <?php
+                        }                    
+                    ?>
+                            
+                            </label>
+                    <label class="quantity">QTY <input type="text" name="quantity" value="<?php echo (int) (isset($prod['count']) ? $prod['count'] : 0); ?>" /></label>
+                    <a href="/index/removecart" class="remove" >remove</a>
                 </div>
 
             </div>
@@ -32,7 +49,7 @@
   
     <div class="rowtotal">
         <span>Subtotal</span>
-        <span class="ntotal">$1,275.00</span>
+        <span class="ntotal">$<?php echo number_format($total,2); ?></span>
         <a href="" class="checkout btn" >Check out</a>
     </div>      
 <?php
