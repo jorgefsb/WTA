@@ -9,8 +9,8 @@ class Application_Entity_Image extends Core_Entity {
     const TIPE_IMAGE_PRODUCT = 'product';
     static $PRODUCT_REDIMENCION_ORIGIN = array(
         'name' => 'product',
-        'width' => 1400,
-        'height' => 1110
+        'width' => 0,
+        'height' => 0
     );
     static $PRODUCT_REDIMENCION_MOBILE = array(
         'name' => 'mobile',
@@ -32,7 +32,7 @@ class Application_Entity_Image extends Core_Entity {
         'width' => 50,
         'height' => 50
     );
-    
+
 
     const TIPE_IMAGE_CELEBRITY = 'celebrity';
     static $CELEBRITY_REDIMENCION_THUMBNAILS = array(
@@ -45,7 +45,6 @@ class Application_Entity_Image extends Core_Entity {
         'width' => 311,
         'height' => 354
     );
-
     static $CELEBRITY_REDIMENCION_MINI = array(
         'name' => 'mini',
         'width' => 50,
@@ -53,8 +52,8 @@ class Application_Entity_Image extends Core_Entity {
     );
     static $CELEBRITY_REDIMENCION_ORIGIN = array(
         'name' => 'celebrity',
-        'width' => 1400,
-        'height' => 1110
+        'width' => 0,
+        'height' => 0
     );
 
     const TIPE_IMAGE_PRODUCTCELEBRITY = 'productCelebrity';
@@ -75,8 +74,8 @@ class Application_Entity_Image extends Core_Entity {
     );
     static $PRODUCTCELEBRITY_REDIMENCION_ORIGIN = array(
         'name' => 'productCelebrity',
-        'width' => 1400,
-        'height' => 1110
+        'width' => 0,
+        'height' => 0
     );
     protected $_id;
     protected $_name;
@@ -256,10 +255,13 @@ class Application_Entity_Image extends Core_Entity {
             $fileSave = APPLICATION_PUBLIC . '/dinamic/' . $redimension['name'] . '/' . $this->_name;
             $filename = $this->_temp;
         }
-        
-        $coreImage->load($filename);
-        $coreImage->resize($redimension['width'], $redimension['height']);
-        $coreImage->save($fileSave);
+        if ($redimension['width'] == 0 && $redimension['height'] == 0) {
+            copy($filename, $fileSave);
+        } else {
+            $coreImage->load($filename);
+            $coreImage->resize($redimension['width'], $redimension['height']);
+            $coreImage->save($fileSave);
+        }
     }
 
 }
