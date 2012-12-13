@@ -85,7 +85,7 @@ class Admin_ActressController extends Core_Controller_ActionAdmin
                         $extension!=''?($nameImg . '.' . $extension):''
                     );
                 $this->_flashMessenger->addMessage($actress->getMessage());
-                $this->_redirect('/admin/actress/edit/id/'.$this->getRequest()->getParam('id'));
+                $this->_redirect('/admin/actress');
             }
         }
         $this->view->form = $form;

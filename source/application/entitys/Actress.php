@@ -182,17 +182,24 @@ class Application_Entity_Actress extends Core_Entity {
     function editImg($idImage,$temp,$name,$descripcion='') {
         $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_CELEBRITY);
         $image->identify($idImage);
-        $image->setPropertie('_name', $name);
-        $image->setPropertie('_temp', $temp);
+        
+        if($temp!='' && $name!=''){
+            $image->setPropertie('_name', $name);
+            $image->setPropertie('_temp', $temp);
+        }
         $image->setPropertie('_description', $descripcion);
         $image->setPropertie('_idTable', $this->_id);
         $image->update();
+        if($temp!='' && $name!=''){
         $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_THUMBNAILS);
         $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MINI);
         $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MOBILE);
         $data['actress_img'] = $name;
         $modelactress = new Application_Model_Actress();
         $modelactress->update($data, $this->_id);
+        }
+        
+        
     }
     public function downOrder(){
         $modelActress = new Application_Model_Actress();
