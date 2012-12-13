@@ -155,6 +155,7 @@ class Application_Entity_Actress extends Core_Entity {
         $image->createImage();
         $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_THUMBNAILS);
         $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MINI);
+        $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MOBILE);
         $data['actress_img'] = $name;
         $modelactress = new Application_Model_Actress();
         $modelactress->update($data, $this->_id);
@@ -171,6 +172,7 @@ class Application_Entity_Actress extends Core_Entity {
         $image->update();
         $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_THUMBNAILS);
         $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MINI);
+        $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MOBILE);
         $data['actress_img'] = $name;
         $modelactress = new Application_Model_Actress();
         $modelactress->update($data, $this->_id);

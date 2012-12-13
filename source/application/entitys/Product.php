@@ -157,8 +157,8 @@ class Application_Entity_Product extends Core_Entity {
         $image->createImage();
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBNAILS);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBS);
-        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_CARRUSEL);
-        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_SMALL);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_MINI);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_MOBILE);
         $this->_message = 'satisfactory record';
     }
     function editImage($idImagen, $temp='', $name='', $descripcion='') {
@@ -172,8 +172,8 @@ class Application_Entity_Product extends Core_Entity {
         $image->update();
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBNAILS);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBS);
-        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_CARRUSEL);
-        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_SMALL);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_MINI);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_MOBILE);
         $this->_message = 'satisfactory record';
     }
 
@@ -186,6 +186,7 @@ class Application_Entity_Product extends Core_Entity {
         $image->createImage();
         $image->redimensionImagen(Application_Entity_Image::$PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCTCELEBRITY_REDIMENCION_MINI);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCTCELEBRITY_REDIMENCION_MOBILE);
     }
 
     private function getSigOrder() {
@@ -374,6 +375,11 @@ class Application_Entity_Product extends Core_Entity {
         $res = $_product->listingSimple(array('product_limited_quantity = ?'=>1, '(product_cant_limited_quantity-product_cant_buy) > ?'=> 0));
         return $res;
         
+    }
+    function deleteActress($idActress){
+        $modelProductActress = new Application_Model_ProductActress();
+        $this->_message = 'satisfactory record';
+        return $modelProductActress->deleteProductActress($this->_id, $idActress);
     }
 
 }

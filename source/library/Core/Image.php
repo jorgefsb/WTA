@@ -32,8 +32,10 @@ class Core_Image {
    function save($filename) {
         $this->image->save($filename);
    }
-   function resize($width,$height,$proportional) {
-       $this->image->resize(100, 100);
+   function resize($width,$height) {
+       if($width>1 && $height>1){
+        $this->image->resize($width, $height);
+       }
    }      
  
 }

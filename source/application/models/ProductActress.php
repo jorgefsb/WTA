@@ -77,6 +77,17 @@ class Application_Model_ProductActress extends Core_Model {
             return FALSE;
         }
     }
+    public function deleteProductActress($idProduct,$idActress) {
+        if ($idActress != '') {
+            $where[] = $this->_tableProductActress->getAdapter()
+                    ->quoteInto('product_actress_product_id =?', $idProduct);
+            $where[] = $this->_tableProductActress->getAdapter()
+                    ->quoteInto('product_actress_actress_id =?', $idActress);
+            return $this->_tableProductActress->delete($where);
+        } else {
+            return FALSE;
+        }
+    }
 
 }
 
