@@ -9,36 +9,43 @@ class Application_Entity_Image extends Core_Entity {
     const TIPE_IMAGE_PRODUCT = 'product';
     static $PRODUCT_REDIMENCION_ORIGIN = array(
         'name' => 'product',
-        'width' => 150,
-        'height' => 150
+        'width' => 1400,
+        'height' => 1110
+    );
+    static $PRODUCT_REDIMENCION_MOBILE = array(
+        'name' => 'mobile',
+        'width' => 311,
+        'height' => 354
     );
     static $PRODUCT_REDIMENCION_THUMBNAILS = array(
         'name' => 'thumbnails',
-        'width' => 80,
-        'height' => 150
+        'width' => 192,
+        'height' => 203
     );
     static $PRODUCT_REDIMENCION_THUMBS = array(
         'name' => 'thumbs',
-        'width' => 100,
+        'width' => 102,
+        'height' => 116
+    );
+    static $PRODUCT_REDIMENCION_MINI = array(
+        'name' => 'mini',
+        'width' => 50,
         'height' => 50
     );
-    static $PRODUCT_REDIMENCION_SMALL = array(
-        'name' => 'small',
-        'width' => 80,
-        'height' => 50
-    );
-    static $PRODUCT_REDIMENCION_CARRUSEL = array(
-        'name' => 'carrusel',
-        'width' => 100,
-        'height' => 100
-    );
+    
 
     const TIPE_IMAGE_CELEBRITY = 'celebrity';
     static $CELEBRITY_REDIMENCION_THUMBNAILS = array(
         'name' => 'thumbnails',
-        'width' => 20,
-        'height' => 50
+        'width' => 368,
+        'height' => 419
     );
+    static $CELEBRITY_REDIMENCION_MOBILE = array(
+        'name' => 'mobile',
+        'width' => 311,
+        'height' => 354
+    );
+
     static $CELEBRITY_REDIMENCION_MINI = array(
         'name' => 'mini',
         'width' => 50,
@@ -46,15 +53,20 @@ class Application_Entity_Image extends Core_Entity {
     );
     static $CELEBRITY_REDIMENCION_ORIGIN = array(
         'name' => 'celebrity',
-        'width' => 20,
-        'height' => 50
+        'width' => 1400,
+        'height' => 1110
     );
 
     const TIPE_IMAGE_PRODUCTCELEBRITY = 'productCelebrity';
     static $PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS = array(
         'name' => 'thumbnails',
-        'width' => 100,
-        'height' => 100
+        'width' => 645,
+        'height' => 594
+    );
+    static $PRODUCTCELEBRITY_REDIMENCION_MOBILE = array(
+        'name' => 'mobile',
+        'width' => 311,
+        'height' => 354
     );
     static $PRODUCTCELEBRITY_REDIMENCION_MINI = array(
         'name' => 'mini',
@@ -63,8 +75,8 @@ class Application_Entity_Image extends Core_Entity {
     );
     static $PRODUCTCELEBRITY_REDIMENCION_ORIGIN = array(
         'name' => 'productCelebrity',
-        'width' => 200,
-        'height' => 200
+        'width' => 1400,
+        'height' => 1110
     );
     protected $_id;
     protected $_name;
@@ -205,16 +217,19 @@ class Application_Entity_Image extends Core_Entity {
             switch ($this->_type) {
                 case self::TIPE_IMAGE_PRODUCT:
                     $this->deleteImgRed(self::$PRODUCT_REDIMENCION_THUMBNAILS);
-                    $this->deleteImgRed(self::$PRODUCT_REDIMENCION_CARRUSEL);
-                    $this->deleteImgRed(self::$PRODUCT_REDIMENCION_SMALL);
+                    $this->deleteImgRed(self::$PRODUCT_REDIMENCION_MINI);
                     $this->deleteImgRed(self::$PRODUCT_REDIMENCION_THUMBS);
+                    $this->deleteImgRed(self::$PRODUCT_REDIMENCION_MOBILE);
                     break;
                 case self::TIPE_IMAGE_CELEBRITY:
                     $this->deleteImgRed(self::$CELEBRITY_REDIMENCION_THUMBNAILS);
+                    $this->deleteImgRed(self::$CELEBRITY_REDIMENCION_MINI);
+                    $this->deleteImgRed(self::$CELEBRITY_REDIMENCION_MOBILE);
                     break;
                 case self::TIPE_IMAGE_PRODUCTCELEBRITY:
                     $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_MINI);
                     $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_THUMBNAILS);
+                    $this->deleteImgRed(self::$PRODUCTCELEBRITY_REDIMENCION_MOBILE);
                     break;
             }
         }

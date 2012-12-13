@@ -382,7 +382,11 @@ $this->view->headScript()->appendScript(
     }
     
     public function deleteCelebrityAction(){
-        
+        $product = new Application_Entity_Product();
+        $product->identify($this->getRequest()->getParam('product'));
+        $product->deleteActress($this->getRequest()->getParam('celebrity'));
+        $this->_flashMessenger->addMessage($product->getMessage());
+        $this->_redirect('/admin/product/celebrity/product/' . $product->getPropertie('_id'));
     }
 
 }
