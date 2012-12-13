@@ -9,6 +9,8 @@ class Application_Form_CreateProductImageFrom extends Core_Form {
         $this->addElement(new Zend_Form_Element_Textarea('description',
                         array(
                             'label' => 'Description * ',
+                            'rows'=>4,'cols'=>24,
+                            'style'=>'margin: 0px 0px 9px; width: 391px; height: 91px;',
                           //  'required' => true,
                 )));
         $element = new Zend_Form_Element_File('img');
