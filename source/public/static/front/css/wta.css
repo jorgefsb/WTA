@@ -220,9 +220,9 @@ html, body{background: #0c0c0c; padding: 0px}
 #slider_products .slider-content div.collectionsName p{font-size: 11px; color: #7b7b7b}
 #slider_products #slider-div{display: block; margin-left: 300px; margin-top: -90px; margin-right: 40px; position: relative}
 #slider_products #slider li{display:  inline-block; min-height: 130px;}
-#slider_products #slider li div{display: inline-block; min-width: 130px; max-width: 200px; margin-left: 15px; vertical-align: middle; color: #FFF; font-size: 13px;}
-#slider_products #slider li div strong{font-style: italic}
-#slider_products #slider li div span{display: block; line-height: 14px; font-size: 11px; margin-top: 2px;}
+#slider_products #slider li a.dsc{display: inline-block; min-width: 130px; max-width: 200px; margin-left: 15px; vertical-align: middle; color: #FFF; font-size: 13px;}
+#slider_products #slider li a.dsc strong{font-style: italic}
+#slider_products #slider li a.dsc span{display: block; line-height: 14px; font-size: 11px; margin-top: 2px;}
 #slider_products #slider-div .caroufredsel_wrapper{margin: 0px !important;}
 #slider_products #prev2, #slider_products #next2{width: 26px; height: 32px; background: url('../images/arrows2.png') no-repeat; position: absolute;  cursor: pointer; display: block}
 #slider_products #prev2{top: 30%; right: 101%; background-position: 0 0; }

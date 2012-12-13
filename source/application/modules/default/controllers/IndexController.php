@@ -152,8 +152,49 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function boutiqueAction(){
         $this->loadOptionsMenu();
         
+        $celebrity = $this->getParam('celebrity', '');
+        
+        $_product = new Application_Entity_Product();
+        
+        $_actress = new Application_Entity_Actress();
+        $_actress->identifyByName(preg_replace('/-+/', ' ', $celebrity));        
+                
+        $this->view->sliderProducts = $_actress->getProductsSimple();
+                
+        
+        
+        $product_active = $this->getParam('product', '');  // Obtenemos el producto de la URL
+        $id_prod = preg_replace('/^.*-(\d+).*$/', '$1', $product_active);
+        
+        if( !$id_prod ){
+            $id_prod = $this->view->sliderProducts[0]['product_id'];
+        }
+        
+        $_product->identify($id_prod);
+        
+        $properties = $_product->getProperties();
+        
+        $_designer = new Application_Entity_Designer();
+        $_designer->identify($properties['_designer']);
+        
+        $properties['designer'] = $_designer->getProperties();
+        $properties['actress'] = $_actress->getProperties();
+                
+        $this->view->product = $properties;
+        
+        
+                
+        $this->view->urlBase = '/boutique/'.preg_replace('/\s+/', '-',trim($properties['actress']['_name'])).'/';
+        
     }
     
+    
+    public function celebritysAction(){
+        $this->loadOptionsMenu();
+        
+        
+        
+    }
     
     public function limitedAction(){
         

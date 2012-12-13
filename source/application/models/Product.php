@@ -348,6 +348,7 @@ class Application_Model_Product extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
+    
 
 
 }

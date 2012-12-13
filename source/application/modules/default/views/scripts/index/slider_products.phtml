@@ -29,96 +29,17 @@
                                                                     .$product['product_slug'] ?>">
                                 <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
                             </a>
-                            <div>
-                                <?php echo $product['product_code'] ? 'Item # '.$product['product_code'] : '' ; ?> 
+                            <a href="<?php echo $_urlBase. 
+                                                                    (empty($this->category) ? '' : urlencode(strtolower($product[$this->category])).'/')
+                                                                    .$product['product_slug'] ?>" class="dsc">
+                                <?php echo $product['product_code'] ? 'Item #'.$product['product_code'] : '' ; ?> 
                                 <strong><?php echo $product['product_name']; ?></strong>
                                 <span><?php echo $product['designer_name'] . ' - ' . $product['collection_type_name']; ?>  </span>
-                            </div>
+                            </a>
                         </li>
                     <?php endforeach; ?>
                 <?php endif; ?>
                 
-                <!--li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
-                        <div>
-                            Item #luvaj5 <strong>Short shark tooth cuff</strong>
-                            <span>LUV AJ - Oxidized brass detailing on a shiny </span>
-                        </div>
-                    </a>
-                </li -->
             </ul>
             <a id="prev2" class="prev" href="#"></a>
             <a id="next2" class="next" href="#"></a>

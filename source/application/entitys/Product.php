@@ -376,4 +376,5 @@ class Application_Entity_Product extends Core_Entity {
         
     }
 
+    
 }

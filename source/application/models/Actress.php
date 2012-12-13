@@ -22,6 +22,21 @@ class Application_Model_Actress extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
+    
+    /**
+     * metodo getActressByName(), devuelve todos los datos de un Actress
+     * @param $nameActress    nombre de la Actress  
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     */
+    function getActressByName($nameActress) {
+        $smt = $this->_tableActress->select()
+                ->where('actress_name = ?', $nameActress)
+                ->query();
+        $result = $smt->fetch();
+        $smt->closeCursor();
+        return $result;
+    }
+    
     /**
      * metodo insert(), registra los datos de la Actress 
      * @param array             $data   array con los datos de la Actress array('column'=>'valor')
@@ -121,6 +136,16 @@ class Application_Model_Actress extends Core_Model {
     }
     
     
+    public function listingProducts($idActress){
+        $smt = $this->_tableProductActress->select()
+                ->from($this->_tableProductActress->getName(),array('product_actress_product_id'))
+                ->where('product_actress_actress_id =?', $idActress)
+                ->where('product_actress_active = 1')
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
 
 }
 
