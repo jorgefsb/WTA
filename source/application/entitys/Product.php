@@ -166,14 +166,16 @@ class Application_Entity_Product extends Core_Entity {
         $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_PRODUCT);
         $image->identify($idImagen);
         $image->setPropertie('_name', $name);
-        $image->setPropertie('_temp', $temp);
+        if($temp!=''){
+        $image->setPropertie('_temp', $temp);}
         $image->setPropertie('_description', $descripcion);
         $image->setPropertie('_idTable', $this->_id);
         $image->update();
+        if($temp!=''){
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBNAILS);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_THUMBS);
         $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_MINI);
-        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_MOBILE);
+        $image->redimensionImagen(Application_Entity_Image::$PRODUCT_REDIMENCION_MOBILE);}
         $this->_message = 'satisfactory record';
     }
 
