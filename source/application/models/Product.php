@@ -332,6 +332,7 @@ class Application_Model_Product extends Core_Model {
                     'dt.design_type_name',
                     'd.designer_name',
                     'product_actress' => new Zend_Db_Expr("GROUP_CONCAT(a.actress_name SEPARATOR ', ')"),
+                    'image'=>new Zend_Db_Expr('(SELECT image_name FROM image where image_id_table = pr.product_id)')
                         )
                 )
                 ->joinLeft(array('pra' => $this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id', '')

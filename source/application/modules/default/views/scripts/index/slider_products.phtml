@@ -27,7 +27,7 @@
                             <a href="<?php echo $_urlBase. 
                                                                     (empty($this->category) ? '' : urlencode(strtolower($product[$this->category])).'/')
                                                                     .$product['product_slug'] ?>">
-                                <img src="<?php echo STATIC_URL?>/front/images/thumb-slider.png" />
+                                <img src="<?php echo DINAMIC_URL.'/product/thumbs/'.$product['image']; ?>" />
                             </a>
                             <a href="<?php echo $_urlBase. 
                                                                     (empty($this->category) ? '' : urlencode(strtolower($product[$this->category])).'/')

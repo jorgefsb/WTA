@@ -13,7 +13,7 @@
                     <div>Member price <strong class="prec2"><br/>$<?php echo number_format($prod['_priceMenber'],2) ?></strong></div>                                        
                 </div>
 
-                <img src="<?php echo STATIC_URL . '/front/images/sp_prod1.png'; ?>" title="" alt="" />
+                <img src="<?php echo DINAMIC_URL.'/product/mini/'.$prod['images'][0]['image_name']; ?>" />
 
                 <div class="info">
                     <span class="name">Item #<?php echo $prod['_code']; ?><strong><em><?php echo $prod['_name']; ?></em></strong></span>
