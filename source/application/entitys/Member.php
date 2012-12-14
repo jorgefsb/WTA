@@ -345,6 +345,8 @@ class Application_Entity_Member extends Core_Entity {
     }
 
     function addMembership() {
+        $transacction = new Application_Entity_Transaction();
+        $transacction->createTransaction();
         $membership = new Application_Entity_Membership();
         $dataMembership = $membership->getMembershipActive();
         $membership->setPropertie('_membershipId', $dataMembership['membership_id']);
@@ -357,6 +359,7 @@ class Application_Entity_Member extends Core_Entity {
             $data['member_membership_free'] = '1';
             $modelMember->update($data, $this->_id);
         }
+        $transacction->addMembership($membership);
     }
 
 }
