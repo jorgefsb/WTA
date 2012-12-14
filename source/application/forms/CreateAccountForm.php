@@ -26,8 +26,8 @@ class Application_Form_CreateAccountForm extends Core_Form {
 
         $validatorsEmail = array(
             new Zend_Validate_Db_NoRecordExists(array(
-                'table' => 'menber',
-                'field' => 'menber_mail')),
+                'table' => 'member',
+                'field' => 'member_mail')),
             new Zend_Validate_EmailAddress()
         );
 

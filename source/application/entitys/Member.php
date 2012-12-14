@@ -5,7 +5,7 @@
  *
  * @author nazart jara
  */
-class Application_Entity_Menber extends Core_Entity {
+class Application_Entity_Member extends Core_Entity {
 
     protected $_id;
     protected $_name;
@@ -26,27 +26,27 @@ class Application_Entity_Menber extends Core_Entity {
     }
 
     private function asocParams($data) {
-        $this->_id = $data['menber_id'];
-        $this->_name = $data['menber_name'];
-        $this->_lastName = $data['menber_last_name'];
-        $this->_mail = $data['menber_mail'];
-        $this->_linkConfirm = $data['menber_link_confirm'];
-        $this->_idConfirm = $data['menber_id_confirm'];
-        $this->_active = $data['menber_active'];
-        $this->_confirm = $data['menber_confirm'];
-        $this->_avatar = $data['menber_avatar'];
+        $this->_id = $data['member_id'];
+        $this->_name = $data['member_name'];
+        $this->_lastName = $data['member_last_name'];
+        $this->_mail = $data['member_mail'];
+        $this->_linkConfirm = $data['member_link_confirm'];
+        $this->_idConfirm = $data['member_id_confirm'];
+        $this->_active = $data['member_active'];
+        $this->_confirm = $data['member_confirm'];
+        $this->_avatar = $data['member_avatar'];
     }
 
     /*
      * metodo identify(), obtiene los datos de un mienbro
      *
-     * @param $idMenber
+     * @param $idMember
      * @return void
      */
 
-    function identify($idMenber) {
-        $modelMenber = new Application_Model_Menber();
-        $data = $modelMenber->getMenber($idMenber);
+    function identify($idMember) {
+        $modelMember = new Application_Model_Member();
+        $data = $modelMember->getMember($idMember);
         if ($data != '') {
             $this->asocParams($data);
         }
@@ -55,13 +55,13 @@ class Application_Entity_Menber extends Core_Entity {
     /*
      * metodo identify(), obtiene los datos de un mienbro
      *
-     * @param $idMenber
+     * @param $idMember
      * @return void
      */
 
     private function identifyForIdConfirm($idConfirm) {
-        $modelMenber = new Application_Model_Menber();
-        $data = $modelMenber->getMenberForIdConfirm($idConfirm);
+        $modelMember = new Application_Model_Member();
+        $data = $modelMember->getMemberForIdConfirm($idConfirm);
         if ($data != '') {
             $this->asocParams($data);
         }
@@ -76,22 +76,22 @@ class Application_Entity_Menber extends Core_Entity {
      */
 
     function setParamsDataBase() {
-        $data['menber_id'] = $this->_id;
-        $data['menber_name'] = $this->_name;
-        $data['menber_last_name'] = $this->_lastName;
-        $data['menber_mail'] = $this->_mail;
-        $data['menber_link_confirm'] = $this->_linkConfirm;
-        $data['menber_id_confirm'] = $this->_idConfirm;
-        $data['menber_active'] = $this->_active;
-        $data['menber_confirm'] = $this->_confirm;
-        $data['menber_avatar'] = $this->_avatar;
+        $data['member_id'] = $this->_id;
+        $data['member_name'] = $this->_name;
+        $data['member_last_name'] = $this->_lastName;
+        $data['member_mail'] = $this->_mail;
+        $data['member_link_confirm'] = $this->_linkConfirm;
+        $data['member_id_confirm'] = $this->_idConfirm;
+        $data['member_active'] = $this->_active;
+        $data['member_confirm'] = $this->_confirm;
+        $data['member_avatar'] = $this->_avatar;
         return $this->cleanArray($data);
     }
 
     function update() {
-        $modelMenber = new Application_Model_Menber();
+        $modelMember = new Application_Model_Member();
 
-        if ($modelMenber->update($this->setParamsDataBase(), $this->_id) !== FALSE) {
+        if ($modelMember->update($this->setParamsDataBase(), $this->_id) !== FALSE) {
             $this->_message = 'Registration was successful';
             return true;
         } else {
@@ -101,25 +101,25 @@ class Application_Entity_Menber extends Core_Entity {
     }
 
     /*
-     * metodo createMenber()
+     * metodo createMember()
      *
      * @param 
      * @return 
      */
 
-    function createMenber($password) {
-        $modelMenber = new Application_Model_Menber();
+    function createMember($password) {
+        $modelMember = new Application_Model_Member();
         $this->_active = 1;
         $this->_confirm = 0;
         $data = $this->setParamsDataBase();
-        $data['menber_create_date'] = date('Y-m-d H:i:s');
-        $data['menber_id_confirm'] = $this->createIdConfirm();
-        $data['menber_password'] = $this->encriptaPassword($password);
-        $id = $modelMenber->insert($data);
+        $data['member_create_date'] = date('Y-m-d H:i:s');
+        $data['member_id_confirm'] = $this->createIdConfirm();
+        $data['member_password'] = $this->encriptaPassword($password);
+        $id = $modelMember->insert($data);
         if ($id != FALSE) {
             $this->_id = $id;
             $this->setMailAdmin();
-            $this->setMailMenberConfirmAccount($data['menber_id_confirm']);
+            $this->setMailMemberConfirmAccount($data['member_id_confirm']);
             $this->_message = 'Registration was successful, 
                     we will send an email to ' .
                     $this->_mail .
@@ -139,7 +139,7 @@ class Application_Entity_Menber extends Core_Entity {
      */
 
     function confirmAccount($idConfirm) {
-        $modelMenber = new Application_Model_Menber();
+        $modelMember = new Application_Model_Member();
         $data = $this->identifyForIdConfirm($idConfirm);
         if ($data == false) {
             $this->_message = 'Token invalido';
@@ -148,8 +148,8 @@ class Application_Entity_Menber extends Core_Entity {
         if ($this->_confirm == 0 && $this->_active == 1) {
             $this->_confirm = 1;
             $data = $this->setParamsDataBase();
-            $data['menber_confirm_date'] = date('Y-m-d H:i:s');
-            $modelMenber->update($data, $this->_id);
+            $data['member_confirm_date'] = date('Y-m-d H:i:s');
+            $modelMember->update($data, $this->_id);
             $this->_message = 'Su cuenta ha sido activada';
             //$this->login($user, $password);
         } else {
@@ -162,20 +162,20 @@ class Application_Entity_Menber extends Core_Entity {
     }
 
     /*
-     * metodo setMailMenberConfirmAccount(), envia correo al usuario para la confirmacion de su cuenta
+     * metodo setMailMemberConfirmAccount(), envia correo al usuario para la confirmacion de su cuenta
      *
      * @param $idConfirm, codigo autogenerado para la confirmacion de la cuenta
      * @return void
      */
 
-    function setMailMenberConfirmAccount($idConfirm) {
+    function setMailMemberConfirmAccount($idConfirm) {
         $mail = new Core_Mail();
         $mail->addDestinatario($this->_mail);
         $mail->setAsunto('confirmar cuenta');
         $mensaje = '<b>Hello ' . $this->_name . '</b><p>';
         $mensaje.= 'need to confirm your account</p>';
         $mensaje.= 'click the following ';
-        $mensaje.= '<a href="' . BASE_URL . '/menber/create-account/confirm?id=' . $idConfirm . '">link</a>';
+        $mensaje.= '<a href="' . BASE_URL . '/member/create-account/confirm?id=' . $idConfirm . '">link</a>';
         $mail->setMensaje($mensaje);
         $mail->send();
     }
@@ -238,9 +238,9 @@ class Application_Entity_Menber extends Core_Entity {
     function autentificate($usuario, $password) {
         $auth = Zend_Auth::getInstance();
         $adapter = new Zend_Auth_Adapter_DbTable(Zend_Registry::get('multidb'),
-                        'menberautentificate',
-                        'menber_mail',
-                        'menber_password');
+                        'memberautentificate',
+                        'member_mail',
+                        'member_password');
         $adapter->setIdentity($usuario);
         $contrasenia = $this->getPassword($usuario);
         $valueSegurity = $this->getValueSegurityPassword($contrasenia);
@@ -250,7 +250,7 @@ class Application_Entity_Menber extends Core_Entity {
         $adapter->setCredential($password);
         $result = $auth->authenticate($adapter);
         if ($result->isValid()) {
-            $data = $adapter->getResultRowObject(null, 'menber_password');
+            $data = $adapter->getResultRowObject(null, 'member_password');
             $auth->getStorage()->write($data);
             $this->_message = 'Successful Authentication';
             return TRUE;
@@ -265,8 +265,8 @@ class Application_Entity_Menber extends Core_Entity {
     }
 
     protected function getPassword($mail) {
-        $modelMenber = new Application_Model_Menber();
-        return $modelMenber->getpassword($mail);
+        $modelMember = new Application_Model_Member();
+        return $modelMember->getpassword($mail);
     }
 
     function getValueSegurityPassword($value) {
@@ -274,21 +274,21 @@ class Application_Entity_Menber extends Core_Entity {
     }
 
     function passwordReset($password) {
-        $modelMenber = new Application_Model_Menber();
-        $data['menber_password'] = $this->encriptaPassword($password);
-        $modelMenber->update($data, $this->_id);
+        $modelMember = new Application_Model_Member();
+        $data['member_password'] = $this->encriptaPassword($password);
+        $modelMember->update($data, $this->_id);
     }
 
     function sendPasswordRecovery($mail) {
-        $modelMenber = new Application_Model_Menber();
+        $modelMember = new Application_Model_Member();
         $passwordTemp = $this->generaPasswordTemp();
         $data['menbar_password_reset'] = $passwordTemp;
-        if ($modelMenber->insertPasswordReset($passwordTemp, $mail)) {
+        if ($modelMember->insertPasswordReset($passwordTemp, $mail)) {
             $objMail = new Core_Mail();
             $objMail->addDestinatario($mail);
             $objMail->setAsunto('Password Recovery');
             $mensaje = '<b>Password Recovery</b> <p>';
-            $mensaje.= '<a href="' . BASE_URL . '/menber/recovery-account/confirm?id=' . $passwordTemp . '">link</a>';
+            $mensaje.= '<a href="' . BASE_URL . '/member/recovery-account/confirm?id=' . $passwordTemp . '">link</a>';
             $objMail->setMensaje($mensaje);
             $objMail->send();
             return true;
@@ -299,11 +299,11 @@ class Application_Entity_Menber extends Core_Entity {
     }
 
     function passwordRecovery($token, $password) {
-        $modelMenber = new Application_Model_Menber();
+        $modelMember = new Application_Model_Member();
         if ($this->confirmTokenRecoveryAccount($token)) {
-            $data['menber_password'] = $this->encriptaPassword($password);
+            $data['member_password'] = $this->encriptaPassword($password);
             $data['menbar_password_reset'] = Null;
-            $modelMenber->update($data, $this->_id);
+            $modelMember->update($data, $this->_id);
             $this->_message = 'The password is reset correctly';
             return TRUE;
         } else {
@@ -313,8 +313,8 @@ class Application_Entity_Menber extends Core_Entity {
     }
 
     function confirmTokenRecoveryAccount($token) {
-        $modelMenber = new Application_Model_Menber();
-        if ($id = $modelMenber->isTokenPasswordReset($token)) {
+        $modelMember = new Application_Model_Member();
+        if ($id = $modelMember->isTokenPasswordReset($token)) {
             $this->identify($id);
             return true;
         } else {
@@ -323,24 +323,24 @@ class Application_Entity_Menber extends Core_Entity {
     }
 
     static function listing() {
-        $modelMenber = new Application_Model_Menber();
-        return $modelMenber->getMenbers();
+        $modelMember = new Application_Model_Member();
+        return $modelMember->getMembers();
     }
-    static function searchMenber($value) {
-        $modelMenber = new Application_Model_Menber();
-        return $modelMenber->searchMenber($value);
+    static function searchMember($value) {
+        $modelMember = new Application_Model_Member();
+        return $modelMember->searchMember($value);
     }
 
     function active() {
-        $modelMenber = new Application_Model_Menber();
-        $data['menber_active'] = '1';
-        return $modelMenber->update($data, $this->_id);
+        $modelMember = new Application_Model_Member();
+        $data['member_active'] = '1';
+        return $modelMember->update($data, $this->_id);
     }
 
     function inactive() {
-        $modelMenber = new Application_Model_Menber();
-        $data['menber_active'] = '0';
-        return $modelMenber->update($data, $this->_id);
+        $modelMember = new Application_Model_Member();
+        $data['member_active'] = '0';
+        return $modelMember->update($data, $this->_id);
     }
 
 }

@@ -63,10 +63,10 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'order' => 4
             ),
             array(
-                'label' => 'Menbers',
-                'id' => 'menbers',
+                'label' => 'Members',
+                'id' => 'members',
                 'module' => 'admin',
-                'controller' => 'menbers',
+                'controller' => 'members',
                 'order' => 5
             ),
             array(

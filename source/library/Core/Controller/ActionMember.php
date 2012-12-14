@@ -1,24 +1,24 @@
 <?php
 
-class Core_Controller_ActionMenber extends Core_Controller_Action {
+class Core_Controller_ActionMember extends Core_Controller_Action {
 
     public function init() {
         $this->_identity = Zend_Auth::getInstance()->getIdentity();
-        $this->_helper->layout->setLayout('layout-menber');
+        $this->_helper->layout->setLayout('layout-member');
         parent::init();
-        if(isset($this->_session->navigatorMenber)){
-            $container = new Zend_Navigation($this->_session->navigatorMenber);
+        if(isset($this->_session->navigatorMember)){
+            $container = new Zend_Navigation($this->_session->navigatorMember);
             $this->view->navigation($container)
                     ->findOneByController($this->getRequest()->getControllerName());
         }
     }
     
-     protected function getNavigationMenber() {
+     protected function getNavigationMember() {
         $container = array(
             array(
                 'label' => 'Dashboard',
                 'id' => 'dashboard',
-                'module' => 'menber',
+                'module' => 'member',
                 'controller' => 'dashboard',
                 'action' => 'index',
                 'order' => 1
@@ -26,7 +26,7 @@ class Core_Controller_ActionMenber extends Core_Controller_Action {
             array(
                 'label' => 'Edit my Profile',
                 'id' => 'edit-profile',
-                'module' => 'menber',
+                'module' => 'member',
                 'controller' => 'edit-profiler',
                 'action' => 'index',
                 'order' => 2
@@ -34,7 +34,7 @@ class Core_Controller_ActionMenber extends Core_Controller_Action {
             array(
                 'label' => 'My Address',
                 'id' => 'my-address',
-                'module' => 'menber',
+                'module' => 'member',
                 'controller' => 'my-address',
                 'action' => 'index',
                 'order' => 3
@@ -43,7 +43,7 @@ class Core_Controller_ActionMenber extends Core_Controller_Action {
             array(
                 'label' => 'Payment Method',
                 'id' => 'payment-method',
-                'module' => 'menber',
+                'module' => 'member',
                 'controller' => 'payment-method',
                 'action' => 'index',
                 'order' => 4
@@ -52,7 +52,7 @@ class Core_Controller_ActionMenber extends Core_Controller_Action {
         $this->setRegisterNavigation($container);
     }
     protected function setRegisterNavigation(array $navigator) {
-        $this->_session->navigatorMenber = $navigator;
+        $this->_session->navigatorMember = $navigator;
     }
 
 }

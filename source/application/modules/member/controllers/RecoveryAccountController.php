@@ -1,6 +1,6 @@
 <?php
 
-class Menber_RecoveryAccountController extends Core_Controller_ActionMenber {
+class Member_RecoveryAccountController extends Core_Controller_ActionMember {
 
     public function init() {
         parent::init();
@@ -8,33 +8,33 @@ class Menber_RecoveryAccountController extends Core_Controller_ActionMenber {
 
     public function indexAction() {
         $form = new Application_Form_RecoveryAccountSendForm();
-        $menber = new Application_Entity_Menber();
+        $member = new Application_Entity_Member();
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_getAllParams())) {
-                if ($menber->sendPasswordRecovery($form->getValue('mail'))) {
-                    $this->getMessenger()->info($menber->getMessage());
+                if ($member->sendPasswordRecovery($form->getValue('mail'))) {
+                    $this->getMessenger()->info($member->getMessage());
                 } else {
-                    $this->getMessenger()->error($menber->getMessage());
+                    $this->getMessenger()->error($member->getMessage());
                 }
-                $this->_redirect('/menber/recovery-account');
+                $this->_redirect('/member/recovery-account');
             }
         }
         $this->view->form = $form;
     }
 
     public function confirmAction() {
-        $menber = new Application_Entity_Menber();
+        $member = new Application_Entity_Member();
         $form = new Application_Form_RecoveryAccountFrom();
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->_getAllParams())) {
                 $token = $this->getRequest()->getParam('id');
                 $password = $form->getValue('password');
-                if ($menber->passwordRecovery($token, $password)) {
-                    $this->getMessenger()->info($menber->getMessage());
+                if ($member->passwordRecovery($token, $password)) {
+                    $this->getMessenger()->info($member->getMessage());
                 } else {
-                    $this->getMessenger()->error($menber->getMessage());
+                    $this->getMessenger()->error($member->getMessage());
                 }
-                $this->_redirect('/menber/login');
+                $this->_redirect('/member/login');
             }
         }
         $this->view->form = $form;

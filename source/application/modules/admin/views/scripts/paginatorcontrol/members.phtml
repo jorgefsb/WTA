@@ -10,9 +10,9 @@
         <!-- Previous page link -->
         <?php if (isset($this->previous)): ?>
         <?php if($this->search==''){ ?>
-            <li class="prev"><a  href="/admin/menbers?page=<?php echo $this->previous; ?>">
+            <li class="prev"><a  href="/admin/members?page=<?php echo $this->previous; ?>">
         <?php } else { ?>            
-            <li class="prev"><a  href="/admin/menbers?search=<?php echo $this->search; ?>&page=<?php echo $this->previous; ?>">                         
+            <li class="prev"><a  href="/admin/members?search=<?php echo $this->search; ?>&page=<?php echo $this->previous; ?>">                         
         <?php }  ?>            
                 &lt; Previous
             </a></li>
@@ -24,9 +24,9 @@
         <?php foreach ($this->pagesInRange as $page): ?>
             <?php if ($page != $this->current): ?>
         <?php if($this->search==''){ ?>
-                <li><a href="/admin/menbers?page=<?php echo $page ?>">
+                <li><a href="/admin/members?page=<?php echo $page ?>">
          <?php } else { ?>            
-            <li class="prev"><a  href="/admin/menbers?search=<?php echo $this->search; ?>&page=<?php echo $page; ?>">                         
+            <li class="prev"><a  href="/admin/members?search=<?php echo $this->search; ?>&page=<?php echo $page; ?>">                         
         <?php }  ?>                 
                     <?php echo $page; ?>
                 </a></li>
@@ -37,9 +37,9 @@
         <!-- Next page link -->
         <?php if (isset($this->next)): ?>
         <?php if($this->search==''){ ?>
-            <li class="nex"><a   href="/admin/menbers?page=<?php echo $this->next; ?>">
+            <li class="nex"><a   href="/admin/members?page=<?php echo $this->next; ?>">
           <?php } else { ?>            
-            <li class="prev"><a  href="/admin/menbers?search=<?php echo $this->search; ?>&page=<?php echo $this->next; ?>">                         
+            <li class="prev"><a  href="/admin/members?search=<?php echo $this->search; ?>&page=<?php echo $this->next; ?>">                         
         <?php }  ?>            
                 Next &gt;
             </a></li>

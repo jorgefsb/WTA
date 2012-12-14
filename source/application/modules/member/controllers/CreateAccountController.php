@@ -1,6 +1,6 @@
 <?php
 
-class Menber_CreateAccountController extends Core_Controller_ActionMenber {
+class Member_CreateAccountController extends Core_Controller_ActionMember {
 
     public function init() {
         parent::init();
@@ -12,17 +12,17 @@ class Menber_CreateAccountController extends Core_Controller_ActionMenber {
         $arrayResponse = array();
         if ($this->getRequest()->isXmlHttpRequest()) {
             $form = new Application_Form_CreateAccountForm();
-            $entityMenber = new Application_Entity_Menber();
+            $entityMember = new Application_Entity_Member();
             if ($form->isValid($this->_getAllParams())) {
-                $entityMenber->setPropertie('_name', $form->getElement('firstname')->getValue());
-                $entityMenber->setPropertie('_lastName', $form->getElement('lastname')->getValue());
-                $entityMenber->setPropertie('_mail', $form->getElement('email')->getValue());
-                if ($entityMenber->createMenber($form->getElement('password1')->getValue())) {
+                $entityMember->setPropertie('_name', $form->getElement('firstname')->getValue());
+                $entityMember->setPropertie('_lastName', $form->getElement('lastname')->getValue());
+                $entityMember->setPropertie('_mail', $form->getElement('email')->getValue());
+                if ($entityMember->createMember($form->getElement('password1')->getValue())) {
                     $arrayResponse['response'] = 1;
                 } else {
                     $arrayResponse['response'] = 0;
                 }
-                $arrayResponse = array('message' => $entityMenber->getMessage());
+                $arrayResponse = array('message' => $entityMember->getMessage());
             } else {
                 $arrayResponse['formMessages'] = $form->getMessages();
                 $arrayResponse['formValues'] = $form->getValues();
@@ -33,9 +33,9 @@ class Menber_CreateAccountController extends Core_Controller_ActionMenber {
 
     public function confirmAction() {
         $this->_helper->layout->setLayout('layout');
-        $entityMenber = new Application_Entity_Menber();
-        $entityMenber->confirmAccount($this->_getParam('id'));
-        $this->view->message = $entityMenber->getMessage();
+        $entityMember = new Application_Entity_Member();
+        $entityMember->confirmAccount($this->_getParam('id'));
+        $this->view->message = $entityMember->getMessage();
     }
 
 }

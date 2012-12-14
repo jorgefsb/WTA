@@ -24,34 +24,34 @@
         </th>
     </tr>
     </thead>
-<?php foreach($this->listingMenber as $index): ?>
+<?php foreach($this->listingMember as $index): ?>
     <tr>
         
         <td>
-            <?php echo $index['menber_name']; ?>
+            <?php echo $index['member_name']; ?>
         </td>
         <td>
-            <?php if($index['menber_active'] == 1){ ?>
+            <?php if($index['member_active'] == 1){ ?>
             <samp class="label label-success">Active</samp>
             <?php } else { ?>
             <samp class="label">Inactive</samp>
             <?php } ?>
         </td>
         <td>
-            <?php echo $index['menber_mail']; ?>
+            <?php echo $index['member_mail']; ?>
         </td>
         <td>
-            <?php if($index['menber_active'] == 1){ ?>
-            <a class="btn btn-info" href="/admin/menbers/inactive/id/<?php echo $index['menber_id']; ?>"><span class="icon-eye-close icon-white"></span> Inactive</a>
+            <?php if($index['member_active'] == 1){ ?>
+            <a class="btn btn-info" href="/admin/members/inactive/id/<?php echo $index['member_id']; ?>"><span class="icon-eye-close icon-white"></span> Inactive</a>
             <?php } else { ?>
-            <a class="btn btn-info" href="/admin/menbers/active/id/<?php echo $index['menber_id']; ?>"><span class="icon-eye-open icon-white"></span> Active</a>
+            <a class="btn btn-info" href="/admin/members/active/id/<?php echo $index['member_id']; ?>"><span class="icon-eye-open icon-white"></span> Active</a>
             <?php } ?>
         </td>
     </tr>
 <?php endforeach; ?>
 </table>
 <?php
-        echo $this->paginationControl($this->listingMenber, 'Sliding', '/paginatorcontrol/menbers.phtml',array('search'=>$this->search));
+        echo $this->paginationControl($this->listingMember, 'Sliding', '/paginatorcontrol/members.phtml',array('search'=>$this->search));
         ?>
 </div>
 </div>

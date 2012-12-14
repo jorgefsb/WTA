@@ -1,6 +1,6 @@
 <?php
 
-class Menber_LoginController extends Core_Controller_ActionMenber {
+class Member_LoginController extends Core_Controller_ActionMember {
 
     public function init() {
         parent::init();
@@ -12,19 +12,19 @@ class Menber_LoginController extends Core_Controller_ActionMenber {
         $arrayResponse = array();
         if ($this->getRequest()->isXmlHttpRequest()) {
             $loginForm = new Application_Form_LoginForm();
-            $entityMenber = new Application_Entity_Menber();
+            $entityMember = new Application_Entity_Member();
             if ($loginForm->isValid($this->_getAllParams())) {
-                if ($entityMenber->autentificate(
+                if ($entityMember->autentificate(
                         $loginForm->getElement('email')->getValue(), 
                         $loginForm->getElement('password')->getValue())) {
-                    $this->getNavigationMenber();
+                    $this->getNavigationMember();
                     $arrayResponse['response'] = 1;
-                    $arrayResponse['redirect'] = '/menber/dashboard';
+                    $arrayResponse['redirect'] = '/member/dashboard';
                 }else{
                     $arrayResponse['response'] = 0;
                     $arrayResponse['redirect'] = '';
                 }
-                $arrayResponse = array('message'=>$entityMenber->getMessage());
+                $arrayResponse = array('message'=>$entityMember->getMessage());
             } else {
                 $arrayResponse['formMessages'] = $loginForm->getMessages();
                 $arrayResponse['formValues'] = $loginForm->getValues();
