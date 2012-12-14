@@ -96,6 +96,21 @@ class Application_Model_Membership extends Core_Model {
             return false;
         }
     }
+    /**
+     * metodo insertMembershipMember(), registra las menbresias de los usuarios
+     * @param array             $data   array con los datos de la Menbresia array('campo'=>'valor del campo')
+     * @return array            devuelve un array asociativo con las
+     *                          columnas y su respectivo valor de la menbresia
+     */
+    function updateMembershipMember($data,$idMembershipMember) {
+        if ($idMembershipMember != '') {
+            $where = $this->_tableMembershipMember->getAdapter()
+                    ->quoteInto('membership_member_id =?', $idMembershipMember);
+            return $this->_tableMembershipMember->update($data, $where);
+        } else {
+            return false;
+        }
+    }
 
 
 

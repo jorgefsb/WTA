@@ -345,10 +345,18 @@ class Application_Entity_Member extends Core_Entity {
     }
 
     function addMembership() {
-        $transacction = new Application_Entity_Transaction();
-        $transacction->createTransaction();
         $membership = new Application_Entity_Membership();
         $dataMembership = $membership->getMembershipActive();
+        $transacction = new Application_Entity_Transaction();
+        $transacction->setPropertie('_member', $this->_id);
+        if ($dataMembership['membership_isfree'] == 1) {
+            $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_PAID);
+            $transacction->setPropertie('_amount', '0');
+        } else {
+            $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_OUTSTANDING);
+            $transacction->setPropertie('_amount', $dataMembership['membership_price']);
+        }
+        $transacction->createTransaction();
         $membership->setPropertie('_membershipId', $dataMembership['membership_id']);
         $membership->setPropertie('_price', $dataMembership['membership_price']);
         $membership->setPropertie('_memberId', $this->_id);

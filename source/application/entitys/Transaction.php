@@ -34,7 +34,10 @@ class Application_Entity_Transaction extends Core_Entity {
 
     private function asocParams($data) {
         $this->_id = $data['transaction_id'];
-        $this->_name = $data['transaction_name'];
+        $this->_amount = $data['transaction_amount'];
+        $this->_member = $data['member_id'];
+        $this->_state = $data['tansaction_state_id'];
+        $this->_codePayment = $data['transaction_code_payment'];
     }
 
     /*
@@ -61,7 +64,10 @@ class Application_Entity_Transaction extends Core_Entity {
 
     function setParamsDataBase() {
         $data['transaction_id'] = $this->_id;
-        $data['transaction_name'] = $this->_name;
+        $data['transaction_amount'] = $this->_amount ;
+        $data['tansaction_state_id'] = $this->_state;
+        $data['member_id'] = $this->_member;
+        $data['transaction_code_payment'] = $this->_codePayment;
         return $this->cleanArray($data);
     }
 
@@ -81,6 +87,8 @@ class Application_Entity_Transaction extends Core_Entity {
 
     function createTransaction() {
         $modelTransaction = new Application_Model_Transaction();
+        $data = $this->setParamsDataBase();
+        $data['transaction_register_date'] = date('Y-m-d H:i:s');
         $id = $modelTransaction->insert($data);
         if ($id != false) {
             $this->_id = $id;

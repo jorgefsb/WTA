@@ -83,7 +83,7 @@ class Application_Entity_Membership extends Core_Entity {
         $modelMemberShip = new Application_Model_Membership();
         $date = $this->setParamsDataBase();
 
-        if ($modelMemberShip->update($date, $this->_id) !== FALSE) {
+        if ($modelMemberShip->updateMembershipMember($date, $this->_id) !== FALSE) {
             $this->_message = 'Registration was successful';
             return true;
         } else {
@@ -104,7 +104,7 @@ class Application_Entity_Membership extends Core_Entity {
         }
         $data = $this->setParamsDataBase();
         $date['membership_member_register_date'] = date('Y-m-d H:i:s');
-        $id = $$modelMemberShip->insert($data);
+        $id = $modelMemberShip->insertMembershipMember($data);
         if ($id != FALSE) {
             $this->_id = $id;
             if ($this->_isfree == 1) {
@@ -120,13 +120,13 @@ class Application_Entity_Membership extends Core_Entity {
     function active() {
         $modelMemberShip = new Application_Model_Membership();
         $data['membership_member_status'] = self::MENBERSHIPT_ACTIVE;
-        return $modelMember->update($data, $this->_id);
+        return $modelMemberShip->updateMembershipMember($data, $this->_id);
     }
 
     function inactive() {
         $modelMemberShip = new Application_Model_Membership();
         $data['membership_member_status'] = self::MENBERSHIPT_INACTIVE;
-        return $modelMember->update($data, $this->_id);
+        return $modelMemberShip->updateMembershipMember($data, $this->_id);
     }
 
     function getMembershipActive() {
