@@ -46,7 +46,7 @@ $this->view->headScript()->appendScript(
                 $product->setPropertie('_price', $form->getValue('price'));
                 $product->setPropertie('_designType', $form->getValue('designType'));
                 $product->setPropertie('_collectionType', $form->getValue('collectionType'));
-                $product->setPropertie('_priceMenber', $form->getValue('priceMenber'));
+                $product->setPropertie('_priceMember', $form->getValue('priceMember'));
                 $product->createProduct();
                 foreach ($form->getValue('size') as $index) {
                     $product->addSize($index);
@@ -74,7 +74,7 @@ $this->view->headScript()->appendScript(
         $arrayPopulate['public'] = $properties['_public'];
         $arrayPopulate['price'] = $properties['_price'];
         $arrayPopulate['collectionType'] = $properties['_collectionType'];
-        $arrayPopulate['priceMenber'] = $properties['_priceMenber'];
+        $arrayPopulate['priceMember'] = $properties['_priceMember'];
         $arrayPopulate['designType'] = $properties['_designType'];
         $arrayPopulate['size'] = array_keys(Core_Utils::fetchPairs($product->getSize()));
 
@@ -90,7 +90,7 @@ $this->view->headScript()->appendScript(
                 $product->setPropertie('_cantLimitedQuantity', $form->getValue('cantLimitedQuantity'));
                 $product->setPropertie('_public', $form->getValue('public'));
                 $product->setPropertie('_price', $form->getValue('price'));
-                $product->setPropertie('_priceMenber', $form->getValue('priceMenber'));
+                $product->setPropertie('_priceMember', $form->getValue('priceMember'));
                 $product->setPropertie('_designType', $form->getValue('designType'));
                 $product->setPropertie('_collectionType', $form->getValue('collectionType'));
                 $product->update();

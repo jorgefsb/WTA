@@ -3,14 +3,14 @@
     $nprod = count($this->cart);
     if($nprod){
         foreach($this->cart as $prod){
-            $total += $prod['_priceMenber'];
+            $total += $prod['_priceMember'];
 ?>
 
             <div class="prod"><!-- PRODUCT -->
 
                 <div class="prices">
                     <div>Guest price <strong class="prec1 line-through"><br/>$<?php echo number_format($prod['_price'],2) ?></strong></div>
-                    <div>Member price <strong class="prec2"><br/>$<?php echo number_format($prod['_priceMenber'],2) ?></strong></div>                                        
+                    <div>Member price <strong class="prec2"><br/>$<?php echo number_format($prod['_priceMember'],2) ?></strong></div>                                        
                 </div>
 
                 <img src="<?php echo DINAMIC_URL.'/product/mini/'.$prod['images'][0]['image_name']; ?>" />

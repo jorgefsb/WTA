@@ -24,8 +24,8 @@ class Application_Form_EditProfilertForm extends Core_Form {
                 )));
         $validatorsEmail = array(
             new Zend_Validate_Db_NoRecordExists(array(
-                'table' => 'menber',
-                'field' => 'menber_mail')),
+                'table' => 'member',
+                'field' => 'member_mail')),
             new Zend_Validate_EmailAddress()
         );
         $this->addElement(new Zend_Form_Element_Text('mail',
@@ -61,7 +61,7 @@ class Application_Form_EditProfilertForm extends Core_Form {
             $elementMail = $this->getElement('mail');
             $validator = $elementMail->getValidator('Db_NoRecordExists');
             $validator->setExclude(array(
-                'field' => 'menber_id',
+                'field' => 'member_id',
                 'value' => $id
             ));
         }

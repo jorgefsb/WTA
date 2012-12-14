@@ -76,7 +76,7 @@ class Application_Model_Product extends Core_Model {
                     'pr.product_description',
                     'pr.product_publish_date',
                     'pr.product_price',
-                    'pr.product_price_menber',
+                    'pr.product_price_member',
                     'pr.product_in_stock',
                     'pr.product_limited_quantity',
                     'pr.product_cant_limited_quantity',

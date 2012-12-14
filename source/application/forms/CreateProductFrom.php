@@ -65,7 +65,7 @@ class Application_Form_CreateProductFrom extends Core_Form {
                             'required' => true,
                             'label' => 'Guest Price'
                 )));
-        $this->addElement(new Zend_Form_Element_Text('priceMenber',
+        $this->addElement(new Zend_Form_Element_Text('priceMember',
                         array(
                             'required' => true,
                             'label' => 'Member Price'
