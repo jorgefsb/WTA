@@ -17,7 +17,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $doctypeHelper = new Zend_View_Helper_Doctype();
         $doctypeHelper->doctype(Zend_View_Helper_Doctype::XHTML1_TRANSITIONAL);
     }
-
+    
+/*    protected function _initForceSSL() {
+        if ($_SERVER['SERVER_PORT'] != '443') {
+            header('Location: https://' . $_SERVER['HTTP_HOST'] .
+                    $_SERVER['REQUEST_URI']);
+            exit();
+        }
+    }
+*/
 
     public function _initRegistries() {
         //$config = Zend_Registry::get('config');

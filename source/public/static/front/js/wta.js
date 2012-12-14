@@ -181,11 +181,11 @@ var WTA = (function(){
     }
     
     this.updateCart = function(callback){
-        $('#shoppingCart').find('.overview').load('/index/cart', function(response, status, xhr) {
+        $('#popupShoppinCart').find('.overview').load('/index/cart', function(response, status, xhr) {
             if (status == "error") {
                 var msg = "Sorry but there was an error ";
-                //$('#shoppingCart').html(msg + xhr.status + " " + xhr.statusText);
-                $('#shoppingCart').html(msg);
+                //$('#popupShoppinCart').html(msg + xhr.status + " " + xhr.statusText);
+                $('#popupShoppinCart').html(msg);
             }
             $.bootstrap_selects();
             callback();
@@ -199,9 +199,9 @@ var WTA = (function(){
             var $this = $(this);
             if( $this.hasClass('activo') ){ // oculta
                 $this.removeClass('activo');
-                $('#shoppingCart').slideUp();
+                $('#popupShoppinCart').slideUp();
             }else{
-                that.updateCart(function(){$('#shoppingCart').slideDown();});
+                that.updateCart(function(){$('#popupShoppinCart').slideDown();});
                 $this.addClass('activo');                
             }
         })

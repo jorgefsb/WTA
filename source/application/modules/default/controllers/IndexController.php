@@ -264,6 +264,11 @@ class Default_IndexController extends Core_Controller_ActionDefault
         
     }
     
+    public function checkoutAction(){
+        //$this->loadOptionsMenu();
+        $this->view->cart = $this->_session->cart;
+    }
+    
     
     public function addtocartAction(){
         $this->_helper->layout->disableLayout();
