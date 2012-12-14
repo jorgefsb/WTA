@@ -111,7 +111,7 @@ class Application_Model_Member extends Core_Model {
      */
     public function insertPasswordReset($passwordTemp, $mail) {
         if ($passwordTemp != '' && $mail != '') {
-            $data['menbar_password_reset'] = $passwordTemp;
+            $data['member_password_reset'] = $passwordTemp;
             $where = $this->_tableMember->getAdapter()
                     ->quoteInto('member_mail =?', $mail);
             return $this->_tableMember->update($data, $where);
@@ -126,7 +126,7 @@ class Application_Model_Member extends Core_Model {
         }
         $sql = $this->_tableMember->select()
                 ->from($this->_tableMember->getName(), array('member_id'))
-                ->where('menbar_password_reset = ?', $token);
+                ->where('member_password_reset = ?', $token);
         return $this->_tableMember->getAdapter()->fetchOne($sql);
     }
 

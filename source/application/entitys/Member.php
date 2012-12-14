@@ -282,7 +282,7 @@ class Application_Entity_Member extends Core_Entity {
     function sendPasswordRecovery($mail) {
         $modelMember = new Application_Model_Member();
         $passwordTemp = $this->generaPasswordTemp();
-        $data['menbar_password_reset'] = $passwordTemp;
+        $data['member_password_reset'] = $passwordTemp;
         if ($modelMember->insertPasswordReset($passwordTemp, $mail)) {
             $objMail = new Core_Mail();
             $objMail->addDestinatario($mail);
@@ -302,7 +302,7 @@ class Application_Entity_Member extends Core_Entity {
         $modelMember = new Application_Model_Member();
         if ($this->confirmTokenRecoveryAccount($token)) {
             $data['member_password'] = $this->encriptaPassword($password);
-            $data['menbar_password_reset'] = Null;
+            $data['member_password_reset'] = Null;
             $modelMember->update($data, $this->_id);
             $this->_message = 'The password is reset correctly';
             return TRUE;
@@ -326,6 +326,7 @@ class Application_Entity_Member extends Core_Entity {
         $modelMember = new Application_Model_Member();
         return $modelMember->getMembers();
     }
+
     static function searchMember($value) {
         $modelMember = new Application_Model_Member();
         return $modelMember->searchMember($value);
@@ -341,6 +342,21 @@ class Application_Entity_Member extends Core_Entity {
         $modelMember = new Application_Model_Member();
         $data['member_active'] = '0';
         return $modelMember->update($data, $this->_id);
+    }
+
+    function addMembership() {
+        $membership = new Application_Entity_Membership();
+        $dataMembership = $membership->getMembershipActive();
+        $membership->setPropertie('_membershipId', $dataMembership['membership_id']);
+        $membership->setPropertie('_price', $dataMembership['membership_price']);
+        $membership->setPropertie('_memberId', $this->_id);
+        $membership->setPropertie('_isfree', $dataMembership['membership_isfree']);
+        $membership->insert();
+        if ($dataMembership['membership_isfree'] == 1) {
+            $modelMember = new Application_Model_Member();
+            $data['member_membership_free'] = '1';
+            $modelMember->update($data, $this->_id);
+        }
     }
 
 }
