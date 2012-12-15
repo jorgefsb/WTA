@@ -3,7 +3,7 @@
     $nprod = count($this->cart);
     if($nprod){
         foreach($this->cart as $prod){
-            $total += $prod['_priceMember'];
+            $total += $prod['_priceMember'] * (int)$prod['quantity'];
 ?>
 
             <div class="prod"><!-- PRODUCT -->
@@ -29,7 +29,11 @@
                             <select><option>--</option>
                                 <?php
                                     foreach($prod['sizes'] as $size){
-                                        echo '<option>'.$size.'</option>';
+                                        if( $prod['size_prod'] ==  $size ){
+                                            echo '<option slected="selected" value="">'.$size.'</option>';
+                                        }else{
+                                            echo '<option value="">'.$size.'</option>';
+                                        }
                                     }
                                 ?>
                                 </select>
@@ -38,8 +42,8 @@
                     ?>
                             
                             </label>
-                    <label class="quantity">QTY <input type="text" name="quantity" value="<?php echo (int) (isset($prod['count']) ? $prod['count'] : 0); ?>" /></label>
-                    <a href="/index/removecart" class="remove" >remove</a>
+                    <label class="quantity">QTY <input type="text" data-code="<?php echo $prod['clave'] ?>" name="quantity" class="quantity" value="<?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 1); ?>" /></label>
+                    <a href="/index/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >remove</a>
                 </div>
 
             </div>

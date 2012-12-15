@@ -62,6 +62,7 @@ var WTA = (function(){
                         $('.wLight').fadeOut();
                         $('.wLight').remove();
                     });
+                    $('html, body').animate({'scrollTop': 0}, 500)
                 }
             })
         })
@@ -187,8 +188,60 @@ var WTA = (function(){
                 //$('#popupShoppinCart').html(msg + xhr.status + " " + xhr.statusText);
                 $('#popupShoppinCart').html(msg);
             }
+            
+            var $checkoutcart = $('#checkout-cart');
+            
+            if($checkoutcart.length){
+                $checkoutcart.load('/index/checkoutcart', function(response, status, xhr) {
+                     if (status == "error") {
+                        var msg = "Sorry but there was an error.";
+                        //$('#popupShoppinCart').html(msg + xhr.status + " " + xhr.statusText);
+                        $checkoutcart.html(msg);
+                    }
+                    
+                    $checkoutcart.find('.remove').click(function(e){
+                        e.preventDefault();
+                        $.ajax({
+                            url: $(this).attr('href')
+                        }).done(function(response){
+                            that.updateCart();
+                        });
+                    });
+                    
+                });
+            }
+            
             $.bootstrap_selects();
-            callback();
+            if(callback){
+                callback();
+            }
+            
+            var $popupShoppinCart = $('#popupShoppinCart');
+            
+            $popupShoppinCart.find('.remove').click(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('href')
+                }).done(function(response){
+                    that.updateCart();
+                });
+            });
+            
+            $popupShoppinCart.find('.quantity').blur(function(){
+                var $this = $(this);
+                var value = parseInt($this.val(), 10);
+                if( !value ){
+                    value = 1;
+                    $this.val(1);
+                }
+                $.ajax({
+                    url: '/index/changeitem/clave/'+$this.data('code')+'/quantity/'+value+'/format/json'
+                }).done(function(response){
+                    that.updateCart();
+                });
+            });
+            
+            
             $('#scrollbar1').tinyscrollbar();
         });
 

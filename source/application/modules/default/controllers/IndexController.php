@@ -2,14 +2,29 @@
 
 class Default_IndexController extends Core_Controller_ActionDefault       
 {
+    private $_tackName = '';
+    private $_tackUrl = '';
+    private $_tackData = '';
+    private $_tackUrlRef = '';
+    private $_tackDate = '';
+    
     
     public function init() {
         parent::init();
-        $this->_helper->contextSwitch()->addActionContext('addtocart', 'json')->initContext();
+        $this->_helper->contextSwitch()
+                ->addActionContext('addtocart', 'json')
+                ->addActionContext('removeitem', 'json')
+                ->addActionContext('changeitem', 'json')
+                ->initContext();
+//        print_r($_SERVER);die($_SERVER['REQUEST_URI']);
+        if( !isset($this->_session->hola) ){
+            $this->_session->hola = 'asdasda';
+        }        
         
-        if( !isset($this->_session->count) ){
-            $this->_session->count = 0;
+        if( !isset($this->_session->_tracking) ){
+            $this->_session->_tracking = new Core_Tracking();
         }
+        
     }
     
     private function loadOptionsMenu(){
@@ -28,6 +43,14 @@ class Default_IndexController extends Core_Controller_ActionDefault
     
     public function indexAction(){        
         $this->loadOptionsMenu();
+        
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
         
     } 
     
@@ -76,6 +99,14 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->product = $properties;
         $this->view->urlBase = '/designers/';
                 
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PRODUCT';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackData =array('product'=>$product_active, 'code'=>$properties['_id'], 'name'=>$properties['_name']);
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
     } 
     
     
@@ -147,6 +178,15 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->next = $next;
         $this->view->urlBase = '/exclusive-collections/';
         
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PRODUCT';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackData =array('product'=>$product_active, 'code'=>$properties['_id'], 'name'=>$properties['_name']);
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
+        
     }
     
     
@@ -187,6 +227,15 @@ class Default_IndexController extends Core_Controller_ActionDefault
                 
         $this->view->urlBase = '/boutique/'.preg_replace('/\s+/', '-',trim($properties['actress']['_name'])).'/';
         
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PRODUCT';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackData =array('product'=>$product_active, 'code'=>$properties['_id'], 'name'=>$properties['_name']);
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
+        
     }
     
     
@@ -194,6 +243,12 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->loadOptionsMenu();
         
         
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];        
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
         
     }
     
@@ -251,6 +306,15 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->urlBase = '/limited-quantity/';
         
         
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PRODUCT';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackData =array('product'=>$product_active, 'code'=>$properties['_id'], 'name'=>$properties['_name']);
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
+        
+        
     }
     
     public function cartAction(){
@@ -264,9 +328,34 @@ class Default_IndexController extends Core_Controller_ActionDefault
         
     }
     
+     public function resetAction(){        
+        $this->_session->cart = array();
+        $this->_session->_tracking->clear();
+    }
+    
+    
     public function checkoutAction(){
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
+        
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackData =array();
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
+        
+    }
+    
+    
+    public function checkoutcartAction(){
+        $this->_helper->layout->disableLayout();
+        //$this->loadOptionsMenu();
+        $this->view->cart = $this->_session->cart;
+        $this->view->cart = $this->_session->cart;
+        
     }
     
     
@@ -292,40 +381,141 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $properties['sizes'] = $_product->getSize($properties['_id']);
         $properties['designer'] = $_designer->getProperties();
         
-        $properties['count'] = 1;
-        
-        
-        
-        
+        $properties['quantity'] = 1;        
+        $properties['clave'] = rand(1, 100);
         $this->_session->cart[] = $properties;
         
         //$return = array('ok'=>true);
         //die(json_encode($return));
         $this->view->ok = 1;
         
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'ADD2CART';
+        $this->_tackUrl = $_SERVER['HTTP_REFERER'];
+        $this->_tackData =array('code'=>$code, 'name'=>$properties['_name']);
+        $this->_tackUrlRef = '';
+        $this->_tackDate = '';
+        
+    }
+    
+    public function removeitemAction(){ 
+        $this->_helper->layout->disableLayout();
+        //$this->_session->count++;
+        
+        $clave = $this->getRequest()->getParam('clave', 0);
+        
+        foreach($this->_session->cart as $key=>$item){
+            if($item['clave'] == $clave){
+                
+                unset($this->_session->cart[$key]);
+                break;
+            }
+        }
+        
+        $this->view->ok = 1;
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'REMOVEPROD';
+        $this->_tackUrl = $_SERVER['HTTP_REFERER'];
+        $this->_tackData =array('code'=>$item['_id'], 'name'=>$item['_name']);
+        $this->_tackUrlRef = '';
+        $this->_tackDate = '';
+        
     }
     
     
+    public function changeitemAction(){
+        $this->_helper->layout->disableLayout();
+        //$this->_session->count++;
+        
+        $clave = $this->getRequest()->getParam('clave', 0);
+        $quantity = (int)$this->getRequest()->getParam('quantity', 0);
+        $size = (int)$this->getRequest()->getParam('size', 0);
+        //print_r($this->getRequest()->getParams());die();
+        
+        if($quantity || $size){
+
+            foreach($this->_session->cart as $key=>$item){
+                if($item['clave'] == $clave){
+                    
+                    if($quantity){
+                        $this->_session->cart[$key]['quantity'] = $quantity;
+                    }else{
+                        $this->_session->cart[$key]['size_prod'] = $quantity;
+                    }
+                    break;
+                }
+            }            
+
+            $this->view->ok = 1;
+
+            /*
+            * Tracking
+            */
+            $this->_tackName = 'CHANGEPROD';
+            $this->_tackUrl = $_SERVER['HTTP_REFERER'];
+            $this->_tackData =array('code'=>$item['_id'], 'name'=>$item['_name'], 'field'=>($quantity ? 'quantity' : ($size ? 'size' : '')));
+            $this->_tackUrlRef = '';
+            $this->_tackDate = '';
+        }
+        
+    }
+    
+    
+    
     public function aboutusindividualAction(){
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
         
     }
     
     
     public function smallaboutAction(){
         $this->_helper->layout->disableLayout();        
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
     }
     
     
     public function contactusAction(){
         $this->_helper->layout->disableLayout();        
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
     }
     
     public function comingSoonAction(){
         $this->_helper->layout->disableLayout();        
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
     }
     
     public function signinAction(){
         $this->_helper->layout->disableLayout();  
+                
     }
     
     public function forgotpassAction(){
@@ -334,10 +524,50 @@ class Default_IndexController extends Core_Controller_ActionDefault
     
     public function termsAction(){
 
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
     }    
     
     public function rewardingMembersAction(){
 
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
+    }
+    
+    public function helpAction(){
+
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
+    }
+        
+    public function trackingAction(){
+        Zend_Debug::dump($this->_session->_tracking->getLog());
+        
+    }
+    
+    
+    public function postDispatch() {
+        if($this->_tackName && $this->_tackUrl){
+            $this->_session->_tracking->setAction($this->_tackName,
+                                                                            $this->_tackUrl,
+                                                                            $this->_tackData,
+                                                                            $this->_tackUrlRef,
+                                                                            $this->_tackDate
+                                                                        );
+        }
+        //Zend_Debug::dump($this->_session->_tracking);
     }
     
     

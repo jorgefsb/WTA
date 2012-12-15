@@ -146,7 +146,7 @@ html, body{background: #0c0c0c; padding: 0px}
 .shoppingCart .checkout.btn{background: #343434; margin-left: 20px; color: #eee; text-shadow: none}
 
 #scrollbar1 { width: 490px; clear: both; margin: 20px 0 10px; }
-#scrollbar1 .viewport { width: 470px; height: 200px; overflow: hidden; position: relative; }
+#scrollbar1 .viewport { width: 470px; height: 260px; overflow: hidden; position: relative; }
 #scrollbar1 .overview { list-style: none; position: absolute; left: 0; top: 0; }
 #scrollbar1 .thumb .end,
 #scrollbar1 .thumb { background-color: #FFF; border-radius: 10px }
