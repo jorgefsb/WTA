@@ -4,4 +4,4 @@ source/data/log
 source/data/cache
 source/application/configs/application.ini
 source/application/configs/private.ini
-source/public/dinamic
+

@@ -1,7 +1,7 @@
 /* Font */
 @font-face { font-family: Banda; src: url('banda.otf'); } @font-face { font-family: Banda; font-weight: bold; src: url('Banda-Bold.otf'); }
 
-html, body{background: #0c0c0c; padding: 0px}
+html, body{background: #090909; padding: 0px}
 
 .navbar-inverse  .navbar-inner{margin-left: 0; background: #0c0c0c; background: rgba(11, 11, 11, .8);  border: 0px; filter: none;}
 .navbar-inner{padding: 0px;}
