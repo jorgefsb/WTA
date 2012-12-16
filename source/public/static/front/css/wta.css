@@ -3,6 +3,8 @@
 
 html, body{background: #090909; padding: 0px}
 
+#overlay{background: url('../images/pattern-overlay.png'); width: 100%; height: 100%; position: fixed; display: none; z-index: 500;}
+
 .navbar-inverse  .navbar-inner{margin-left: 0; background: #0c0c0c; background: rgba(11, 11, 11, .8);  border: 0px; filter: none;}
 .navbar-inner{padding: 0px;}
 .navbar{margin-left: 0px; margin-bottom: 0px;}
@@ -21,7 +23,7 @@ html, body{background: #090909; padding: 0px}
 #header .pull-right{margin-right: 10px; }
 #header .navbar .nav > li > a{ color: #FFF; text-transform: uppercase; font-size: 11px; padding: 12px 15px}
 #header .navbar .nav > li > a:hover{ background: #161616}
-#header .navbar-inner  .btn{background: #191919; color: #666; font-size: 12px; box-shadow: none; text-shadow: none}
+#header .navbar-inner  .btn, .btn-negro{background: #191919; color: #666; font-size: 12px; box-shadow: none; text-shadow: none}
 #header .navbar-inner  .btn strong{color: #FFF; }
 
 #logo-small{position: absolute; z-index: 2000; top:2px; left: 50%; margin-left: -34px;}
@@ -48,10 +50,11 @@ html, body{background: #090909; padding: 0px}
 #contentBody .logo p span{color: #FFF; font-style: italic; font-family: Banda , helvetica, sans-serif;}
 
 #change_section{background: #101010; color: #FFF; font-family: Arial, Helvetica, sans-serif}
-#change_section > span{display: inline-block; font-size: 11px; text-transform: uppercase; min-width: 200px; text-align: center; margin-right: 20px; line-height: 35px}
+#change_section > span{display: inline-block; font-size: 11px; text-transform: uppercase; min-width: 200px; text-align: center; margin-right: 20px; line-height: 35px;}
 #change_section  .submenu-btn{cursor: pointer}
 #change_section  .submenu-content{ background: #070707; padding: 40px 0px 10px; text-align: center; position: absolute; z-index: 300; width: 100%}
-
+#change_section .caret{ display: inline-block; vertical-align: middle; border-color:#FFF transparent transparent; border-top: 4px solid #AAA;  position: relative; overflow: visible; margin-left: 8px;}
+#change_section .caret:before{content: ""; border-right: 4px solid transparent; border-left: 4px solid transparent; border-top: 4px solid #101010; position: absolute; left: -4px; top: -5px }
 
 #change_category{position: absolute; background: rgba(140,140,140, .2);  padding: 20px; font-size: 12px; text-transform: uppercase; text-align: center;  z-index: 200;  color: #FFF;font-family: Arial}
 #change_category span{display: inline-block; margin-right: 15px;}
@@ -74,17 +77,20 @@ html, body{background: #090909; padding: 0px}
 .submenu-content  .simple li{margin-bottom: 5px}
 .submenu-content  .linea_separacion{margin: 3px auto; width: 25px;}
 .submenu-content .menGift ul li{font-size: 14px; font-family: 'Times New Roman'; text-transform: none; line-height: 16px;}
-.submenu-content .menGift ul li img{display: block; margin: 4px auto; width: 130px;}
-.submenu-content .menGift ul li div{font-size: 15px; font-family: Arial, Helvetica, sans-serif; }
+.submenu-content .menGift ul li img{display: block; margin: 4px auto; }
+.submenu-content .menGift ul li div{font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
 .submenu-content .menGift ul li div span{font-size: 10px; display: block; margin-top: 10px; line-height: 11px;}
 .submenu-content .menGift  .linea_separacion{margin: 8px auto; }
+.submenu-content .menGift  .btn{font-size: 8px; padding: 2px 4px; margin-top: 10px;}
+
 
 /* MENU SECCIONES HOME */
-#lissections{color: #FFF; margin-top: 45px; border-bottom: 1px solid #7e7e7e; margin-left: 0px;}
+#lissections{color: #FFF; margin-top: 45px; border-bottom: 1px solid #7e7e7e; margin-left: 0px; display: inline-block;}
 #lissections > li{display: inline-block; vertical-align: top; font-size: 15px;}
 #lissections  li{ text-align: center; margin: 0 10px; position: relative; list-style: none}
 #lissections  li > span {display: block; text-transform: uppercase}
-#lissections  li a{ text-align: center; font-family: Arial; text-transform: uppercase; color: #bab9ba; text-decoration: none; font-size: 16px; font-weight: bold;  }
+#lissections  li a{text-align: center; font-family: Arial; text-transform: uppercase; color: #bab9ba; text-decoration: none; font-size: 16px; font-weight: bold;  }
+#lissections  li a.btn{font-size: 10px; font-weight: normal; padding: 2px 4px; margin-top: 10px;}
 #lissections > li a span{display: block; border-bottom: 3px solid transparent; padding-bottom: 5px; font-family: Georgia, Arial, Helvetica; }
 #lissections > li:hover a span{border-bottom: 3px solid #FFF; }
 #lissections li:hover > a{ color: #FFF; }
@@ -231,7 +237,8 @@ html, body{background: #090909; padding: 0px}
 .btns-options .btn{background: #333333; color: #FFF; box-shadow: none; text-shadow: none; font-size: 10px; text-transform: uppercase; padding: 2px 5px; font-family: 'Times New Roman' }
 #contentBody > .btns-options {position: absolute; top: 30px; right: 10%; }
 #contentBody .info .btns-options {margin-top: 15px; }
-#contentBody .info .btns-options a{color: #fcd279; background: #101010; min-width: 80px;}
+#contentBody .info .btns-options a{color: #fcd279; background: #101010; min-width: 80px; box-shadow: 1px 1px 2px #999}
+#contentBody .info .btns-options a.big{padding: 10px 12px;  font-size: 13px; border-radius: 7px;}
 
 #contentBody.celebrity {font-family: 'Time New Roman'; text-transform: uppercase}
 #contentBody.celebrity h1{font-size: 12px; color: #FFF; text-align: left; margin: 30px 0 40px 60px; font-weight: normal;}
@@ -241,10 +248,10 @@ html, body{background: #090909; padding: 0px}
 #contentBody.celebrity div a div{position: absolute; bottom: 30%; font-size: 10px; width: 100%; text-align: center; color: #c6c6c6;}
 #contentBody.celebrity div a div span.name{display: block; width: auto; font-size: 35px; line-height: 35px; color: #FFF;}
 #contentBody.celebrity div a div span.name2{font-style: italic; color: #c6c6c6;}
-#contentBody.celebrity div a div span{width: 20%; }
+#contentBody.celebrity div a div span{width: 20%;}
 
 
-#signin{width: 800px; background: #000 url(../images/or.png) center center no-repeat; position: absolute; z-index: 2000; top: 50px; left: 50%; margin-left: -420px; font-family: Arial; padding: 20px; border-radius: 8px; }
+#signin{width: 800px; background: #000 url(../images/or.png) center center no-repeat; z-index: 2000; font-family: Arial; padding: 20px; border-radius: 8px; }
 #signin > div{width: 300px; display: inline-block; margin: 0 auto; vertical-align: top; margin-left: 35px}
 #signin > div:first-child{margin-right: 100px;}
 #signin h2, #forgotpass h2{color: #FFF;font-family: 'Times New Roman'; font-weight: normal; font-size: 24px;}
@@ -269,19 +276,20 @@ input.error{border: 1px solid #a03333 !important}
 
 
 /* ########################################### */
-.wLight {width:618px; margin:auto;  position: relative; display: none;}
+.wLight {margin:auto;  position: absolute; display: none; background: rgba(50,50,50,.1); left: 50%; padding: 10px; z-index: 600; border-radius: 10px; }
+.wLight.no-border{background: none}
 .sAbout span{ color:#FFF;font-family:"Times New Roman", Times, serif}
 .sAbout span{ color: #FFF}
-.sAbout,.wContact{ position: absolute;background-color:#000;z-index: 1000; padding:20px 0px 0px 20px}/*618px*/
+.sAbout,.wContact{ position: relative;background-color:#000;z-index: 1000; padding:20px 0px 0px 20px; width:618px; }/*618px*/
 .sAbout > div{width:59%; display: inline-block; vertical-align: top }/*350px*/
 .sAbout p{ color:#747474; }
 .sAbout p span:first-child { font-size: 20px;font-family:"Times New Roman", Times, serif; padding-bottom: 5px; border-bottom: solid 1px #222222   }
 
-.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(../images/pareja.png); height: 370px  }
+.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(../images/pareja.png) no-repeat; height: 370px  }
 
 .sAbout .colLeft a{ background-color:#121212; border-radius:5px; display: block; height:41px; line-height: 41px; text-align: center;  width:100px; color: #ff4f4f;}
-.sAbout{border: 10px solid rgb(100, 100, 100);	border: 10px solid rgba(254, 252, 254, 0.3);-moz-background-clip: padding;-webkit-background-clip: padding;background-clip: padding-box;}
-.wContact{border: 10px solid rgb(100, 100, 100);	border: 10px solid rgba(254, 252, 254, 0.3);}
+/*.sAbout{border: 10px solid rgb(100, 100, 100);	border: 10px solid rgba(254, 252, 254, 0.3);-moz-background-clip: padding;-webkit-background-clip: padding;background-clip: padding-box;}*/
+/*.wContact{border: 10px solid rgb(100, 100, 100);	border: 10px solid rgba(254, 252, 254, 0.3);}*/
 .wContact > div{ display: inline-block; vertical-align: top}
 .sAbout .colLeft > div {    margin: 115% auto auto 26%;}
 .sAbout .colLeft > div div{color:#FFF}

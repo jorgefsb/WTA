@@ -8,7 +8,7 @@
 ?>
 <div id="change_section"><!-- CONTENT -->
     <span><?php echo $this->section; ?></span>
-    <span class="submenu-btn">Change section</span>
+    <span class="submenu-btn">Change section <span class="caret"></span></span>
     <div class="submenu-content">
         <ul>
             <li>
@@ -73,18 +73,22 @@
                 </ul>                
             </li>
             <li class="menGift">
-                <a href="" ><span>Get a free gift today</span></a>
+                <a href="/get-a-free-gift" ><span>Get a free gift today</span></a>
                 <ul>
-                    <li>
-                        Become a <strong>member</strong> now!
-                        <img src="<?php echo STATIC_URL?>/front/images/gift.png" />
+                <li>                    
+                    <div>
+                        RENTAIL VALUE <strong>$99.00</strong>
                         <div class="linea_separacion"></div>
-                        <div>                            
-                            <span>BUY A WTA MEMBERSHIP AND<br/>
-                            GET A FREE GIFT FOR YOU!</span>
+                        <span>BECOME A MEMBER TODAY  & 
+                        START  ENJOYING THE BENEFITS
+                        OF MEMBERSHIP.</span>
+                        <div>
+                            <a href="/get-a-free-gift" class="btn btn-negro">VIEW THIS ITEM</a>
+                            <a href="" class="btn btn-negro">BECOME A MEMBER</a>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </li>
+            </ul>
             </li>
         </ul>
     </div>

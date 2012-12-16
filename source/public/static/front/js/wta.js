@@ -44,23 +44,30 @@ var WTA = (function(){
     };
     
     this.lightbox = function(){
+        
+        $('#overlay').click(function(){
+            $('.wLight .closex').trigger('click');
+        })
+        
         $('.liLight').unbind('click').click( function(event){
-
+            
             event.preventDefault();
             $('.wLight').remove();
             $.ajax({
                 url:this.href,
                 success:function(html, textStatus, jqXHR){
                     $('body').prepend(html);
-                    $('.wLight').fadeIn();
-                    var top=(parseInt($(window).height())-parseInt($('.wLight > div').height()))/2;
-                    if(top<40){
-                        top = 40;
-                    }
-                    $('.wLight > div').css("top",top+'px');
-                    $('.wLight .closex').click( function(){
-                        $('.wLight').fadeOut();
-                        $('.wLight').remove();
+                    var $wLight = $('.wLight');
+                    $wLight.hide().delay(500).fadeIn();
+                    //var top=(parseInt($(window).height())-parseInt($('.wLight > div').height()))/2;
+                    var left=$wLight.find('> div').width()/2;
+                    
+                    $wLight.css('margin-left', '-'+left+'px');
+                    $('#overlay').fadeIn();
+                    $wLight.css("top",'100px');
+                    $wLight.find('.closex').click( function(){
+                        $('.wLight').fadeOut().delay(500).remove();
+                        $('#overlay').fadeOut();
                     });
                     $('html, body').animate({'scrollTop': 0}, 500)
                 }
@@ -278,10 +285,28 @@ var WTA = (function(){
         
         if(!$objs.length){return;}
         
-        $objs.addpowerzoom({
-            defaultpower:1,
-            magnifiersize: [270, 270] 
-        });  
+        
+        $objs.each(function(i){
+            var $this = $(this);
+            if($this.prop('complete')==true){
+                $this.css('opacity', 0);
+                $this.addpowerzoom({
+                    defaultpower:1,
+                    magnifiersize: [270, 270] 
+                });  
+            }else{
+                $this.css('opacity', 0);
+                $this.bind("load", function(){
+                    $this.animate({'opacity': 1});
+                    $this.addpowerzoom({
+                        defaultpower:1,
+                        magnifiersize: [270, 270] 
+                    });  
+                });
+            }
+        }); 
+        
+        
         
     }
     

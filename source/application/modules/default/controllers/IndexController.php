@@ -317,6 +317,17 @@ class Default_IndexController extends Core_Controller_ActionDefault
         
     }
     
+    public function giftAction(){
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackUrlRef = $_SERVER['HTTP_REFERER'];
+        
+    }
+    
     public function cartAction(){
         $this->_helper->layout->disableLayout();
         
