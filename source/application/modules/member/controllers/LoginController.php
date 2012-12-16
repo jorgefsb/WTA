@@ -13,10 +13,11 @@ class Member_LoginController extends Core_Controller_ActionMember {
         if ($this->getRequest()->isXmlHttpRequest()) {
             $loginForm = new Application_Form_LoginForm();
             $entityMember = new Application_Entity_Member();
+            
             if ($loginForm->isValid($this->_getAllParams())) {
                 if ($entityMember->autentificate(
-                        $loginForm->getElement('email')->getValue(), 
-                        $loginForm->getElement('password')->getValue())) {
+                        $loginForm->getValue('email'), 
+                        $loginForm->getValue('password'))) {
                     $this->getNavigationMember();
                     $arrayResponse['response'] = 1;
                     $arrayResponse['redirect'] = '/member/dashboard';
@@ -25,6 +26,15 @@ class Member_LoginController extends Core_Controller_ActionMember {
                     $arrayResponse['redirect'] = '';
                 }
                 $arrayResponse = array('message'=>$entityMember->getMessage());
+                
+                if( !isset($this->_session->_tracking) ){ //Captura el intento de logueo
+                    $this->_session->_tracking = new Core_Tracking();
+                }
+                $this->_session->_tracking->setAction('LOGIN',
+                                                                                isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '',
+                                                                                $arrayResponse
+                                                                            );
+                
             } else {
                 $arrayResponse['formMessages'] = $loginForm->getMessages();
                 $arrayResponse['formValues'] = $loginForm->getValues();

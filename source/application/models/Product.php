@@ -220,7 +220,7 @@ class Application_Model_Product extends Core_Model {
                 ->joinInner(array('det'=>$this->_tableDesignerType->getName() ), 'pr.product_design_type = det.design_type_id', 'det.design_type_name')
                 ->where('pr.product_public = 1 and pr.product_delete <> 1')
                 ->group(array('product_designer', 'product_design_type'))
-                ->order(array('designer_name','design_type_name'))
+                ->order(array('designer_name DESC','design_type_name'))
                 ->query();
         
         $result = $smt->fetchAll();
@@ -332,7 +332,7 @@ class Application_Model_Product extends Core_Model {
                     'dt.design_type_name',
                     'd.designer_name',
                     'product_actress' => new Zend_Db_Expr("GROUP_CONCAT(a.actress_name SEPARATOR ', ')"),
-                    'image'=>new Zend_Db_Expr('(SELECT image_name FROM image where image_id_table = pr.product_id)')
+                    'image'=>new Zend_Db_Expr('(SELECT image_name FROM image where image_id_table = pr.product_id limit 1)')
                         )
                 )
                 ->joinLeft(array('pra' => $this->_tableProductActress->getName()), 'pr.product_id=pra.product_actress_product_id', '')
@@ -341,9 +341,9 @@ class Application_Model_Product extends Core_Model {
                 ->joinLeft(array('d' => $this->_tableDesigner->getName()), 'pr.product_designer=d.designer_id', '')
                 ->joinLeft(array('ct' => $this->_tableCollectionType->getName()), 'pr.product_collection_type=ct.collection_type_id', '')
 
-                ->order('product_order asc')
                 ->where(implode(' and ', $where))
-                ->group('pr.product_id');
+                ->group('pr.product_id')        
+                ->order('product_price DESC');
         $smt = $smt->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();

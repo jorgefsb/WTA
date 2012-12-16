@@ -1,6 +1,12 @@
 /* Font */
 @font-face { font-family: Banda; src: url('banda.otf'); } @font-face { font-family: Banda; font-weight: bold; src: url('Banda-Bold.otf'); }
 
+
+
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a{background: none; color: #FFF !important;}
+
 html, body{background: #090909; padding: 0px}
 
 #overlay{background: url('../images/pattern-overlay.png'); width: 100%; height: 100%; position: fixed; display: none; z-index: 500;}
@@ -9,6 +15,14 @@ html, body{background: #090909; padding: 0px}
 .navbar-inner{padding: 0px;}
 .navbar{margin-left: 0px; margin-bottom: 0px;}
 .container-fluid{position: absolute; width: 100%; padding: 0px;}
+
+#header .dropdown-menu{background: #0e0e0e; border-radius: 2px; border:0px; width: auto; padding-bottom: 5px; }
+#header .dropdown-menu li > a{color: #858585; padding: 3px 10px;}
+#header .dropdown-menu a.signout{float: right; color: #FFF; font-size: 11px; font-family: 'Time New Roman'; padding: 3px 8px; margin: 5px 0;}
+#header .dropdown-menu li > a:hover,
+#header .dropdown-menu li > a:focus,
+#header .dropdown-submenu:hover > a{background: none; color: #FFF !important;}
+
 
 #bgslider{ position: absolute; width: 100%;  overflow: hidden}
 #bgslider div{width: 950px; height: 671px; margin: 0 auto; overflow: hidden; }
@@ -56,7 +70,7 @@ html, body{background: #090909; padding: 0px}
 #change_section .caret{ display: inline-block; vertical-align: middle; border-color:#FFF transparent transparent; border-top: 4px solid #AAA;  position: relative; overflow: visible; margin-left: 8px;}
 #change_section .caret:before{content: ""; border-right: 4px solid transparent; border-left: 4px solid transparent; border-top: 4px solid #101010; position: absolute; left: -4px; top: -5px }
 
-#change_category{position: absolute; background: rgba(140,140,140, .2);  padding: 20px; font-size: 12px; text-transform: uppercase; text-align: center;  z-index: 200;  color: #FFF;font-family: Arial}
+#change_category{position: absolute; background: rgba(140,140,140, .2);  padding: 20px; font-size: 12px; text-transform: uppercase; text-align: center;  z-index: 200;  /*color: #FFF;*/ color:#333; font-family: Arial}
 #change_category span{display: inline-block; margin-right: 15px;}
 #change_category .btn-group > .btn, .btn-group > .dropdown-menu{width: 180px; font-size: 12px; color: #848484; padding: 0px 5px; text-align: left}
 #change_category .btn-group > .btn + .dropdown-toggle{width: auto; color: #343434; }
@@ -176,7 +190,8 @@ html, body{background: #090909; padding: 0px}
 
 
 
-#contentBody.designers, #contentBody.exclusive, #contentBody.checkout{ background: #8a8a8a url(../images/bg-white2.jpg) center -40px; padding-top: 100px; min-height: auto; position: relative; padding-bottom: 30px;}
+#contentBody.designers, #contentBody.exclusive, #contentBody.checkout, #contentBody.limited{ background: #FFF /*url(../images/bg-white2.jpg)*/ center -40px; padding-top: 100px; min-height: auto; position: relative; padding-bottom: 30px;}
+#contentBody.limited{padding-top: 30px;}
 .imgProd { text-align: center; margin: 0 auto; width: 450px; margin: 0px 10px 10px 10px; display: inline-block; }
 .imgProd img{max-height: 500px; max-width: 500px; }
 .info{width: 400px;  text-align: center; font-family: 'Time new Roman'; color: #787878; display: inline-block; vertical-align: middle; letter-spacing: -1px; word-spacing: 2px; margin-left: 20px;}
@@ -259,7 +274,7 @@ html, body{background: #090909; padding: 0px}
 #signin a.forgot{color: #eee; display: block; font-size: 12px;}
 #signin a.forgot strong{color: #fff;}
 input[type=text], input[type=password]{background:  #141414; color: #e2e2e2; borde-radius: 3px; width: 265px; border: 0px; display: block; padding: 7px; vertical-align: sub;}
-input[type=submit]{background: #c23a3a; border: 0px; border-radius: 3px; color: #FFF; font-family: 'Times New Roman';  padding: 10px 12px; margin-left: 200px;}
+input[type=submit]{background: #c23a3a; border: 0px; border-radius: 3px; color: #FFF; font-family: 'Times New Roman';  padding: 10px 12px; margin-left: 177px; min-width: 100px}
 .closex{position: absolute; top: 5px; right: 10px; cursor: pointer; width: auto !important; color: #FFF; font-size: 11px; font-weight: bold; }
 
 #signin input#firstname, #signin input#lastname, #signin input#password1, #signin input#password2{width: 120px; display: inline-block; margin-right: 7px;}
@@ -267,7 +282,7 @@ input[type=submit]{background: #c23a3a; border: 0px; border-radius: 3px; color: 
 #signin .privacy{font-size: 12px; line-height: 14px; color: #FFF; ;}
 #signin .privacy input{vertical-align: sub}
 
-span.error{color: #a03333; background: transparent url(../images/xerror.png) left center no-repeat; padding-left: 20px; display: inline-block; font-size: 11px; line-height: 12px;}
+span.error{color: #a03333; background: transparent url(../images/xerror.png) left center no-repeat; padding-left: 20px; display: block; font-size: 11px; line-height: 15px; margin-bottom: 3px;}
 input.error{border: 1px solid #a03333 !important}
 
 #forgotpass{width: 410px; background: #000; position: absolute; z-index: 2000; top: 50px; left: 50%; margin-left: -270px; font-family: Arial; padding: 20px 60px; border-radius: 8px; }
@@ -667,3 +682,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
         #logo-small{display: none;}
         .comming_soon {  width:278px !important;  }
 }
+
+/**{font-family: Georgia !important}*/

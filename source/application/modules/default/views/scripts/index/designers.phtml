@@ -1,6 +1,7 @@
 <?php 
     # Imprimimos el menu Change Section
     echo $this->partial('index/change_section.phtml', array('section'=>'Designers', 'menu'=>$this->menu));
+
 ?>
 
 <?php
@@ -68,7 +69,7 @@
                                    array('section'=>'Exclusive Collections', 
                                             'data'=>$this->sliderProducts , 
                                             'url_base'=>$this->urlBase, 
-                                            'title'=>'luv aj’s SHARK TEETH  collection',
+                                            'title'=>$this->sliderProducts[0]['designer_name'].'’s '.$this->sliderProducts[0]['design_type_name'].' collection',
                                             'category'=>'design_type_name'
                                             ));
 ?>
