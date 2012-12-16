@@ -119,7 +119,8 @@ class Application_Entity_Transaction extends Core_Entity {
     }
     
     function confirmPayment(){
-        
+        $data['tansaction_state_id']=self::TRANSACTION_PAID;
+        $modelTransaction->update($data, $this->_id);
     }
 
     
