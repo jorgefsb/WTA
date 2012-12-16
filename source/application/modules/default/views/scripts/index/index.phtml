@@ -17,7 +17,7 @@
     </div>
     <ul id="lissections">
         <li>
-            <a href="/designers" ><span>The Designers </span></a>
+            <a href="/designers" ><span>Shop by Designer</span></a>
             <ul>
                 <?php if( !empty($menu_designers) ): ?>
                         <?php foreach($menu_designers as $designer=>$types): ?>
@@ -32,11 +32,17 @@
                                 <?php endif; ?>
                             </li>
                         <?php endforeach; ?>
-                    <?php endif; ?>                
+                    <?php endif; ?>                                            
+                    <li>
+                        <span>BLISS LAU</span>
+                        <ul>
+                            <li><a>coming soon</a></li>
+                        </ul>
+                    </li>
             </ul>
         </li>
         <li>
-            <a href="/exclusive-collections" ><span>Exclusive Collections</span></a>
+            <a href="/exclusive-collections" ><span>Shop by Celebrities</span></a>
             <ul>
                 <?php if( !empty($menu_collections_types) ): ?>
                     <?php foreach($menu_collections_types as $collection): ?>
@@ -82,7 +88,7 @@
                     <a href="/get-a-free-gift" ><img src="<?php echo STATIC_URL?>/front/images/gift.png" /></a>
                     <div class="linea_separacion"></div>
                     <div>
-                        RENTAIL VALUE <strong>$99.00</strong>
+                        RETAIL VALUE <strong>$99.00</strong>
                         <span>BECOME A MEMBER TODAY  & 
                         START  ENJOYING THE BENEFITS
                         OF MEMBERSHIP.</span>                        

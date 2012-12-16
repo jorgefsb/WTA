@@ -1,3 +1,6 @@
+<?php 
+    $_identity = Zend_Auth::getInstance()->getIdentity();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -48,14 +51,34 @@
                             <span class="icon-bar"></span>
                         </a>
 
-
-
                         <div class="pull-right">
-                            <a class="btn liLight" href="/sign-in" >
-                                <strong>Sign in</strong> or <strong>Become a member</strong>
-                            </a>       
+                            
+                            <?php
+                            
+                                if($_identity && !empty($_identity)){
+                            ?>
+                                <div class="btn-group btn-group-inverse">
+                                    <a class="btn dropdown-toggle" href="#" data-toggle="dropdown"  >
+                                        Welcome, <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> &nbsp; &nbsp;<span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="" >My profile</a></li>
+                                        <li><a href="" >Edit my address</a></li>
+                                        <li><a href="" >Payment method</a></li>
+                                        <li><a href="" class="btn signout" >SIGN OUT</a></li>
+                                    </ul>
+                                </div>
+                            <?php
+                                }else{
+                            ?>
+                                <a class="btn liLight" href="/sign-in" >
+                                    <strong>Sign in</strong> or <strong>Become a member</strong>                                    
+                                </a>
+                            <?php
+                                }
+                            ?>
                             <a class="btn" id="btnShoppingCart">
-                                <strong>Shopping cart</strong>
+                                <strong>Shopping cart <span id="itemsCount"></span></strong>
                             </a>
 
                         </div>
@@ -65,7 +88,7 @@
                             <ul class="nav">
                                 <li><a href="/about-wta" title="" class="liLight">About WTA</a></li>
                                 <li><a href="/coming-soon" title="" class="liLight" >PRESS</a></li>
-                                <li><a href="/coming-soon" title="" class="liLight">CALENDAR</a></li>                            
+                                <!-- li><a href="/coming-soon" title="" class="liLight">CALENDAR</a></li -->
                             </ul>
 
                         </div>
@@ -76,7 +99,7 @@
             </div>
 
             <div id="popupShoppinCart" class="shoppingCart"><!-- SHOPPING CART -->
-
+                <span class="closex">x</span>
                 <h3>Your shopping list</h3>                       
                 <div id="scrollbar1">
                     <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
@@ -86,57 +109,6 @@
                             </div>
                         </div>
                 </div>
-<?php /*
-                <div class="prod"><!-- PRODUCT -->
-
-                    <div class="prices">
-                        <div>Guest price <strong class="prec1 line-through"><br/>$526.00</strong></div>
-                        <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
-                    </div>
-
-                    <img src="<?php echo STATIC_URL . '/front/images/sp_prod1.png'; ?>" title="" alt="" />
-
-                    <div class="info">
-                        <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
-                        <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
-                    </div>
-
-                    <div class="controls">
-                        <label class="size">SIZE <select ><option>7 1/2</option></select></label>
-                        <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
-                        <a href="" class="remove" >remove</a>
-                    </div>
-
-                </div>
-
-                <div class="prod"><!-- PRODUCT -->
-
-                    <div class="prices">
-                        <div>Guest price <strong class="prec1"><br/>$526.00</strong></div>
-                        <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
-                    </div>
-
-                    <img src="<?php echo STATIC_URL . '/front/images/sp_prod2.png'; ?>" title="" alt="" />
-
-                    <div class="info">
-                        <span class="name">Item #R9 <strong><em>Abellona</em></strong></span>
-                        <span class="dsc">T.CYIA - bronze & 24kt Gold Plate</span>
-                    </div>
-
-                    <div class="controls">
-                        <label class="size">SIZE <select ><option>7 1/2</option></select></label>
-                        <label class="quantity">QTY <input type="text" name="quantity" value="1" /></label>
-                        <a href="" class="remove" >remove</a>
-                    </div>
-
-                </div>
-
-                <div class="rowtotal">
-                    <span>Subtotal</span>
-                    <span class="ntotal">$1,275.00</span>
-                    <a href="" class="checkout btn" >Check out</a>
-                </div>
-*/ ?>
             </div>
 
 
@@ -182,7 +154,7 @@
                 </div>
 
                 <blockquote>
-                    <span class="linea-degr-left"></span>Copyrights 2012 - Wetheadorned.com<span class="linea-degr-right"></span>
+                    <span class="linea-degr-left"></span>Copyright 2012 - Wetheadorned.com<span class="linea-degr-right"></span>
                 </blockquote>
 
             </div>

@@ -2,6 +2,7 @@ $(document).ready(function(){
     WTA.shoppingCart();
     WTA.addToCart();
     WTA.lightbox();    
+    WTA.updateCountCart();
 });
 
 $(window).load(function(){
@@ -178,8 +179,11 @@ var WTA = (function(){
                     url: '/index/addtocart/format/json', 
                     data: {code:code}                    
                 }).done(function(response){
+                    
                     if(response.ok){
-                        $('#btnShoppingCart').trigger('click');
+                    //    $('#btnShoppingCart').trigger('click');
+                      //  $('#popupShoppinCart').slideDown();
+                        that.updateCart(function(){$('#popupShoppinCart').slideDown();});
                     }else{
                         alert('No se pudo agregar el producto');
                     }
@@ -189,12 +193,15 @@ var WTA = (function(){
     }
     
     this.updateCart = function(callback){
+        
         $('#popupShoppinCart').find('.overview').load('/index/cart', function(response, status, xhr) {
             if (status == "error") {
                 var msg = "Sorry but there was an error ";
                 //$('#popupShoppinCart').html(msg + xhr.status + " " + xhr.statusText);
                 $('#popupShoppinCart').html(msg);
             }
+            
+            that.updateCountCart();
             
             var $checkoutcart = $('#checkout-cart');
             
@@ -264,8 +271,23 @@ var WTA = (function(){
                 that.updateCart(function(){$('#popupShoppinCart').slideDown();});
                 $this.addClass('activo');                
             }
+        });
+        $('#popupShoppinCart').find('.closex').click(function(){
+            $('#btnShoppingCart').trigger('click');
         })
     };
+    
+    this.updateCountCart = function(){        
+        $.ajax({
+            url: '/index/countcart/format/json'
+        }).done(function(response){
+            if(response.count){
+                $('#itemsCount').html('('+parseInt(response.count,10)+')');
+            }else{
+                $('#itemsCount').html('');
+            }
+        });
+    }
     
     /********************************* / CART *************************************/
     
@@ -290,6 +312,7 @@ var WTA = (function(){
             var $this = $(this);
             if($this.prop('complete')==true){
                 $this.css('opacity', 0);
+                $this.animate({'opacity': 1});
                 $this.addpowerzoom({
                     defaultpower:1,
                     magnifiersize: [270, 270] 
@@ -300,13 +323,11 @@ var WTA = (function(){
                     $this.animate({'opacity': 1});
                     $this.addpowerzoom({
                         defaultpower:1,
-                        magnifiersize: [270, 270] 
+                        magnifiersize: [220, 220] 
                     });  
                 });
             }
         }); 
-        
-        
         
     }
     
@@ -388,6 +409,143 @@ var WTA = (function(){
                 }
             });
         }
+    }
+    
+    
+    this.signin = function(){
+        $('#formSignin').submit(function(e){            // Validaciones para el login
+            e.preventDefault();
+            var $this = $(this);            
+            var $email = $this.find('#email');
+            var $password = $this.find('#password');
+            var validForm = true;
+            $this.find('span.error').remove();
+            
+            if( !that.isEmail( $email.val() ) ){
+                validForm = false;
+                that.setMsgError($email, 'Oops, there\'s something wrong with your email. Please try again.');
+            }
+            
+            if( that.isEmpty( $password.val()) ){
+                validForm = false;
+                that.setMsgError($password, 'Password is empty');
+            }
+            
+            if( validForm ){
+                $.ajax($this.attr('action'), 
+                        {
+                            type:'POST', 
+                            data: $this.serialize()
+                        }).done(function(response){
+                            if(response.message){
+                                if(response.message == 'Incorrect Authentication'){
+                                        that.setMsgError($this.find('input[type=submit]'), 'The email or password you entered is incorrect.');
+                                }else{
+                                    if(response.message == 'Successful Authentication'){
+                                        that.setMsgError($this.find('input[type=submit]'), 'Corrrect');
+                                        window.location.href = window.location.href;
+                                    }
+                                }
+                                
+                            }
+                        })
+            }
+            return false;
+        })
+        
+        $('#formRegister').submit(function(e){            // Validaciones para el login
+            e.preventDefault();
+            var $this = $(this);            
+            var $firstname = $this.find('#firstname');
+            var $lastname = $this.find('#lastname');
+            var $email = $this.find('#email');
+            var $password1 = $this.find('#password1');
+            var $password2 = $this.find('#password2');
+            var $cbterms = $this.find('#cbterms');
+            
+            var validForm = true;
+            $this.find('span.error').remove();
+            
+            
+            
+            if( that.isEmpty( $lastname.val() ) ){
+                validForm = false;
+                that.setMsgError($lastname, 'Last name is empty');
+            }
+            
+            if( that.isEmpty( $firstname.val() ) ){
+                validForm = false;
+                that.setMsgError($firstname, 'First name is empty');
+            }
+            
+            if( !that.isEmail( $email.val() ) ){
+                validForm = false;
+                that.setMsgError($email, 'Oops, there\'s something wrong with your email. Please try again.');
+            }
+            
+            if( !that.isValidLength( $password1.val(), 8 ) ){
+                validForm = false;
+                that.setMsgError($password1, 'Enter a value at least 8 characters long');
+            }
+            
+            if( $password1.val() !=  $password2.val() ){
+                validForm = false;
+                that.setMsgError($password1, 'The passwords must match');
+            }
+            
+            if( $cbterms.attr('checked') != 'checked' ){
+                validForm = false;
+                that.setMsgError($cbterms, 'You must to accept the Terms of Services');
+            }
+            
+            if( validForm ){
+                $.ajax($this.attr('action'), 
+                        {
+                            type:'POST', 
+                            data: $this.serialize()
+                        }).done(function(response){
+                            
+                        })
+            }
+            return false;
+        })
+        
+        
+    }
+    
+    /*
+     *  VALIDACIONES Y MENSAJES DE ERROR
+     */ 
+    
+    // True si es un correo
+    this.isEmail = function(str){
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if( !emailPattern.test(str)){
+            return false;
+        }
+        return true
+    }
+    
+    // True si esta vacio
+    this.isEmpty = function(str){
+        var pattern = /^\s*$/;
+        if( !pattern.test(str)){
+            return false;
+        }
+        return true
+    }    
+    
+    // True si no esta vacio y tiene una longitud minima 
+    this.isValidLength = function(str, minlength){
+
+        if( that.isEmpty(str) || str.length < minlength){
+            return false;
+        }
+        return true
+    }
+    
+    this.setMsgError = function($element, msgError){
+        $element.parent().prepend('<span class="error">'+msgError+'</span>');
     }
     
     
