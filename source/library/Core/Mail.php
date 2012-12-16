@@ -69,7 +69,7 @@ class Core_Mail {
             $mail->send($this->_transport);
             return true;
         } catch (Exception $exc) {
-            CST_Log::error($exc->__toString());
+            Core_Log::error($exc->__toString());
             $mensaje['errorAplication'][] = $exc->getMessage();
             $this->_error = $mensaje['errorAplication'];
             return false;
