@@ -119,11 +119,8 @@ class Application_Entity_Member extends Core_Entity {
         if ($id != FALSE) {
             $this->_id = $id;
             $this->setMailAdmin();
-            $this->setMailMemberConfirmAccount($data['member_id_confirm']);
-            $this->_message = 'Registration was successful, 
-                    we will send an email to ' .
-                    $this->_mail .
-                    ' to confirm your account';
+            //$this->setMailMemberConfirmAccount($data['member_id_confirm']);
+            $this->_message = 'Registration was successful';
             return TRUE;
         } else {
             $this->_message = 'Registration to failure';

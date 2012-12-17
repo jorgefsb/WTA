@@ -44,7 +44,7 @@ var WTA = (function(){
         }
         
     };
-    
+        
     this.lightbox = function(){
         
         $('#overlay').click(function(){
@@ -511,6 +511,10 @@ var WTA = (function(){
                                     for(var j in response.formMessages[i]){
                                         that.setMsgError(obj, response.formMessages[i][j]);
                                     }
+                                }
+                            }else{
+                                if(response.message == 'Registration was successful' || response.message == 'Successful Authentication'){
+                                    window.location.href = window.location.href;
                                 }
                             }
                         })

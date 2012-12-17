@@ -18,6 +18,11 @@ class Member_CreateAccountController extends Core_Controller_ActionMember {
                 $entityMember->setPropertie('_lastName', $form->getElement('lastname')->getValue());
                 $entityMember->setPropertie('_mail', $form->getElement('email')->getValue());
                 if ($entityMember->createMember($form->getElement('password1')->getValue())) {
+                    if ($entityMember->autentificate(
+                        $form->getElement('email')->getValue(), 
+                        $form->getElement('password1')->getValue())) {
+                        $this->getNavigationMember();
+                    }
                     $arrayResponse['response'] = 1;
                 } else {
                     $arrayResponse['response'] = 0;

@@ -191,7 +191,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->_tackData =array('product'=>$product_active, 'code'=>$properties['_id'], 'name'=>$properties['_name']);
         $this->_tackUrlRef = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
         
-    }
+    }        
     
     
     public function boutiqueAction(){
@@ -319,6 +319,21 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->_tackUrlRef = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
         
         
+    }
+    
+    
+    
+    public function limitedcountAction(){
+        $this->_helper->layout->disableLayout();
+        $_product = new Application_Entity_Product();
+        
+        $this->view->sliderProducts = $_product->getProductsLimitedQuantity();
+        
+        
+        $idProduct = $this->getParam('product', '');  // Obtenemos el producto de la URL        
+                
+        $_product->identify((int)$idProduct);
+        $this->view->product = $_product->getProperties();
     }
     
     public function giftAction(){
