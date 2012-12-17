@@ -142,7 +142,7 @@ html, body{background: #090909; padding: 0px}
 .shoppingCart .prod .prices strong{font-family: 'Times New Roman'; color: #FFF; line-height: 26px}
 .shoppingCart .prod .prices .prec1{font-size: 18px; font-weight: normal;  }
 .shoppingCart .prod .prices .prec2{ font-size: 22px; }
-.shoppingCart .prod .info{width: 270px; line-height: 15px; text-align: left}
+.shoppingCart .prod .info{width: 200px; line-height: 15px; text-align: left}
 .shoppingCart .prod .info span{display: block}
 .shoppingCart .prod .info .name{font-size: 11px;}
 .shoppingCart .prod .info .dsc{font-size: 10px;}
@@ -166,7 +166,7 @@ html, body{background: #090909; padding: 0px}
 .shoppingCart .checkout.btn{background: #343434; margin-left: 20px; color: #eee; text-shadow: none}
 
 #scrollbar1 { width: 490px; clear: both; margin: 20px 0 10px; }
-#scrollbar1 .viewport { width: 470px; height: 260px; overflow: hidden; position: relative; }
+#scrollbar1 .viewport { width: 470px; height: 280px; overflow: hidden; position: relative; }
 #scrollbar1 .overview { list-style: none; position: absolute; left: 0; top: 0; }
 #scrollbar1 .thumb .end,
 #scrollbar1 .thumb { background-color: #FFF; border-radius: 10px }
@@ -202,9 +202,9 @@ html, body{background: #090909; padding: 0px}
 .info .precios{}
 .info .precios div{display: inline-block; vertical-align: top; width: 100px; margin: 0 auto;}
 .info .precios span{text-transform: uppercase; font-size: 11px; color: #6c6b6b; display: block; margin-bottom: 5px}
-.info .precios strong.inactivo{font-size: 14px; text-decoration: line-through; color: #b8b4ae; }
+.info .precios strong.inactivo{font-size: 14px; /*text-decoration: line-through; */color: #b8b4ae; }
 .info .precios strong.activo{font-size: 20px; color: #b8b4ae; }
-.info .details{font-size: 11px; font-style: italic; color: #666;}
+.info .details, .info .liLight{font-size: 11px; font-style: italic; color: #666;}
 .info .details-content{}
 
 /* Boutique */
@@ -327,11 +327,17 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 
 /* ########################################### */
 
-#processed .contenido{padding: 20px 50px;  }
-#processed h1{color: #353636;    font-size: 34px;    font-weight: normal;    line-height: 27px; margin-bottom: 15px; font-family: 'Times New Roman';   }
-#processed p{font-size: 14px; color: #161616;   font-family: 'Georgia';    }
+#processed .contenido,  #limitedleft .contenido{padding: 20px 50px;  }
+#processed h1, #limitedleft h1{color: #353636;    font-size: 34px;    font-weight: normal;    line-height: 27px; margin-bottom: 15px; font-family: 'Times New Roman';   text-transform: uppercase}
+#processed p, #limitedleft p{font-size: 14px; color: #161616;   font-family: 'Georgia';    }
 #processed ul li{font-family: 'Arial'; color: #787878; font-size: 12px; list-style: none;}
 #linkprocessed{display: none}
+
+
+#limitedleft h1{font-size: 34px; line-height: 17px;}
+#limitedleft p{font-style: italic; font-size: 16px;}
+#limitedleft{text-align: center}
+#limitedleft .contenido{padding: 50px 0px 0px; }
 
 /*  SECCION  DE  COMING SOON */
 .comming_soon {    

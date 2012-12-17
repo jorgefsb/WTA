@@ -44,7 +44,7 @@ var WTA = (function(){
         }
         
     };
-    
+        
     this.lightbox = function(){
         
         $('#overlay').click(function(){
