@@ -9,6 +9,7 @@ class Application_Model_Product extends Core_Model {
     protected $_tableDesignerType;
     protected $_tableDesigner;
     protected $_tableCollectionType;
+    protected $_tableSize;
 
     public function __construct() {
         $this->_tableProduct = new Application_Model_DbTable_Product();
@@ -18,6 +19,7 @@ class Application_Model_Product extends Core_Model {
         $this->_tableDesignerType = new Application_Model_DbTable_DesignType();
         $this->_tableDesigner= new Application_Model_DbTable_Designer();
         $this->_tableCollectionType = new Application_Model_DbTable_CollectionType();
+        $this->_tableSize = new Application_Model_DbTable_Size();
     }
 
     /**
@@ -156,13 +158,18 @@ class Application_Model_Product extends Core_Model {
     }
 
     function getSize($idProduct) {
-        $smt = $this->_tableProductSize->select()
-                ->from(array($this->_tableProductSize->getName()),
+        $smt = $this->_tableProductSize
+                ->getAdapter()
+                ->select()
+                ->from(array('ps'=>$this->_tableProductSize->getName()),
                         array(
-                            'product_size_size_id',
-                            'product_size_product_id'
+                            'ps.product_size_size_id',
+                            'ps.product_size_product_id',
+                            's.size_name'
                             ))
-                ->where('product_size_product_id =?', $idProduct)
+                ->join(array('s'=>$this->_tableSize->getName()), 's.size_id=ps.product_size_size_id','')
+                ->where('ps.product_size_product_id =?', $idProduct)
+                
                 ->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();

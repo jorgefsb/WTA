@@ -4,41 +4,58 @@
     </div>
     <div class="box-content">
         <form>
-            <div class="row-fluid show-grid">
-                <div class="span4">
-                    <div class="control-group">
+            <div class="span4">
+                <h3>Filters</h3>
+                <div class="well">
+                    
+                    <h4>Date Range</h4>
+                    <div class="control-group" style="text-align: left">
                         <label class="control-label" for="date01">From Date</label>
                         <div class="controls">
                             <input type="text" class="datepicker" id="date01" value="">
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="control-group" style="text-align: left">
                         <label class="control-label" for="date02">To Date</label>
                         <div class="controls">
                             <input type="text" class="datepicker" id="date02" value="">
                         </div>
                     </div>
-                </div>
+                    <h4>State</h4>
+                    <div class="control-group" style="text-align: left">
+                        <?php
+                        $state = array(
+                            Application_Entity_Transaction::TRANSACTION_OUTSTANDING => 'OUTSTANDING',
+                            Application_Entity_Transaction::TRANSACTION_PAID => 'PAID',
+                            Application_Entity_Transaction::TRANSACTION_REMOVED => 'REMOVED'
+                        );
+                        ?>
+                        <?php foreach ($state as $index => $value): ?>
+                            <label><input type="checkbox" id="state<?php echo $index; ?>" name="state[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
+                        <?php endforeach; ?>
 
-                <div class="span4"><div class="control-group">
-                        <div class="control-group">
-                            <label class="control-label">Checkboxes</label>
-                            <label class="checkbox inline">
-                                <input type="checkbox" id="inlineCheckbox1" value="option1" style="opacity: 0;">
-                                
-                                <input type="checkbox" id="inlineCheckbox1" value="option1" style="opacity: 0;">
-                        </div>
-                    </div>                
+                    </div>
+
+                    <h4>Devoted</h4>
+                    <div class="control-group" style="text-align: left">
+                        <?php
+                        $stateDevoted = array(
+                            1 => 'Yes',
+                            0 => 'No'
+                        );
+                        ?>
+                        <?php foreach ($stateDevoted as $index => $value): ?>
+                            <label><input type="checkbox" id="stateDevoted<?php echo $index; ?>" name="stateDevoted[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
+                        <?php endforeach; ?>
+
+                    </div>
+                    <div style="text-align: right">
+                    <input type="submit" value="Send" />
+                    </div>
                 </div>
             </div>
-
-
-
-
-
+            
         </form> 
-
-
         <table class="table">
             <thead>
                 <tr>
@@ -93,15 +110,19 @@
                                 $product = explode('|', $index2);
                                 ?>
                                 <tr>
-                                    <?php
-                                    foreach ($product as $index3) {
-                                        ?>
+                                    <td>
+                                        <?php echo $product[0]; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $product[1]; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $product[2]; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $product[3]; ?>
+                                    </td>
 
-                                        <td>
-                                            <?php echo $index3; ?>
-                                        </td>
-
-                                    <?php } ?>
                                 </tr>    
                                 <?php
                             }
@@ -116,7 +137,6 @@
                     </td>
                 </tr>
             <?php endforeach; ?>
-
         </table>
     </div>
 </div>
