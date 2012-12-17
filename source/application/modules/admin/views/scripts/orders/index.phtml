@@ -1,0 +1,124 @@
+<div class="box span12">
+    <div class="box-header well" data-original-title>
+        <h2>Product List</h2>
+    </div>
+    <div class="box-content">
+        <form>
+            <div class="row-fluid show-grid">
+                <div class="span4">
+                    <div class="control-group">
+                        <label class="control-label" for="date01">From Date</label>
+                        <div class="controls">
+                            <input type="text" class="datepicker" id="date01" value="">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="date02">To Date</label>
+                        <div class="controls">
+                            <input type="text" class="datepicker" id="date02" value="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span4"><div class="control-group">
+                        <div class="control-group">
+                            <label class="control-label">Checkboxes</label>
+                            <label class="checkbox inline">
+                                <input type="checkbox" id="inlineCheckbox1" value="option1" style="opacity: 0;">
+                                
+                                <input type="checkbox" id="inlineCheckbox1" value="option1" style="opacity: 0;">
+                        </div>
+                    </div>                
+                </div>
+            </div>
+
+
+
+
+
+        </form> 
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Fecha de pago
+                    </th>
+                    <th>
+                        Cliente
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th>
+                        Productos
+                    </th>
+                    <th>
+                        Entregado
+                    </th>
+                </tr>
+            </thead>
+            <?php foreach ($this->orders as $index): ?>
+                <tr>
+                    <td>
+                        <?php echo $index['transaction_payment_date']; ?>
+                    </td>
+                    <td>
+                        <?php echo $index['member_name']; ?> 
+                        <?php echo $index['member_last_name']; ?>
+                    </td>
+                    <td>
+                        <?php echo $index['tansaction_state_name']; ?>
+                    </td>
+                    <td>
+                        <?php $arrayProducts = explode('[]', $index['product']);
+                        ?>
+                        <table class="table table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Name Product
+                                    </th>
+                                    <th>
+                                        Quantity
+                                    </th>
+                                    <th>
+                                        Amount
+                                    </th>
+                                </tr>
+                            </thead>
+                            <?php
+                            foreach ($arrayProducts as $index2) {
+                                $product = explode('|', $index2);
+                                ?>
+                                <tr>
+                                    <?php
+                                    foreach ($product as $index3) {
+                                        ?>
+
+                                        <td>
+                                            <?php echo $index3; ?>
+                                        </td>
+
+                                    <?php } ?>
+                                </tr>    
+                                <?php
+                            }
+                            ?>
+                        </table>
+                    </td>
+                    <td>
+                        <?php
+                        $arrayEstatus = array('not', 'yes');
+                        echo $arrayEstatus[$index['transaction_devoted']];
+                        ?> 
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+
+        </table>
+    </div>
+</div>
+
+

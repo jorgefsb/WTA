@@ -58,8 +58,8 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'label' => 'Orders',
                 'id' => 'order-list',
                 'module' => 'admin',
-                'controller' => 'order-list',
-                'action' => 'email-preferences',
+                'controller' => 'orders',
+                'action' => 'index',
                 'order' => 4
             ),
             array(

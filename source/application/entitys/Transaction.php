@@ -122,6 +122,11 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['tansaction_state_id']=self::TRANSACTION_PAID;
         $modelTransaction->update($data, $this->_id);
     }
+    
+    static function listOrders($filtro=array()){
+        $modelTransaction = new Application_Model_Transaction();
+        return $modelTransaction->listOrdens($filtro);
+    }
 
     
 
