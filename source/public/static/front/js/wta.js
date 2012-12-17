@@ -7,6 +7,7 @@ $(document).ready(function(){
 
 $(window).load(function(){
     WTA.choose_category();
+    WTA.initSelectRegions();
 })
 
 var WTA = (function(){
@@ -504,7 +505,14 @@ var WTA = (function(){
                             type:'POST', 
                             data: $this.serialize()
                         }).done(function(response){
-                            
+                            if(response.formMessages){
+                                for(var i in response.formMessages){
+                                    var obj = $this.find('#'+i);
+                                    for(var j in response.formMessages[i]){
+                                        that.setMsgError(obj, response.formMessages[i][j]);
+                                    }
+                                }
+                            }
                         })
             }
             return false;
@@ -545,10 +553,110 @@ var WTA = (function(){
     }
     
     this.setMsgError = function($element, msgError){
-        $element.parent().prepend('<span class="error">'+msgError+'</span>');
+        if(msgError){
+            $element.parent().prepend('<span class="error">'+msgError+'</span>');
+        }
+        if($element.attr('type') && $element.attr('type')=='hidden'){
+            $element.parent().addClass('error');
+        }else{
+            $element.addClass('error');
+        }
     }
     
+    /*  / VALIDACIONES Y MENSAJES DE ERROR     */ 
     
+    this.initSelectRegions = function(){
+        $('.regions').change(function(){
+            var $this = $(this);
+            $.ajax('regions/states/format/json/region/'+$this.val()).done(function(response){
+                if(response.subregions){
+                    var $destino = $this.parent().parent().find('.subregions');
+                    var select = '';
+                    for(var i in response.subregions){
+                        select += '<li><a href="javascript:;" data-value="' + response.subregions[i]['id'] + '">' + response.subregions[i]['name'] + '</a></li>'
+                    }                    
+                    $destino.parent().find('.dropdown-menu').html('').append(select);
+                    $destino.parent().find('.dropdown-menu a').click(function() {
+                            $destino.parent().find('input[type=hidden]').val($(this).data('value')).trigger('change');
+                            $destino.parent().find('.btn:eq(0)').text($(this).text());
+                    });
+                }
+            })
+        });
+    }
+    
+    this.checkout = function(){
+        $('#bill_same').change(function(){
+            if(this.checked){
+                $('#bill_same_content').slideUp();
+            }else{
+                $('#bill_same_content').slideDown();
+            }
+        });
+        
+        $('#frmcheckout').submit(function(e){
+            e.preventDefault();
+            var $this = $(this);
+            
+            $('span.error').remove();
+            $this.find('.error').removeClass('error');
+            
+            var not_empty = ['inf_firstname', 'inf_lastname', 
+                                            'shp_firstname', 'shp_lastname', 'shp_address', 'shp_city', 'shp_region', 
+                                                'shp_cp', 'shp_country', 'shp_phonenumber',
+                                            'card_name', 'card_number', 'card_expirationmonth', 'card_expirationyear', 'car_seccode'];
+            var form_valid = true;
+            
+            var $email = $this.find('#inf_emailaddress');
+            
+            if( !that.isEmail($email.val()) ){
+                that.setMsgError($email);
+                that.setMsgError($('#checkoutsubmit'), 'Oops, there\'s something wrong with your email. Please try again.');
+            }
+            
+            for(var i in not_empty){
+                var tmp = $this.find('#'+not_empty[i]);
+                if(tmp.length && (that.isEmpty(tmp.val()) || tmp.val()=='0')){
+                    form_valid = false;
+                    that.setMsgError(tmp);
+                }
+            }
+            
+            var $bill_same = $this.find('#bill_same');
+            if( $bill_same.attr('checked') != 'checked' ){
+                var not_empty_shp = ['bill_firstname', 'bill_lastname', 'bill_address', 'bill_city', 'bill_region', 'bill_country', 'bill_cp', 'bill_phonenumber'];
+                
+                for(var j in not_empty_shp){
+                    tmp = $this.find('#'+not_empty_shp[j]);
+                    if(tmp.length && (that.isEmpty(tmp.val()) || tmp.val()=='0')){
+                        form_valid = false;
+                        that.setMsgError(tmp);
+                    }
+                }
+            }
+            
+            var $cb_termns = $('#cb_termns');
+            if( $cb_termns.attr('checked') != 'checked' ){
+                that.setMsgError($('#checkoutsubmit'), 'You must to accept the Terms of Services');
+            }
+            
+            if(form_valid){
+                $.ajax($this.attr('action'), {data: $this.serialize()}).done(function(response){s
+                    $('#linkprocessed').trigger('click');
+                })
+            }else{
+                that.setMsgError($('#checkoutsubmit'), 'You empty fields');
+            }
+        });
+        
+    }
+    
+    this.checkoutForm = function(){
+        $('#checkoutsubmit').click(function(e){
+            e.preventDefault();
+            $('#frmcheckout').trigger('submit');
+        })
+    }
     
     return this;
     

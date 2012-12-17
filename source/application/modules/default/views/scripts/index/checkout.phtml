@@ -1,5 +1,5 @@
 <?php 
-//print_r($this->cart);die();
+
     # Imprimimos el menu Change Section
     echo $this->partial('index/change_section.phtml', array('section'=>'Designers', 'menu'=>$this->menu));
 ?>
@@ -13,7 +13,7 @@
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
         </p>
         
-        <form action="" method="post">
+        <form name="frmcheckout" id="frmcheckout" action="/order/create" method="post">
             <div class="section">
                 <span class="subtitle"> CONTACT INFORMATION</span>
                 <p>
@@ -34,34 +34,44 @@
                 <input type="text" name="shp_address"  id="shp_address" value="" placeholder="Address*" title="Address"  class=""/>
                 <input type="text" name="shp_address2"  id="shp_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/>
                 <input type="text" name="shp_city"  id="shp_city" value="" placeholder="City*" title="City"  class="medialinea"/>
-                <select id="shp_region" name="shp_region" >
-                    <option value="0"> Region / State*</option>
+                <select id="shp_region" name="shp_region"  class="regions">
+                    <option value="0"> Region / State*</option>                    
+                    <?php foreach($this->regions as $region): ?>
+                        <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                    <?php endforeach; ?>
                 </select>
-                <input type="text" name="shp_cp"  id="shp_cp" value="" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>
-                <select id="shp_country" name="shp_country"  >
-                    <option value="0"> Country*</option>
-                </select>
+                <input type="text" name="shp_cp"  id="shp_cp" value="" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                
+                <span>
+                    <select id="shp_country" name="shp_country" class="subregions"  >
+                        <option value="0"> Country*</option>
+                    </select>
+                </span>
                 <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="" placeholder="Phone number*" title="Phone number"  class=""/>
             </div>
             
             <div class="section">
                 <span class="subtitle">BILLING ADDRESS</span>
                 <p>
-                    <label><input type="checkbox" name="bill_same" value="" /> Same as my shipping address</label>
+                    <label><input type="checkbox" name="bill_same" id="bill_same" value="" /> Same as my shipping address</label>
                 </p>
-                <div>
+                <div id="bill_same_content">
                     <input type="text" name="bill_firstname"  id="bill_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
                     <input type="text" name="bill_lastname"  id="bill_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/>
                     <input type="text" name="bill_address"  id="bill_address" value="" placeholder="Address*" title="Address"  class=""/>
                     <input type="text" name="bill_address2"  id="bill_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/>
                     <input type="text" name="bill_city"  id="bill_city" value="" placeholder="City*" title="City"  class="medialinea"/>
-                   <select id="bill_region" name="bill_region" >
+                   <select id="bill_region" name="bill_region" class="regions"   >
                         <option value="0"> Region / State*</option>
+                        <?php foreach($this->regions as $region): ?>
+                            <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <input type="text" name="bill_cp"  id="bill_cp" value="" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>
-                    <select id="bill_country" name="bill_country"  >
-                        <option value="0"> Country*</option>
-                    </select>
+                    <span>
+                        <select id="bill_country" name="bill_country" class="subregions">
+                            <option value="0"> Country*</option>
+                        </select>
+                    </span>
                     <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="" placeholder="Phone number*" title="Phone number"  class=""/>
                 </div>
             </div>
@@ -100,9 +110,9 @@
         
     
 </div>
-
+<a href="/order/processed" class="liLight" id="linkprocessed"></a>
 
 <script>
     WTA.updateCart();
-    
+    WTA.checkout();
 </script>

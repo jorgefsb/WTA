@@ -238,7 +238,7 @@ class Application_Entity_Member extends Core_Entity {
     function autentificate($usuario, $password) {
         $auth = Zend_Auth::getInstance();
         $adapter = new Zend_Auth_Adapter_DbTable(Zend_Registry::get('multidb'),
-                        'memberautentificate',
+                        'member',
                         'member_mail',
                         'member_password');
         $adapter->setIdentity($usuario);

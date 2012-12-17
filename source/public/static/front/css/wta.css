@@ -3,9 +3,9 @@
 
 
 
-.dropdown-menu li > a:hover,
-.dropdown-menu li > a:focus,
-.dropdown-submenu:hover > a{background: none; color: #FFF !important;}
+#header .dropdown-menu li > a:hover,
+#header .dropdown-menu li > a:focus,
+#header .dropdown-submenu:hover > a{background: none; color: #FFF !important;}
 
 html, body{background: #090909; padding: 0px}
 
@@ -70,7 +70,7 @@ html, body{background: #090909; padding: 0px}
 #change_section .caret{ display: inline-block; vertical-align: middle; border-color:#FFF transparent transparent; border-top: 4px solid #AAA;  position: relative; overflow: visible; margin-left: 8px;}
 #change_section .caret:before{content: ""; border-right: 4px solid transparent; border-left: 4px solid transparent; border-top: 4px solid #101010; position: absolute; left: -4px; top: -5px }
 
-#change_category{position: absolute; background: rgba(140,140,140, .2);  padding: 20px; font-size: 12px; text-transform: uppercase; text-align: center;  z-index: 200;  /*color: #FFF;*/ color:#333; font-family: Arial}
+#change_category{position: absolute; background: rgba(140,140,140, .2);  padding: 20px; font-size: 12px; text-transform: uppercase; text-align: center;  z-index: 200;  /*color: #FFF;*/ color:#333 font-family: Arial}
 #change_category span{display: inline-block; margin-right: 15px;}
 #change_category .btn-group > .btn, .btn-group > .dropdown-menu{width: 180px; font-size: 12px; color: #848484; padding: 0px 5px; text-align: left}
 #change_category .btn-group > .btn + .dropdown-toggle{width: auto; color: #343434; }
@@ -283,7 +283,7 @@ input[type=submit]{background: #c23a3a; border: 0px; border-radius: 3px; color: 
 #signin .privacy input{vertical-align: sub}
 
 span.error{color: #a03333; background: transparent url(../images/xerror.png) left center no-repeat; padding-left: 20px; display: block; font-size: 11px; line-height: 15px; margin-bottom: 3px;}
-input.error{border: 1px solid #a03333 !important}
+input.error, .btn-group.error{border: 1px solid #a03333 !important}
 
 #forgotpass{width: 410px; background: #000; position: absolute; z-index: 2000; top: 50px; left: 50%; margin-left: -270px; font-family: Arial; padding: 20px 60px; border-radius: 8px; }
 #forgotpass input[type=submit]{margin-left: 2px; vertical-align: middle}
@@ -326,6 +326,12 @@ input.error{border: 1px solid #a03333 !important}
 .aWraper .aBack .torres_float{ vertical-align:top;  }
 
 /* ########################################### */
+
+#processed .contenido{padding: 20px 50px;  }
+#processed h1{color: #353636;    font-size: 34px;    font-weight: normal;    line-height: 27px; margin-bottom: 15px; font-family: 'Times New Roman';   }
+#processed p{font-size: 14px; color: #161616;   font-family: 'Georgia';    }
+#processed ul li{font-family: 'Arial'; color: #787878; font-size: 12px; list-style: none;}
+#linkprocessed{display: none}
 
 /*  SECCION  DE  COMING SOON */
 .comming_soon {    
@@ -378,7 +384,7 @@ input.error{border: 1px solid #a03333 !important}
     max-width: 390px;
     margin:0px auto;
 }
-.comming_soon .closex{color: #8F8F8F;left: -7px;position: relative;text-align: right;top: 3px;z-index: 9999;cursor: pointer;}
+.comming_soon .closex{color: #8F8F8F;right: 15px;position: absolute;text-align: right;top: 13px;z-index: 9999;cursor: pointer;}
 
 /* FIN DE SECCION DE COMING SONG */
 

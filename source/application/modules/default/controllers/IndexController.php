@@ -41,6 +41,11 @@ class Default_IndexController extends Core_Controller_ActionDefault
         return $menu;;
     }
     
+    public function signoutAction(){
+        Zend_Auth::getInstance()->clearIdentity();
+        $this->redirect('/');
+    }
+    
     public function indexAction(){        
         $this->loadOptionsMenu();
         
@@ -347,6 +352,9 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function checkoutAction(){
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
+        
+        $_regions = new Application_Model_Regions();
+        $this->view->regions = $_regions->listing(array(840));
         
         
         /*
