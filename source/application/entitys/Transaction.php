@@ -6,11 +6,10 @@
  * @author nazart jara
  */
 class Application_Entity_Transaction extends Core_Entity {
-    
     const TRANSACTION_OUTSTANDING = 1;
     const TRANSACTION_PAID = 2;
     const TRANSACTION_REMOVED = 3;
-    
+
     const TYPE_MENBERSHIP = 1;
     const TYPE_PRODUCT = 2;
 
@@ -19,6 +18,7 @@ class Application_Entity_Transaction extends Core_Entity {
     protected $_amount;
     protected $_state;
     protected $_codePayment;
+
     /**
      * __Construct         
      *
@@ -64,7 +64,7 @@ class Application_Entity_Transaction extends Core_Entity {
 
     function setParamsDataBase() {
         $data['transaction_id'] = $this->_id;
-        $data['transaction_amount'] = $this->_amount ;
+        $data['transaction_amount'] = $this->_amount;
         $data['tansaction_state_id'] = $this->_state;
         $data['member_id'] = $this->_member;
         $data['transaction_code_payment'] = $this->_codePayment;
@@ -99,8 +99,8 @@ class Application_Entity_Transaction extends Core_Entity {
             false;
         }
     }
-    
-    function addMembership(Application_Entity_Membership $membership){
+
+    function addMembership(Application_Entity_Membership $membership) {
         $transactionDetails = new Application_Model_TransactionDetails();
         $data['membership_member_id'] = $membership->getPropertie('_id');
         $data['product_type_id'] = self::TYPE_MENBERSHIP;
@@ -108,7 +108,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_id'] = $this->_id;
         return $transactionDetails->insert($data);
     }
-    
+
     function addProduct(Application_Entity_Product $product) {
         $transactionDetails = new Application_Model_TransactionDetails();
         $data['product_id'] = $product->getPropertie('_id');
@@ -117,17 +117,19 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_id'] = $this->_id;
         return $transactionDetails->insert($data);
     }
-    
-    function confirmPayment(){
-        $data['tansaction_state_id']=self::TRANSACTION_PAID;
+
+    function confirmPayment() {
+        $data['tansaction_state_id'] = self::TRANSACTION_PAID;
         $modelTransaction->update($data, $this->_id);
     }
-    
-    static function listOrders($filtro=array()){
+
+    static function listOrders($filtro=array()) {
         $modelTransaction = new Application_Model_Transaction();
         return $modelTransaction->listOrdens($filtro);
     }
 
-    
-
+    static function listOrdensUsers() {
+        $modelTransaction = new Application_Model_Transaction();
+        return $modelTransaction->listOrdensUsers();
+    }
 }

@@ -3,22 +3,34 @@
         <h2>Product List</h2>
     </div>
     <div class="box-content">
-        <form>
+        <form method="get" action="">
             <div class="span4">
                 <h3>Filters</h3>
                 <div class="well">
-                    
+
                     <h4>Date Range</h4>
                     <div class="control-group" style="text-align: left">
-                        <label class="control-label" for="date01">From Date</label>
+                        <label class="control-label" for="fromDate">From Date</label>
                         <div class="controls">
-                            <input type="text" class="datepicker" id="date01" value="">
+                            <input type="text" class="datepicker" value="<?php echo $this->fromDate; ?>" id="fromDate" name="fromDate" value="">
                         </div>
                     </div>
                     <div class="control-group" style="text-align: left">
-                        <label class="control-label" for="date02">To Date</label>
+                        <label class="control-label" for="toDate">To Date</label>
                         <div class="controls">
-                            <input type="text" class="datepicker" id="date02" value="">
+                            <input type="text" class="datepicker" value="<?php echo $this->toDate; ?>" id="toDate" name="toDate" value="">
+                        </div>
+                    </div>
+
+                    <h4>User</h4>
+                    <div class="control-group">
+                        <label class="control-label" for="menbers">Select User</label>
+                        <div class="controls">
+                            <select id="menbers" name="menbers[]" multiple data-rel="chosen">
+                                <?php foreach($this->userOrders as $index): ?>
+                                <option value="<?php echo $index['member_id']?>" <?php echo in_array($index['member_id'],$this->menbers)?'selected':'' ?> ><?php echo $index['member_name'].' '.$index['member_last_name']?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                     <h4>State</h4>
@@ -31,48 +43,54 @@
                         );
                         ?>
                         <?php foreach ($state as $index => $value): ?>
-                            <label><input type="checkbox" id="state<?php echo $index; ?>" name="state[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
+                            <label>
+                                <input <?php echo in_array($index,$this->state)?'checked="checked"':'' ?> type="checkbox" id="state<?php echo $index; ?>" name="state[]" value="<?php echo $index; ?>" /><?php echo $value; ?>
+                            </label>
                         <?php endforeach; ?>
 
                     </div>
 
-                    <h4>Devoted</h4>
+                    <h4>Delivered</h4>
                     <div class="control-group" style="text-align: left">
                         <?php
-                        $stateDevoted = array(
+                        $stateDelivered = array(
                             1 => 'Yes',
                             0 => 'No'
                         );
                         ?>
-                        <?php foreach ($stateDevoted as $index => $value): ?>
-                            <label><input type="checkbox" id="stateDevoted<?php echo $index; ?>" name="stateDevoted[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
+                        <?php foreach ($stateDelivered as $index => $value): ?>
+                            <label><input <?php echo in_array($index,$this->stateDelivered)?'checked="checked"':'' ?> type="checkbox" id="stateDelivered<?php echo $index; ?>" name="stateDelivered[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
                         <?php endforeach; ?>
 
                     </div>
                     <div style="text-align: right">
-                    <input type="submit" value="Send" />
+                        <a href="/admin/orders">Cancel Filter</a>
+                        <input type="submit" value="Send" />
                     </div>
                 </div>
             </div>
-            
+
         </form> 
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        Fecha de pago
+                        Registration Date
                     </th>
                     <th>
-                        Cliente
+                        Customer
                     </th>
                     <th>
-                        Estado
+                        State
                     </th>
                     <th>
-                        Productos
+                        Product
                     </th>
                     <th>
-                        Entregado
+                        Delivered
+                    </th>
+                    <th>
+                        Delivered Date
                     </th>
                 </tr>
             </thead>
@@ -101,7 +119,10 @@
                                         Quantity
                                     </th>
                                     <th>
-                                        Amount
+                                        Guest Price
+                                    </th>
+                                    <th>
+                                        Member Price
                                     </th>
                                 </tr>
                             </thead>
@@ -116,23 +137,52 @@
                                     <td>
                                         <?php echo $product[1]; ?>
                                     </td>
-                                    <td>
+                                    <?php if($index['transaction_user_menbership']==1){
+                                        $price = $product[3];
+                                        ?>
+                                    <td style="text-decoration: line-through">
                                         <?php echo $product[2]; ?>
                                     </td>
                                     <td>
+                                        <span class="label label-success"><?php echo $product[3]; ?></span>
+                                    </td>
+                                    <?php } else { $price = $product[2];?>
+                                    <td>
+                                        <span class="label label-success"><?php echo $product[2]; ?></span>
+                                    </td>
+                                    <td style="text-decoration: line-through" >
                                         <?php echo $product[3]; ?>
                                     </td>
-
-                                </tr>    
+                                    
+                                    <?php } ?>
+                                </tr>
+                                
                                 <?php
+                                $priceTotal = $product[1]*$price;
                             }
                             ?>
+                                <tr>
+                                    <td colspan="2">
+                                        
+                                    </td>
+                                    <td style="background-color: #DD5600; color: #ffffff" >
+                                     Total   
+                                    </td>
+                                    <td style="background-color: #DD5600; color: #ffffff">
+                                        <?php echo $priceTotal; ?>
+                                    </td>
+                                </tr>
                         </table>
                     </td>
                     <td>
                         <?php
-                        $arrayEstatus = array('not', 'yes');
-                        echo $arrayEstatus[$index['transaction_devoted']];
+                        $arrayEstatus = array('No', 'Yes');
+                        echo $arrayEstatus[$index['transaction_delivered']];
+                        ?> 
+                    </td>
+                    <td>
+                        <?php
+                        echo $index['transaction_delivered_date'];
                         ?> 
                     </td>
                 </tr>
