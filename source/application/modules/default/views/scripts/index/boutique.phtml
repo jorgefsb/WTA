@@ -12,7 +12,7 @@
         <a href="" class="btn addToCart" data-code="<?php echo $this->product['_id']; ?>">
             Add to my cart
         </a>
-        <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwetheadorned.com%2F&media=http%3A%2F%2Fdev.wetheadorned.com%2Fstatic%2Ffront%2Fimages%2FR_25.png" class="pin-it-button btn" count-layout="horizontal">Pin It</a>
+        <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwetheadorned.com%2F&media=<?php echo urldecode(DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']); ?>" class="pin-it-button btn" count-layout="horizontal">Pin It</a>
     </div>
     
     <div  class="imgProd">

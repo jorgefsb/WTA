@@ -512,6 +512,10 @@ var WTA = (function(){
                                         that.setMsgError(obj, response.formMessages[i][j]);
                                     }
                                 }
+                            }else{
+                                if(response.message == 'Registration was successful' || response.message == 'Successful Authentication'){
+                                    window.location.href = window.location.href;
+                                }
                             }
                         })
             }
