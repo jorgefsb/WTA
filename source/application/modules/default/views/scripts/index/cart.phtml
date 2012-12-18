@@ -9,8 +9,8 @@
             <div class="prod"><!-- PRODUCT -->
 
                 <div class="prices">
-                    <div>Guest price <strong class="prec1 line-through"><br/>$<?php echo number_format($prod['_price'],2) ?></strong></div>
-                    <div>Member price <strong class="prec2"><br/>$<?php echo number_format($prod['_priceMember'],2) ?></strong></div>                                        
+                    <div>Guest price <strong class="prec1 line-through"><br/>$<?php echo number_format($prod['_price'] * (int)$prod['quantity'],2) ?></strong></div>
+                    <div>Member price <strong class="prec2"><br/>$<?php echo number_format($prod['_priceMember'] * (int)$prod['quantity'],2) ?></strong></div>                                        
                 </div>
 
                 <img src="<?php echo DINAMIC_URL.'/product/mini/'.$prod['images'][0]['image_name']; ?>" />
@@ -21,27 +21,26 @@
                 </div>
 
                 <div class="controls">
-                    <label class="size">
+                    <label class="size" >
                     <?php 
                         if( !empty($prod['sizes']) ){
                     ?>
                             SIZE 
-                            <select><option>--</option>
+                            <select class="products_size">
                                 <?php
                                     foreach($prod['sizes'] as $size){
-                                        if( $prod['size_prod'] ==  $size ){
-                                            echo '<option slected="selected" value="">'.$size.'</option>';
+                                        if( $prod['size_prod'] ==  $size['product_size_size_id'] ){
+                                            echo '<option selected="selected" value="'.$size['product_size_size_id'].'">'.$size['product_size_size_id'].'</option>';
                                         }else{
-                                            echo '<option value="">'.$size.'</option>';
+                                            echo '<option value="'.$size['product_size_size_id'].'">'.$size['product_size_size_id'].'</option>';
                                         }
                                     }
                                 ?>
                                 </select>
                     <?php
                         }                    
-                    ?>
-                            
-                            </label>
+                    ?>                            
+                    </label>
                     <label class="quantity">QTY <input type="text" data-code="<?php echo $prod['clave'] ?>" name="quantity" class="quantity" value="<?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 1); ?>" /></label>
                     <a href="/index/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >remove</a>
                 </div>

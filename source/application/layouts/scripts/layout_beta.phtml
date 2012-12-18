@@ -1,0 +1,108 @@
+<?php 
+    $_identity = Zend_Auth::getInstance()->getIdentity();
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <?php $this->headTitle() ?>
+        <?php $this->headMeta() ?>
+        <?php $this->headLink() ?>
+
+        <?php $this->headScript() ?>
+        <?php $this->headStyle() ?>      
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="<?php echo STATIC_URL . '/front/'; ?>bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="<?php echo STATIC_URL . '/front/'; ?>bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+        <link href="<?php echo STATIC_URL . '/front/'; ?>css/wta.css" rel="stylesheet">
+        <link href="/static/front/css/static.css"  rel="stylesheet" />
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>bootstrap/js/bootstrap.min.js"></script>
+        
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.tinyscrollbar.min.js"></script>         
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/wta.js"></script>
+        
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/prefixfree.js"></script>
+        
+    </head>
+    <body>
+        <div id="bgslider"></div> <!-- SLIDER -->
+
+        <div class="container-fluid"> 
+
+            <div id="header">
+                <a href="/" id="logo-small" ><img src="<?php echo STATIC_URL?>/front/images/wta-small.png"  /></a>
+                <div class="navbar navbar-inverse"> <!-- MENU  -->
+                    
+                </div>
+            </div>
+
+            <div id="popupShoppinCart" class="shoppingCart"><!-- SHOPPING CART -->
+                <span class="closex">x</span>
+                <h3>Your shopping list</h3>                       
+                <div id="scrollbar1">
+                    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                        <div class="viewport">
+                            <div class="overview">
+                                
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+
+
+            <?php echo $this->layout()->content ?>
+
+
+
+            <div id="footer"> <!-- FOOTER -->
+
+                <div class="navbar navbar-inverse"> <!-- MENU  -->
+                    <div class="navbar-inner">
+
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".menu2">
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <div class="nav-collapse collapse menu2">
+                            <ul class="nav">
+                                <li><a href="/" title="" >Home</a></li>
+                                <li><a href="/affiliates" title="" >Affiliates</a></li>
+                                <li><a href="/terms-of-service" title="" >Terms of service</a></li>
+                                <li><a href="/rewarding-our-members" title="" >Rewarding our members</a></li>
+                                <li><a href="/help" title="" >Help</a></li>
+                                <li><a href="/privacy" title="" >Privacy</a></li>
+                            </ul>
+
+                            <div class="pull-right">
+                                <a class="btn facebook" >
+                                </a>
+
+                                <a class="btn twitter">
+                                </a>
+
+                                <a class="contactus liLight" href="/index/contactus">
+                                    Contact us
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <blockquote>
+                    <span class="linea-degr-left"></span>Copyright 2012 - Wetheadorned.com<span class="linea-degr-right"></span>
+                </blockquote>
+
+            </div>
+
+        </div>               
+        <div id="overlay"></div>
+    </body>
+</html>

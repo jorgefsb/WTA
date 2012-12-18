@@ -222,11 +222,11 @@ var WTA = (function(){
                             that.updateCart();
                         });
                     });
-                    
                 });
             }
             
             $.bootstrap_selects();
+            
             if(callback){
                 callback();
             }
@@ -251,6 +251,15 @@ var WTA = (function(){
                 }
                 $.ajax({
                     url: '/index/changeitem/clave/'+$this.data('code')+'/quantity/'+value+'/format/json'
+                }).done(function(response){
+                    that.updateCart();
+                });
+            });
+                                
+            $popupShoppinCart.find('.products_size').change(function(){
+                var code = $(this.parentNode.parentNode.parentNode).find('input.quantity').data('code')
+                $.ajax({
+                    url: '/index/changeitem/clave/'+code+'/size/'+this.value+'/format/json'
                 }).done(function(response){
                     that.updateCart();
                 });
@@ -440,7 +449,7 @@ var WTA = (function(){
                         }).done(function(response){
                             if(response.message){
                                 if(response.message == 'Incorrect Authentication'){
-                                        that.setMsgError($this.find('input[type=submit]'), 'The email or password you entered is incorrect.');
+                                        that.setMsgError($this.find('input[type=submit]'), 'Hmm, not it. We can’t remember ours either. Try again!   .');
                                 }else{
                                     if(response.message == 'Successful Authentication'){
                                         that.setMsgError($this.find('input[type=submit]'), 'Corrrect');
@@ -558,7 +567,7 @@ var WTA = (function(){
     
     this.setMsgError = function($element, msgError){
         if(msgError){
-            $element.parent().prepend('<span class="error">'+msgError+'</span>');
+            $element.parent().append('<span class="error">'+msgError+'</span>');
         }
         if($element.attr('type') && $element.attr('type')=='hidden'){
             $element.parent().addClass('error');

@@ -167,7 +167,7 @@
 	 display: block;
 }
 .affiliates-content  p.parrafos.affiliates{
-	margin-left: 3%;
+	/*margin-left: 3%;*/
 	margin-top: 30px;
 }
 .affiliates-content  p.parrafos.affiliates .subtitulos_gris{
@@ -267,7 +267,7 @@ p.parrafos{
 .terms-content .pos-titulo{
 	color:#c5c5c5;
 	font-size:20px;
-	margin-left:30px;
+	/*margin-left:30px;*/
 }
 .terms-content .pos-titulo span{
 	display:block;
