@@ -70,7 +70,7 @@ html, body{background: #090909; padding: 0px}
 #change_section .caret{ display: inline-block; vertical-align: middle; border-color:#FFF transparent transparent; border-top: 4px solid #AAA;  position: relative; overflow: visible; margin-left: 8px;}
 #change_section .caret:before{content: ""; border-right: 4px solid transparent; border-left: 4px solid transparent; border-top: 4px solid #101010; position: absolute; left: -4px; top: -5px }
 
-#change_category{position: absolute; background: rgba(140,140,140, .2);  padding: 20px; font-size: 12px; text-transform: uppercase; text-align: center;  z-index: 200;  /*color: #FFF;*/ color:#333 font-family: Arial}
+#change_category{position: absolute; background: rgba(140,140,140, .2);  padding: 20px; font-size: 12px; text-transform: uppercase; text-align: center;  z-index: 200;  /*color: #FFF;*/ color:#333; font-family: Arial;}
 #change_category span{display: inline-block; margin-right: 15px;}
 #change_category .btn-group > .btn, .btn-group > .dropdown-menu{width: 180px; font-size: 12px; color: #848484; padding: 0px 5px; text-align: left}
 #change_category .btn-group > .btn + .dropdown-toggle{width: auto; color: #343434; }
@@ -191,8 +191,8 @@ html, body{background: #090909; padding: 0px}
 
 
 
-#contentBody.designers, #contentBody.exclusive, #contentBody.checkout, #contentBody.limited, #contentBody.itemlist{ background: #FFF /*url(../images/bg-white2.jpg)*/ center -40px; padding-top: 100px; min-height: auto; position: relative; padding-bottom: 30px;}
-#contentBody.limited{padding-top: 30px;}
+#contentBody.designers, #contentBody.exclusive, #contentBody.checkout, #contentBody.limited, #contentBody.itemlist{ background: #FFF /*url(../images/bg-white2.jpg)*/ center -40px; /*padding-top: 100px;*/ min-height: auto; position: relative; padding-bottom: 30px;}
+#contentBody.limited{/*padding-top: 30px;*/}
 .imgProd { text-align: center; margin: 0 auto; width: 450px; margin: 0px 10px 10px 10px; display: inline-block; }
 .imgProd img{max-height: 500px; max-width: 500px; }
 .info{width: 400px;  text-align: center; font-family: 'Time new Roman'; color: #787878; display: inline-block; vertical-align: middle; letter-spacing: -1px; word-spacing: 2px; margin-left: 20px;}
@@ -208,6 +208,8 @@ html, body{background: #090909; padding: 0px}
 .info .details, .info .liLight{font-size: 11px; font-style: italic; color: #666;}
 .info .details-content{}
 
+
+#contentBody.designers.gift{padding-top: 40px;}
 /* Itemlist */
 #contentBody.itemlist{padding-top: 60px;}
 #contentBody.itemlist h1{font-family: 'Times New Roman'; color: #212121; font-size: 36px; text-transform: uppercase;  font-weight: normal; margin-bottom: 0px;}
@@ -283,20 +285,25 @@ html, body{background: #090909; padding: 0px}
 #contentBody.celebrity div a div span{width: 20%;}
 
 
-#signin{width: 800px; background: #000 url(../images/or.png) center center no-repeat; z-index: 2000; font-family: Arial; padding: 20px; border-radius: 8px; }
+/*#signin{width: 800px; background: #000 url(../images/or.png) center center no-repeat; z-index: 2000; font-family: Arial; padding: 20px; border-radius: 8px; }*/
+#signin{width: 800px; z-index: 2000; font-family: Arial; padding: 20px; border-radius: 8px; }
 #signin > div{width: 300px; display: inline-block; margin: 0 auto; vertical-align: top; margin-left: 35px}
 #signin > div:first-child{margin-right: 100px;}
-#signin h2, #forgotpass h2{color: #FFF;font-family: 'Times New Roman'; font-weight: normal; font-size: 24px;}
-#signin span.instrucciones, #forgotpass span.instrucciones{color: #FFF;display: block; margin: 5px 0 15px;}
-#signin a.forgot{color: #eee; display: block; font-size: 12px;}
-#signin a.forgot strong{color: #fff;}
-input[type=text], input[type=password]{background:  #141414; color: #e2e2e2; borde-radius: 3px; width: 265px; border: 0px; display: block; padding: 7px; vertical-align: sub;}
-input[type=submit]{background: #c23a3a; border: 0px; border-radius: 3px; color: #FFF; font-family: 'Times New Roman';  padding: 10px 12px; margin-left: 177px; min-width: 100px}
-.closex{position: absolute; top: 5px; right: 10px; cursor: pointer; width: auto !important; color: #FFF; font-size: 11px; font-weight: bold; }
+#signin h2, #forgotpass h2{color: #000;font-family: 'Times New Roman'; font-weight: normal; font-size: 32px; line-height: 28px; margin-bottom: 0px;}
+#signin span.instrucciones, #forgotpass span.instrucciones{color: #252525;display: block; margin: 5px 0 15px;}
+#signin a.forgot{color: #252525; display: inline-block; font-size: 12px; }
+#signin a.forgot strong{color: #2d2d2d;}
+input[type=text], input[type=password]{background:  #FFF; color: #222; borde-radius: 3px; width: 265px; border: 1px solid #DDD; display: block; padding: 7px; vertical-align: sub;}
+input[type=submit]{background: #1d1d1d; color: #FFF;  border: 0px; border-radius: 3px;  font-family: 'Times New Roman';  padding: 10px 12px; margin-left: 177px; min-width: 100px}
+input[type=submit]:hover{background: #c23a3a; }
+#formSignin input[type=submit]{margin-left:20px; vertical-align: bottom}
+.closex{position: absolute; top: 15px; right: 17px; cursor: pointer; width: auto !important; color: #999; font-size: 17px; font-weight: normal; }
 
 #signin input#firstname, #signin input#lastname, #signin input#password1, #signin input#password2{width: 120px; display: inline-block; margin-right: 7px;}
-#signin .passwordinstr{font-size: 11px; color: #FFF; display: block; margin: 5px 0;}
-#signin .privacy{font-size: 12px; line-height: 14px; color: #FFF; ;}
+#signin .passwordinstr{font-size: 11px; color: #252525; display: block; margin: 5px 0;}
+#signin .privacy{font-size: 12px; line-height: 14px; color: #656565;  position: relative; padding-left: 10px;}
+#signin .privacy a{color: #2d2d2d; font-weight: bold}
+#signin .privacy input{ position: absolute; left: -10px; }
 #signin .privacy input{vertical-align: sub}
 
 span.error{color: #a03333; background: transparent url(../images/xerror.png) left center no-repeat; padding-left: 20px; display: block; font-size: 11px; line-height: 15px; margin-bottom: 3px;}
@@ -369,7 +376,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
     background: rgba(0,0,0,0.5);
 }
 
-.comming_soon .contenido{
+.wLight .contenido{
     background: #fff;
     border-radius: 10px;
     min-height: 245px;

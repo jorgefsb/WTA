@@ -244,7 +244,6 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $_actress->identifyByName(preg_replace('/-+/', ' ', $celebrity));        
                 
         $this->view->sliderProducts = $_actress->getProductsSimple();
-                
         
         
         $product_active = $this->getParam('product', '');  // Obtenemos el producto de la URL
@@ -258,6 +257,8 @@ class Default_IndexController extends Core_Controller_ActionDefault
         
         $properties = $_product->getProperties();
         $properties['images'] = $_product->listingImg();
+        $properties['celebrity'] = $_product->getProductActress($_actress->getPropertie('_id'));
+        //print_r( $_product->getProductActress($_actress->getPropertie('_id')) );die();
         $_designer = new Application_Entity_Designer();
         $_designer->identify($properties['_designer']);
         
@@ -501,7 +502,12 @@ class Default_IndexController extends Core_Controller_ActionDefault
     
     public function countcartAction(){
         $this->_helper->layout->disableLayout();
-        $this->view->count = count($this->_session->cart);
+        $count = 0;
+        foreach($this->_session->cart as $product){
+            $product['quantity'] = $product['quantity'] ? $product['quantity'] : 1;
+            $count += $product['quantity'];
+        }
+        $this->view->count = $count;
     }
     
     

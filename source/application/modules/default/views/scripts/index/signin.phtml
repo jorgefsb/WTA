@@ -1,9 +1,10 @@
 <div class="wLight">
-    <div id="signin">
+    <div id="signin" class="contenido">
         <div>
 
             <form id="formSignin" action="/member/login" name="signin" method="post">
                 <h2>SIGN IN</h2>
+                <span class="linea_horiz"></span>
                 <span class="instrucciones">Sign in with your WTA account</span>
                 <label>                    
                     <input type="text" id="email" name="email" placeholder="Email address" class="" />
@@ -12,9 +13,10 @@
                     <input type="password" id="password" name="password"  placeholder="Password"   />
                 <label>
                 <!-- label><input type="checkbox" name="remember" value="1" /> Remember my session</labe l-->
-                <input type="submit" value="SIGN IN" />
+                
 
                 <a class="forgot liLight" href="/index/forgotpass">FORGOT MY  <strong>PASSWORD</strong></a>
+                <input type="submit" value="SIGN IN" />
                 
             </form>
 
@@ -23,7 +25,8 @@
         <div>
 
             <form id="formRegister" action="/member/create-account" name="register" method="post">
-                <h2>REGISTER</h2>
+                <h2>JOIN</h2>
+                <span class="linea_horiz"></span>
                 <span class="instrucciones">Become a member</span>
 
                 <div>
@@ -42,7 +45,7 @@
                 </div>
                 
                 <label class="privacy">
-                    <input type="checkbox" name="cbterms" id="cbterms" /> I have read and agreed to the Terms of Service.</a>
+                    <input type="checkbox" name="cbterms" id="cbterms" /> I have read and agreed to WTA's <a href="/privacy" target="__black" >Privacy Policy</a> and <a href="/terms-of-service" target="__black" >Terms of Service.</a>
                 </label>
 
                 <input type="submit" value="JOIN" />
