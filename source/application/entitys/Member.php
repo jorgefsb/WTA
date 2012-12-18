@@ -16,6 +16,11 @@ class Application_Entity_Member extends Core_Entity {
     protected $_active;
     protected $_confirm;
     protected $_avatar;
+    protected $_phoneNumber;
+    protected $_zipCode;
+    protected $_countryId;
+    protected $_stateProvince;
+    protected $_city;
 
     /**
      * __Construct         
@@ -35,6 +40,11 @@ class Application_Entity_Member extends Core_Entity {
         $this->_active = $data['member_active'];
         $this->_confirm = $data['member_confirm'];
         $this->_avatar = $data['member_avatar'];
+        $this->_phoneNumber = $data['member_phone_number'];
+        $this->_zipCode = $data['member_zip_code'];
+        $this->_countryId = $data['member_country_id'];
+        $this->_stateProvince = $data['member_state_province'];
+        $this->_city = $data['member_city'];
     }
 
     /*
@@ -85,6 +95,11 @@ class Application_Entity_Member extends Core_Entity {
         $data['member_active'] = $this->_active;
         $data['member_confirm'] = $this->_confirm;
         $data['member_avatar'] = $this->_avatar;
+        $data['member_phone_number'] = $this->_phoneNumber;
+        $data['member_zip_code'] = $this->_zipCode;
+        $data['member_country_id'] = $this->_countryId;
+        $data['member_state_province'] = $this->_stateProvince;
+        $data['member_city'] = $this->_city;
         return $this->cleanArray($data);
     }
 
@@ -365,6 +380,10 @@ class Application_Entity_Member extends Core_Entity {
             $modelMember->update($data, $this->_id);
         }
         $transacction->addMembership($membership);
+    }
+    
+    function getCreditCard(){
+        return Application_Entity_CreditCard::listingForMember($this->_id);
     }
 
 }

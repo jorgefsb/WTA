@@ -38,6 +38,19 @@ class Application_Entity_Transaction extends Core_Entity {
         $this->_member = $data['member_id'];
         $this->_state = $data['tansaction_state_id'];
         $this->_codePayment = $data['transaction_code_payment'];
+        $this->_delivered = $data['transaction_delivered'];
+        $this->_userMenbership = $data['transaction_user_menbership'];
+        $this->_deliveredDate = $data['transaction_delivered_date'];
+        $this->_phoneNumber = $data['transaction_phone_number'];
+        $this->_zipCode = $data['transaction_zip_code'];
+        $this->_countryId = $data['country_id'];
+        $this->_stateProvince = $data['transaction_state_province'];
+        $this->_city = $data['transaction_city'];
+        $this->_cardNumber = $data['transaction_card_number'];
+        $this->_cardtypeId = $data['card_type_id'];
+        $this->_cardSergurityCode = $data['transaction_card_segurity_code'];
+        $this->_cardExpirationMonth = $data['transaction_card_expiration_month'];
+        $this->_cardExpirationYear = $data['transaction_card_expiration_year'];
     }
 
     /*
@@ -68,6 +81,19 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['tansaction_state_id'] = $this->_state;
         $data['member_id'] = $this->_member;
         $data['transaction_code_payment'] = $this->_codePayment;
+        $data['transaction_delivered'] = $this->_delivered;
+        $data['transaction_user_menbership'] = $this->_userMenbership;
+        $data['transaction_delivered_date'] = $this->_deliveredDate;
+        $data['transaction_phone_number'] = $this->_phoneNumber;
+        $data['transaction_zip_code'] = $this->_zipCode;
+        $data['country_id'] = $this->_countryId;
+        $data['transaction_state_province'] = $this->_stateProvince;
+        $data['transaction_city'] = $this->_city;
+        $data['transaction_card_number'] = $this->_cardNumber;
+        $data['card_type_id'] = $this->_cardtypeId;
+        $data['transaction_card_segurity_code'] = $this->_cardSergurityCode;
+        $data['transaction_card_expiration_month'] = $this->_cardExpirationMonth;
+        $data['transaction_card_expiration_year'] = $this->_cardExpirationYear;
         return $this->cleanArray($data);
     }
 
