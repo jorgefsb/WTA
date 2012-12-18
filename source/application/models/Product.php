@@ -335,6 +335,8 @@ class Application_Model_Product extends Core_Model {
                     'pr.product_name',
                     'pr.product_code',
                     'pr.product_slug',
+                    'pr.product_price',
+                    'pr.product_price_member',
                     'ct.collection_type_name',
                     'dt.design_type_name',
                     'd.designer_name',

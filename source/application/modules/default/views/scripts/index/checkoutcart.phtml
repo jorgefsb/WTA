@@ -36,7 +36,15 @@
                                 if (!empty($prod['sizes'])) {
                                     ?>
                                     <label class="size">
-                                        SIZE 7 1/2<br/>
+                                        SIZE 
+                                        <?php
+                                        foreach ($prod['sizes'] as $size) {
+                                            if ($prod['size_prod'] == $size['product_size_size_id']) {
+                                                echo $size['product_size_size_id'];
+                                                break;
+                                            } 
+                                        }
+                                        ?>
                                     </label>
                                     <?php
                                 }

@@ -12,6 +12,11 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function init() {
         parent::init();
         
+        $action = $this->_getParam('action','');
+        if( Zend_Auth::getInstance()->hasIdentity() && $action !='signin' && 'forgotpass'){
+            //$this->redirect('/beta');
+        }
+        
         $this->_helper->contextSwitch()
                 ->addActionContext('addtocart', 'json')
                 ->addActionContext('removeitem', 'json')
@@ -24,6 +29,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         if( !isset($this->_session->_tracking) ){
             $this->_session->_tracking = new Core_Tracking();
         }
+        
         
     }
     
@@ -113,6 +119,39 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->_tackUrlRef = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
     } 
     
+    
+    public function itemlistAction(){
+        
+        $menu = $this->loadOptionsMenu();
+        
+        $menu_collections = $menu['menu_collections_types'];    
+        
+        $categorys = array();
+        foreach($menu_collections as $collection){
+                $categorys[] = $collection['collection_type_name'];
+        }
+
+        $category_active = $this->getParam('type', '');        // Obtenemos la categoria de la URL        
+        sort($categorys);
+        $this->view->categorys = $categorys;        // Contiene las opciones para escoger categoria        
+        if( !$category_active ){
+            $category_active = $categorys[0];
+        }
+        $this->view->category_active = $category_active;        
+        $_product = new Application_Entity_Product();
+        $this->view->sliderProducts = $_product->getProductsByCollectionType($category_active);
+                        
+        $this->view->urlBase = '/exclusive-collections/';
+                
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackData =array('category'=>$category_active);
+        $this->_tackUrlRef = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+        
+    }        
     
     
     public function exclusiveAction(){
@@ -365,7 +404,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
     
     
     public function checkoutAction(){
-        //$this->loadOptionsMenu();
+        $this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
         
         $_regions = new Application_Model_Regions();
@@ -411,11 +450,11 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $_designer = new Application_Entity_Designer();
         $_designer->identify($properties['_designer']);
         $properties['images'] = $_product->listingImg();
-        $properties['sizes'] = $_product->getSize($properties['_id']);
+        $properties['sizes'] = $_product->getSize();
         $properties['designer'] = $_designer->getProperties();
         
         $properties['quantity'] = 1;        
-        $properties['clave'] = rand(1, 100);
+        $properties['clave'] = rand(1, 100).date('s');
         $this->_session->cart[] = $properties;
         
         //$return = array('ok'=>true);
@@ -483,7 +522,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
                     if($quantity){
                         $this->_session->cart[$key]['quantity'] = $quantity;
                     }else{
-                        $this->_session->cart[$key]['size_prod'] = $quantity;
+                        $this->_session->cart[$key]['size_prod'] = $size;
                     }
                     break;
                 }

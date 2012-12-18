@@ -222,11 +222,11 @@ var WTA = (function(){
                             that.updateCart();
                         });
                     });
-                    
                 });
             }
             
             $.bootstrap_selects();
+            
             if(callback){
                 callback();
             }
@@ -251,6 +251,15 @@ var WTA = (function(){
                 }
                 $.ajax({
                     url: '/index/changeitem/clave/'+$this.data('code')+'/quantity/'+value+'/format/json'
+                }).done(function(response){
+                    that.updateCart();
+                });
+            });
+                                
+            $popupShoppinCart.find('.products_size').change(function(){
+                var code = $(this.parentNode.parentNode.parentNode).find('input.quantity').data('code')
+                $.ajax({
+                    url: '/index/changeitem/clave/'+code+'/size/'+this.value+'/format/json'
                 }).done(function(response){
                     that.updateCart();
                 });

@@ -21,27 +21,26 @@
                 </div>
 
                 <div class="controls">
-                    <label class="size">
+                    <label class="size" >
                     <?php 
                         if( !empty($prod['sizes']) ){
                     ?>
                             SIZE 
-                            <select><option>--</option>
+                            <select class="products_size">
                                 <?php
                                     foreach($prod['sizes'] as $size){
-                                        if( $prod['size_prod'] ==  $size ){
-                                            echo '<option slected="selected" value="">'.$size.'</option>';
+                                        if( $prod['size_prod'] ==  $size['product_size_size_id'] ){
+                                            echo '<option selected="selected" value="'.$size['product_size_size_id'].'">'.$size['product_size_size_id'].'</option>';
                                         }else{
-                                            echo '<option value="">'.$size.'</option>';
+                                            echo '<option value="'.$size['product_size_size_id'].'">'.$size['product_size_size_id'].'</option>';
                                         }
                                     }
                                 ?>
                                 </select>
                     <?php
                         }                    
-                    ?>
-                            
-                            </label>
+                    ?>                            
+                    </label>
                     <label class="quantity">QTY <input type="text" data-code="<?php echo $prod['clave'] ?>" name="quantity" class="quantity" value="<?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 1); ?>" /></label>
                     <a href="/index/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >remove</a>
                 </div>
