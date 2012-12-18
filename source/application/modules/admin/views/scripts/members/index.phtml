@@ -46,7 +46,8 @@
             <?php } else { ?>
             <a class="btn btn-info" href="/admin/members/active/id/<?php echo $index['member_id']; ?>"><span class="icon-eye-open icon-white"></span> Active</a>
             <?php } ?>
-        </td>
+            <a class="btn btn-info" href="/admin/orders?menbers%5B%5D=<?php echo $index['member_id']; ?>"><span class="icon-shopping-cart icon-white"></span> View Orders</a>
+           </td>
     </tr>
 <?php endforeach; ?>
 </table>

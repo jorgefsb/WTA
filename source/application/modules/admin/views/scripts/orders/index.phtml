@@ -1,6 +1,6 @@
 <div class="box span12">
     <div class="box-header well" data-original-title>
-        <h2>Product List</h2>
+        <h2>Orders List</h2>
     </div>
     <div class="box-content">
         <form method="get" action="">
@@ -113,17 +113,24 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Name Product
+                                        Cod
+                                    </th>
+                                    <th>
+                                        Product
                                     </th>
                                     <th>
                                         Quantity
                                     </th>
                                     <th>
-                                        Guest Price
+                                        G. Price
                                     </th>
                                     <th>
-                                        Member Price
+                                        M. Price
                                     </th>
+                                    <th>
+                                        Size
+                                    </th>
+                      
                                 </tr>
                             </thead>
                             <?php
@@ -131,6 +138,10 @@
                                 $product = explode('|', $index2);
                                 ?>
                                 <tr>
+                                    <td>
+                                        <?php echo $product[5]; ?>
+                                    </td>
+                                    
                                     <td>
                                         <?php echo $product[0]; ?>
                                     </td>
@@ -141,20 +152,23 @@
                                         $price = $product[3];
                                         ?>
                                     <td style="text-decoration: line-through">
-                                        <?php echo $product[2]; ?>
+                                        $<?php echo $product[2]; ?>
                                     </td>
                                     <td>
-                                        <span class="label label-success"><?php echo $product[3]; ?></span>
+                                        <span class="label label-success">$<?php echo $product[3]; ?></span>
                                     </td>
                                     <?php } else { $price = $product[2];?>
                                     <td>
-                                        <span class="label label-success"><?php echo $product[2]; ?></span>
+                                        <span class="label label-success">$<?php echo $product[2]; ?></span>
                                     </td>
                                     <td style="text-decoration: line-through" >
-                                        <?php echo $product[3]; ?>
+                                        $<?php echo $product[3]; ?>
+                                    </td>
+                                    <?php } ?>
+                                    <td >
+                                        <?php echo $product[4]; ?>
                                     </td>
                                     
-                                    <?php } ?>
                                 </tr>
                                 
                                 <?php
@@ -162,14 +176,14 @@
                             }
                             ?>
                                 <tr>
-                                    <td colspan="2">
+                                    <td colspan="3" >
                                         
+                                    </td >
+                                    <td  style="background-color: #DD5600; color: #ffffff; text-align: right" >
+                                        Total: &nbsp;   
                                     </td>
-                                    <td style="background-color: #DD5600; color: #ffffff" >
-                                     Total   
-                                    </td>
-                                    <td style="background-color: #DD5600; color: #ffffff">
-                                        <?php echo $priceTotal; ?>
+                                    <td colspan="2" style="background-color: #DD5600; color: #ffffff;  text-align: right">
+                                        $<?php echo $priceTotal; ?>
                                     </td>
                                 </tr>
                         </table>
