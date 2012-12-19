@@ -134,6 +134,24 @@ var WTA = (function(){
             var $prev = null;
             imgCurrent.animate({opacity: 1});
             
+            var next = function(){
+                var $next = imgCurrent.next('img');
+                if( !$next.length ){
+                    $next = $($imgs.get(0));
+                }
+                if( $next.length ){
+                    $next.animate({opacity: 1}, 600);
+                    imgCurrent.animate({opacity: 0}, 300, function(){
+                        setTimeout(next, 8000);
+                    });
+                    
+                    imgCurrent = $next;                    
+                }
+            }
+            
+            setTimeout(next, 8000);
+            
+            /*
             $divSlides.prepend($('<span class="next">').click(function(){
                 var $next = imgCurrent.next('img');
                 if( !$next.length ){
@@ -160,7 +178,7 @@ var WTA = (function(){
                     imgCurrent = $prev;
                 }
             }));
-            
+            */
         }
       
     };
@@ -358,7 +376,15 @@ var WTA = (function(){
      * Genera el slider de los productos 
      */
     this.slider_products = function(){
-        $('#slider').carouFredSel({
+        
+        var $slider_products = $('#slider_products');
+        if( !$('#contentBody').hasClass('boutique')){
+            $('BODY').append($slider_products);
+        }
+        
+        var $slider = $('#slider');        
+        
+        $slider.carouFredSel({
             auto: false,
             responsive: true,
             width: '100%',
@@ -380,7 +406,7 @@ var WTA = (function(){
         
         var bar = $('#slider_products').find('.bar')
         
-        var $slider_products = $('#slider_products');
+        
         $slider_products.data('h',$slider_products.height());
         bar.click(function(){
             var $this = $(this);                        

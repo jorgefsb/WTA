@@ -1,527 +1,529 @@
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-	$(".help-content .lateral .central ul .preguntas").click(function(e){
-			e.preventDefault();
-			$(this).parent().find("ul").toggle("slow");
+    $(document).ready(function(){
+        $(".help-content .lateral .central ul .preguntas").click(function(e){
+            e.preventDefault();
+            $(this).parent().find("ul").toggle("slow");
 
-	});
+        });
 
-	$(".help-content .navhelp  ul .preguntas").click(function(e){
-			e.preventDefault();
-			$(".help-content .navhelp  ul li ul").slideUp();
-			$(this).parent().find("ul").toggle("slow");
+        $(".help-content .navhelp  ul .preguntas").click(function(e){
+            e.preventDefault();
+            $(".help-content .navhelp  ul li ul").slideUp();
+            $(this).parent().find("ul").toggle("slow");
 
-	});
+        });
 
-});
+    });
 
 
 </script>
+<div id="contentBody"><!-- CONTENT -->
 
-<div class="help-content" >
-		<div class="navbar navbar-inverse">
-		  <div class="navbar-inner">
-		    <div class="container">
-		 
-		      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-		      <a class="btn btn-navbar" data-toggle="collapse" data-target=".navhelp">
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </a>
-		 
-		     
-		 
-		      <!-- Everything you want hidden at 940px or less, place within here -->
-		      <div class="nav-collapse collapse navhelp">
-		       		
-		      			<ul >
-	   	 			<li   ><a href="" class="preguntas"  >GENERAL QUESTIONS</a>
-	   	 				<ul>
-	   	 					<li><a href="#pregunta_1" >1) What is WeTheAdorned?</a></li>
-	   	 					<li><a href="#pregunta_2" >2) How does WTA work?</a></li>
-	   	 					<li><a href="#pregunta_3" >3) Are products sold on the site authentic?</a></li>
-	   	 					<li><a href="#pregunta_4" >4) How do I learn about upcoming Limited quantity runs?</a></li>
-	   	 					<li><a href="#pregunta_5" >5) How are the products chosen for WTA?</a></li>
-	   	 					<li><a href="#pregunta_6" >6) What does it mean when there is a minimum or maximum for an item?</a></li>
-	   	 					<li><a href="#pregunta_7" >7) How long will it take for me to receive my order?</a></li>
-	   	 					<li><a href="#pregunta_8" >8) How do I send feedback to the WTA team?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li  ><a href="" class="preguntas" >HOW TO SHOP</a>
-	   	 				<ul>
-	   	 					<li><a href="#pregunta_9" >9) How do I reach a Personal Stylist?</a></li>
-	   	 					<li><a href="#pregunta_10" >10) How do I select the right size ring?</a></li>
-	   	 					<li><a href="#pregunta_11" >11) Can I place an order over the phone?</a></li>
-	   	 					<li><a href="#pregunta_12" >12) Once I put an item in my cart, is it reserved?</a></li>
-	   	 					<li><a href="#pregunta_13" >13) How do I change my email address on file?</a></li>
-	   	 					<li><a href="#pregunta_14" >14) How do I unsubscribe from WTA mailings?</a></li>
-	   	 					<li><a href="#pregunta_15" >15) Why have my item(s) been cancelled?</a></li>
-	   	 					<li><a href="#pregunta_16" >16) Can I cancel an order once it has been placed?</a></li>
-	   	 					<li><a href="#pregunta_17" >17) I’ve forgotten my login/password. What should I do?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li ><a href="" class="preguntas" >PAYMENTS</a>
-	   	 				<ul>
-	   	 					<li><a href="#pregunta_18" >18) How does payment work?</a></li>
-	   	 					<li><a href="#pregunta_19" >19) What payment methods does WTA accept?</a></li>
-	   	 					<li><a href="#pregunta_20" >20) Can I pay with multiple credit cards for one order?</a></li>
-	   	 					<li><a href="#pregunta_21" >21) How can I change my credit card details?</a></li>
-	   	 					<li><a href="#pregunta_22" >22) Can I pay in currencies other than US dollars?</a></li>
-	   	 					<li><a href="#pregunta_23" >23) What is the difference between a site credit and a gift credit?</a></li>
-	   	 					<li><a href="#pregunta_24" >24) How is my credit applied to my order?</a></li>
-	   	 					<li><a href="#pregunta_25" >25) Will I receive a refund for item(s) cancelled?</a></li>
-	   	 					<li><a href="#pregunta_26" >26) How do I pay taxes and duties?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li  ><a href="" class="preguntas" >SHIPPING3</a>
-	   	 				<ul>
-	   	 					<li><a href="#pregunta_27" >27) Where does WTA deliver?</a></li>
-	   	 					<li><a href="#pregunta_28" >28) Does WTA ship to P.O. boxes or freight forwarding?</a></li>
-	   	 					<li><a href="#pregunta_29" >29) Do any items have shipping restrictions?</a></li>
-	   	 					<li><a href="#pregunta_30" >30) Does WTA ship to multiple addresses?</a></li>
-	   	 					<li><a href="#pregunta_31" >31) Is my package insured?</a></li>
-	   	 					<li><a href="#pregunta_32" >32) How will my order be packaged?</a></li>
-	   	 					<li><a href="#pregunta_33" >33) Can I add items to, or change the address of, an existing order?</a></li>
-	   	 					<li><a href="#pregunta_34" >34) How will I know you received my order?</a></li>
-	   	 					<li><a href="#pregunta_35" >35) When will I receive my order?</a></li>
-	   	 					<li><a href="#pregunta_36" >36) Can I track my order?</a></li>
-	   	 					<li><a href="#pregunta_37" >37) Can I cancel my order after the delivery window?</a></li>
-	   	 					<li><a href="#pregunta_38" >38) When will shipping be charged?</a></li>
-	   	 					<li><a href="#pregunta_39" >39) How much does shipping cost?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li  > <a href="" class="preguntas" >RETURNS / EXCHANGES</a>
-	   	 					<ul>
-	   	 					<li><a href="#pregunta_40" >40) What is the WTA return policy?</a></li>
-	   	 					<li><a href="#pregunta_41" >41) How do I return or exchange an item?</a></li>
-	   	 					<li><a href="#pregunta_42" >42) If a non-returnable item is damaged, what is my recourse?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li  ><a href="" class="preguntas" >GIFTS</a>
-	   	 			<ul>
-	   	 					<li><a href="#pregunta_43" >43) Will I have to pay tax/duty on gifts that I purchase on the site?</a></li>
-	   	 					<li><a href="#pregunta_44" >44) How will I know if my gift has been shipped?</a></li>
-	   	 					<li><a href="#pregunta_45" >45) I ordered a gift and it hasn’t arrived yet. Where is it?</a></li>
-	   	 			
-	   	 				</ul>
-	   	 			</li>
-	   	 		</ul>
+    <div class="help-content" >
+        <div class="navbar navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
 
-
-		      </div>
-		 
-		    </div>
-		  </div>
-		</div>
-
-
-   	<div class="pilares lateral" >
-   	
-   	 <div class="central" >
-	   	 		<ul >
-	   	 			<li   ><a href="" class="preguntas"  >GENERAL QUESTIONS</a>
-	   	 				<ul>
-	   	 					<li><a href="#pregunta_1" >1) What is WeTheAdorned?</a></li>
-	   	 					<li><a href="#pregunta_2" >2) How does WTA work?</a></li>
-	   	 					<li><a href="#pregunta_3" >3) Are products sold on the site authentic?</a></li>
-	   	 					<li><a href="#pregunta_4" >4) How do I learn about upcoming Limited quantity runs?</a></li>
-	   	 					<li><a href="#pregunta_5" >5) How are the products chosen for WTA?</a></li>
-	   	 					<li><a href="#pregunta_6" >6) What does it mean when there is a minimum or maximum for an item?</a></li>
-	   	 					<li><a href="#pregunta_7" >7) How long will it take for me to receive my order?</a></li>
-	   	 					<li><a href="#pregunta_8" >8) How do I send feedback to the WTA team?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li  ><a href="" class="preguntas" >HOW TO SHOP</a>
-	   	 				<ul>
-	   	 					<li><a href="#pregunta_9" >9) How do I reach a Personal Stylist?</a></li>
-	   	 					<li><a href="#pregunta_10" >10) How do I select the right size ring?</a></li>
-	   	 					<li><a href="#pregunta_11" >11) Can I place an order over the phone?</a></li>
-	   	 					<li><a href="#pregunta_12" >12) Once I put an item in my cart, is it reserved?</a></li>
-	   	 					<li><a href="#pregunta_13" >13) How do I change my email address on file?</a></li>
-	   	 					<li><a href="#pregunta_14" >14) How do I unsubscribe from WTA mailings?</a></li>
-	   	 					<li><a href="#pregunta_15" >15) Why have my item(s) been cancelled?</a></li>
-	   	 					<li><a href="#pregunta_16" >16) Can I cancel an order once it has been placed?</a></li>
-	   	 					<li><a href="#pregunta_17" >17) I’ve forgotten my login/password. What should I do?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li ><a href="" class="preguntas" >PAYMENTS</a>
-	   	 				<ul>
-	   	 					<li><a href="#pregunta_18" >18) How does payment work?</a></li>
-	   	 					<li><a href="#pregunta_19" >19) What payment methods does WTA accept?</a></li>
-	   	 					<li><a href="#pregunta_20" >20) Can I pay with multiple credit cards for one order?</a></li>
-	   	 					<li><a href="#pregunta_21" >21) How can I change my credit card details?</a></li>
-	   	 					<li><a href="#pregunta_22" >22) Can I pay in currencies other than US dollars?</a></li>
-	   	 					<li><a href="#pregunta_23" >23) What is the difference between a site credit and a gift credit?</a></li>
-	   	 					<li><a href="#pregunta_24" >24) How is my credit applied to my order?</a></li>
-	   	 					<li><a href="#pregunta_25" >25) Will I receive a refund for item(s) cancelled?</a></li>
-	   	 					<li><a href="#pregunta_26" >26) How do I pay taxes and duties?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li  ><a href="" class="preguntas" >SHIPPING</a>
-	   	 				<ul>
-	   	 					<li><a href="#pregunta_27" >27) Where does WTA deliver?</a></li>
-	   	 					<li><a href="#pregunta_28" >28) Does WTA ship to P.O. boxes or freight forwarding?</a></li>
-	   	 					<li><a href="#pregunta_29" >29) Do any items have shipping restrictions?</a></li>
-	   	 					<li><a href="#pregunta_30" >30) Does WTA ship to multiple addresses?</a></li>
-	   	 					<li><a href="#pregunta_31" >31) Is my package insured?</a></li>
-	   	 					<li><a href="#pregunta_32" >32) How will my order be packaged?</a></li>
-	   	 					<li><a href="#pregunta_33" >33) Can I add items to, or change the address of, an existing order?</a></li>
-	   	 					<li><a href="#pregunta_34" >34) How will I know you received my order?</a></li>
-	   	 					<li><a href="#pregunta_35" >35) When will I receive my order?</a></li>
-	   	 					<li><a href="#pregunta_36" >36) Can I track my order?</a></li>
-	   	 					<li><a href="#pregunta_37" >37) Can I cancel my order after the delivery window?</a></li>
-	   	 					<li><a href="#pregunta_38" >38) When will shipping be charged?</a></li>
-	   	 					<li><a href="#pregunta_39" >39) How much does shipping cost?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li  > <a href="" class="preguntas" >RETURNS / EXCHANGES</a>
-	   	 					<ul>
-	   	 					<li><a href="#pregunta_40" >40) What is the WTA return policy?</a></li>
-	   	 					<li><a href="#pregunta_41" >41) How do I return or exchange an item?</a></li>
-	   	 					<li><a href="#pregunta_42" >42) If a non-returnable item is damaged, what is my recourse?</a></li>
-	   	 				</ul>
-	   	 			</li>
-	   	 			<li  ><a href="" class="preguntas" >GIFTS</a>
-	   	 			<ul>
-	   	 					<li><a href="#pregunta_43" >43) Will I have to pay tax/duty on gifts that I purchase on the site?</a></li>
-	   	 					<li><a href="#pregunta_44" >44) How will I know if my gift has been shipped?</a></li>
-	   	 					<li><a href="#pregunta_45" >45) I ordered a gift and it hasn’t arrived yet. Where is it?</a></li>
-	   	 			
-	   	 				</ul>
-	   	 			</li>
-	   	 		</ul>
-	  </div>
-
-   	</div>
-
-   	<div class="pilares contenido" >
-
-   		<h2 class="titulo_blanco">HELP</h2>
-	 
-	   	<p class="sublistas one"  >
-	   		<span class="titulo" >Customer Care</span>
-	   		For questions about your order or inquiries about our site, please email: care@wetheadorned.com  or call:
-	   	</p>
-	   	<p class="sublistas" >
-	   		<span class="titulo" >Personal Stylists</span>
-	   		Our Personal Stylists can assist you with choosing a look, or with questions about product and fit. Simply email: stylist@wetheadorned.com  or call:
-	   	</p>
-	   	<p class="sublistas" >
-	   		<span class="titulo" >Feedback </span>
-	   		For questions about your order or inquiries about our site, please email: care@wetheadorned.com or call: 
-	   	</p>
-
-
-	   	<h2 class="titulo_blanco">GENERAL QUESTIONS</h2>
-	  	
-	  	<div class="preguntas"  >
-	  		<div class="pregunta" name="pregunta_1" >
-	  			<a name="pregunta_1" >1) What is WeTheAdorned?</a>
-	  		</div>
-	  		<div class="respuesta" >
-	  			WeTheAdorned is the premier fashion pretailer that allows you to preorder exclusive, limited quantity fashion Jewelry created by the world’s best jewelry designers, which will not be made available anywhere else.
-	  		</div>
-
-	  		<div class="pregunta" name="pregunta_2" ><a name="pregunta_2" >2) How does WTA work?</a></div>
-	  		<div class="respuesta" >
-	  			In addition to our exclusive seasonal collections, WeTheAdorned runs online designer limited edition and limited quantity runs (typically 3-7 days), where you can preorder the exclusive fashion right after your favorite celebrity wears it. You place a 50% deposit at the time of purchase, the style is then produced by the designer, and the balance is paid once your order ships.
-	  		</div>
-
-			<div class="pregunta" name="pregunta_3" ><a name="pregunta_3" >3) Are products sold on the site authentic?</a></div>
-	  		<div class="respuesta" >We guarantee that every item we sell is 100% authentic from all of the designers we feature. Unlike other sites, 						WTA never compromise’s on quality – Ever!
-	  		</div>
-
-			<div class="pregunta" name="pregunta_4" ><a name="pregunta_4" >4) How do I learn about upcoming Limited quantity runs?</a></div>
-	  		<div class="respuesta" >
-	  			Please visit the Limited Quantity Calendar for updates, or sign up on our mailing list to receive notifications on your favorite designers. We typically feature at least one new item per week. New limited quantity runs generally start at 9 a.m. EST on weekdays. If you are interested in a particular designer or specific looks, please contact your Personal Stylist at stylist@wetheadorned.com or call: 
-	  		</div>
-
-			<div class="pregunta" name="pregunta_5" ><a name="pregunta_5" >5) How are the products chosen for WTA?</a></a></div>
-	  		<div class="respuesta" >
-	  			Exclusive collections are featured in full on the site, unless a designer has presented a specific item not intended for retail.
-	  		</div>
-
-			<div class="pregunta" name="pregunta_6" >
-				<a name="pregunta_6" >6) What does it mean when there is a minimum or maximum for an item?</a>
-	  		</div>
-	  		<div class="respuesta" >
-	  			If you placed an order for an item that has a minimum quantity, and the minimum for the item is not met during the period of the limited quantity run, your credit card will be refunded once the designer informs WTA of the cancellation. In certain cases, only limited editions/quantities of a specific item are available. If an item that you placed in your shopping cart is in limited supply, the expiration will be indicated in your cart so that you can act quickly to secure the item; otherwise, it will sell out.
-	  		</div>
-
-			<div class="pregunta" name="pregunta_7" >
-				<a name="pregunta_7" >7) How long will it take for me to receive my order?</a>
-	  		</div>
-	  		<div class="respuesta" >
-	  			The product description for each item will contain information about the estimated delivery window for that particular item. Once you have purchased an item, this information will be reflected in your account.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_8" >
-	  			<a name="pregunta_8" >8) How do I send feedback to the WTA team?</a>
-	  		</div>
-	  		<div class="respuesta" >
-	  			Email us at feedback@wetheadorned.com.
-	  		</div>
-
-
-	  	<h2 class="titulo_blanco">HOW TO SHOP</h2>
-	  		<div class="pregunta" name="pregunta_9" ><a name="pregunta_9" >9) How do I reach a Personal Stylist?</a></div>
-	  		<div class="respuesta" >
-	  			Email your Personal Stylist at stylist@wetheadorned.com or call:
-	  		</div>
-	  		<div class="pregunta" name="pregunta_10" ><a name="pregunta_10" >10) How do I select the right size ring?</a></div>
-	  		<div class="respuesta" >
-	  			Sizes wll be offered where appropriate on the item page.  Contact your Personal Stylist for help with your sizing: stylist@wetheadorned.com or call:
-	  		</div>
-	  		<div class="pregunta" name="pregunta_11" ><a name="pregunta_11" >11) Can I place an order over the phone?</a></div>
-	  		<div class="respuesta" >
-	  			Yes. Call your Personal Stylist, who will place the order on your behalf: 1 (323) 610 5772
-	  		</div>
-	  		<div class="pregunta" name="pregunta_12" ><a name="pregunta_12" >12) Once I put an item in my cart, is it reserved?</a></div>
-	  		<div class="respuesta" >
-	  			Items you put into your cart are reserved unless the item has a cart expiration due to limited quantities. However, the item is only reserved during the duration of the limited quantity.edition run on the site.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_13" ><a name="pregunta_13" >13) How do I change my email address on file?</a></div>
-	  		<div class="respuesta" >
-	  			Go into “My Account” and “My Profile” to update the email address in your personal profile.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_14" ><a name="pregunta_14" >14) How do I unsubscribe from WTA mailings?</a></div>
-	  		<div class="respuesta" >
-	  			Click the “unsubscribe” button at the bottom of the daily emails.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_15" ><a name="pregunta_15" >15) Why have my item(s) been cancelled?</a></div>
-	  		<div class="respuesta" >
-	  			Sometimes designers cancel styles after a production assessment. You will be refunded for the full amount paid.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_16" >
-	  			<a name="pregunta_16" >16) Can I cancel an order once it has been placed?</a>
-	  		</div>
-	  		<div class="respuesta" >
-	  			After an order has been placed, it cannot be cancelled unless the shipment has been delayed past the stated delivery window.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_17" >
-	  			<a name="pregunta_17" >17) I’ve forgotten my login/password. What should I do?</a>
-	  		</div>
-	  		<div class="respuesta" >
-	  			To change your password, click “Sign In” at the top of any WTA page and then click “FORGOT PASSWORD.”
-	  		</div>
-
-
-	  	<h2 class="titulo_blanco">PAYMENTS</h2>	
-	  		<div class="pregunta" name="pregunta_18" ><a name="pregunta_18" >18) How does payment work?</a></div>
-	  		<div class="respuesta" >
-	  			When you place an order at WeTheAdorned, you are charged an initial deposit of 50% of your total price at checkout. The remaining balance, plus shipping fees, taxes and duties (when applicable), will be processed on your credit card at the time of dispatch.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_19" ><a name="pregunta_19" >19) What payment methods does WTA accept?</a></div>
-	  		<div class="respuesta" >
-	  			We accept Visa, MasterCard, American Express, Visa Debit, and JCB cards.
-	  		</div>
-
-	  		<div class="pregunta" name="pregunta_20" ><a name="pregunta_20" >20) Can I pay with multiple credit cards for one order?</a></div>
-	  		<div class="respuesta" >
-	  				In order to pay with separate credit cards, you must place different orders for each individual method of payment.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_21" ><a name="pregunta_21" >21) How can I change my credit card details?</a></div>
-	  		<div class="respuesta" >
-	  		To change your credit card details, go into the “My Payment Methods” of your WTA account.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_22" ><a name="pregunta_22" >22) Can I pay in currencies other than US dollars?</a></div>
-	  		<div class="respuesta" >
-	  		You can make payments in US dollars or euros. Currencies will be displayed by country, so check the top of your screen to make sure you have selected the right country.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_23" ><a name="pregunta_23" >23) What is the difference between a site credit and a gift credit?</a></div>
-	  		<div class="respuesta" >
-	  			When you return an item to us that is refunded as store credit, we issue a credit to your WTA account in the full amount paid, minus outbound shipping. This is referred to as site credit, and site credit does not expire. Occasionally, WTA may offer gift credits as part of a loyalty program or a promotion. Unlike site credits, gift credits have an expiration date and may be subject to a minimum transaction value. All site and gift credits may be found in the “My Credits & Promotions” tab of your WeTheAdorned account.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_24" ><a name="pregunta_24" ><a name="pregunta_27" >24) How is my credit applied to my order?</a></div>
-	  		<div class="respuesta" >
-	  		When you place an order at WeTheAdorned, you pay a 50% deposit at the time of purchase and pay the balance when your item ships. WeTheAdorned gives your first payment to the designer to commence production of your order. Therefore, credits will first be redeemed toward your second payment, and any remainder will be applied to your deposit.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_25" ><a name="pregunta_25" >25) Will I receive a refund for item(s) cancelled?</a></div>
-	  		<div class="respuesta" >Yes, the deposit charged will be refunded onto the original credit card used to place the order. This will be reflected on your banking statement in 3 to 14 business days.
-	  		
-	  		</div>
-	  		<div class="pregunta" name="pregunta_26" ><a name="pregunta_26" >26) How do I pay taxes and duties?</a></div>
-	  		<div class="respuesta" >
-	  			Prices displayed on the website are exclusive of taxes and duties. When you place your order at checkout, sales tax and customs duties (where applicable) will be calculated on the total merchandise value, before discounts or credits have been applied. Taxes and duties will be processed on the second payment of your order transaction.<br/><br/>
-				If you are shipping within the US, sales tax will only be applied to orders shipped to California. Within the EU, prices displayed on the website are inclusive of VAT. All other non-customs-related local taxes are the customer’s responsibility and WeTheAdorned is not responsible for reporting or paying additional local taxes to states, such as Use Tax.<br/><br/>
-				When shipping to countries outside of the US (see list below), most destinations are delivered to on a DDP (Delivery Duty Paid) basis, which means relevant import taxes and duties are calculated at checkout and processed by WeTheAdorned once your order ships. If you are shipping on a DDU (Delivery Duty Unpaid) basis, import taxes and duties will not be paid through WeTheAdorned, and you will instead be invoiced by the shipping carrier upon delivery of your merchandise. To learn more about DDP/DDU or to find out if we ship to your country, please contact Customer Care at care@wetheadorned.com or call: 1 <br/><br/>
-
-	  		</div>
-
-	  		<div class="listado" >
-	  			<div class="titulo" >DDP COUNTRIES</div>	
-	   			<ul>
-	   				<li>Argentina</li>
-	   				<li>Australia</li>
-	   				<li>Austria</li>
-	   				<li>Belgium</li>
-	   				<li>Canada</li>
-	   				<li>Chile</li>
-	   				<li>Cyprus</li>
-	   				<li>Czech Republic</li>
-	   				<li>Denmark</li>
-	   				<li>Estonia</li>
-	   				<li>Finland</li>
-	   				<li>France</li>
-	   				<li>Germany</li>
-	   				<li>Greece</li>
-	   			</ul>
-	   			<ul>
-	   				<li>Guam</li>
-	   				<li>Guernsey</li>
-	   				<li>Hong Kong</li>
-	   				<li>Hungary</li>
-	   				<li>India</li>
-	   				<li>Indonesia</li>
-	   				<li>Ireland, Republic of </li>
-	   				<li>Israel</li>
-	   				<li>Italy</li>
-	   				<li>Japan</li>
-	   				<li>Jersey</li>
-	   				<li>Korea, South</li>
-	   				<li>Kuwait</li>
-	   				<li>Latvia</li>
-	   			</ul>
-	   			<ul>
-	   				<li>Lithuania</li>
-	   				<li>Luxembourg</li>
-	   				<li>Malaysia</li>
-	   				<li>Malta</li>
-	   				<li>Mexico</li>
-	   				<li>Netherlands</li>
-	   				<li>New Zealand</li>
-	   				<li>Norway</li>
-	   				<li>Peru</li>
-	   				<li>Philippines</li>
-	   				<li>Portugal</li>
-	   				<li>Puerto Rico</li>
-	   				<li>Romania</li>
-	   				<li>Saudi Arabia</li>
-	   			</ul>
-	   			<ul>
-	   				<li>Singapore</li>
-	   				<li>Slovenia</li>
-	   				<li>South Africa</li>
-	   				<li>Spain</li>
-	   				<li>Sweden</li>
-	   				<li>Switzerland</li>
-	   				<li>Taiwan</li>
-	   				<li>Thailand</li>
-	   				<li>Turkey</li>
-	   				<li>United Arab Emirates</li>
-	   				<li>United Kingdom</li>
-	   				<li>Venezuela</li>
-	   				<li>Vietnam</li>
-	   		
-	   			</ul>
-
-	   		<h2 class="titulo_blanco">SHIPPING</h2>	
-	  		<div class="pregunta" name="pregunta_27" ><a name="pregunta_27" >27) Where does WTA deliver?</a></div>
-	  		<div class="respuesta" >
-	  			We ship globally with a variety of carriers to all countries except Iran, Libya, and Cuba.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_28" ><a name="pregunta_28" >28) Does WTA ship to P.O. boxes or freight forwarding?</a></div>
-	  		<div class="respuesta" >
-	  			We only deliver to P.O. boxes in: Bahrain, Jordan, Kuwait, Lebanon, Qatar, Saudi Arabia and United Arab Emirates. We do not deliver to forwarding addresses, including Aramex addresses.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_29" ><a name="pregunta_29" >29) Do any items have shipping restrictions?</a></div>
-	  		<div class="respuesta" >
-	  			Due to international trade agreements and regulations, WeTheAdorned is obliged to adhere to particular shipping restrictions. As a result, we cannot dispatch items made of exotic skins to California or outside of the United States. In addition, some products manufactured in China, and fine jewelry of certain compositions, are not allowed to be shipped to some countries. If the item is subject to shipping restrictions, this will be indicated in the product details. To proceed with purchasing this item, you would need to ship to a different destination address. If you have questions about shipping restrictions, please contact Customer Care at care@wetheadorned.com or 1 (310)
-	  		</div>
-	  		<div class="pregunta" name="pregunta_30" ><a name="pregunta_30" >30) Does WTA ship to multiple addresses?</a></div>
-	  		<div class="respuesta" >
-	  			In order to ship to separate addresses, you must enter a separate order for each shipping address.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_31" ><a name="pregunta_31" >31) Is my package insured?</a></div>
-	  		<div class="respuesta" >
-	  			All items are insured against theft and accidental damage while in transit from WTA to the delivery address. Once your items have been delivered, they are no longer covered by WTA insurance. If your box is damaged upon arrival, we recommend that you refuse the delivery. Please notify Customer Care at care@wetheadorned.com or 1 (310) 210-9690 • 1 (323) 610-5772 if you have refused a package.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_32" ><a name="pregunta_32" >32) How will my order be packaged?</a></div>
-	  		<div class="respuesta" >
-	  			Your order will be delivered in WeTheAdorned’s signature archival packaging.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_33" ><a name="pregunta_33" >33) Can I add items to, or change the address of, an existing order?</a></div>
-	  		<div class="respuesta" >
-	  			After you submit an order, it is not possible to add items. If you need to change the shipping address prior to dispatch, you can do so by contacting Customer Care at care@wetheadorned.com or 1 (310) 210-9690 • 1 (323) 610-5772.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_34" ><a name="pregunta_34" >34) How will I know you received my order?</a></div>
-	  		<div class="respuesta" >
-	  			After you place your order, you will receive a confirmation email.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_35" ><a name="pregunta_35" >35) When will I receive my order?</a></div>
-	  		<div class="respuesta" >
-	  			The product description for each item will contain information about the estimated delivery window for that particular item. Once you have purchased an item, this information will be reflected in your account. If you have questions about the delivery window for a specific item, please contact Customer Care at care@wetheadorned.com or call: 1 (310) 210-9690 • 1 (323) 610-5772.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_36" ><a name="pregunta_36" >36) Can I track my order?</a></div>
-	  		<div class="respuesta" >
-	  			Once your order has shipped, you will receive an email confirmation with your shipping and tracking details. You will also be able to track your order by accessing your WeTheAdorned account. For more details, contact Customer Care at care@wetheadorned.com or call: 
-	  		</div>
-	  		<div class="pregunta" name="pregunta_37" ><a name="pregunta_37" >37) Can I cancel my order after the delivery window?</a></div>
-	  		<div class="respuesta" >
-	  			If your order is overdue past the delivery window, contact Customer Care at care@wetheadorned.com or call: 
-	  		</div>
-
-	  		<div class="pregunta" name="pregunta_38" ><a name="pregunta_38" >38) When will shipping be charged?</a></div>
-	  		<div class="respuesta" >
-	  			Shipping fees are calculated at checkout and charged when your item ships.
-	  		</div>
-
-	  		<div class="pregunta" name="pregunta_39" ><a name="pregunta_39" >39) How much does shipping cost?</a></div>
-	  		<div class="respuesta" >
-	  			This chart provides information on available methods of shipping as well as associated costs.
-	  		</div>
-
-	  		<h2 class="titulo_blanco">RETURNS / EXCHANGES</h2>	
-	  		<div class="pregunta" name="pregunta_40" ><a name="pregunta_40" >40) What is the WTA return policy?</a></div>
-	  		<div class="respuesta" >
-	  			WeTheAdorned offers complimentary return shipping. We are pleased to accept timely returns of unused, unworn, unwashed, unaltered, and undamaged items within 30 days from the date you received your order. Your Items must be returned in the original packaging, including any boxes and other signature packaging materials.
-	  		</div>
-
-	  		<div class="pregunta" name="pregunta_41" ><a name="pregunta_41" >41) How do I return or exchange an item?</a></div>
-	  		<div class="respuesta" >
-	  			If you would like to return merchandise from within the U.S., log in to your weTheAdorned account and locate the item(s) from within your Orders. Click “Request a Return” and complete the pop-up page to generate your prepaid shipping label and return instructions.
-				If you would like to return merchandise from outside of the U.S., please contact care@wetehadorned.com or 1 (310) 210-9690 to arrange for a prepaid shipping label and return instructions to be emailed to you.<br/>
-				WeTheAdorned will do our best to accommodate exchange requests, but given the limited inventory of our highly exclusive merchandise, exchanges are subject to designer availability in the style you require and may take up to a month to complete. Please contact care@wetheadorned.com or 1 (310) 210-9690, and a member of our Customer Care team will be pleased to discuss your exchange options.
-
-	  		</div>
-
-	  		<div class="pregunta" name="pregunta_42" ><a name="pregunta_42" >42) If a non-returnable item is damaged, what is my recourse?</a></div>
-	  		<div class="respuesta" >
-	  			If an item you have received is damaged, please contact Customer Care at care@wetheadorned.com or call: 
-	  		</div>
+                    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".navhelp">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
 
 
 
-	  	   <h2 class="titulo_blanco">GIFTS</h2>	
-	  		<div class="pregunta" name="pregunta_43" ><a name="pregunta_43" >43) Will I have to pay tax/duty on gifts that I purchase on the site?</a></div>
-	  		<div class="respuesta" >
-	  			For countries where WTA offers DDP (Delivery Duty Paid), you may pay for duties and taxes at checkout.  For countries where WTA offers DDU (Delivery Duty Unpaid), you are charged upon the arrival of the item into the recipient’s country.
-	  		</div>
-	  		<div class="pregunta" name="pregunta_44" ><a name="pregunta_44" >44) How will I know if my gift has been shipped?</a> </div>
-	  		<div class="respuesta" >
-	  			You will receive a confirmation email once your gift has been dispatched.
-	  		</div>
-	  		<div class="pregunta"  >
-	  				<a name="pregunta_45" > 45) I ordered a gift and it hasn’t arrived yet. Where is it?</a>
-	  		</div>
-	  		<div class="respuesta" >
-	  			Your tracking number is available under “My Open Orders” in your WTA account.
-	  		</div>
-	
+                    <!-- Everything you want hidden at 940px or less, place within here -->
+                    <div class="nav-collapse collapse navhelp">
 
-	 
-	   		</div>
+                        <ul >
+                            <li   ><a href="" class="preguntas"  >GENERAL QUESTIONS</a>
+                                <ul>
+                                    <li><a href="#pregunta_1" >1) What is WeTheAdorned?</a></li>
+                                    <li><a href="#pregunta_2" >2) How does WTA work?</a></li>
+                                    <li><a href="#pregunta_3" >3) Are products sold on the site authentic?</a></li>
+                                    <li><a href="#pregunta_4" >4) How do I learn about upcoming Limited quantity runs?</a></li>
+                                    <li><a href="#pregunta_5" >5) How are the products chosen for WTA?</a></li>
+                                    <li><a href="#pregunta_6" >6) What does it mean when there is a minimum or maximum for an item?</a></li>
+                                    <li><a href="#pregunta_7" >7) How long will it take for me to receive my order?</a></li>
+                                    <li><a href="#pregunta_8" >8) How do I send feedback to the WTA team?</a></li>
+                                </ul>
+                            </li>
+                            <li  ><a href="" class="preguntas" >HOW TO SHOP</a>
+                                <ul>
+                                    <li><a href="#pregunta_9" >9) How do I reach a Personal Stylist?</a></li>
+                                    <li><a href="#pregunta_10" >10) How do I select the right size ring?</a></li>
+                                    <li><a href="#pregunta_11" >11) Can I place an order over the phone?</a></li>
+                                    <li><a href="#pregunta_12" >12) Once I put an item in my cart, is it reserved?</a></li>
+                                    <li><a href="#pregunta_13" >13) How do I change my email address on file?</a></li>
+                                    <li><a href="#pregunta_14" >14) How do I unsubscribe from WTA mailings?</a></li>
+                                    <li><a href="#pregunta_15" >15) Why have my item(s) been cancelled?</a></li>
+                                    <li><a href="#pregunta_16" >16) Can I cancel an order once it has been placed?</a></li>
+                                    <li><a href="#pregunta_17" >17) I’ve forgotten my login/password. What should I do?</a></li>
+                                </ul>
+                            </li>
+                            <li ><a href="" class="preguntas" >PAYMENTS</a>
+                                <ul>
+                                    <li><a href="#pregunta_18" >18) How does payment work?</a></li>
+                                    <li><a href="#pregunta_19" >19) What payment methods does WTA accept?</a></li>
+                                    <li><a href="#pregunta_20" >20) Can I pay with multiple credit cards for one order?</a></li>
+                                    <li><a href="#pregunta_21" >21) How can I change my credit card details?</a></li>
+                                    <li><a href="#pregunta_22" >22) Can I pay in currencies other than US dollars?</a></li>
+                                    <li><a href="#pregunta_23" >23) What is the difference between a site credit and a gift credit?</a></li>
+                                    <li><a href="#pregunta_24" >24) How is my credit applied to my order?</a></li>
+                                    <li><a href="#pregunta_25" >25) Will I receive a refund for item(s) cancelled?</a></li>
+                                    <li><a href="#pregunta_26" >26) How do I pay taxes and duties?</a></li>
+                                </ul>
+                            </li>
+                            <li  ><a href="" class="preguntas" >SHIPPING3</a>
+                                <ul>
+                                    <li><a href="#pregunta_27" >27) Where does WTA deliver?</a></li>
+                                    <li><a href="#pregunta_28" >28) Does WTA ship to P.O. boxes or freight forwarding?</a></li>
+                                    <li><a href="#pregunta_29" >29) Do any items have shipping restrictions?</a></li>
+                                    <li><a href="#pregunta_30" >30) Does WTA ship to multiple addresses?</a></li>
+                                    <li><a href="#pregunta_31" >31) Is my package insured?</a></li>
+                                    <li><a href="#pregunta_32" >32) How will my order be packaged?</a></li>
+                                    <li><a href="#pregunta_33" >33) Can I add items to, or change the address of, an existing order?</a></li>
+                                    <li><a href="#pregunta_34" >34) How will I know you received my order?</a></li>
+                                    <li><a href="#pregunta_35" >35) When will I receive my order?</a></li>
+                                    <li><a href="#pregunta_36" >36) Can I track my order?</a></li>
+                                    <li><a href="#pregunta_37" >37) Can I cancel my order after the delivery window?</a></li>
+                                    <li><a href="#pregunta_38" >38) When will shipping be charged?</a></li>
+                                    <li><a href="#pregunta_39" >39) How much does shipping cost?</a></li>
+                                </ul>
+                            </li>
+                            <li  > <a href="" class="preguntas" >RETURNS / EXCHANGES</a>
+                                <ul>
+                                    <li><a href="#pregunta_40" >40) What is the WTA return policy?</a></li>
+                                    <li><a href="#pregunta_41" >41) How do I return or exchange an item?</a></li>
+                                    <li><a href="#pregunta_42" >42) If a non-returnable item is damaged, what is my recourse?</a></li>
+                                </ul>
+                            </li>
+                            <li  ><a href="" class="preguntas" >GIFTS</a>
+                                <ul>
+                                    <li><a href="#pregunta_43" >43) Will I have to pay tax/duty on gifts that I purchase on the site?</a></li>
+                                    <li><a href="#pregunta_44" >44) How will I know if my gift has been shipped?</a></li>
+                                    <li><a href="#pregunta_45" >45) I ordered a gift and it hasn’t arrived yet. Where is it?</a></li>
 
-	  	</div>
-
-	
-
-	
+                                </ul>
+                            </li>
+                        </ul>
 
 
+                    </div>
 
-   	</div>
+                </div>
+            </div>
+        </div>
 
+
+        <div class="pilares lateral" >
+
+            <div class="central" >
+                <ul >
+                    <li   ><a href="" class="preguntas"  >GENERAL QUESTIONS</a>
+                        <ul>
+                            <li><a href="#pregunta_1" >1) What is WeTheAdorned?</a></li>
+                            <li><a href="#pregunta_2" >2) How does WTA work?</a></li>
+                            <li><a href="#pregunta_3" >3) Are products sold on the site authentic?</a></li>
+                            <li><a href="#pregunta_4" >4) How do I learn about upcoming Limited quantity runs?</a></li>
+                            <li><a href="#pregunta_5" >5) How are the products chosen for WTA?</a></li>
+                            <li><a href="#pregunta_6" >6) What does it mean when there is a minimum or maximum for an item?</a></li>
+                            <li><a href="#pregunta_7" >7) How long will it take for me to receive my order?</a></li>
+                            <li><a href="#pregunta_8" >8) How do I send feedback to the WTA team?</a></li>
+                        </ul>
+                    </li>
+                    <li  ><a href="" class="preguntas" >HOW TO SHOP</a>
+                        <ul>
+                            <li><a href="#pregunta_9" >9) How do I reach a Personal Stylist?</a></li>
+                            <li><a href="#pregunta_10" >10) How do I select the right size ring?</a></li>
+                            <li><a href="#pregunta_11" >11) Can I place an order over the phone?</a></li>
+                            <li><a href="#pregunta_12" >12) Once I put an item in my cart, is it reserved?</a></li>
+                            <li><a href="#pregunta_13" >13) How do I change my email address on file?</a></li>
+                            <li><a href="#pregunta_14" >14) How do I unsubscribe from WTA mailings?</a></li>
+                            <li><a href="#pregunta_15" >15) Why have my item(s) been cancelled?</a></li>
+                            <li><a href="#pregunta_16" >16) Can I cancel an order once it has been placed?</a></li>
+                            <li><a href="#pregunta_17" >17) I’ve forgotten my login/password. What should I do?</a></li>
+                        </ul>
+                    </li>
+                    <li ><a href="" class="preguntas" >PAYMENTS</a>
+                        <ul>
+                            <li><a href="#pregunta_18" >18) How does payment work?</a></li>
+                            <li><a href="#pregunta_19" >19) What payment methods does WTA accept?</a></li>
+                            <li><a href="#pregunta_20" >20) Can I pay with multiple credit cards for one order?</a></li>
+                            <li><a href="#pregunta_21" >21) How can I change my credit card details?</a></li>
+                            <li><a href="#pregunta_22" >22) Can I pay in currencies other than US dollars?</a></li>
+                            <li><a href="#pregunta_23" >23) What is the difference between a site credit and a gift credit?</a></li>
+                            <li><a href="#pregunta_24" >24) How is my credit applied to my order?</a></li>
+                            <li><a href="#pregunta_25" >25) Will I receive a refund for item(s) cancelled?</a></li>
+                            <li><a href="#pregunta_26" >26) How do I pay taxes and duties?</a></li>
+                        </ul>
+                    </li>
+                    <li  ><a href="" class="preguntas" >SHIPPING</a>
+                        <ul>
+                            <li><a href="#pregunta_27" >27) Where does WTA deliver?</a></li>
+                            <li><a href="#pregunta_28" >28) Does WTA ship to P.O. boxes or freight forwarding?</a></li>
+                            <li><a href="#pregunta_29" >29) Do any items have shipping restrictions?</a></li>
+                            <li><a href="#pregunta_30" >30) Does WTA ship to multiple addresses?</a></li>
+                            <li><a href="#pregunta_31" >31) Is my package insured?</a></li>
+                            <li><a href="#pregunta_32" >32) How will my order be packaged?</a></li>
+                            <li><a href="#pregunta_33" >33) Can I add items to, or change the address of, an existing order?</a></li>
+                            <li><a href="#pregunta_34" >34) How will I know you received my order?</a></li>
+                            <li><a href="#pregunta_35" >35) When will I receive my order?</a></li>
+                            <li><a href="#pregunta_36" >36) Can I track my order?</a></li>
+                            <li><a href="#pregunta_37" >37) Can I cancel my order after the delivery window?</a></li>
+                            <li><a href="#pregunta_38" >38) When will shipping be charged?</a></li>
+                            <li><a href="#pregunta_39" >39) How much does shipping cost?</a></li>
+                        </ul>
+                    </li>
+                    <li  > <a href="" class="preguntas" >RETURNS / EXCHANGES</a>
+                        <ul>
+                            <li><a href="#pregunta_40" >40) What is the WTA return policy?</a></li>
+                            <li><a href="#pregunta_41" >41) How do I return or exchange an item?</a></li>
+                            <li><a href="#pregunta_42" >42) If a non-returnable item is damaged, what is my recourse?</a></li>
+                        </ul>
+                    </li>
+                    <li  ><a href="" class="preguntas" >GIFTS</a>
+                        <ul>
+                            <li><a href="#pregunta_43" >43) Will I have to pay tax/duty on gifts that I purchase on the site?</a></li>
+                            <li><a href="#pregunta_44" >44) How will I know if my gift has been shipped?</a></li>
+                            <li><a href="#pregunta_45" >45) I ordered a gift and it hasn’t arrived yet. Where is it?</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="pilares contenido" >
+
+            <h2 class="titulo_blanco">HELP</h2>
+
+            <p class="sublistas one"  >
+                <span class="titulo" >Customer Care</span>
+                For questions about your order or inquiries about our site, please email: care@wetheadorned.com  or call:
+            </p>
+            <p class="sublistas" >
+                <span class="titulo" >Personal Stylists</span>
+                Our Personal Stylists can assist you with choosing a look, or with questions about product and fit. Simply email: stylist@wetheadorned.com  or call:
+            </p>
+            <p class="sublistas" >
+                <span class="titulo" >Feedback </span>
+                For questions about your order or inquiries about our site, please email: care@wetheadorned.com or call: 
+            </p>
+
+
+            <h2 class="titulo_blanco">GENERAL QUESTIONS</h2>
+
+            <div class="preguntas"  >
+                <div class="pregunta" name="pregunta_1" >
+                    <a name="pregunta_1" >1) What is WeTheAdorned?</a>
+                </div>
+                <div class="respuesta" >
+                    WeTheAdorned is the premier fashion pretailer that allows you to preorder exclusive, limited quantity fashion Jewelry created by the world’s best jewelry designers, which will not be made available anywhere else.
+                </div>
+
+                <div class="pregunta" name="pregunta_2" ><a name="pregunta_2" >2) How does WTA work?</a></div>
+                <div class="respuesta" >
+                    In addition to our exclusive seasonal collections, WeTheAdorned runs online designer limited edition and limited quantity runs (typically 3-7 days), where you can preorder the exclusive fashion right after your favorite celebrity wears it. You place a 50% deposit at the time of purchase, the style is then produced by the designer, and the balance is paid once your order ships.
+                </div>
+
+                <div class="pregunta" name="pregunta_3" ><a name="pregunta_3" >3) Are products sold on the site authentic?</a></div>
+                <div class="respuesta" >We guarantee that every item we sell is 100% authentic from all of the designers we feature. Unlike other sites, 						WTA never compromise’s on quality – Ever!
+                </div>
+
+                <div class="pregunta" name="pregunta_4" ><a name="pregunta_4" >4) How do I learn about upcoming Limited quantity runs?</a></div>
+                <div class="respuesta" >
+                    Please visit the Limited Quantity Calendar for updates, or sign up on our mailing list to receive notifications on your favorite designers. We typically feature at least one new item per week. New limited quantity runs generally start at 9 a.m. EST on weekdays. If you are interested in a particular designer or specific looks, please contact your Personal Stylist at stylist@wetheadorned.com or call: 
+                </div>
+
+                <div class="pregunta" name="pregunta_5" ><a name="pregunta_5" >5) How are the products chosen for WTA?</a></a></div>
+                <div class="respuesta" >
+                    Exclusive collections are featured in full on the site, unless a designer has presented a specific item not intended for retail.
+                </div>
+
+                <div class="pregunta" name="pregunta_6" >
+                    <a name="pregunta_6" >6) What does it mean when there is a minimum or maximum for an item?</a>
+                </div>
+                <div class="respuesta" >
+                    If you placed an order for an item that has a minimum quantity, and the minimum for the item is not met during the period of the limited quantity run, your credit card will be refunded once the designer informs WTA of the cancellation. In certain cases, only limited editions/quantities of a specific item are available. If an item that you placed in your shopping cart is in limited supply, the expiration will be indicated in your cart so that you can act quickly to secure the item; otherwise, it will sell out.
+                </div>
+
+                <div class="pregunta" name="pregunta_7" >
+                    <a name="pregunta_7" >7) How long will it take for me to receive my order?</a>
+                </div>
+                <div class="respuesta" >
+                    The product description for each item will contain information about the estimated delivery window for that particular item. Once you have purchased an item, this information will be reflected in your account.
+                </div>
+                <div class="pregunta" name="pregunta_8" >
+                    <a name="pregunta_8" >8) How do I send feedback to the WTA team?</a>
+                </div>
+                <div class="respuesta" >
+                    Email us at feedback@wetheadorned.com.
+                </div>
+
+
+                <h2 class="titulo_blanco">HOW TO SHOP</h2>
+                <div class="pregunta" name="pregunta_9" ><a name="pregunta_9" >9) How do I reach a Personal Stylist?</a></div>
+                <div class="respuesta" >
+                    Email your Personal Stylist at stylist@wetheadorned.com or call:
+                </div>
+                <div class="pregunta" name="pregunta_10" ><a name="pregunta_10" >10) How do I select the right size ring?</a></div>
+                <div class="respuesta" >
+                    Sizes wll be offered where appropriate on the item page.  Contact your Personal Stylist for help with your sizing: stylist@wetheadorned.com or call:
+                </div>
+                <div class="pregunta" name="pregunta_11" ><a name="pregunta_11" >11) Can I place an order over the phone?</a></div>
+                <div class="respuesta" >
+                    Yes. Call your Personal Stylist, who will place the order on your behalf: 1 (323) 610 5772
+                </div>
+                <div class="pregunta" name="pregunta_12" ><a name="pregunta_12" >12) Once I put an item in my cart, is it reserved?</a></div>
+                <div class="respuesta" >
+                    Items you put into your cart are reserved unless the item has a cart expiration due to limited quantities. However, the item is only reserved during the duration of the limited quantity.edition run on the site.
+                </div>
+                <div class="pregunta" name="pregunta_13" ><a name="pregunta_13" >13) How do I change my email address on file?</a></div>
+                <div class="respuesta" >
+                    Go into “My Account” and “My Profile” to update the email address in your personal profile.
+                </div>
+                <div class="pregunta" name="pregunta_14" ><a name="pregunta_14" >14) How do I unsubscribe from WTA mailings?</a></div>
+                <div class="respuesta" >
+                    Click the “unsubscribe” button at the bottom of the daily emails.
+                </div>
+                <div class="pregunta" name="pregunta_15" ><a name="pregunta_15" >15) Why have my item(s) been cancelled?</a></div>
+                <div class="respuesta" >
+                    Sometimes designers cancel styles after a production assessment. You will be refunded for the full amount paid.
+                </div>
+                <div class="pregunta" name="pregunta_16" >
+                    <a name="pregunta_16" >16) Can I cancel an order once it has been placed?</a>
+                </div>
+                <div class="respuesta" >
+                    After an order has been placed, it cannot be cancelled unless the shipment has been delayed past the stated delivery window.
+                </div>
+                <div class="pregunta" name="pregunta_17" >
+                    <a name="pregunta_17" >17) I’ve forgotten my login/password. What should I do?</a>
+                </div>
+                <div class="respuesta" >
+                    To change your password, click “Sign In” at the top of any WTA page and then click “FORGOT PASSWORD.”
+                </div>
+
+
+                <h2 class="titulo_blanco">PAYMENTS</h2>	
+                <div class="pregunta" name="pregunta_18" ><a name="pregunta_18" >18) How does payment work?</a></div>
+                <div class="respuesta" >
+                    When you place an order at WeTheAdorned, you are charged an initial deposit of 50% of your total price at checkout. The remaining balance, plus shipping fees, taxes and duties (when applicable), will be processed on your credit card at the time of dispatch.
+                </div>
+                <div class="pregunta" name="pregunta_19" ><a name="pregunta_19" >19) What payment methods does WTA accept?</a></div>
+                <div class="respuesta" >
+                    We accept Visa, MasterCard, American Express, Visa Debit, and JCB cards.
+                </div>
+
+                <div class="pregunta" name="pregunta_20" ><a name="pregunta_20" >20) Can I pay with multiple credit cards for one order?</a></div>
+                <div class="respuesta" >
+                    In order to pay with separate credit cards, you must place different orders for each individual method of payment.
+                </div>
+                <div class="pregunta" name="pregunta_21" ><a name="pregunta_21" >21) How can I change my credit card details?</a></div>
+                <div class="respuesta" >
+                    To change your credit card details, go into the “My Payment Methods” of your WTA account.
+                </div>
+                <div class="pregunta" name="pregunta_22" ><a name="pregunta_22" >22) Can I pay in currencies other than US dollars?</a></div>
+                <div class="respuesta" >
+                    You can make payments in US dollars or euros. Currencies will be displayed by country, so check the top of your screen to make sure you have selected the right country.
+                </div>
+                <div class="pregunta" name="pregunta_23" ><a name="pregunta_23" >23) What is the difference between a site credit and a gift credit?</a></div>
+                <div class="respuesta" >
+                    When you return an item to us that is refunded as store credit, we issue a credit to your WTA account in the full amount paid, minus outbound shipping. This is referred to as site credit, and site credit does not expire. Occasionally, WTA may offer gift credits as part of a loyalty program or a promotion. Unlike site credits, gift credits have an expiration date and may be subject to a minimum transaction value. All site and gift credits may be found in the “My Credits & Promotions” tab of your WeTheAdorned account.
+                </div>
+                <div class="pregunta" name="pregunta_24" ><a name="pregunta_24" ><a name="pregunta_27" >24) How is my credit applied to my order?</a></div>
+                <div class="respuesta" >
+                    When you place an order at WeTheAdorned, you pay a 50% deposit at the time of purchase and pay the balance when your item ships. WeTheAdorned gives your first payment to the designer to commence production of your order. Therefore, credits will first be redeemed toward your second payment, and any remainder will be applied to your deposit.
+                </div>
+                <div class="pregunta" name="pregunta_25" ><a name="pregunta_25" >25) Will I receive a refund for item(s) cancelled?</a></div>
+                <div class="respuesta" >Yes, the deposit charged will be refunded onto the original credit card used to place the order. This will be reflected on your banking statement in 3 to 14 business days.
+
+                </div>
+                <div class="pregunta" name="pregunta_26" ><a name="pregunta_26" >26) How do I pay taxes and duties?</a></div>
+                <div class="respuesta" >
+                    Prices displayed on the website are exclusive of taxes and duties. When you place your order at checkout, sales tax and customs duties (where applicable) will be calculated on the total merchandise value, before discounts or credits have been applied. Taxes and duties will be processed on the second payment of your order transaction.<br/><br/>
+                    If you are shipping within the US, sales tax will only be applied to orders shipped to California. Within the EU, prices displayed on the website are inclusive of VAT. All other non-customs-related local taxes are the customer’s responsibility and WeTheAdorned is not responsible for reporting or paying additional local taxes to states, such as Use Tax.<br/><br/>
+                    When shipping to countries outside of the US (see list below), most destinations are delivered to on a DDP (Delivery Duty Paid) basis, which means relevant import taxes and duties are calculated at checkout and processed by WeTheAdorned once your order ships. If you are shipping on a DDU (Delivery Duty Unpaid) basis, import taxes and duties will not be paid through WeTheAdorned, and you will instead be invoiced by the shipping carrier upon delivery of your merchandise. To learn more about DDP/DDU or to find out if we ship to your country, please contact Customer Care at care@wetheadorned.com or call: 1 <br/><br/>
+
+                </div>
+
+                <div class="listado" >
+                    <div class="titulo" >DDP COUNTRIES</div>	
+                    <ul>
+                        <li>Argentina</li>
+                        <li>Australia</li>
+                        <li>Austria</li>
+                        <li>Belgium</li>
+                        <li>Canada</li>
+                        <li>Chile</li>
+                        <li>Cyprus</li>
+                        <li>Czech Republic</li>
+                        <li>Denmark</li>
+                        <li>Estonia</li>
+                        <li>Finland</li>
+                        <li>France</li>
+                        <li>Germany</li>
+                        <li>Greece</li>
+                    </ul>
+                    <ul>
+                        <li>Guam</li>
+                        <li>Guernsey</li>
+                        <li>Hong Kong</li>
+                        <li>Hungary</li>
+                        <li>India</li>
+                        <li>Indonesia</li>
+                        <li>Ireland, Republic of </li>
+                        <li>Israel</li>
+                        <li>Italy</li>
+                        <li>Japan</li>
+                        <li>Jersey</li>
+                        <li>Korea, South</li>
+                        <li>Kuwait</li>
+                        <li>Latvia</li>
+                    </ul>
+                    <ul>
+                        <li>Lithuania</li>
+                        <li>Luxembourg</li>
+                        <li>Malaysia</li>
+                        <li>Malta</li>
+                        <li>Mexico</li>
+                        <li>Netherlands</li>
+                        <li>New Zealand</li>
+                        <li>Norway</li>
+                        <li>Peru</li>
+                        <li>Philippines</li>
+                        <li>Portugal</li>
+                        <li>Puerto Rico</li>
+                        <li>Romania</li>
+                        <li>Saudi Arabia</li>
+                    </ul>
+                    <ul>
+                        <li>Singapore</li>
+                        <li>Slovenia</li>
+                        <li>South Africa</li>
+                        <li>Spain</li>
+                        <li>Sweden</li>
+                        <li>Switzerland</li>
+                        <li>Taiwan</li>
+                        <li>Thailand</li>
+                        <li>Turkey</li>
+                        <li>United Arab Emirates</li>
+                        <li>United Kingdom</li>
+                        <li>Venezuela</li>
+                        <li>Vietnam</li>
+
+                    </ul>
+
+                    <h2 class="titulo_blanco">SHIPPING</h2>	
+                    <div class="pregunta" name="pregunta_27" ><a name="pregunta_27" >27) Where does WTA deliver?</a></div>
+                    <div class="respuesta" >
+                        We ship globally with a variety of carriers to all countries except Iran, Libya, and Cuba.
+                    </div>
+                    <div class="pregunta" name="pregunta_28" ><a name="pregunta_28" >28) Does WTA ship to P.O. boxes or freight forwarding?</a></div>
+                    <div class="respuesta" >
+                        We only deliver to P.O. boxes in: Bahrain, Jordan, Kuwait, Lebanon, Qatar, Saudi Arabia and United Arab Emirates. We do not deliver to forwarding addresses, including Aramex addresses.
+                    </div>
+                    <div class="pregunta" name="pregunta_29" ><a name="pregunta_29" >29) Do any items have shipping restrictions?</a></div>
+                    <div class="respuesta" >
+                        Due to international trade agreements and regulations, WeTheAdorned is obliged to adhere to particular shipping restrictions. As a result, we cannot dispatch items made of exotic skins to California or outside of the United States. In addition, some products manufactured in China, and fine jewelry of certain compositions, are not allowed to be shipped to some countries. If the item is subject to shipping restrictions, this will be indicated in the product details. To proceed with purchasing this item, you would need to ship to a different destination address. If you have questions about shipping restrictions, please contact Customer Care at care@wetheadorned.com or 1 (310)
+                    </div>
+                    <div class="pregunta" name="pregunta_30" ><a name="pregunta_30" >30) Does WTA ship to multiple addresses?</a></div>
+                    <div class="respuesta" >
+                        In order to ship to separate addresses, you must enter a separate order for each shipping address.
+                    </div>
+                    <div class="pregunta" name="pregunta_31" ><a name="pregunta_31" >31) Is my package insured?</a></div>
+                    <div class="respuesta" >
+                        All items are insured against theft and accidental damage while in transit from WTA to the delivery address. Once your items have been delivered, they are no longer covered by WTA insurance. If your box is damaged upon arrival, we recommend that you refuse the delivery. Please notify Customer Care at care@wetheadorned.com or 1 (310) 210-9690 • 1 (323) 610-5772 if you have refused a package.
+                    </div>
+                    <div class="pregunta" name="pregunta_32" ><a name="pregunta_32" >32) How will my order be packaged?</a></div>
+                    <div class="respuesta" >
+                        Your order will be delivered in WeTheAdorned’s signature archival packaging.
+                    </div>
+                    <div class="pregunta" name="pregunta_33" ><a name="pregunta_33" >33) Can I add items to, or change the address of, an existing order?</a></div>
+                    <div class="respuesta" >
+                        After you submit an order, it is not possible to add items. If you need to change the shipping address prior to dispatch, you can do so by contacting Customer Care at care@wetheadorned.com or 1 (310) 210-9690 • 1 (323) 610-5772.
+                    </div>
+                    <div class="pregunta" name="pregunta_34" ><a name="pregunta_34" >34) How will I know you received my order?</a></div>
+                    <div class="respuesta" >
+                        After you place your order, you will receive a confirmation email.
+                    </div>
+                    <div class="pregunta" name="pregunta_35" ><a name="pregunta_35" >35) When will I receive my order?</a></div>
+                    <div class="respuesta" >
+                        The product description for each item will contain information about the estimated delivery window for that particular item. Once you have purchased an item, this information will be reflected in your account. If you have questions about the delivery window for a specific item, please contact Customer Care at care@wetheadorned.com or call: 1 (310) 210-9690 • 1 (323) 610-5772.
+                    </div>
+                    <div class="pregunta" name="pregunta_36" ><a name="pregunta_36" >36) Can I track my order?</a></div>
+                    <div class="respuesta" >
+                        Once your order has shipped, you will receive an email confirmation with your shipping and tracking details. You will also be able to track your order by accessing your WeTheAdorned account. For more details, contact Customer Care at care@wetheadorned.com or call: 
+                    </div>
+                    <div class="pregunta" name="pregunta_37" ><a name="pregunta_37" >37) Can I cancel my order after the delivery window?</a></div>
+                    <div class="respuesta" >
+                        If your order is overdue past the delivery window, contact Customer Care at care@wetheadorned.com or call: 
+                    </div>
+
+                    <div class="pregunta" name="pregunta_38" ><a name="pregunta_38" >38) When will shipping be charged?</a></div>
+                    <div class="respuesta" >
+                        Shipping fees are calculated at checkout and charged when your item ships.
+                    </div>
+
+                    <div class="pregunta" name="pregunta_39" ><a name="pregunta_39" >39) How much does shipping cost?</a></div>
+                    <div class="respuesta" >
+                        This chart provides information on available methods of shipping as well as associated costs.
+                    </div>
+
+                    <h2 class="titulo_blanco">RETURNS / EXCHANGES</h2>	
+                    <div class="pregunta" name="pregunta_40" ><a name="pregunta_40" >40) What is the WTA return policy?</a></div>
+                    <div class="respuesta" >
+                        WeTheAdorned offers complimentary return shipping. We are pleased to accept timely returns of unused, unworn, unwashed, unaltered, and undamaged items within 30 days from the date you received your order. Your Items must be returned in the original packaging, including any boxes and other signature packaging materials.
+                    </div>
+
+                    <div class="pregunta" name="pregunta_41" ><a name="pregunta_41" >41) How do I return or exchange an item?</a></div>
+                    <div class="respuesta" >
+                        If you would like to return merchandise from within the U.S., log in to your weTheAdorned account and locate the item(s) from within your Orders. Click “Request a Return” and complete the pop-up page to generate your prepaid shipping label and return instructions.
+                        If you would like to return merchandise from outside of the U.S., please contact care@wetehadorned.com or 1 (310) 210-9690 to arrange for a prepaid shipping label and return instructions to be emailed to you.<br/>
+                        WeTheAdorned will do our best to accommodate exchange requests, but given the limited inventory of our highly exclusive merchandise, exchanges are subject to designer availability in the style you require and may take up to a month to complete. Please contact care@wetheadorned.com or 1 (310) 210-9690, and a member of our Customer Care team will be pleased to discuss your exchange options.
+
+                    </div>
+
+                    <div class="pregunta" name="pregunta_42" ><a name="pregunta_42" >42) If a non-returnable item is damaged, what is my recourse?</a></div>
+                    <div class="respuesta" >
+                        If an item you have received is damaged, please contact Customer Care at care@wetheadorned.com or call: 
+                    </div>
+
+
+
+                    <h2 class="titulo_blanco">GIFTS</h2>	
+                    <div class="pregunta" name="pregunta_43" ><a name="pregunta_43" >43) Will I have to pay tax/duty on gifts that I purchase on the site?</a></div>
+                    <div class="respuesta" >
+                        For countries where WTA offers DDP (Delivery Duty Paid), you may pay for duties and taxes at checkout.  For countries where WTA offers DDU (Delivery Duty Unpaid), you are charged upon the arrival of the item into the recipient’s country.
+                    </div>
+                    <div class="pregunta" name="pregunta_44" ><a name="pregunta_44" >44) How will I know if my gift has been shipped?</a> </div>
+                    <div class="respuesta" >
+                        You will receive a confirmation email once your gift has been dispatched.
+                    </div>
+                    <div class="pregunta"  >
+                        <a name="pregunta_45" > 45) I ordered a gift and it hasn’t arrived yet. Where is it?</a>
+                    </div>
+                    <div class="respuesta" >
+                        Your tracking number is available under “My Open Orders” in your WTA account.
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
 </div>

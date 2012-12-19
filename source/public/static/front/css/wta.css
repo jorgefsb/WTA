@@ -1,5 +1,4 @@
 /* Font */
-@font-face { font-family: Banda; src: url('banda.otf'); } @font-face { font-family: Banda; font-weight: bold; src: url('Banda-Bold.otf'); }
 
 
 
@@ -8,6 +7,8 @@
 #header .dropdown-submenu:hover > a{background: none; color: #FFF !important;}
 
 html, body{background: #090909; padding: 0px}
+
+html.white, body.white{background: #FFF;}
 
 #overlay{background: url('../images/pattern-overlay.png'); width: 100%; height: 100%; position: fixed; display: none; z-index: 500;}
 
@@ -43,7 +44,8 @@ html, body{background: #090909; padding: 0px}
 #logo-small{position: absolute; z-index: 2000; top:2px; left: 50%; margin-left: -34px;}
 
 /* FOOTER */
-#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px;}
+/*#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px;}*/
+#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px; position: fixed; bottom: 0px; width: 100%; z-index: 5000}
 #footer .navbar-inner{font-size: 12px; font-family: Arial-Narrow, Arial, Helvetica; padding: 0 20px; background: #010101;}
 #footer .navbar .nav > li > a{color: #555; }
 #footer .navbar .nav > li > a:hover{color: #FFF; }
@@ -57,9 +59,10 @@ html, body{background: #090909; padding: 0px}
 
 /* CONTENIDO */
 #contentBody{padding-top: 1px; min-height: 627px; /*background: rgba(255, 255, 255, .2);*/ text-align: center; position: relative; z-index: 20}
+#contentBody{padding-bottom: 90px;}
 
 /* HOME  */
-#contentBody .logo{ margin-top: 130px; }
+#contentBody .logo{ margin-top: 110px; }
 #contentBody .logo p{text-transform: uppercase; font-size: 20px; color: #e2e2e2; margin-top: 30px; line-height: 22px;}
 #contentBody .logo p span{color: #FFF; font-style: italic; font-family: Banda , helvetica, sans-serif;}
 
@@ -191,7 +194,7 @@ html, body{background: #090909; padding: 0px}
 
 
 
-#contentBody.designers, #contentBody.exclusive, #contentBody.checkout, #contentBody.limited, #contentBody.itemlist{ background: #FFF /*url(../images/bg-white2.jpg)*/ center -40px; /*padding-top: 100px;*/ min-height: auto; position: relative; padding-bottom: 30px;}
+#contentBody.designers, #contentBody.exclusive, #contentBody.checkout, #contentBody.limited, #contentBody.itemlist{ background: #FFF /*url(../images/bg-white2.jpg)*/ center -40px; /*padding-top: 100px;*/ min-height: auto; position: relative; padding-bottom: 100px;}
 #contentBody.limited{/*padding-top: 30px;*/}
 .imgProd { text-align: center; margin: 0 auto; width: 450px; margin: 0px 10px 10px 10px; display: inline-block; }
 .imgProd img{max-height: 500px; max-width: 500px; }
@@ -211,10 +214,11 @@ html, body{background: #090909; padding: 0px}
 
 #contentBody.designers.gift{padding-top: 40px;}
 /* Itemlist */
-#contentBody.itemlist{padding-top: 60px;}
+#contentBody.itemlist{padding-top: 20px;}
 #contentBody.itemlist h1{font-family: 'Times New Roman'; color: #212121; font-size: 36px; text-transform: uppercase;  font-weight: normal; margin-bottom: 0px;}
 #contentBody.itemlist .leyenda{font-size: 10px; text-align: center}
 #contentBody.itemlist h2{font-family: Arial; color: #c0c0c0; font-size: 17px;  margin-top: 0px; font-weight: normal; line-height: 15px;}
+#contentBody.itemlist ul {max-width: 1150px; margin: 0 auto}
 #contentBody.itemlist ul li{display: inline-block; width: 200px; height: 200px; margin: 10px; box-shadow: inset 0px 0px 20px #AAA; background: #FFF; vertical-align: top; position: relative;  font-family: Georgia, sans-serif; line-height: 200px}
 #contentBody.itemlist ul li div{opacity: 0;  transition: all 500ms ease 0s; position: absolute; width: 100%; height: 100%; text-align: center; background: #FFF; background: rgba(255, 255, 255, .7); top: 0px; left: 0px; line-height: 23px;}
 #contentBody.itemlist ul li:hover div{opacity: 1}
@@ -239,7 +243,7 @@ html, body{background: #090909; padding: 0px}
 #contentBody.boutique .precios > div {background: url('../images/line_vertical.png') left center no-repeat; padding-left: 8px; font-family: Arial;  letter-spacing: 0px;}
 #contentBody.boutique .precios span{font-size: 11px; color: #a1a0a0;}
 #contentBody.boutique .precios > div:first-child{background: none;}
-#slider_products.boutique{margin-top: 0px; position:  static}
+/*#slider_products.boutique{margin-top: 0px; position:  static}*/
 
 .powerzoom{z-index: 1000; border-radius: 50%; box-shadow: 0px 0px 2px #666, inset 0px 0px 36px #999; background: #FFF; overflow: hidden;}
 .powerzoom div{z-index: 999; width: 100%; height: 100%; overflow: hidden;   background-repeat: no-repeat; border-radius: 50%; }
@@ -250,7 +254,7 @@ html, body{background: #090909; padding: 0px}
 #contentBody a.next3{left: 90%; background-position: -39px 0;  }
 
 /* PRODUCTS SLIDER*/
-#slider_products{position: absolute; width: 100%; margin-top: -175px; z-index: 500; overflow: hidden; }
+#slider_products{position: absolute; width: 100%; /*margin-top: -175px;*/ z-index: 5000; overflow: hidden; bottom: 90px;}
 #slider_products .bar{padding: 0 30px; background: #101010; color: #FFF; font-family: 'Times New Roman'; text-transform: uppercase; color: #959595; line-height: 28px; font-size: 11px; cursor: pointer}
 #slider_products .bar .wetheadorned{position: absolute}
 #slider_products .bar .collectionsName{display: block; margin: 0 auto; width: 300px; text-align: center}
@@ -258,7 +262,7 @@ html, body{background: #090909; padding: 0px}
 #slider_products .slider-content div.collectionsName{padding: 20px; width: 230px; display: inline-block; vertical-align: top}
 #slider_products .slider-content div.collectionsName span{color: #FFF; text-transform: uppercase; line-height: 26px; border-bottom: 1px solid #FFF; font-size: 11px; font-weight: bold; display: block; margin-bottom: 10px;}
 #slider_products .slider-content div.collectionsName p{font-size: 11px; color: #7b7b7b}
-#slider_products #slider-div{display: block; margin-left: 300px; margin-top: -90px; margin-right: 40px; position: relative}
+#slider_products #slider-div{display: block; margin-left: 300px; margin-top: -80px; margin-right: 40px; position: relative}
 #slider_products #slider li{display:  inline-block; min-height: 130px;}
 #slider_products #slider li a.dsc{display: inline-block; min-width: 130px; max-width: 200px; margin-left: 15px; vertical-align: middle; color: #FFF; font-size: 13px; }
 #slider_products #slider li a.dsc strong{font-style: italic}
@@ -324,7 +328,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 .sAbout p{ color:#747474; }
 .sAbout p span:first-child { font-size: 20px;font-family:"Times New Roman", Times, serif; padding-bottom: 5px; border-bottom: solid 1px #222222   }
 
-.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(../images/pareja.png) no-repeat; height: 370px  }
+.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(../images/pareja.png) bottom right no-repeat; height: 370px; vertical-align: bottom; }
 
 .sAbout .colLeft a{ background-color:#121212; border-radius:5px; display: block; height:41px; line-height: 41px; text-align: center;  width:100px; color: #ff4f4f;}
 /*.sAbout{border: 10px solid rgb(100, 100, 100);	border: 10px solid rgba(254, 252, 254, 0.3);-moz-background-clip: padding;-webkit-background-clip: padding;background-clip: padding-box;}*/
@@ -719,6 +723,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
 @media (max-width: 320px) {
         #logo-small{display: none;}
         .comming_soon {  width:278px !important;  }
+}
+
+@media (max-height: 360px) {
+    #footer{position: static}
+    #slider_products{bottom: 0px;}
 }
 
 /**{font-family: Georgia !important}*/
