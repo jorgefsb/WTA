@@ -32,8 +32,8 @@
                             <a href="<?php echo $_urlBase. 
                                                                     (empty($this->category) ? '' : urlencode(strtolower($product[$this->category])).'/')
                                                                     .$product['product_slug'] ?>" class="dsc">
-                                <?php echo $product['product_code'] ? 'Item #'.$product['product_code'] : '' ; ?> 
-                                <strong><?php echo $product['product_name']; ?></strong>
+                                <strong><?php echo $product['product_name']; ?></strong><br/>
+                                <?php echo $product['product_code'] ? 'Item #'.$product['product_code'] : '' ; ?>                                 
                                 <span><?php echo $product['designer_name'] . ' - ' . $product['collection_type_name']; ?>  </span>
                             </a>
                         </li>

@@ -195,6 +195,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->product = $properties;
         
         
+        
         // Obtenemos el prev y next
         $prev = null;
         $next = null;

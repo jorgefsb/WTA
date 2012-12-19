@@ -32,20 +32,18 @@
                 <input type="text" name="shp_firstname"  id="shp_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
                 <input type="text" name="shp_lastname"  id="shp_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/>
                 <input type="text" name="shp_address"  id="shp_address" value="" placeholder="Address*" title="Address"  class=""/>
-                <input type="text" name="shp_address2"  id="shp_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/>
-                <input type="text" name="shp_city"  id="shp_city" value="" placeholder="City*" title="City"  class="medialinea"/>
-                <select id="shp_region" name="shp_region"  class="regions">
-                    <option value="0"> Region / State*</option>                    
+                <input type="text" name="shp_address2"  id="shp_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/>                                
+                <select id="shp_country" name="shp_country" class="regions"  >
+                    <option value="0"> Country*</option>                    
                     <?php foreach($this->regions as $region): ?>
                         <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
                     <?php endforeach; ?>
                 </select>
+                <select id="shp_region" name="shp_region"  class="subregions">
+                    <option value="0"> Region / State*</option>
+                </select>                
+                <input type="text" name="shp_city"  id="shp_city" value="" placeholder="City*" title="City"  class="medialinea"/>
                 <input type="text" name="shp_cp"  id="shp_cp" value="" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                
-                <span>
-                    <select id="shp_country" name="shp_country" class="subregions"  >
-                        <option value="0"> Country*</option>
-                    </select>
-                </span>
                 <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="" placeholder="Phone number*" title="Phone number"  class=""/>
             </div>
             
@@ -58,20 +56,18 @@
                     <input type="text" name="bill_firstname"  id="bill_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
                     <input type="text" name="bill_lastname"  id="bill_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/>
                     <input type="text" name="bill_address"  id="bill_address" value="" placeholder="Address*" title="Address"  class=""/>
-                    <input type="text" name="bill_address2"  id="bill_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/>
-                    <input type="text" name="bill_city"  id="bill_city" value="" placeholder="City*" title="City"  class="medialinea"/>
-                   <select id="bill_region" name="bill_region" class="regions"   >
-                        <option value="0"> Region / State*</option>
+                    <input type="text" name="bill_address2"  id="bill_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/>                    
+                    <select id="bill_country" name="bill_country" class="regions">
+                        <option value="0"> Country*</option>                    
                         <?php foreach($this->regions as $region): ?>
                             <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
                         <?php endforeach; ?>
                     </select>
+                    <select id="bill_region" name="bill_region" class="subregions"   >
+                        <option value="0"> Region / State*</option>
+                    </select>
                     <input type="text" name="bill_cp"  id="bill_cp" value="" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>
-                    <span>
-                        <select id="bill_country" name="bill_country" class="subregions">
-                            <option value="0"> Country*</option>
-                        </select>
-                    </span>
+                    <input type="text" name="bill_city"  id="bill_city" value="" placeholder="City*" title="City"  class="medialinea"/>                    
                     <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="" placeholder="Phone number*" title="Phone number"  class=""/>
                 </div>
             </div>
