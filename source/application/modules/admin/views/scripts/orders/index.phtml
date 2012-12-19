@@ -24,16 +24,39 @@
 
                     <h4>User</h4>
                     <div class="control-group">
-                        <label class="control-label" for="menbers">Select User</label>
+                        <label class="control-label" for="menbers">Select Member</label>
                         <div class="controls">
                             <select id="menbers" name="menbers[]" multiple data-rel="chosen">
-                                <?php foreach($this->userOrders as $index): ?>
-                                <option value="<?php echo $index['member_id']?>" <?php echo in_array($index['member_id'],$this->menbers)?'selected':'' ?> ><?php echo $index['member_name'].' '.$index['member_last_name']?></option>
+                                <?php foreach ($this->userOrders as $index): ?>
+                                    <option value="<?php echo $index['member_id'] ?>" <?php echo in_array($index['member_id'], $this->menbers) ? 'selected' : '' ?> ><?php echo $index['member_name'] . ' ' . $index['member_last_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <h4>Country</h4>
+                    <div class="control-group">
+                        <label class="control-label" for="countries">Select Countries</label>
+                        <div class="controls">
+                            <select id="countries" name="countries" data-rel="chosen">
+                                <option value="" ></option>
+                                <?php foreach ($this->country as $index): ?>
+                                    <option value="<?php echo $index['id'] ?>" <?php echo ($index['id']==$this->countrySelect) ? 'selected' : '' ?> ><?php echo $index['country']  ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
                     <h4>State</h4>
+                    <div class="control-group">
+                        <label class="control-label" for="state">Select State</label>
+                        <div class="controls">
+                            <select id="state" name="state" >
+                                 <?php foreach ($this->subRegions as $index): ?>
+                                    <option value="<?php echo $index['id'] ?>" <?php echo ($index['id']==$this->subRegionsSelect) ? 'selected' : '' ?> ><?php echo $index['name']  ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <h4>Status</h4>
                     <div class="control-group" style="text-align: left">
                         <?php
                         $state = array(
@@ -44,7 +67,7 @@
                         ?>
                         <?php foreach ($state as $index => $value): ?>
                             <label>
-                                <input <?php echo in_array($index,$this->state)?'checked="checked"':'' ?> type="checkbox" id="state<?php echo $index; ?>" name="state[]" value="<?php echo $index; ?>" /><?php echo $value; ?>
+                                <input <?php echo in_array($index, $this->status) ? 'checked="checked"' : '' ?> type="checkbox" id="status<?php echo $index; ?>" name="status[]" value="<?php echo $index; ?>" /><?php echo $value; ?>
                             </label>
                         <?php endforeach; ?>
 
@@ -59,7 +82,7 @@
                         );
                         ?>
                         <?php foreach ($stateDelivered as $index => $value): ?>
-                            <label><input <?php echo in_array($index,$this->stateDelivered)?'checked="checked"':'' ?> type="checkbox" id="stateDelivered<?php echo $index; ?>" name="stateDelivered[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
+                            <label><input <?php echo in_array($index, $this->stateDelivered) ? 'checked="checked"' : '' ?> type="checkbox" id="stateDelivered<?php echo $index; ?>" name="stateDelivered[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
                         <?php endforeach; ?>
 
                     </div>
@@ -78,10 +101,10 @@
                         Registration Date
                     </th>
                     <th>
-                        Customer
+                        Member
                     </th>
                     <th>
-                        State
+                        Status
                     </th>
                     <th>
                         Product
@@ -100,8 +123,10 @@
                         <?php echo $index['transaction_payment_date']; ?>
                     </td>
                     <td>
-                        <?php echo $index['member_name']; ?> 
-                        <?php echo $index['member_last_name']; ?>
+                        <a href="#" id="<?php echo $index['transaction_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn-setting">
+                            <?php echo $index['member_name']; ?> 
+                            <?php echo $index['member_last_name']; ?>
+                        </a>
                     </td>
                     <td>
                         <?php echo $index['tansaction_state_name']; ?>
@@ -130,7 +155,7 @@
                                     <th>
                                         Size
                                     </th>
-                      
+
                                 </tr>
                             </thead>
                             <?php
@@ -141,51 +166,53 @@
                                     <td>
                                         <?php echo $product[5]; ?>
                                     </td>
-                                    
+
                                     <td>
                                         <?php echo $product[0]; ?>
                                     </td>
                                     <td>
                                         <?php echo $product[1]; ?>
                                     </td>
-                                    <?php if($index['transaction_user_menbership']==1){
+                                    <?php
+                                    if ($index['transaction_user_menbership'] == 1) {
                                         $price = $product[3];
                                         ?>
-                                    <td style="text-decoration: line-through">
-                                        $<?php echo $product[2]; ?>
-                                    </td>
-                                    <td>
-                                        <span class="label label-success">$<?php echo $product[3]; ?></span>
-                                    </td>
-                                    <?php } else { $price = $product[2];?>
-                                    <td>
-                                        <span class="label label-success">$<?php echo $product[2]; ?></span>
-                                    </td>
-                                    <td style="text-decoration: line-through" >
-                                        $<?php echo $product[3]; ?>
-                                    </td>
+                                        <td style="text-decoration: line-through">
+                                            $<?php echo $product[2]; ?>
+                                        </td>
+                                        <td>
+                                            <span class="label label-success">$<?php echo $product[3]; ?></span>
+                                        </td>
+                                    <?php } else {
+                                        $price = $product[2]; ?>
+                                        <td>
+                                            <span class="label label-success">$<?php echo $product[2]; ?></span>
+                                        </td>
+                                        <td style="text-decoration: line-through" >
+                                            $<?php echo $product[3]; ?>
+                                        </td>
                                     <?php } ?>
                                     <td >
                                         <?php echo $product[4]; ?>
                                     </td>
-                                    
+
                                 </tr>
-                                
+
                                 <?php
-                                $priceTotal = $product[1]*$price;
+                                $priceTotal = $product[1] * $price;
                             }
                             ?>
-                                <tr>
-                                    <td colspan="3" >
-                                        
-                                    </td >
-                                    <td  style="background-color: #DD5600; color: #ffffff; text-align: right" >
-                                        Total: &nbsp;   
-                                    </td>
-                                    <td colspan="2" style="background-color: #DD5600; color: #ffffff;  text-align: right">
-                                        $<?php echo $priceTotal; ?>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="3" >
+
+                                </td >
+                                <td  style="background-color: #DD5600; color: #ffffff; text-align: right" >
+                                    Total: &nbsp;   
+                                </td>
+                                <td colspan="2" style="background-color: #DD5600; color: #ffffff;  text-align: right">
+                                    $<?php echo $priceTotal; ?>
+                                </td>
+                            </tr>
                         </table>
                     </td>
                     <td>
@@ -199,10 +226,67 @@
                         echo $index['transaction_delivered_date'];
                         ?> 
                     </td>
+                    <td>
+                        <?php if($index['transaction_delivered']!=1){ ?>
+                        <a class="btn btn-mini btn-info"> <span class="icon-arrow-down icon-white"></span>Undelivered</a>
+                        
+                        <?php } else{?>
+                        <a class="btn btn-mini btn-info"> <span class="icon-arrow-up icon-white"></span>Delivered</a>
+                        <?php } ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </table>
     </div>
 </div>
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3 id="contact"></h3>
+    </div>
+    <div class="modal-body">
+            <dl>
+                <dt>Contact information </dt>
+                <dd id="mail"></dd>
+                <dd id="phone"></dd>
+                <dd id="fax"></dd>
+                
+                <dt>Billing address</dt>
+                <dd id="billFirstName"></dd>
+                <dd id="billLastName"></dd>
+                <dd id="billAddres"></dd>
+                <dd id="billAddresContinued"></dd>
+                <dd id="billRegion"></dd>
+                <dd id="billSubRegion"></dd>
+                <dd id="billCity"></dd>
+                <dd id="billPostalCode"></dd>
+                <dd id="billPhone"></dd>
+                
+                <dt>Shipping address</dt>
+                <dd id="shiFirstName"></dd>
+                <dd id="shiLastName"></dd>
+                <dd id="shiAddres"></dd>
+                <dd id="shiAddresContinued"></dd>
+                <dd id="shiRegion"></dd>
+                <dd id="shiSubRegion"></dd>
+                <dd id="shiCity"></dd>
+                <dd id="shiPostalCode"></dd>
+                <dd id="shiPhone"></dd>
+                
+                <dt>Payment Method</dt>
+                <dd id="cardNumber"></dd>
+                <dd id="cardType"></dd>
+                <dd id="expire"></dd>
+            </dl>            
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+
+    </div>
+</div>
+
+
+
 
 

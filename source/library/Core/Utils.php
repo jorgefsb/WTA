@@ -26,13 +26,14 @@ class Core_Utils {
         return $arrayResponse;
     }
 
-    static function fetchPairs($array = array()) {
+    static function fetchPairs($array = array(),$key=1) {
+        
         if(!is_array($array))
             return array();
         $arrayResponse = array();
         foreach ($array as $index => $datos) {
             $keys = array_keys($datos);
-            $arrayResponse[$datos[$keys[0]]] = $datos[$keys[1]];
+            $arrayResponse[$datos[$keys[0]]] = $datos[$keys[$key]];
         }
         return $arrayResponse;
     }

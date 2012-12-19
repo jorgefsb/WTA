@@ -80,6 +80,7 @@ class Application_Model_Transaction extends Core_Model {
                 ->from(array('tr' => $this->_tableTransaction->getName()), array(
                     'tr.transaction_payment_date',
                     'tr.transaction_amount',
+                    'tr.transaction_id',
                     'tr.transaction_user_menbership',
                     'tr.member_id',
                     'mem.member_name',
@@ -108,11 +109,17 @@ class Application_Model_Transaction extends Core_Model {
                 case 'menbers':
                     $smt = $smt->where('tr.member_id in ('.implode(',',$value).')');
                     break;
-                case 'state':
+                case 'status':
                     $smt = $smt->where('tr.tansaction_state_id in ('.implode(',',$value).')');
                     break;
                 case 'stateDelivered':
                     $smt = $smt->where('tr.transaction_delivered in ('.implode(',',$value).')');
+                    break;
+                case 'countries':
+                    $smt = $smt->where('tr.transaction_shi_add_region_id =?',$value);
+                    break;
+                case 'state':
+                    $smt = $smt->where('tr.transaction_shi_add_subregion_id =?',$value);
                     break;
             }
         }
@@ -121,7 +128,7 @@ class Application_Model_Transaction extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
-
+    
     function listOrdensUsers() {
         $smt = $this->_tableTransaction
                 ->getAdapter()

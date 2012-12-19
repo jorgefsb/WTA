@@ -18,7 +18,29 @@ class Application_Entity_Transaction extends Core_Entity {
     protected $_amount;
     protected $_state;
     protected $_codePayment;
-
+    protected $_shiAddFirstName;
+    protected $_shiAddLastName;
+    protected $_shiAddAddAddres;
+    protected $_shiAddAddresContinued;
+    protected $_shiAddPostalConde;
+    protected $_shiAddRegionId;
+    protected $_shiAddSubregionId;
+    protected $_shiAddCity;
+    protected $_shiAddPhoneNumber;
+    protected $_billAddFirstName;
+    protected $_billAddLastName;
+    protected $_billAddAddAddres;
+    protected $_billAddAddresContinued;
+    protected $_billAddCity;
+    protected $_billAddRegionId;
+    protected $_billAddSubregionId;
+    protected $_billAddPostalConde;
+    protected $_billAddPhoneNumber;
+    protected $_cardNumber;
+    protected $_cardtypeId;
+    protected $_cardSergurityCode;
+    protected $_cardExpirationMonth;
+    protected $_cardExpirationYear;
     /**
      * __Construct         
      *
@@ -41,11 +63,27 @@ class Application_Entity_Transaction extends Core_Entity {
         $this->_delivered = $data['transaction_delivered'];
         $this->_userMenbership = $data['transaction_user_menbership'];
         $this->_deliveredDate = $data['transaction_delivered_date'];
-        $this->_phoneNumber = $data['transaction_phone_number'];
-        $this->_zipCode = $data['transaction_zip_code'];
-        $this->_countryId = $data['country_id'];
-        $this->_stateProvince = $data['transaction_state_province'];
-        $this->_city = $data['transaction_city'];
+        
+        $this->_shiAddFirstName = $data['transaction_shi_add_first_name'];
+        $this->_shiAddLastName = $data['transaction_shi_add_last_name'];
+        $this->_shiAddAddAddres = $data['transaction_shi_add_addres'];
+        $this->_shiAddAddresContinued = $data['transaction_shi_add_addres_continued'];
+        $this->_shiAddPostalConde = $data['transaction_shi_add_postal_code'];
+        $this->_shiAddRegionId = $data['transaction_shi_add_region_id'];
+        $this->_shiAddSubregionId = $data['transaction_shi_add_subregion_id'];
+        $this->_shiAddCity = $data['transaction_shi_add_city'];
+        $this->_shiAddPhoneNumber = $data['transaction_shi_add_phone_number'];
+        $this->_billAddFirstName = $data['transaction_bill_add_first_name'];
+        $this->_billAddLastName = $data['transaction_bill_add_last_name'];
+        $this->_billAddAddAddres = $data['transaction_bill_add_addres'];
+        $this->_billAddAddresContinued = $data['transaction_bill_add_addres_continued'];
+        $this->_billAddCity = $data['transaction_bill_add_city'];
+        $this->_billAddRegionId = $data['transaction_bill_add_region_id'];
+        $this->_billAddSubregionId = $data['transaction_bill_add_subregion_id'];
+        $this->_billAddPostalConde = $data['transaction_bill_add_postal_code'];
+        $this->_billAddPhoneNumber = $data['transaction_bill_add_phone_number'];
+
+        
         $this->_cardNumber = $data['transaction_card_number'];
         $this->_cardtypeId = $data['card_type_id'];
         $this->_cardSergurityCode = $data['transaction_card_segurity_code'];
@@ -65,6 +103,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $data = $modelTransaction->getTransaction($idTransaction);
         if ($data != '') {
             $this->asocParams($data);
+            return $data;
         }
     }
 
@@ -84,11 +123,27 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_delivered'] = $this->_delivered;
         $data['transaction_user_menbership'] = $this->_userMenbership;
         $data['transaction_delivered_date'] = $this->_deliveredDate;
-        $data['transaction_phone_number'] = $this->_phoneNumber;
-        $data['transaction_zip_code'] = $this->_zipCode;
-        $data['country_id'] = $this->_countryId;
-        $data['transaction_state_province'] = $this->_stateProvince;
-        $data['transaction_city'] = $this->_city;
+        
+        $data['transaction_shi_add_first_name'] = $this->_shiAddFirstName;
+        $data['transaction_shi_add_last_name'] = $this->_shiAddLastName;
+        $data['transaction_shi_add_addres'] = $this->_shiAddAddAddres;
+        $data['transaction_shi_add_addres_continued'] = $this->_shiAddAddresContinued;
+        $data['transaction_shi_add_postal_code'] = $this->_shiAddPostalConde;
+        $data['transaction_shi_add_region_id'] = $this->_shiAddRegionId;
+        $data['transaction_shi_add_subregion_id'] = $this->_shiAddSubregionId;
+        $data['transaction_shi_add_city'] = $this->_shiAddCity;
+        $data['transaction_shi_add_phone_number'] = $this->_shiAddPhoneNumber;
+        $data['transaction_bill_add_first_name'] = $this->_billAddFirstName;
+        $data['transaction_bill_add_last_name'] = $this->_billAddLastName;
+        $data['transaction_bill_add_addres'] = $this->_billAddAddAddres;
+        $data['transaction_bill_add_addres_continued'] = $this->_billAddAddresContinued;
+        $data['transaction_bill_add_city'] = $this->_billAddCity;
+        $data['transaction_bill_add_region_id'] = $this->_billAddRegionId;
+        $data['transaction_bill_add_subregion_id'] = $this->_billAddSubregionId;
+        $data['transaction_bill_add_postal_code'] = $this->_billAddPostalConde;
+        $data['transaction_bill_add_phone_number'] = $this->_billAddPhoneNumber;
+        
+        
         $data['transaction_card_number'] = $this->_cardNumber;
         $data['card_type_id'] = $this->_cardtypeId;
         $data['transaction_card_segurity_code'] = $this->_cardSergurityCode;
