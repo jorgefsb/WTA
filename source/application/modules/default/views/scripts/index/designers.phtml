@@ -27,12 +27,6 @@
 <div  id="contentBody" class="designers" >        
     
     
-    <div class="btns-options" >
-        <a href="" class="btn addToCart" data-code="<?php echo $this->product['_id']; ?>">
-            Add to my cart
-        </a>
-        <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwetheadorned.com%2F&media=<?php echo urldecode(DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']); ?>" class="pin-it-button btn" count-layout="horizontal">Pin It</a>
-    </div>
     
     <div  class="imgProd">
         <img src="<?php echo DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']; ?>" />
@@ -43,22 +37,36 @@
         <h3><span class="linea-degr-left"></span>Article #<?php echo $this->product['_code']; ?><span class="linea-degr-right"></span></h3>
         <h2><?php echo $this->product['_name']; ?></h2>
         
-        <p>
-           <?php echo $this->product['_descriptionDesigner']; ?>
-        </p>
+        <a href="" class="details">Details</a>
         
-        <div class="precios">
-            <div>
-                <span>Guest price</span>
-                <strong class="inactivo">$<?php echo number_format($this->product['_price'], 2); ?></strong>
+        <div  class="details-content">
+            <p>
+            <?php echo $this->product['_descriptionDesigner']; ?>
+            </p>
+            
+            <div class="precios">
+                <div>
+                    <span>Guest price</span>
+                    <strong class="inactivo">$<?php echo number_format($this->product['_price'], 2); ?></strong>
+                </div>
+                
+                
+                <div >
+                    <span>member price</span>
+                    <strong class="activo">$<?php echo number_format($this->product['_priceMember'], 2); ?></strong>
+                </div>
             </div>
-
-
-            <div >
-                <span>member price</span>
-                <strong class="activo">$<?php echo number_format($this->product['_priceMember'],2); ?></strong>
-            </div>
+            
         </div>
+        
+        
+        <div class="btns-options" >
+            <a href="" class="btn addToCart" data-code="<?php echo $this->product['_id']; ?>">
+                Add to my cart
+            </a>
+            <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwetheadorned.com%2F&media=<?php echo urldecode(DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']); ?>" class="pin-it-button btn" count-layout="horizontal">Pin It</a>
+        </div>
+        
         
     </div>
     
@@ -77,6 +85,7 @@
 ?>
 
 <script>
-    //WTA.Home();
+    WTA.Exclusive();
     WTA.zoom('.imgProd');
+    $('html, body').addClass('white');
 </script>

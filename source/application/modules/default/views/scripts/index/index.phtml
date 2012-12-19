@@ -42,7 +42,7 @@
             </ul>
         </li>
         <li>
-            <a href="/exclusive-collections" ><span>Shop by</span></a>
+            <a href="/exclusive-collections" ><span>Shop by...</span></a>
             <ul>
                 <?php if( !empty($menu_collections_types) ): ?>
                     <?php foreach($menu_collections_types as $collection): ?>
@@ -54,7 +54,7 @@
             </ul>
         </li>
         <li>
-            <a href="/boutique" ><span>Celebrities Boutiques</span></a>    
+            <a href="/boutique" ><span>Shop by Celebrity </span></a>    
             <ul>
                 <?php if( !empty($menu_boutiques) ): ?>
                     <?php foreach($menu_boutiques as $boutique): ?>
@@ -103,6 +103,7 @@
     </ul>
 </div>
 <script>
+    
     WTA.Home();
     WTA.bgSlider(['<?php echo STATIC_URL?>/front/images/home/bk1.jpg', 
                             '<?php echo STATIC_URL?>/front/images/home/bk2.jpg', 

@@ -23,8 +23,8 @@
                                 <img src="<?php echo DINAMIC_URL.'/product/thumbs/'.$product['image']; ?>" />
                             </a>
                             <a href="<?php echo $_urlBase.$product['product_slug'] ?>" class="dsc">
+                                <strong><?php echo $product['product_name']; ?></strong><br/>
                                 <?php echo $product['product_code'] ? 'Item #'.$product['product_code'] : '' ; ?> 
-                                <strong><?php echo $product['product_name']; ?></strong>
                                 <span><?php echo $product['designer_name'] . ' - ' . $product['collection_type_name']; ?>  </span>
                             </a>
                         </li>
