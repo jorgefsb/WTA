@@ -9,10 +9,11 @@
 html, body{background: #090909; padding: 0px}
 
 html.white, body.white{background: #FFF;}
+body.white .navbar-inverse  .navbar-inner{background: #000;}
 
 #overlay{background: url('../images/pattern-overlay.png'); width: 100%; height: 100%; position: fixed; display: none; z-index: 500;}
 
-.navbar-inverse  .navbar-inner{margin-left: 0; background: #0c0c0c; background: rgba(11, 11, 11, .8);  border: 0px; filter: none;}
+.navbar-inverse  .navbar-inner{margin-left: 0; background: #0c0c0c; background: rgba(11, 11, 11, .8);  border: 0px; filter: none; border-radius: 0px;}
 .navbar-inner{padding: 0px;}
 .navbar{margin-left: 0px; margin-bottom: 0px;}
 .container-fluid{position: absolute; width: 100%; padding: 0px;}
@@ -313,7 +314,7 @@ input[type=submit]:hover{background: #c23a3a; }
 span.error{color: #a03333; background: transparent url(../images/xerror.png) left center no-repeat; padding-left: 20px; display: block; font-size: 11px; line-height: 15px; margin-bottom: 3px;}
 input.error, .btn-group.error{border: 1px solid #a03333 !important}
 
-#forgotpass{width: 410px; background: #000; position: absolute; z-index: 2000; top: 50px; left: 50%; margin-left: -270px; font-family: Arial; padding: 20px 60px; border-radius: 8px; }
+#forgotpass{width: 410px; position: absolute; z-index: 2000; top: 50px; left: 50%; margin-left: -270px; font-family: Arial; padding: 20px 60px; border-radius: 8px; }
 #forgotpass input[type=submit]{margin-left: 2px; vertical-align: middle}
 #forgotpass input[type=text]{display: inline-block}
 
@@ -370,7 +371,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 /*  SECCION  DE  COMING SOON */
 .comming_soon {    
     color:#999;
-    min-height: 253px;
+    /*min-height: 253px;*/
     position: absolute;
     background-color: black;
     z-index: 1000;
@@ -383,7 +384,9 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 .wLight .contenido{
     background: #fff;
     border-radius: 10px;
-    min-height: 245px;
+    /*min-height: 245px;*/
+    padding-top: 10px ;
+    padding-bottom: 10px ;
     background: #d0d0d0; /* Old browsers */
     /* IE9 SVG, needs conditional override of 'filter' to 'none' */
     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2QwZDBkMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMzJSIgc3RvcC1jb2xvcj0iI2Y0ZjRmNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iI2Y3ZjdmNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjY2NjY2MiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -411,7 +414,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 }
 .comming_soon .contenido .leyenda{
     text-align: center;
-    position: relative;
+    /*position: relative;*/
     top: 64px;
     color: #2d2d2d;
 
