@@ -5,8 +5,8 @@
     <div class="box-content">
         <form method="get" action="">
             <div class="span4">
-                <h3>Filters <a href="#" id="plusFilter" class="icon-plus"></a></h3>
-                <div class="well" id="filter">
+                <h3>Filters <a href="#" id="plusFilter"  class="icon-plus"></a></h3>
+                <div class="well" id="filter" style="display:none">
 
                     <h4>Date Range</h4>
                     <div class="control-group" style="text-align: left">
@@ -22,11 +22,11 @@
                         </div>
                     </div>
 
-                    <h4>User</h4>
+                    <h4>Member</h4>
                     <div class="control-group">
                         <label class="control-label" for="menbers">Select Member</label>
                         <div class="controls">
-                            <select id="menbers" name="menbers[]" multiple data-rel="chosen">
+                            <select style="width: 210px;" id="menbers" name="menbers[]" multiple data-rel="chosen">
                                 <?php foreach ($this->userOrders as $index): ?>
                                     <option value="<?php echo $index['member_id'] ?>" <?php echo in_array($index['member_id'], $this->menbers) ? 'selected' : '' ?> ><?php echo $index['member_name'] . ' ' . $index['member_last_name'] ?></option>
                                 <?php endforeach; ?>
@@ -37,7 +37,7 @@
                     <div class="control-group">
                         <label class="control-label" for="countries">Select Countries</label>
                         <div class="controls">
-                            <select id="countries" name="countries" data-rel="chosen">
+                            <select style="width: 210px;" id="countries" name="countries" data-rel="chosen">
                                 <option value="" ></option>
                                 <?php foreach ($this->country as $index): ?>
                                     <option value="<?php echo $index['id'] ?>" <?php echo ($index['id'] == $this->countrySelect) ? 'selected' : '' ?> ><?php echo $index['country'] ?></option>
@@ -117,7 +117,7 @@
                     </th>
                 </tr>
             </thead>
-            <?php foreach ($this->orders as $index): ?>
+            <?php foreach ($this->orders as $index): $priceTotal=0; ?>
                 <tr>
                     <td>
                         <?php echo $index['transaction_payment_date']; ?>
@@ -199,7 +199,7 @@
                                 </tr>
 
                                 <?php
-                                $priceTotal = $product[1] * $price;
+                                $priceTotal += $product[1] * $price;
                             }
                             ?>
                             <tr>

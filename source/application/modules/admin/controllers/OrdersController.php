@@ -102,6 +102,7 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $nameMember = $this->getParam('member');
         $modelRegions = new Application_Model_Regions();
         $country = Core_Utils::fetchPairs($modelRegions->listing(), 4);
+        $subregions = Core_Utils::fetchPairs($modelRegions->listingSubregions());
         $array['contact'] = 'Member: ' . $nameMember;
         $array['mail'] = 'Mail: ' . $data['transaction_mail'];
 
@@ -110,8 +111,8 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $array['shiAddres'] = 'Address: ' . $data['transaction_shi_add_addres'];
         $array['shiAddresContinued'] = 'Address Continued: ' . $data['transaction_shi_add_addres_continued'];
         $array['shiPostalCode'] = 'Postal Code: ' . $data['transaction_shi_add_postal_code'];
-        $array['shiRegion'] = 'Country: ' . $data['transaction_shi_add_region_id'];
-        $array['shiSubRegion'] = 'State: ' . $data['transaction_shi_add_subregion_id'];
+        $array['shiRegion'] = 'Country: ' . (isset($country[$data['transaction_shi_add_region_id']])?$country[$data['transaction_shi_add_region_id']]:'');
+        $array['shiSubRegion'] = 'State: ' . (isset($subregions[$data['transaction_shi_add_subregion_id']])?$subregions[$data['transaction_shi_add_subregion_id']]:'');
         $array['shiCity'] = 'City: ' . $data['transaction_shi_add_city'];
         $array['shiPhone'] = 'Phone: ' . $data['transaction_shi_add_phone_number'];
         $array['billFirstName'] = 'First Name: ' . $data['transaction_bill_add_first_name'];
@@ -119,8 +120,8 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $array['billAddres'] = 'Address: ' . $data['transaction_bill_add_addres'];
         $array['billAddresContinued'] = 'Address Continued: ' . $data['transaction_bill_add_addres_continued'];
         $array['billCity'] = 'City: ' . $data['transaction_bill_add_city'];
-        $array['billRegion'] = 'Country: ' . $data['transaction_bill_add_region_id'];
-        $array['billSubRegion'] = 'State: ' . $data['transaction_bill_add_subregion_id'];
+        $array['billRegion'] = 'Country: ' . (isset($country[$data['transaction_bill_add_region_id']])?$country[$data['transaction_bill_add_region_id']]:'');
+        $array['billSubRegion'] = 'State: ' . (isset($subregions[$data['transaction_bill_add_subregion_id']])?$subregions[$data['transaction_bill_add_subregion_id']]:'');
         $array['billPostalCode'] = 'Postal Code: ' . $data['transaction_bill_add_postal_code'];
         $array['billPhone'] = 'Phone: ' . $data['transaction_bill_add_phone_number'];
 

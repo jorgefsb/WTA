@@ -28,7 +28,8 @@ class Application_Model_Regions extends Core_Model {
         return $result;
     }
     
-    public function listingSubregions($idRegion){
+    public function listingSubregions($idRegion=''){
+        
         $smt = $this->_tablesubRegions
                 ->getAdapter()
                 ->select()
@@ -37,10 +38,11 @@ class Application_Model_Regions extends Core_Model {
                     'sr.id',
                     'sr.name',
                     )
-                )
-                ->where('region_id = ?', $idRegion)
-                ->order('name asc')
-                ->query();
+                )->order('name asc');
+                
+        if($idRegion!='')
+        $smt = $smt->where('region_id = ?', $idRegion);
+        $smt = $smt->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();
         return $result;
