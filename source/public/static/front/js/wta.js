@@ -39,11 +39,37 @@ var WTA = (function(){
                 e.preventDefault();                
                 $(this).parent().find('.details-content').slideDown();
             });
-            details.parent().find('.details-content').hide();
-            
+            details.parent().find('.details-content').hide();            
         }
         
     };
+    
+    this.Designer = function(){
+        
+        var details = $('#contentBody').find('.info').find('.details');
+        var detailsDesigner = $('#contentBody').find('.info').find('.detailsDesigner');
+        if(details.length){
+            details.click(function(e){
+                e.preventDefault();                                
+                detailsDesigner.parent().find('.detailsDesigner-content').slideUp();            
+                $(this).parent().find('.details-content').slideDown();
+            });
+            details.parent().find('.details-content').hide();            
+        }
+        
+        
+        if(detailsDesigner.length){
+            detailsDesigner.click(function(e){
+                e.preventDefault();                                
+                details.parent().find('.details-content').slideUp();            
+                $(this).parent().find('.detailsDesigner-content').slideDown();
+            });
+            detailsDesigner.parent().find('.detailsDesigner-content').hide();            
+        }
+        
+    };
+    
+    
         
     this.lightbox = function(){
         
@@ -195,7 +221,7 @@ var WTA = (function(){
             if( !(/^\s*$/).test( code ) ){
                 $.ajax({
                     type: 'POST',                    
-                    url: '/index/addtocart/format/json', 
+                    url: '/shopping/addtocart/format/json', 
                     data: {code:code}                    
                 }).done(function(response){
                     
@@ -213,7 +239,7 @@ var WTA = (function(){
     
     this.updateCart = function(callback){
         
-        $('#popupShoppinCart').find('.overview').load('/index/cart', function(response, status, xhr) {
+        $('#popupShoppinCart').find('.overview').load('/shopping/cart', function(response, status, xhr) {
             if (status == "error") {
                 var msg = "Sorry but there was an error ";
                 //$('#popupShoppinCart').html(msg + xhr.status + " " + xhr.statusText);
@@ -225,7 +251,7 @@ var WTA = (function(){
             var $checkoutcart = $('#checkout-cart');
             
             if($checkoutcart.length){
-                $checkoutcart.load('/index/checkoutcart', function(response, status, xhr) {
+                $checkoutcart.load('/shopping/checkoutcart', function(response, status, xhr) {
                      if (status == "error") {
                         var msg = "Sorry but there was an error.";
                         //$('#popupShoppinCart').html(msg + xhr.status + " " + xhr.statusText);
@@ -268,7 +294,7 @@ var WTA = (function(){
                     $this.val(1);
                 }
                 $.ajax({
-                    url: '/index/changeitem/clave/'+$this.data('code')+'/quantity/'+value+'/format/json'
+                    url: '/shopping/changeitem/clave/'+$this.data('code')+'/quantity/'+value+'/format/json'
                 }).done(function(response){
                     that.updateCart();
                 });
@@ -277,7 +303,7 @@ var WTA = (function(){
             $popupShoppinCart.find('.products_size').change(function(){
                 var code = $(this.parentNode.parentNode.parentNode).find('input.quantity').data('code')
                 $.ajax({
-                    url: '/index/changeitem/clave/'+code+'/size/'+this.value+'/format/json'
+                    url: '/shopping/changeitem/clave/'+code+'/size/'+this.value+'/format/json'
                 }).done(function(response){
                     that.updateCart();
                 });
@@ -307,7 +333,7 @@ var WTA = (function(){
     
     this.updateCountCart = function(){        
         $.ajax({
-            url: '/index/countcart/format/json'
+            url: '/shopping/countcart/format/json'
         }).done(function(response){
             if(response.count){
                 $('#btnShoppingCart').html('<strong>Shopping Cart ('+parseInt(response.count,10)+')</strong>');
