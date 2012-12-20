@@ -44,6 +44,20 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         });
     });
 ');
+        $this->view->headScript()->appendScript('
+    $(document).ready(function(){
+    $("#filter").css("display", "none");
+    $("#plusFilter").click(function () {
+        $("#filter").toggle("slow",function(){
+         if($("#filter").css("display") == "none"){
+        $("#plusFilter").attr("class", "icon-plus");
+        }else{
+        $("#plusFilter").attr("class", "icon-minus");
+        }
+      });
+    }); 
+    });
+');
         $modelRegions = new Application_Model_Regions();
         $arrayData = $this->getRequest()->getQuery();
         $this->view->fromDate = (isset($arrayData['fromDate']) && $arrayData['fromDate'] != '') ? $arrayData['fromDate'] : '';
@@ -55,7 +69,7 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         if (!empty($this->view->countrySelect)) {
             $this->view->subRegions = $modelRegions->listingSubregions($arrayData['countries']);
             $this->view->subRegionsSelect = $arrayData['state'];
-        }else{
+        } else {
             $this->view->subRegions = array();
             $this->view->subRegionsSelect = '';
         }
@@ -71,10 +85,13 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         } else {
             unset($arrayData['toDate']);
         }
+        if (!(isset($arrayData['countries']) && $arrayData['countries'] != '')) {
+            unset($arrayData['countries']);
+        }
 
         $this->view->orders = Application_Entity_Transaction::listOrders($arrayData);
         $this->view->userOrders = Application_Entity_Transaction::listOrdensUsers();
-        $this->view->country =  $modelRegions->listing();
+        $this->view->country = $modelRegions->listing();
     }
 
     public function getMemberInformationAction() {
@@ -121,6 +138,20 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $idRegion = $this->getParam('country');
         $array = $modelRegions->listingSubregions($idRegion);
         $this->_helper->json($array);
+    }
+
+    public function deliveredAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->identify($this->getParam('id'));
+        $transaction->delivered();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function undeliveredAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->identify($this->getParam('id'));
+        $transaction->undelivered();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
     }
 
 }

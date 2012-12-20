@@ -5,8 +5,8 @@
     <div class="box-content">
         <form method="get" action="">
             <div class="span4">
-                <h3>Filters</h3>
-                <div class="well">
+                <h3>Filters <a href="#" id="plusFilter" class="icon-plus"></a></h3>
+                <div class="well" id="filter">
 
                     <h4>Date Range</h4>
                     <div class="control-group" style="text-align: left">
@@ -40,7 +40,7 @@
                             <select id="countries" name="countries" data-rel="chosen">
                                 <option value="" ></option>
                                 <?php foreach ($this->country as $index): ?>
-                                    <option value="<?php echo $index['id'] ?>" <?php echo ($index['id']==$this->countrySelect) ? 'selected' : '' ?> ><?php echo $index['country']  ?></option>
+                                    <option value="<?php echo $index['id'] ?>" <?php echo ($index['id'] == $this->countrySelect) ? 'selected' : '' ?> ><?php echo $index['country'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -50,8 +50,8 @@
                         <label class="control-label" for="state">Select State</label>
                         <div class="controls">
                             <select id="state" name="state" >
-                                 <?php foreach ($this->subRegions as $index): ?>
-                                    <option value="<?php echo $index['id'] ?>" <?php echo ($index['id']==$this->subRegionsSelect) ? 'selected' : '' ?> ><?php echo $index['name']  ?></option>
+                                <?php foreach ($this->subRegions as $index): ?>
+                                    <option value="<?php echo $index['id'] ?>" <?php echo ($index['id'] == $this->subRegionsSelect) ? 'selected' : '' ?> ><?php echo $index['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -227,11 +227,13 @@
                         ?> 
                     </td>
                     <td>
-                        <?php if($index['transaction_delivered']!=1){ ?>
-                        <a class="btn btn-mini btn-info"> <span class="icon-arrow-down icon-white"></span>Undelivered</a>
-                        
-                        <?php } else{?>
-                        <a class="btn btn-mini btn-info"> <span class="icon-arrow-up icon-white"></span>Delivered</a>
+                        <?php if ($index['tansaction_state_id'] == 2) { ?>
+                            <?php if ($index['transaction_delivered'] == 1) { ?>
+                                <a href="/admin/orders/undelivered?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info"> <span class="icon-arrow-down icon-white"></span>Undelivered</a>
+
+                            <?php } else { ?>
+                                <a href="/admin/orders/delivered?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info"> <span class="icon-arrow-up icon-white"></span>Delivered</a>
+                            <?php } ?>
                         <?php } ?>
                     </td>
                 </tr>
@@ -246,39 +248,39 @@
         <h3 id="contact"></h3>
     </div>
     <div class="modal-body">
-            <dl>
-                <dt>Contact information </dt>
-                <dd id="mail"></dd>
-                <dd id="phone"></dd>
-                <dd id="fax"></dd>
-                
-                <dt>Billing address</dt>
-                <dd id="billFirstName"></dd>
-                <dd id="billLastName"></dd>
-                <dd id="billAddres"></dd>
-                <dd id="billAddresContinued"></dd>
-                <dd id="billRegion"></dd>
-                <dd id="billSubRegion"></dd>
-                <dd id="billCity"></dd>
-                <dd id="billPostalCode"></dd>
-                <dd id="billPhone"></dd>
-                
-                <dt>Shipping address</dt>
-                <dd id="shiFirstName"></dd>
-                <dd id="shiLastName"></dd>
-                <dd id="shiAddres"></dd>
-                <dd id="shiAddresContinued"></dd>
-                <dd id="shiRegion"></dd>
-                <dd id="shiSubRegion"></dd>
-                <dd id="shiCity"></dd>
-                <dd id="shiPostalCode"></dd>
-                <dd id="shiPhone"></dd>
-                
-                <dt>Payment Method</dt>
-                <dd id="cardNumber"></dd>
-                <dd id="cardType"></dd>
-                <dd id="expire"></dd>
-            </dl>            
+        <dl>
+            <dt>Contact information </dt>
+            <dd id="mail"></dd>
+            <dd id="phone"></dd>
+            <dd id="fax"></dd>
+
+            <dt>Billing address</dt>
+            <dd id="billFirstName"></dd>
+            <dd id="billLastName"></dd>
+            <dd id="billAddres"></dd>
+            <dd id="billAddresContinued"></dd>
+            <dd id="billRegion"></dd>
+            <dd id="billSubRegion"></dd>
+            <dd id="billCity"></dd>
+            <dd id="billPostalCode"></dd>
+            <dd id="billPhone"></dd>
+
+            <dt>Shipping address</dt>
+            <dd id="shiFirstName"></dd>
+            <dd id="shiLastName"></dd>
+            <dd id="shiAddres"></dd>
+            <dd id="shiAddresContinued"></dd>
+            <dd id="shiRegion"></dd>
+            <dd id="shiSubRegion"></dd>
+            <dd id="shiCity"></dd>
+            <dd id="shiPostalCode"></dd>
+            <dd id="shiPhone"></dd>
+
+            <dt>Payment Method</dt>
+            <dd id="cardNumber"></dd>
+            <dd id="cardType"></dd>
+            <dd id="expire"></dd>
+        </dl>            
     </div>
     <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">Close</a>

@@ -12,6 +12,8 @@ class Application_Entity_Transaction extends Core_Entity {
 
     const TYPE_MENBERSHIP = 1;
     const TYPE_PRODUCT = 2;
+    const DELIVERID = 1;
+    const UNDELIVERID = 0;
 
     protected $_id;
     protected $_member;
@@ -203,6 +205,19 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['tansaction_state_id'] = self::TRANSACTION_PAID;
         $modelTransaction->update($data, $this->_id);
     }
+    function delivered() {
+        $modelTransaction = new Application_Model_Transaction();
+        $data['transaction_delivered'] = self::DELIVERID;
+        $data['transaction_delivered_date'] = date('Y-m-d H:i:s');
+        $modelTransaction->update($data, $this->_id);
+    }
+    function undelivered() {
+        $modelTransaction = new Application_Model_Transaction();
+        $data['transaction_delivered'] = self::UNDELIVERID;
+        $data['transaction_delivered_date'] = NULL;
+        $modelTransaction->update($data, $this->_id);
+    }
+    
 
     static function listOrders($filtro=array()) {
         $modelTransaction = new Application_Model_Transaction();
