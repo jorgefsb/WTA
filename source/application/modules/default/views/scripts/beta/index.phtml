@@ -1,3 +1,31 @@
-<div id="welcome-beta">
-    You made it! Let the fun begin. Welcome to your private preview of WeTheAdorned: the most exclusive online collection of the hottest independent jewelry designs, curated by the world’s most fashionable celebrities.  (Btw, are you enjoying the gift we sent? If you didn’t receive one, you should have -- email us and we’ll take care of it).  As we continue preparing for our official launch, here’s how the next couple months are going to work: if you received an invitation -- you’re in.  We’ve taken care of the membership fee. Type in your email and the password (it’s on the invitation) and start shopping the exclusive and limited quantity collections you won’t find anywhere else and watch closely as more of the designers you already know, wear and love begin to appear.  So go ahead, start enjoying all the benefits of membership. Get adorned...You know you want to. 
+<?php
+
+    echo $this->partial('index/index.phtml', array('menu'=>$this->menu ));
+
+?>
+
+<div class="wLight">
+    <div id="passbeta" class="contenido">
+        <h1>let the fun begin</h1>
+        <span class="linea_horiz"></span>
+        <p>
+            if you have received an invite to have <strong> <em>access to a private preview of WTA,</em></strong> just enter your guest code below
+        </p>
+        <form action="/beta/code/format/json" method="post" name="guestCode" id="guestCode">
+            <input type="text" name="password" id="password" placeholder="Insert Guest Code" />
+            <input type="submit" value="SIGN IN" />
+            <a href="/beta/welcome" class="liLight" data-top="40px"></a>
+        </form>        
+    </div>
 </div>
+
+<script>
+    WTA.beta();
+    $(document).ready(function(){
+        var $wLight = $('.wLight');
+        $wLight.fadeIn();
+        var left=257;
+        $wLight.css({'margin-left': '-'+left+'px', top: '100px'});        
+        $('#overlay').fadeIn();   
+    })
+</script>

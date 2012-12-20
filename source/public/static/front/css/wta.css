@@ -9,7 +9,7 @@ html, body{background: #090909; padding: 0px}
 html.white, body.white{background: #FFF;}
 body.white .navbar-inverse  .navbar-inner{background: #000;}
 
-#overlay{background: url('../images/pattern-overlay.png'); width: 100%; height: 100%; position: fixed; display: none; z-index: 900;}
+#overlay{background: url('../images/pattern-overlay.png'); width: 100%; height: 100%; position: fixed; display: none; z-index: 9000;}
 
 .navbar-inverse  .navbar-inner{margin-left: 0; background: #0c0c0c; background: rgba(11, 11, 11, .8);  border: 0px; filter: none; border-radius: 0px;}
 .navbar-inner{padding: 0px;}
@@ -204,6 +204,7 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 .info h3{ text-transform: uppercase;  font-weight: normal; margin: 0 auto; font-size: 10px; line-height: 15px}
 .info h2{ font-size: 16px; font-weight: normal; margin-top: 3px; line-height: 16px; margin-bottom: 5px}
 .info p{font-size: 11px; font-family: Georgia, Arial, Helvetica, sans-serif; margin-top: 25px; margin:20px auto 25px; width: 300px; line-height: 15px; }
+.info p a{color: #333;}
 .info .precios{}
 .info .precios div{display: inline-block; vertical-align: top; width: 100px; margin: 0 auto;}
 .info .precios span{text-transform: uppercase; font-size: 11px; color: #6c6b6b; display: block; margin-bottom: 5px}
@@ -306,9 +307,11 @@ input[type=text], input[type=password]{background:  #FFF; color: #222; borde-rad
 input[type=submit]{background: #1d1d1d; color: #FFF;  border: 0px; border-radius: 3px;  font-family: 'Times New Roman';  padding: 10px 12px; margin-left: 177px; min-width: 100px}
 input[type=submit]:hover{background: #c23a3a; }
 #formSignin input[type=submit]{margin-left:20px; vertical-align: bottom}
-.closex{position: absolute; top: 15px; right: 17px; cursor: pointer; width: auto !important; color: #999; font-size: 17px; font-weight: normal; }
+.closex{position: absolute; top: 15px; right: 17px; cursor: pointer; width: auto !important; color: #999; font-size: 17px; font-weight: normal; font-family: Arial !important;}
 
-#signin input:-moz-placeholder, #signin input::-webkit-input-placeholder, #signin input:-ms-input-placeholder { color: #AAA;  }
+#signin input:-moz-placeholder, #signin input::-webkit-input-placeholder, #signin input:-ms-input-placeholder, 
+#passbeta input:-moz-placeholder, #passbeta input::-webkit-input-placeholder, #passbeta input:-ms-input-placeholder 
+{ color: #AAA;  }
 
 #signin input#firstname, #signin input#lastname, #signin input#password1, #signin input#password2{width: 120px; display: inline-block; margin-right: 7px;}
 #signin .passwordinstr{font-size: 11px; color: #252525; display: block; margin: 5px 0;}
@@ -330,7 +333,8 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 .wLight.no-border{background: none}
 .sAbout span{ color:#FFF;font-family:"Times New Roman", Times, serif}
 .sAbout span{ color: #FFF}
-.sAbout,.wContact{ position: relative;background-color:#000;z-index: 1000; padding:20px 0px 0px 20px; width:618px; }/*618px*/
+.sAbout, .wContact{ position: relative;background-color:#000;z-index: 1000; padding:20px 0px 0px 20px; width:618px; }/*618px*/
+.sAbout{width: 650px;}
 .sAbout > div{display: inline-block; vertical-align: top; background:url(../images/pareja.png) bottom right no-repeat; }/*350px*/
 .sAbout p{ color:#747474; padding: 10px 190px 10px 10px; line-height: 24px;}
 .sAbout p a{color: #FFF;}
@@ -500,6 +504,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
 .linea_horiz{background: transparent url(../images/linea_degradada_horizontal.png) center center no-repeat; width: 380px; height: 1px; display: inline-block }
 
 #welcome-beta{width: 400px; margin: 100px auto; font-size: 15px; color: #dedede}
+
+#passbeta {width: 375px; padding: 30px 70px 10px;}
+#passbeta h1{font-size: 28px; text-align: center;  text-transform: uppercase; font-weight: normal; color: #363636; margin-bottom: 0px; line-height: 22px;}
+#passbeta p{color: #363636; margin-top: 15px; margin-bottom: 20px}
+#passbeta input[type=text]{width: 220px; display: inline-block}
+#passbeta input[type=submit]{ margin-left: 5px; }
+
+#welcomebeta{width: 790px; height: 467px; padding: 0px; }
+#welcomebeta > div{background: transparent url(../images/bgwelcomebeta.png) left top no-repeat; height: 100%; border-radius: 10px; padding:35px 80px 10px 279px;}
+#welcomebeta h1{text-align: center; font-size: 26px; font-weight: normal; color: #363636; text-transform: uppercase; line-height: 27px; margin: 0px;}
+#welcomebeta p{font-size: 11px; line-height: 20px; color: #7e7e7e; padding: 0 10px; margin-bottom: 20px;}
+#welcomebeta p.principal{font-size: 13px; line-height: 18px; text-align: center; margin: 20px auto 20px; text-shadow: 0px 0px 1px #FFF; color: #363636; padding: 0;}
 
 
 /* AJUSTES EN RESOLUCIONES CHICAS */

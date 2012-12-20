@@ -7,6 +7,10 @@ class Default_OrderController extends Core_Controller_ActionDefault
     public function init() {
         parent::init();
         
+        if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
+            $this->redirect('/beta');
+        }
+        
         $this->_helper->contextSwitch()
                 ->addActionContext('create', 'json')
                 ->initContext();

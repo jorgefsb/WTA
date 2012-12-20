@@ -78,7 +78,7 @@ var WTA = (function(){
         })
         
         $('.liLight').unbind('click').click( function(event){
-            
+            var $link = $(this);
             event.preventDefault();
             $('.wLight').remove();
             $.ajax({
@@ -92,7 +92,11 @@ var WTA = (function(){
                     
                     $wLight.css('margin-left', '-'+left+'px');
                     $('#overlay').fadeIn();
-                    $wLight.css("top",'100px');
+                    if( $link.data('top')){
+                        $wLight.css("top",$link.data('top'));
+                    }else{
+                        $wLight.css("top",'70px');
+                    }
                     $wLight.find('.closex').click( function(){
                         $('.wLight').fadeOut().delay(500).remove();
                         $('#overlay').fadeOut();
@@ -404,7 +408,8 @@ var WTA = (function(){
     this.slider_products = function(){
         
         var $slider_products = $('#slider_products');
-        if( !$('#contentBody').hasClass('boutique')){
+        var isboutique = $('#contentBody').hasClass('boutique');
+        if( !isboutique){
             $('BODY').append($slider_products);
         }
         
@@ -459,8 +464,10 @@ var WTA = (function(){
             }            
         }
         
-        bar.mouseenter(showProducts);
-        bar.click(showProducts);
+        if( !isboutique){
+            bar.mouseenter(showProducts);
+            bar.click(showProducts);
+        }
         
         $('#prev2').click(function(e){
             e.preventDefault();
@@ -471,10 +478,11 @@ var WTA = (function(){
             $('#slider').trigger('next', {items:1});
         });
         
-        setTimeout(function(){
-            bar.trigger('click');
-        }, 1500)
-        
+        if( !isboutique){
+            setTimeout(function(){
+                bar.trigger('click');
+            }, 1500)
+        }
     }
     /********************************* SLIDER PRODUCTOS *************************************/
     
@@ -738,6 +746,36 @@ var WTA = (function(){
             e.preventDefault();
             $('#frmcheckout').trigger('submit');
         })
+    }
+    
+    this.beta = function(){
+        $('#guestCode').submit(function(e){
+            e.preventDefault();
+            var $this = $(this);
+            var $password = $this.find('#password');
+            
+            $this.find('span.error').remove();
+            
+            if( that.isEmpty($password.val()) ){
+                that.setMsgError($password, 'Please, insert your guest code');
+            }else{
+                $.ajax($this.attr('action'), 
+                    {
+                        type: 'post',
+                        data: $this.serialize()
+                    }
+                ).done(function(response){
+                        if(response.ok){
+                            //window.location.href='/';
+                            $this.find('.liLight').trigger('click');
+                        }else{
+                            if(response.message){
+                                that.setMsgError($password, response.message);
+                            }
+                        }
+                })
+            }
+        });
     }
     
     return this;
