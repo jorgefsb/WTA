@@ -37,11 +37,12 @@
         <h3><span class="linea-degr-left"></span>Article #<?php echo $this->product['_code']; ?><span class="linea-degr-right"></span></h3>
         <h2><?php echo $this->product['_name']; ?></h2>
         
-        <a href="" class="details">Details</a>
+        <a href="" class="details">Details</a> /         
+        <a href="" class="detailsDesigner">Testimonials</a>
         
         <div  class="details-content">
             <p>
-            <?php echo $this->product['_descriptionDesigner']; ?>
+            <?php echo $this->product['_description']; ?>
             </p>
             
             <div class="precios">
@@ -56,6 +57,13 @@
                     <strong class="activo">$<?php echo number_format($this->product['_priceMember'], 2); ?></strong>
                 </div>
             </div>
+            
+        </div>
+        
+        <div  class="detailsDesigner-content">
+            <p>
+            <?php echo $this->product['_descriptionDesigner']; ?>
+            </p>
             
         </div>
         
@@ -85,7 +93,7 @@
 ?>
 
 <script>
-    WTA.Exclusive();
+    WTA.Designer();
     WTA.zoom('.imgProd');
     $('html, body').addClass('white');
 </script>

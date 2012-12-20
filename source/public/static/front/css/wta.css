@@ -55,13 +55,15 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 
 #footer blockquote{color: #FFF; border: 0px; text-align: center; font-size: 11px; margin-top: 10px;}
 
+.footer_fecha{text-align: right}
 
 /* CONTENIDO */
 #contentBody{padding-top: 1px; min-height: 627px; /*background: rgba(255, 255, 255, .2);*/ text-align: center; position: relative; z-index: 20}
 #contentBody{padding-bottom: 90px;}
 
 /* HOME  */
-#contentBody .logo{ margin-top: 110px; }
+#contentBody .logo{ margin-top: 80px;  }
+#contentBody .logo img{margin-left: -70%;}
 #contentBody .logo p{text-transform: uppercase; font-size: 20px; color: #e2e2e2; margin-top: 30px; line-height: 22px;}
 #contentBody .logo p span{color: #FFF; font-style: italic; font-family: Banda , helvetica, sans-serif;}
 
@@ -207,7 +209,7 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 .info .precios span{text-transform: uppercase; font-size: 11px; color: #6c6b6b; display: block; margin-bottom: 5px}
 .info .precios strong.inactivo{font-size: 14px; /*text-decoration: line-through; */color: #b8b4ae; }
 .info .precios strong.activo{font-size: 20px; color: #b8b4ae; }
-.info .details, .info .liLight{font-size: 11px; font-style: italic; color: #666;}
+.info .details, .info .detailsDesigner, .info .liLight{font-size: 11px; font-style: italic; color: #666;}
 .info .details-content{}
 
 
@@ -235,6 +237,7 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 #contentBody.boutique .imgProd img {max-width: 100%; max-height: 100%; }
 #contentBody.boutique .info {width: 35%; margin-left: 0px;}
 #contentBody.boutique .info p{margin-top: 15px;}
+#contentBody.boutique .info p a{color: #333}
 #contentBody.boutique .info h1 span{display: block}
 #contentBody.boutique .info .name1{color: #FFF;}
 #contentBody.boutique .info .name2{color: #626262;}
