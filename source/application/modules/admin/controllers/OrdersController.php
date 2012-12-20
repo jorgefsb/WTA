@@ -68,7 +68,7 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $this->view->countrySelect = isset($arrayData['countries']) ? $arrayData['countries'] : array();
         if (!empty($this->view->countrySelect)) {
             $this->view->subRegions = $modelRegions->listingSubregions($arrayData['countries']);
-            $this->view->subRegionsSelect = $arrayData['state'];
+            $this->view->subRegionsSelect = isset($arrayData['state']) ? $arrayData['state'] : array();
         } else {
             $this->view->subRegions = array();
             $this->view->subRegionsSelect = '';
