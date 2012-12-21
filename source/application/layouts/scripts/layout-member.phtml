@@ -1,3 +1,6 @@
+<?php 
+    $_identity = Zend_Auth::getInstance()->getIdentity();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,18 +10,176 @@
         <?php $this->headLink() ?>
 
         <?php $this->headScript() ?>
-        <?php $this->headStyle() ?>       
+        <?php $this->headStyle() ?>      
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="<?php echo STATIC_URL . '/front/'; ?>bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="<?php echo STATIC_URL . '/front/'; ?>bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+        <link href="<?php echo STATIC_URL . '/front/'; ?>css/wta.css" rel="stylesheet">
+        <link href="<?php echo STATIC_URL . '/front/'; ?>css/member.css" rel="stylesheet">
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>bootstrap/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/wta.js"></script>
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/prefixfree.js"></script>
+
     </head>
     <body>
-                <?php echo $this->getMessegerAdmin(); ?>
-                <?php echo $this->navigation()->menu()->render(); ?>
-                <?php echo $this->navigation()
-                        ->breadcrumbs()
-                        ->setMinDepth(0)
-                        ->setLinkLast(true)
-                        ->setSeparator(" &raquo; " . PHP_EOL); 
-                ?>
-                <?php echo $this->layout()->content ?>
+        <div class="container-fluid"> 
 
+            <div id="header">
+                <a href="/" id="logo-small" ><img src="<?php echo STATIC_URL ?>/front/images/wta-small.png"  /></a>
+                <div class="navbar navbar-inverse"> <!-- MENU  -->
+                    <div class="navbar-inner">
+
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".menu1">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <div class="pull-right">
+
+                            <?php
+                            if ($_identity && !empty($_identity)) {
+                                ?>
+                                <div class="btn-group btn-group-inverse">
+                                    <a class="btn dropdown-toggle" href="#" data-toggle="dropdown"  >
+                                        Welcome, <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> &nbsp; &nbsp;<span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="" >My profile</a></li>
+                                        <li><a href="" >Edit my address</a></li>
+                                        <li><a href="" >Payment method</a></li>
+                                        <li><a href="/signout" class="btn signout" >SIGN OUT</a></li>
+                                    </ul>
+                                </div>
+                                <?php
+                            } else {
+                                ?>
+                                <a class="btn liLight" href="/sign-in" >
+                                    <strong>Sign in</strong>                                    
+                                </a>
+                                <?php
+                            }
+                            ?>
+                            <a class="btn" id="btnShoppingCart">
+                                <strong>Your Shopping Cart is empty<span id="itemsCount"></span></strong>
+                            </a>
+
+                        </div>
+
+
+                        <div class="nav-collapse collapse menu1">
+                            <ul class="nav">
+                                <li><a href="/about-wta" title="" class="liLight">About WTA</a></li>
+                                <li><a href="/how-it-works" title="" >How it works</a></li>
+                                <li><a href="/coming-soon" title="" class="liLight" >PRESS</a></li>
+                                <!-- li><a href="/coming-soon" title="" class="liLight">CALENDAR</a></li -->
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="popupShoppinCart" class="shoppingCart"><!-- SHOPPING CART -->
+                <span class="closex">x</span>
+                <h3>Your shopping list</h3>                       
+                <div id="scrollbar1">
+                    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                    <div class="viewport">
+                        <div class="overview">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div id="contentBodyMember">
+                <div class="container">
+                    
+                    <h1>MY ACCOUNT</h1>
+                    <span class="linea-degr-left"></span>
+
+                    <div class="row">
+                        <div class="span6">
+                            Welcome to your Dashboard <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> .
+                        </div>
+                        <div class="span2">
+
+                        </div>
+                        <div class="span4">
+                            <div>Last visit, 31 November 2012</div>
+                            <div>Member since, 1 November 2012</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="span4">
+                            <div class="shadow">
+                                <?php echo $this->navigation()->menu()->render(); ?>
+                            </div>
+                        </div>
+                        <div class="span1"></div>
+                        <div class="span7">
+                            <?php echo $this->getMessegerAdmin(); ?>
+                            <?php echo $this->layout()->content ?>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            <div id="footer"> <!-- FOOTER -->
+
+                <div class="navbar navbar-inverse"> <!-- MENU  -->
+                    <div class="navbar-inner">
+
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".menu2">
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <div class="nav-collapse collapse menu2">
+                            <ul class="nav">
+                                <li><a href="/" title="" >Home</a></li>
+                                <li><a href="/affiliates" title="" >Affiliates</a></li>
+                                <li><a href="/terms-of-service" title="" >Terms of service</a></li>
+                                <li><a href="/rewarding-our-members" title="" >Rewarding our members</a></li>
+                                <li><a href="/help" title="" >Help</a></li>
+                                <li><a href="/privacy" title="" >Privacy</a></li>
+                            </ul>
+
+                            <div class="pull-right">
+                                <a class="btn facebook" target="__blank" href="https://www.facebook.com/pages/WeTheAdornedcom/117992215024061" >
+                                </a>
+
+                                <a class="btn twitter" target="__blank" href="https://twitter.com/WeTheAdorned/">
+                                </a>
+
+                                <a class="contactus liLight" href="/contact-us">
+                                    Contact us
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <blockquote>
+                    <span class="linea-degr-left"></span>Copyright 2012 - Wetheadorned.com<span class="linea-degr-right"></span>
+                </blockquote>
+
+            </div>
+
+        </div>
     </body>
 </html>

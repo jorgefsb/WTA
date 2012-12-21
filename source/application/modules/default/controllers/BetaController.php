@@ -26,7 +26,7 @@ class Default_BetaController extends Core_Controller_ActionDefault
         
         $this->view->menu = $menu;
         return $menu;;
-    }    
+    }
     
     public function indexAction(){        
         $this->loadOptionsMenu();
@@ -49,7 +49,7 @@ class Default_BetaController extends Core_Controller_ActionDefault
         $code = $this->getParam('password',0);
         
         
-        if( 'SEVENTHHOME' == $code){
+        if( 'SEVENTHHOUSE' == strtoupper($code)){
             $this->view->ok =1;
             $this->_session->authBeta = 1;
         }else{

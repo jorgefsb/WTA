@@ -62,10 +62,16 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 #contentBody{padding-bottom: 90px;}
 
 /* HOME  */
+/*
 #contentBody .logo{ margin-top: 80px;  }
 #contentBody .logo img{margin-left: -70%;}
 #contentBody .logo p{text-transform: uppercase; font-size: 20px; color: #e2e2e2; margin-top: 30px; line-height: 22px;}
 #contentBody .logo p span{color: #FFF; font-style: italic; font-family: Banda , helvetica, sans-serif;}
+*/
+#contentBody .logo{ }
+#contentBody .logo img{position: absolute; top: 0px; left: 10%; margin-top: 5px; transition: all 500ms ease 0s; }
+#contentBody .logo p{text-transform: uppercase; font-size: 16px; color: #dad09b; margin-top: 10px; line-height: 22px;}
+#contentBody .logo p span{color: #dad09b; font-style: italic; font-weight: bold }
 
 #change_section{background: #101010; color: #FFF; font-family: Arial, Helvetica, sans-serif}
 #change_section > span{display: inline-block; font-size: 11px; text-transform: uppercase; min-width: 200px; text-align: center; margin-right: 20px; line-height: 35px;}
@@ -103,11 +109,11 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 
 
 /* MENU SECCIONES HOME */
-#lissections{color: #FFF; margin-top: 45px; border-bottom: 1px solid #7e7e7e; margin-left: 0px; display: inline-block;}
+#lissections{color: #efd693; margin-top: 285px; border-bottom: 1px solid #7e7e7e; margin-left: 0px; display: inline-block;}
 #lissections > li{display: inline-block; vertical-align: top; font-size: 15px;}
 #lissections  li{ text-align: center; margin: 0 10px; position: relative; list-style: none}
 #lissections  li > span {display: block; text-transform: uppercase}
-#lissections  li a{text-align: center; font-family: Arial; text-transform: uppercase; color: #bab9ba; text-decoration: none; font-size: 16px; font-weight: bold;  }
+#lissections  li a{text-align: center; font-family: Arial; text-transform: uppercase; color: #efd693; text-decoration: none; font-size: 16px; font-weight: bold;  }
 #lissections  li a.btn{font-size: 10px; font-weight: normal; padding: 2px 4px; margin-top: 10px;}
 #lissections > li a span{display: block; border-bottom: 3px solid transparent; padding-bottom: 5px; font-family: Georgia, Arial, Helvetica; }
 #lissections > li:hover a span{border-bottom: 3px solid #FFF; }
@@ -118,13 +124,13 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 #lissections > li > ul{ top: 50px; margin-left: 0px; width: 100%;}
 #lissections li:hover > ul{ opacity: 1; }
 #lissections > li >  ul > li{margin: 0px auto 10px; position: relative; z-index: 19; /*height: 20px; */}
-#lissections > li >  ul > li > a{ font-size: 15px; color:#FFF}
+#lissections > li >  ul > li > a{ font-size: 15px; color:#c8b06e}
 #lissections > li >  ul > li > span{font-weight: bold}
 
 
 #lissections li ul li > ul{top: 0px; right: -115px; z-index: 20; opacity: 0; width: 150px;}
 /*#lissections li ul li:hover > ul{ opacity: 1; }*/
-#lissections li ul li > ul a{color: #EEE !important; text-transform: lowercase; font-size: 12px; z-index: 20;}
+#lissections li ul li > ul a{color: #fef9ce !important; text-transform: lowercase; font-size: 12px; z-index: 20; text-shadow: 0px 0px 1px #FFF;}
 #lissections li ul li > ul a:hover{color: #fff !important;}
 #lissections li ul li > ul li{position: relative; z-index: 20;}
 #lissections .menGift ul li{font-size: 12px; font-family: 'Times New Roman';}
@@ -527,6 +533,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
 }
 
 @media (max-width: 1115px) {
+    #contentBody .logo img{left: 5%; }
+    #contentBody .logo p{width: 50%; margin: 0 auto}
+    
     #lissections > li {max-width: 140px;}
     #lissections > li > ul{top: 80px; }
     #lissections > li > ul > li > a { font-size: 12px; }
@@ -546,6 +555,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
     .aWraper .aBack #image_mujer{vertical-align: bottom;}
 
 }
+@media (max-width: 932px) {
+    
+    #logo-small {left: 0px; margin-left: 0px;}
+}
 
 @media (max-width: 730px) {
     #bgslider{ position: absolute; width: 100%; height: auto; overflow: visible}
@@ -555,7 +568,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
 
     #contentBody .logo{ margin-top: 25px; }
     #contentBody .logo p{ font-size: 15px; margin-top: 20px; line-height: 20px;}
-
+    #lissections{margin-top: 65px;}
+    #contentBody .logo img{max-width: 50px; }
 
 
     /*#lissections li {margin-bottom: 20px !important; width: 40%;}*/

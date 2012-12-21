@@ -35,9 +35,9 @@
                                 <?php
                                     foreach($prod['sizes'] as $size){
                                         if( $prod['size_prod'] ==  $size['product_size_size_id'] ){
-                                            echo '<option selected="selected" value="'.$size['product_size_size_id'].'">'.$size['product_size_size_id'].'</option>';
+                                            echo '<option selected="selected" value="'.$size['product_size_size_id'].'">'.$size['size_name'].'</option>';
                                         }else{
-                                            echo '<option value="'.$size['product_size_size_id'].'">'.$size['product_size_size_id'].'</option>';
+                                            echo '<option value="'.$size['product_size_size_id'].'">'.$size['size_name'].'</option>';
                                         }
                                     }
                                 ?>
