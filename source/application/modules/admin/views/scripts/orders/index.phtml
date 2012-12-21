@@ -33,6 +33,17 @@
                             </select>
                         </div>
                     </div>
+                    <h4>Product</h4>
+                    <div class="control-group">
+                        <label class="control-label" for="products">Select Product</label>
+                        <div class="controls">
+                            <select style="width: 210px;" id="menbers" name="products[]" multiple data-rel="chosen">
+                                <?php foreach ($this->products as $index): ?>
+                                    <option value="<?php echo $index['product_id'] ?>" <?php echo in_array($index['product_id'], $this->productSelect) ? 'selected' : '' ?> ><?php echo $index['product_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
                     <h4>Country</h4>
                     <div class="control-group">
                         <label class="control-label" for="countries">Select Countries</label>
@@ -123,10 +134,9 @@
                         <?php echo $index['transaction_payment_date']; ?>
                     </td>
                     <td>
-                        <a href="#" id="<?php echo $index['transaction_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn-setting">
+                        
                             <?php echo $index['member_name']; ?> 
                             <?php echo $index['member_last_name']; ?>
-                        </a>
                     </td>
                     <td>
                         <?php echo $index['tansaction_state_name']; ?>
@@ -236,6 +246,9 @@
                             <?php } ?>
                         <?php } ?>
                     </td>
+                    <td>                        <a href="#" id="<?php echo $index['transaction_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn-setting">View More
+                        </a>
+</td>
                 </tr>
             <?php endforeach; ?>
         </table>
