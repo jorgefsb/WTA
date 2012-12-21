@@ -7,12 +7,13 @@
  */
 class Application_Entity_AclAdmin extends Zend_Acl {
 
-    static $arrayRole = array(1=>'SuperAdmin',2=>'Admin',3=>'ContentManager');
+    static $arrayRole = array(1=>'SuperAdmin',2=>'Admin',3=>'ContentManager',0=>'Gest');
     
     public function __construct() {
         
 // define Roles        
-        $this->addRole(new Zend_Acl_Role('ContentManager')); // not authenicated
+        $this->addRole(new Zend_Acl_Role('Gest')); // not authenicated
+        $this->addRole(new Zend_Acl_Role('ContentManager'),'Gest'); // not authenicated
         $this->addRole(new Zend_Acl_Role('Admin'), 'ContentManager'); // authenticated as member inherit guest privilages
         $this->addRole(new Zend_Acl_Role('SuperAdmin'),'Admin'); // authenticated as admin inherit member privilages
 

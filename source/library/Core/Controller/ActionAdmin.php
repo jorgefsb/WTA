@@ -13,16 +13,21 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
         $this->_sessionAdmin = new Zend_Session_Namespace('sessionAdmin');
         $this->getNavigationSuperAdmin();
         $this->_helper->layout->setLayout('layout-admin');
-        if(isset($this->_sessionAdmin->navigator) && isset($this->_identityUserAdmin)){//findOneByController
+        
+        if(isset($this->_sessionAdmin->navigator) && isset($this->_identityUserAdmin) ){//findOneByController
+            if(!isset($this->_identityUserAdmin->user_id)){
+                
+            }
             $container = new Zend_Navigation($this->_sessionAdmin->navigator);
             $acl = new Application_Entity_AclAdmin();
-            $role = Application_Entity_AclAdmin::$arrayRole;
+            $arrayRoles = Application_Entity_AclAdmin::$arrayRole;
+            $role = $arrayRoles[isset($this->_identityUserAdmin->user_type_id)?$this->_identityUserAdmin->user_type_id:0];
             $this->view->navigation($container)
                     ->setAcl($acl)
-                    ->setRole($role[$this->_identityUserAdmin->user_type_id])
+                    ->setRole($role)
                     ->findOneByController($this->getRequest()->getControllerName());
             $resource = $this->getRequest()->getControllerName();
-            if(!$acl->isAllowed($role[$this->_identityUserAdmin->user_type_id], $resource)){
+            if(!$acl->isAllowed($role, $resource)){
                 $this->_helper->layout->setLayout('layout-admin-noautorize');
                 $this->getRequest()
                         ->setModuleName('admin')
