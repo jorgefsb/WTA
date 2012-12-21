@@ -47,6 +47,7 @@
             <a class="btn btn-info" href="/admin/members/active/id/<?php echo $index['member_id']; ?>"><span class="icon-eye-open icon-white"></span> Active</a>
             <?php } ?>
             <a class="btn btn-info" href="/admin/orders?menbers%5B%5D=<?php echo $index['member_id']; ?>"><span class="icon-shopping-cart icon-white"></span> View Orders</a>
+            <a href="#" id="<?php echo $index['member_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn-setting">View More</a>
            </td>
     </tr>
 <?php endforeach; ?>
@@ -55,4 +56,50 @@
         echo $this->paginationControl($this->listingMember, 'Sliding', '/paginatorcontrol/members.phtml',array('search'=>$this->search));
         ?>
 </div>
+</div>
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3 id="contact"></h3>
+    </div>
+    <div class="modal-body">
+        <dl>
+            <dt>Contact information </dt>
+            <dd id="mail"></dd>
+            <dd id="phone"></dd>
+            <dd id="fax"></dd>
+
+            <dt>Billing address</dt>
+            <dd id="billFirstName"></dd>
+            <dd id="billLastName"></dd>
+            <dd id="billAddres"></dd>
+            <dd id="billAddresContinued"></dd>
+            <dd id="billRegion"></dd>
+            <dd id="billSubRegion"></dd>
+            <dd id="billCity"></dd>
+            <dd id="billPostalCode"></dd>
+            <dd id="billPhone"></dd>
+
+            <dt>Shipping address</dt>
+            <dd id="shiFirstName"></dd>
+            <dd id="shiLastName"></dd>
+            <dd id="shiAddres"></dd>
+            <dd id="shiAddresContinued"></dd>
+            <dd id="shiRegion"></dd>
+            <dd id="shiSubRegion"></dd>
+            <dd id="shiCity"></dd>
+            <dd id="shiPostalCode"></dd>
+            <dd id="shiPhone"></dd>
+
+            <dt>Payment Method</dt>
+            <dd id="cardNumber"></dd>
+            <dd id="cardType"></dd>
+            <dd id="expire"></dd>
+        </dl>            
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+
+    </div>
 </div>
