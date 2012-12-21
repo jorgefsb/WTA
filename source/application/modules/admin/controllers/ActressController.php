@@ -7,6 +7,13 @@ class Admin_ActressController extends Core_Controller_ActionAdmin
     }
     public function indexAction()
     {                   
+        $this->view->headScript()->appendScript('
+    $(document).ready(function(){
+        $("#yesDelete").click(function(evento){
+            window.location.href = $("#deleteAction").attr("href");
+        });
+    });
+');
         $paginator = Zend_Paginator::factory(Application_Entity_Actress::listingActress());
         $paginator->setCurrentPageNumber($this->_getParam('page'));
         $paginator->setItemCountPerPage(6);
@@ -120,10 +127,10 @@ class Admin_ActressController extends Core_Controller_ActionAdmin
         $this->_flashMessenger->addMessage($actress->getMessage());
         $this->_redirect('/admin/actress');
     }
-    public function delAction() {
+    public function deleteAction() {
         $actress = new Application_Entity_Actress();
         $actress->identify($this->getRequest()->getParam('id'));
-        $actress->del();
+        $actress->delete();
         $this->_flashMessenger->addMessage($actress->getMessage());
         $this->_redirect('/admin/actress');
     }

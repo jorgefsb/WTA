@@ -16,11 +16,24 @@ class Application_Entity_Member extends Core_Entity {
     protected $_active;
     protected $_confirm;
     protected $_avatar;
-    protected $_phoneNumber;
-    protected $_zipCode;
-    protected $_countryId;
-    protected $_stateProvince;
-    protected $_city;
+    protected $_shiAddFirstName;
+    protected $_shiAddLastName;
+    protected $_shiAddAddAddres;
+    protected $_shiAddAddresContinued;
+    protected $_shiAddPostalConde;
+    protected $_shiAddRegionId;
+    protected $_shiAddSubregionId;
+    protected $_shiAddCity;
+    protected $_shiAddPhoneNumber;
+    protected $_billAddFirstName;
+    protected $_billAddLastName;
+    protected $_billAddAddAddres;
+    protected $_billAddAddresContinued;
+    protected $_billAddCity;
+    protected $_billAddRegionId;
+    protected $_billAddSubregionId;
+    protected $_billAddPostalConde;
+    protected $_billAddPhoneNumber;
 
     /**
      * __Construct         
@@ -40,11 +53,25 @@ class Application_Entity_Member extends Core_Entity {
         $this->_active = $data['member_active'];
         $this->_confirm = $data['member_confirm'];
         $this->_avatar = $data['member_avatar'];
-        $this->_phoneNumber = $data['member_phone_number'];
-        $this->_zipCode = $data['member_zip_code'];
-        $this->_countryId = $data['member_country_id'];
-        $this->_stateProvince = $data['member_state_province'];
-        $this->_city = $data['member_city'];
+        
+        $this->_shiAddFirstName = $data['member_shi_add_first_name'];
+        $this->_shiAddLastName = $data['member_shi_add_last_name'];
+        $this->_shiAddAddAddres = $data['member_shi_add_addres'];
+        $this->_shiAddAddresContinued = $data['member_shi_add_addres_continued'];
+        $this->_shiAddPostalConde = $data['member_shi_add_postal_code'];
+        $this->_shiAddRegionId = $data['member_shi_add_region_id'];
+        $this->_shiAddSubregionId = $data['member_shi_add_subregion_id'];
+        $this->_shiAddCity = $data['member_shi_add_city'];
+        $this->_shiAddPhoneNumber = $data['member_shi_add_phone_number'];
+        $this->_billAddFirstName = $data['member_bill_add_first_name'];
+        $this->_billAddLastName = $data['member_bill_add_last_name'];
+        $this->_billAddAddAddres = $data['member_bill_add_addres'];
+        $this->_billAddAddresContinued = $data['member_bill_add_addres_continued'];
+        $this->_billAddCity = $data['member_bill_add_city'];
+        $this->_billAddRegionId = $data['member_bill_add_region_id'];
+        $this->_billAddSubregionId = $data['member_bill_add_subregion_id'];
+        $this->_billAddPostalConde = $data['member_bill_add_postal_code'];
+        $this->_billAddPhoneNumber = $data['member_bill_add_phone_number'];
     }
 
     /*
@@ -60,6 +87,7 @@ class Application_Entity_Member extends Core_Entity {
         if ($data != '') {
             $this->asocParams($data);
         }
+        return $data;
     }
 
     /*
@@ -95,11 +123,28 @@ class Application_Entity_Member extends Core_Entity {
         $data['member_active'] = $this->_active;
         $data['member_confirm'] = $this->_confirm;
         $data['member_avatar'] = $this->_avatar;
-        $data['member_phone_number'] = $this->_phoneNumber;
-        $data['member_zip_code'] = $this->_zipCode;
-        $data['member_country_id'] = $this->_countryId;
-        $data['member_state_province'] = $this->_stateProvince;
-        $data['member_city'] = $this->_city;
+        
+        $data['member_shi_add_first_name'] = $this->_shiAddFirstName;
+        $data['member_shi_add_last_name'] = $this->_shiAddLastName;
+        $data['member_shi_add_addres'] = $this->_shiAddAddAddres;
+        $data['member_shi_add_addres_continued'] = $this->_shiAddAddresContinued;
+        $data['member_shi_add_postal_code'] = $this->_shiAddPostalConde;
+        $data['member_shi_add_region_id'] = $this->_shiAddRegionId;
+        $data['member_shi_add_subregion_id'] = $this->_shiAddSubregionId;
+        $data['member_shi_add_city'] = $this->_shiAddCity;
+        $data['member_shi_add_phone_number'] = $this->_shiAddPhoneNumber;
+        $data['member_bill_add_first_name'] = $this->_billAddFirstName;
+        $data['member_bill_add_last_name'] = $this->_billAddLastName;
+        $data['member_bill_add_addres'] = $this->_billAddAddAddres;
+        $data['member_bill_add_addres_continued'] = $this->_billAddAddresContinued;
+        $data['member_bill_add_city'] = $this->_billAddCity;
+        $data['member_bill_add_region_id'] = $this->_billAddRegionId;
+        $data['member_bill_add_subregion_id'] = $this->_billAddSubregionId;
+        $data['member_bill_add_postal_code'] = $this->_billAddPostalConde;
+        $data['member_bill_add_phone_number'] = $this->_billAddPhoneNumber;
+        
+        
+        
         return $this->cleanArray($data);
     }
 

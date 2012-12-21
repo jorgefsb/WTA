@@ -9,7 +9,6 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
     public function indexAction() {
         $this->view->headScript()->appendScript('
     $(document).ready(function(){
-    
         $(".btn-setting").click(function(evento){
         var request = $(this).attr("id");
         var requestTitle = $(this).attr("title");

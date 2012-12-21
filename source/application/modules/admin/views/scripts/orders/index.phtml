@@ -33,17 +33,7 @@
                             </select>
                         </div>
                     </div>
-                    <h4>Product</h4>
-                    <div class="control-group">
-                        <label class="control-label" for="products">Select Product</label>
-                        <div class="controls">
-                            <select style="width: 210px;" id="menbers" name="products[]" multiple data-rel="chosen">
-                                <?php foreach ($this->products as $index): ?>
-                                    <option value="<?php echo $index['product_id'] ?>" <?php echo in_array($index['product_id'], $this->productSelect) ? 'selected' : '' ?> ><?php echo $index['product_name'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
+                    
                     <h4>Country</h4>
                     <div class="control-group">
                         <label class="control-label" for="countries">Select Countries</label>
