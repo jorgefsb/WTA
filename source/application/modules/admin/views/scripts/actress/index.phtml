@@ -46,7 +46,7 @@
             <a class="btn btn-mini btn-info" href="/admin/actress/up/id/<?php echo $index['actress_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>
             <a class="btn btn-mini btn-info" href="/admin/actress/down/id/<?php echo $index['actress_id']; ?>"><span class="icon-arrow-down icon-white"></span> Down</a>
             <a class="btn btn-mini btn-info" href="/admin/actress/edit/id/<?php echo $index['actress_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
-            <a class="btn btn-mini btn-info" id="deleteAction" href="/admin/actress/delete/id/<?php echo $index['actress_id']; ?>"><span class="icon-trash icon-white"></span> Delete</a>
+            <a class="btn btn-mini btn-info btn-setting" id="deleteAction" href="/admin/actress/delete/id/<?php echo $index['actress_id']; ?>"><span class="icon-trash icon-white"></span> Delete</a>
             <?php if($index['actress_public'] == 1){ ?>
             <a class="btn btn-mini btn-info" href="/admin/actress/unpublish/id/<?php echo $index['actress_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublish</a>
             <?php } else { ?>
@@ -60,4 +60,21 @@
         echo $this->paginationControl($this->listingActress, 'Sliding', '/paginatorcontrol/actress.phtml');
         ?>
 </div>
+</div>
+
+
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Delete</h3>
+    </div>
+    <div class="modal-body">
+        Want to remove this celebrity
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" id="yesDelete" data-dismiss="modal">Yes</a>
+        <a href="#" class="btn" data-dismiss="modal">No</a>
+
+    </div>
 </div>

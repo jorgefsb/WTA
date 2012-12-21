@@ -7,6 +7,13 @@ class Admin_ActressController extends Core_Controller_ActionAdmin
     }
     public function indexAction()
     {                   
+        $this->view->headScript()->appendScript('
+    $(document).ready(function(){
+        $("#yesDelete").click(function(evento){
+            window.location.href = $("#deleteAction").attr("href");
+        });
+    });
+');
         $paginator = Zend_Paginator::factory(Application_Entity_Actress::listingActress());
         $paginator->setCurrentPageNumber($this->_getParam('page'));
         $paginator->setItemCountPerPage(6);

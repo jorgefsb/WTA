@@ -14,6 +14,7 @@ class Application_Entity_Actress extends Core_Entity {
     protected $_slug;
     protected $_order;
     protected $_img;
+
     /**
      * __Construct         
      *
@@ -30,7 +31,6 @@ class Application_Entity_Actress extends Core_Entity {
         $this->_slug = $data['actress_slug'];
         $this->_order = $data['actress_order'];
         $this->_img = $data['actress_img'];
-        
     }
 
     /*
@@ -43,13 +43,12 @@ class Application_Entity_Actress extends Core_Entity {
     function identify($idActress) {
         $modelActress = new Application_Model_Actress();
         $data = $modelActress->getActress($idActress);
-        
+
         if ($data != '') {
             $this->asocParams($data);
         }
     }
-    
-    
+
     /*
      * metodo identify(), obtiene los datos de un mienbro
      *
@@ -60,7 +59,7 @@ class Application_Entity_Actress extends Core_Entity {
     function identifyByName($nameActress) {
         $modelActress = new Application_Model_Actress();
         $data = $modelActress->getActressByName($nameActress);
-        
+
         if ($data != '') {
             $this->asocParams($data);
         }
@@ -88,7 +87,7 @@ class Application_Entity_Actress extends Core_Entity {
         $modelActress = new Application_Model_Actress();
         $this->_message = 'satisfactory record';
         $data = $this->setParamsDataBase();
-        $data['actress_slug'] = $filter->urlFriendly($this->_name,'-').'-  '.$this->_id  ;
+        $data['actress_slug'] = $filter->urlFriendly($this->_name, '-') . '-  ' . $this->_id;
         return $modelActress->update($data, $this->_id);
     }
 
@@ -114,51 +113,59 @@ class Application_Entity_Actress extends Core_Entity {
             false;
         }
     }
-    function publish(){
+
+    function publish() {
         $this->_public = 1;
         $this->update();
         $this->_message = 'satisfactory record';
     }
-    function unpublish(){
+
+    function unpublish() {
         $this->_public = '0';
         $this->update();
         $this->_message = 'satisfactory record';
     }
-    function delete(){
+
+    function delete() {
         $modelActress = new Application_Model_Actress();
         $data['actress_delete'] = 1;
+        $data['actress_public'] = 0;
+        $this->_message = 'satisfactory record';
         return $modelActress->update($data, $this->_id);
     }
-    
-    static function listingActress(){
+
+    static function listingActress() {
         $modelActress = new Application_Model_Actress();
         return $modelActress->listing();
     }
-    static function listingActressPublicNotProduct($idProduct){
+
+    static function listingActressPublicNotProduct($idProduct) {
         $modelActress = new Application_Model_Actress();
         return $modelActress->listingPublicNotProduct($idProduct);
     }
-    
-    private function getSigOrder(){
+
+    private function getSigOrder() {
         $modelactress = new Application_Model_Actress();
-        $num = (int)$modelactress->getOrderlast();
-        return ($num+1);
+        $num = (int) $modelactress->getOrderlast();
+        return ($num + 1);
     }
-    public function upOrder(){
-        if($this->_order>1){
+
+    public function upOrder() {
+        if ($this->_order > 1) {
             $modelActress = new Application_Model_Actress();
-            $data = $modelActress->getActressForOrder($this->_order-1);
+            $data = $modelActress->getActressForOrder($this->_order - 1);
             $entityActress = new Application_Entity_Actress();
             $entityActress->identify($data['actress_id']);
             $dataEntity['_id'] = $data['actress_id'];
-            $dataEntity['_order'] = $data['actress_order']+1;
+            $dataEntity['_order'] = $data['actress_order'] + 1;
             $entityActress->setProperties($dataEntity);
             $entityActress->update();
-            $this->_order = ($this->_order-1);
+            $this->_order = ($this->_order - 1);
             $this->update();
         }
     }
-    function addImage($temp,$name,$descripcion='') {
+
+    function addImage($temp, $name, $descripcion='') {
         $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_CELEBRITY);
         $image->setPropertie('_name', $name);
         $image->setPropertie('_temp', $temp);
@@ -171,62 +178,57 @@ class Application_Entity_Actress extends Core_Entity {
         $data['actress_img'] = $name;
         $modelactress = new Application_Model_Actress();
         $modelactress->update($data, $this->_id);
-        
     }
- 
-    function editImg($idImage,$temp,$name,$descripcion='') {
+
+    function editImg($idImage, $temp, $name, $descripcion='') {
         $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_CELEBRITY);
         $image->identify($idImage);
-        
-        if($temp!='' && $name!=''){
+
+        if ($temp != '' && $name != '') {
             $image->setPropertie('_name', $name);
             $image->setPropertie('_temp', $temp);
         }
         $image->setPropertie('_description', $descripcion);
         $image->setPropertie('_idTable', $this->_id);
         $image->update();
-        if($temp!='' && $name!=''){
-        $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_THUMBNAILS);
-        $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MINI);
-        $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MOBILE);
-        $data['actress_img'] = $name;
-        $modelactress = new Application_Model_Actress();
-        $modelactress->update($data, $this->_id);
+        if ($temp != '' && $name != '') {
+            $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_THUMBNAILS);
+            $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MINI);
+            $image->redimensionImagen(Application_Entity_Image::$CELEBRITY_REDIMENCION_MOBILE);
+            $data['actress_img'] = $name;
+            $modelactress = new Application_Model_Actress();
+            $modelactress->update($data, $this->_id);
         }
-        
-        
     }
-    public function downOrder(){
+
+    public function downOrder() {
         $modelActress = new Application_Model_Actress();
         $lastorderActress = $modelActress->getOrderlast();
-        if($this->_order<$lastorderActress){
-            $data = $modelActress->getActressForOrder($this->_order+1);
+        if ($this->_order < $lastorderActress) {
+            $data = $modelActress->getActressForOrder($this->_order + 1);
             $entityActress = new Application_Entity_Actress();
             $entityActress->identify($data['actress_id']);
             $dataEntity['_id'] = $data['actress_id'];
-            $dataEntity['_order'] = $data['actress_order']-1;
+            $dataEntity['_order'] = $data['actress_order'] - 1;
             $entityActress->setProperties($dataEntity);
             $entityActress->update();
-            $this->_order = ($this->_order+1);
+            $this->_order = ($this->_order + 1);
             $this->update();
         }
     }
 
-    public function getProductsSimple(){
+    public function getProductsSimple() {
         $modelActress = new Application_Model_Actress();
         $res = $modelActress->listingProducts($this->_id);
-        
+
         $result = array();
-        foreach( $res as $row){
+        foreach ($res as $row) {
             $result [] = $row['product_actress_product_id'];
-        }        
-        
+        }
+
         $_product = new Application_Model_Product();
-        $res = $_product->listingSimple(array('product_id in (?)'=>$result));
+        $res = $_product->listingSimple(array('product_id in (?)' => $result));
         return $res;
-        
-        return $result;
     }
-    
 
 }
