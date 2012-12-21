@@ -69,6 +69,7 @@ class Application_Model_Actress extends Core_Model {
     public function listing(){
         $smt = $this->_tableActress->select()
                 ->order('actress_order asc')
+                ->where('actress_delete=?', '0')
                 ->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();

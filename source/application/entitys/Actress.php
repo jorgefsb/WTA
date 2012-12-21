@@ -124,15 +124,10 @@ class Application_Entity_Actress extends Core_Entity {
         $this->update();
         $this->_message = 'satisfactory record';
     }
-    function del($idActress){
-//        $modelProducAcctres = new Application_Model_ProductActress();
-//        $productActress = $modelProducAcctres->getAllProducActress($idActress);
-//        foreach ($productActress as $index) {
-//            unlink($filename);
-//        }
-//        
-//        $modelProducAcctres->deleteActress($idActress);
-//        $this->_message = 'satisfactory record';
+    function delete(){
+        $modelActress = new Application_Model_Actress();
+        $data['actress_delete'] = 1;
+        return $modelActress->update($data, $this->_id);
     }
     
     static function listingActress(){
