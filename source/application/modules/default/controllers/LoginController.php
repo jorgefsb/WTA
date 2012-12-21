@@ -6,10 +6,10 @@ class Default_LoginController extends Core_Controller_ActionDefault
     public function init() {
         parent::init();
         
-        $action = $this->_getParam('action','');
-        if( Zend_Auth::getInstance()->hasIdentity() && $action !='signin' && 'forgotpass'){
-            //$this->redirect('/beta');
+        if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
+            $this->redirect('/beta');
         }
+        
                 
     }
     

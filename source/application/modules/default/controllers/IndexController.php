@@ -6,9 +6,12 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function init() {
         parent::init();
         
-        $action = $this->_getParam('action','');
-        if( Zend_Auth::getInstance()->hasIdentity() && $action !='signin' && 'forgotpass'){
-            //$this->redirect('/beta');
+        $this->view->isMember = Zend_Auth::getInstance()->hasIdentity();
+        
+        //$action = $this->_getParam('action','');
+        
+        if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
+            $this->redirect('/beta');
         }
         
         $this->_helper->contextSwitch()
@@ -365,6 +368,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
      public function resetAction(){        
         $this->_session->cart = array();
         $this->_session->_tracking->clear();
+        $this->_session->authBeta = 0;
     }
     
     

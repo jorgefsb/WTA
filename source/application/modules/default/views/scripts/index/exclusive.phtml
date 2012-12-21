@@ -38,19 +38,19 @@
         
         <div  class="details-content">
             <p>
-                <?php echo $this->product['_descriptionDesigner']; ?>
+                <?php echo $this->product['_description']; ?>
             </p>
 
             <div class="precios">
                 <div>
                     <span>Guest price</span>
-                    <strong class="inactivo">$<?php echo number_format($this->product['_price'], 2); ?></strong>
+                    <strong class="<?php echo ($this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_price'], 2); ?></strong>
                 </div>
-
-
+                
+                
                 <div >
                     <span>member price</span>
-                    <strong class="activo">$<?php echo number_format($this->product['_priceMember'],2); ?></strong>
+                    <strong class="<?php echo (!$this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_priceMember'], 2); ?></strong>
                 </div>
             </div>
             
