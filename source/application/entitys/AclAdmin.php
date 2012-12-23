@@ -31,6 +31,7 @@ class Application_Entity_AclAdmin extends Zend_Acl {
 // assign privileges
         $this->allow('ContentManager', array('logout','index','product','actress','profiler'));
         $this->allow('Admin', array('orders','members','shopping-reports','user-management'));
+        $this->allow('SuperAdmin', array('orders','members','shopping-reports','user-management'));
     }
 
 }

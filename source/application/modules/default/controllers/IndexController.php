@@ -235,9 +235,10 @@ class Default_IndexController extends Core_Controller_ActionDefault
         
         $product_active = $this->getParam('product', '');  // Obtenemos el producto de la URL
         $id_prod = preg_replace('/^.*-(\d+).*$/', '$1', $product_active);
-        
+        $no_mostrar = false;
         if( !$id_prod ){
             $id_prod = $this->view->sliderProducts[0]['product_id'];
+            $no_mostrar = true;
         }
         
         $_product->identify($id_prod);
@@ -255,7 +256,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->product = $properties;
         
         
-                
+        $this->view->no_mostrar = $no_mostrar;
         $this->view->urlBase = '/boutique/'.preg_replace('/\s+/', '-',trim($properties['actress']['_name'])).'/';
         
         

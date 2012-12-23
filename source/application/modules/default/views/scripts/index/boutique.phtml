@@ -8,7 +8,19 @@
     
 <div id="contentBody" class="boutique">
     
-    
+    <?php if($this->no_mostrar==true){ ?>
+        <div  class="imgProd">
+                <?php if( strpos(strtolower($this->product['actress']['_name']), 'ivana') !==FALSE){ ?>
+                    <img src="<?php echo STATIC_URL;?>/front/images/ivana.jpg" />
+                <?php }else ?>
+                <?php if( strpos(strtolower($this->product['actress']['_name']), 'cameron') !==FALSE){ ?>
+                    <img src="<?php echo STATIC_URL;?>/front/images/cameron.jpg" />
+                <?php }else ?>
+                <?php if( strpos(strtolower($this->product['actress']['_name']), 'melody') !==FALSE){ ?>
+                    <img src="<?php echo STATIC_URL;?>/front/images/melody.jpg" />
+                <?php } ?>
+        </div>
+    <?php }else{ ?>
     <div  class="imgProd">
         <?php if( !empty($this->product['celebrity']) && !empty($this->product['celebrity']['product_actress_img'])){ ?>
             <img src="<?php echo DINAMIC_URL.'/productCelebrity/'.$this->product['celebrity']['product_actress_img'] ?>" />
@@ -55,7 +67,7 @@
         </div>
             
     </div>
-        
+    <?php } ?>
 </div>
 
 <?php 

@@ -12,7 +12,7 @@
             if you have received an invite to have <strong> <em>access to a private preview of WTA,</em></strong> just enter your guest code below
         </p>
         <form action="/beta/code/format/json" method="post" name="guestCode" id="guestCode">
-            <input type="text" name="password" id="password" placeholder="Insert Guest Code" />
+            <input type="text" name="password" id="password" placeholder="Insert password" />
             <input type="submit" value="SIGN IN" />
             <a href="/beta/welcome" class="liLight" data-top="40px"></a>
         </form>        
@@ -26,6 +26,6 @@
         $wLight.fadeIn();
         var left=257;
         $wLight.css({'margin-left': '-'+left+'px', top: '100px'});        
-        $('#overlay').fadeIn();   
+        $('#overlay').css('background-color', '#000').show();   
     })
 </script>

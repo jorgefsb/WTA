@@ -15,6 +15,22 @@ class Application_Model_Transaction extends Core_Model {
         $this->_tableProduct = new Application_Model_DbTable_Product();
         $this->_tableMemeber = new Application_Model_DbTable_Member();
     }
+    
+    
+    /*
+     * Inicia una transaccion a nivel Base de datos
+     */
+    public function initTransactionDb(){
+        $this->_tableTransaction->getAdapter()->beginTransaction();
+    }
+    
+    
+    /*
+     * Guarda los cambios en la base de datos de forma permanente
+     */
+    public function commit(){
+        $this->_tableTransaction->getAdapter()->commit();
+    }
 
     /**
      * metodo getTransaction(), devuelve todos los datos de un Transaction
@@ -146,6 +162,20 @@ class Application_Model_Transaction extends Core_Model {
         $result = $smt->fetchAll();
         $smt->closeCursor();
         return $result;
+    }
+    
+    function listProducts($idTransaction){
+        $smt = $this->_tableTransactionDetails
+                ->getAdapter()
+                ->select()
+                ->from(array('trd' => $this->_tableTransactionDetails->getName()), array(
+                    'trd.*'))
+                ->join(array('pr' => $this->_tableProduct->getName()), 'pr.product_id=trd.product_id', 'pr.*')
+                ->where('trd.transaction_id = ?', $idTransaction)
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();        
+        return $result; 
     }
 
 }

@@ -10,6 +10,15 @@ class Application_Model_Regions extends Core_Model {
         $this->_tablesubRegions = new Application_Model_DbTable_SubRegions();
     }
     
+    public function getRegion($idregion){        
+        $smt = $this->_tableRegions->select()
+                ->where('id =?', $idregion)
+                ->query();
+        $result = $smt->fetch();
+        $smt->closeCursor();
+        return $result;
+    }
+    
     public function listing($regions=array()){
         $where = '';
         if( !empty($regions)){

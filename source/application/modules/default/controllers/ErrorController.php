@@ -3,6 +3,11 @@
 class Default_ErrorController extends Zend_Controller_Action
 {
 
+    public function init() {
+        parent::init();
+//        $this->_helper->layout->disableLayout();
+    }
+    
     public function errorAction()
     {
 

@@ -6,7 +6,7 @@ class Application_Model_Country extends Core_Model {
     
 
     public function __construct() {
-        $this->_tablecountry = new Application_Model_DbTable_country();
+        $this->_tablecountry = new Application_Model_DbTable_Country();
         
     }
 

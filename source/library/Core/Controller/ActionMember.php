@@ -5,19 +5,21 @@ class Core_Controller_ActionMember extends Core_Controller_Action {
     public function init() {
         $this->_identity = Zend_Auth::getInstance()->getIdentity();
         $this->_helper->layout->setLayout('layout-member');
-        
+        /*
         if( !Zend_Auth::getInstance()->hasIdentity() ){
             $this->redirect('/');
-        }
+        }*/
         
         parent::init();
         if(isset($this->_session->navigatorMember)){
             $container = new Zend_Navigation($this->_session->navigatorMember);
+            
             $activeNav = $this->view->navigation($container)
                     ->findOneByController($this->getRequest()->getControllerName());
-            
-            $activeNav->active = true;
-            $activeNav->setClass("active");
+            if($activeNav){
+                $activeNav->active = true;
+                $activeNav->setClass("active");
+            }
             
         }
     }

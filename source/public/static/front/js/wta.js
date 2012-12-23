@@ -78,6 +78,7 @@ var WTA = (function(){
         })
         
         $('.liLight').unbind('click').click( function(event){
+            $('#overlay').css('background-color', 'transparent');   
             var $link = $(this);
             event.preventDefault();
             $('.wLight').remove();
@@ -416,7 +417,7 @@ var WTA = (function(){
         var $slider = $('#slider');        
         
         $slider.carouFredSel({
-            auto: false,
+            auto: true,
             responsive: true,
             width: '100%',
             scroll: 1,            
@@ -438,18 +439,20 @@ var WTA = (function(){
         var bar = $('#slider_products').find('.bar')
         var timeOcultar = null;
         
-        $slider_products.mouseover(function(){
-            clearTimeout(timeOcultar);
-            timeOcultar = setTimeout(function(){
-                $slider_products.animate({marginTop: '-28px', height: 28});
-                bar.addClass('mostrar');
-            }, 5000);
-        });
+        if( !isboutique){ 
+            $slider_products.mouseover(function(){
+                clearTimeout(timeOcultar);
+                timeOcultar = setTimeout(function(){
+                    $slider_products.animate({marginTop: '-28px', height: 28});
+                    bar.addClass('mostrar');
+                }, 5000);
+            });
+        }
         
         $slider_products.data('h',$slider_products.height());
         
         var showProducts = function(e){
-
+ 
             var $this = $(this);                        
             if($this.hasClass('mostrar')){
                 //$('#slider_products').find('.slider-content').slideToggle();
@@ -464,7 +467,7 @@ var WTA = (function(){
             }            
         }
         
-        if( !isboutique){
+        if( !isboutique){ 
             bar.mouseenter(showProducts);
             bar.click(showProducts);
         }
@@ -728,14 +731,23 @@ var WTA = (function(){
             var $cb_termns = $('#cb_termns');
             if( $cb_termns.attr('checked') != 'checked' ){
                 that.setMsgError($('#checkoutsubmit'), 'You must to accept the Terms of Services');
+                form_valid = false;
             }
             
             if(form_valid){
-                $.ajax($this.attr('action'), {data: $this.serialize()}).done(function(response){s
-                    $('#linkprocessed').trigger('click');
+                $.ajax($this.attr('action')+'/format/json', {type: 'post', data: $this.serialize()}).done(function(response){
+                    if(response.messages){
+                        $('span.error').remove();                        
+                        var obj = $('#checkoutsubmit');
+                        for(var i in response.messages){
+                            that.setMsgError(obj, response.messages[i]);
+                        }
+                    }else{
+                        $('#linkprocessed').trigger('click');
+                    }
                 })
             }else{
-                that.setMsgError($('#checkoutsubmit'), 'You empty fields');
+                that.setMsgError($('#checkoutsubmit'), 'You are empty fields');
             }
         });
         

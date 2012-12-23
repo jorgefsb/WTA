@@ -54,6 +54,25 @@ class Admin_MembersController extends Core_Controller_ActionAdmin {
         $this->_redirect('/admin/members/');
     }
 
+    /*
+     * Nuevo metodo para obetner la informacion
+     */
+    public function getMemberInformationAction() {
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $member = new Application_Entity_Member();
+        $data = $member->identify($this->getParam('member'));
+        $nameMember = $this->getParam('member');
+        $modelRegions = new Application_Model_Regions();
+        $array['contact'] = 'Member: ' . $nameMember;
+        $array['mail'] = 'Mail: ' . $data['member_mail'];
+        
+        $this->_helper->json($array);
+    }
+    
+    /*
+     *  Se sustituye por la informacion traida del servicio de pago
+     * 
     public function getMemberInformationAction() {
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
@@ -91,5 +110,7 @@ class Admin_MembersController extends Core_Controller_ActionAdmin {
 //        $array['expire'] = 'Expire: ' . $data['member_card_expiration_month'] . '/' . $data['member_card_expiration_year'];
         $this->_helper->json($array);
     }
+     * 
+     */
 }
 

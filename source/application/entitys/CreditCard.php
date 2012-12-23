@@ -28,10 +28,6 @@ class Application_Entity_CreditCard extends Core_Entity {
         $this->_id = $data['credit_card_id'];
         $this->_name = $data['credit_card_name'];
         $this->_number = $data['credit_card_number'];
-        $this->_typeId = $data['credit_card_type_id'];
-        $this->_segurityCode = $data['credit_card_segurity_code'];
-        $this->_expireMonth = $data['credit_card_expire_month'];
-        $this->_expireYear = $data['credit_card_expire_year'];
         $this->_memberId = $data['member_id'];
     }
 
@@ -62,10 +58,6 @@ class Application_Entity_CreditCard extends Core_Entity {
         $data['credit_card_id'] = $this->_id;
         $data['credit_card_name'] = $this->_name;
         $data['credit_card_number'] = $this->_number;
-        $data['credit_card_expire_month'] = $this->_expireMonth;
-        $data['credit_card_expire_year'] = $this->_expireYear;
-        $data['credit_card_type_id'] = $this->_typeId;
-        $data['credit_card_segurity_code'] = $this->_segurityCode;
         $data['member_id'] = $this->_memberId;
         return $this->cleanArray($data);
     }

@@ -16,7 +16,7 @@ class Application_Entity_Member extends Core_Entity {
     protected $_active;
     protected $_confirm;
     protected $_avatar;
-    protected $_shiAddFirstName;
+    /*protected $_shiAddFirstName;
     protected $_shiAddLastName;
     protected $_shiAddAddAddres;
     protected $_shiAddAddresContinued;
@@ -33,8 +33,10 @@ class Application_Entity_Member extends Core_Entity {
     protected $_billAddRegionId;
     protected $_billAddSubregionId;
     protected $_billAddPostalConde;
-    protected $_billAddPhoneNumber;
+    protected $_billAddPhoneNumber;*/
 
+    protected $_customerProfileId;
+    
     /**
      * __Construct         
      *
@@ -53,7 +55,7 @@ class Application_Entity_Member extends Core_Entity {
         $this->_active = $data['member_active'];
         $this->_confirm = $data['member_confirm'];
         $this->_avatar = $data['member_avatar'];
-        
+        /*
         $this->_shiAddFirstName = $data['member_shi_add_first_name'];
         $this->_shiAddLastName = $data['member_shi_add_last_name'];
         $this->_shiAddAddAddres = $data['member_shi_add_addres'];
@@ -71,7 +73,10 @@ class Application_Entity_Member extends Core_Entity {
         $this->_billAddRegionId = $data['member_bill_add_region_id'];
         $this->_billAddSubregionId = $data['member_bill_add_subregion_id'];
         $this->_billAddPostalConde = $data['member_bill_add_postal_code'];
-        $this->_billAddPhoneNumber = $data['member_bill_add_phone_number'];
+        $this->_billAddPhoneNumber = $data['member_bill_add_phone_number'];*/
+                
+        $this->_customerProfileId = $data['member_customerProfileId'];
+                
     }
 
     /*
@@ -123,7 +128,7 @@ class Application_Entity_Member extends Core_Entity {
         $data['member_active'] = $this->_active;
         $data['member_confirm'] = $this->_confirm;
         $data['member_avatar'] = $this->_avatar;
-        
+        /*
         $data['member_shi_add_first_name'] = $this->_shiAddFirstName;
         $data['member_shi_add_last_name'] = $this->_shiAddLastName;
         $data['member_shi_add_addres'] = $this->_shiAddAddAddres;
@@ -141,9 +146,11 @@ class Application_Entity_Member extends Core_Entity {
         $data['member_bill_add_region_id'] = $this->_billAddRegionId;
         $data['member_bill_add_subregion_id'] = $this->_billAddSubregionId;
         $data['member_bill_add_postal_code'] = $this->_billAddPostalConde;
-        $data['member_bill_add_phone_number'] = $this->_billAddPhoneNumber;
+        $data['member_bill_add_phone_number'] = $this->_billAddPhoneNumber;*/
         
+        $data['member_last_date_login'] = date('Y-m-d H:i:s');
         
+        $data['member_customerProfileId'] = $this->_customerProfileId;
         
         return $this->cleanArray($data);
     }
@@ -309,6 +316,10 @@ class Application_Entity_Member extends Core_Entity {
         if ($result->isValid()) {
             $data = $adapter->getResultRowObject(null, 'member_password');
             $auth->getStorage()->write($data);
+            
+            $modelMember = new Application_Model_Member();
+            $modelMember->update(array('member_last_date_login' => date('Y-m-d H:i:s')), $data->member_id);
+            
             $this->_message = 'Successful Authentication';
             return TRUE;
         } else {

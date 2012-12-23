@@ -47,7 +47,10 @@
             <a class="btn btn-info" href="/admin/members/active/id/<?php echo $index['member_id']; ?>"><span class="icon-eye-open icon-white"></span> Active</a>
             <?php } ?>
             <a class="btn btn-info" href="/admin/orders?menbers%5B%5D=<?php echo $index['member_id']; ?>"><span class="icon-shopping-cart icon-white"></span> View Orders</a>
-            <a href="#" id="<?php echo $index['member_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn-setting">View More</a>
+            <a href="#" id="<?php echo $index['member_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn btn-info btn-setting">View more</a>
+            
+            <!-- a class="btn btn-info" href="#" id="<?php echo $index['member_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn-setting">Shipping Address</a>
+            <a class="btn btn-info" href="#" id="<?php echo $index['member_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn-setting">Billing Information</a-->
            </td>
     </tr>
 <?php endforeach; ?>
@@ -70,7 +73,7 @@
             <dd id="phone"></dd>
             <dd id="fax"></dd>
 
-            <dt>Billing address</dt>
+            <!--dt>Billing address</dt>
             <dd id="billFirstName"></dd>
             <dd id="billLastName"></dd>
             <dd id="billAddres"></dd>
@@ -95,7 +98,7 @@
             <dt>Payment Method</dt>
             <dd id="cardNumber"></dd>
             <dd id="cardType"></dd>
-            <dd id="expire"></dd>
+            <dd id="expire"></dd -->
         </dl>            
     </div>
     <div class="modal-footer">

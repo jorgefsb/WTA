@@ -99,6 +99,11 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
         $_designer->identify($properties['_designer']);
         $properties['images'] = $_product->listingImg();
         $properties['sizes'] = $_product->getSize();
+        
+        if( !empty($properties['sizes'])){
+            $properties['size_prod'] = $properties['sizes'][0]['product_size_size_id'];
+        }
+        
         $properties['designer'] = $_designer->getProperties();
         
         $properties['quantity'] = 1;        

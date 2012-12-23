@@ -124,10 +124,7 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $array['billPostalCode'] = 'Postal Code: ' . $data['transaction_bill_add_postal_code'];
         $array['billPhone'] = 'Phone: ' . $data['transaction_bill_add_phone_number'];
 
-        $array['cardNumber'] = 'Card Number: ' . $data['transaction_card_number'];
-        $array['cardType'] = 'Card Type: ' . $data['card_type_id'];
-        $array['segurityCode'] = 'Segurity Code: ' . $data['transaction_card_segurity_code'];
-        $array['expire'] = 'Expire: ' . $data['transaction_card_expiration_month'] . '/' . $data['transaction_card_expiration_year'];
+        $array['cardNumber'] = 'Card Number: ' . str_pad($data['transaction_card_number'], 16, '*', STR_PAD_LEFT);
         $this->_helper->json($array);
     }
 

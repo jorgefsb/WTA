@@ -1,22 +1,4 @@
 
-<div class="wLight no-border" >
-   <div class="comming_soon" id="limitedleft">
-          <div class="contenido" >
-                <div class="closex">X</div>
-                <div class="titulo" >
-                        <?php echo $this->product['_name']?> 
-                    <div class="subtitulo" >ARTICLE #<?php echo $this->product['_code']?></div> 
-                </div> 
-                <div class="leyenda" >
-                    <strong>Total of Quantities</strong> - <?php echo $this->product['_limitedQuantity']?> units <br/><br/>
-                    <strong>Units left</strong><?php echo $this->product['_cantLimitedQuantity']?> units
-                </div>
-          </div>
-
-    </div>
-
-</div>
-
 
 <div class="wLight no-border" >
    <div class="comming_soon" id="limitedleft">
@@ -28,11 +10,14 @@
                 </h1> 
                 <br/>
                 <p>
-                    <strong>Total of Quantities</strong> - <?php echo $this->product['_limitedQuantity']?> units                     
+                    <strong>Total of Quantities</strong> - <?php echo $this->product['_cantLimitedQuantity']?> units                     
                 </p>
                 <p>
-                    <strong>Units left</strong> - <?php echo $this->product['_cantLimitedQuantity']?> units
+                    <strong>Units left</strong> - <?php echo $this->product['_cantLimitedQuantity'] - $this->product['_cantBuy']?> units
                 </p>
+                <br/>
+                <br/>
+                <br/>
           </div>
 
        
