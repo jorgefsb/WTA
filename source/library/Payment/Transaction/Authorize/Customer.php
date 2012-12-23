@@ -35,11 +35,34 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
      * return Xml string for the request
      */    
     protected $_error;
+    protected $_customerProfile;
     
     public function identify($customerProfileId){
         $this->_customerProfileId = $customerProfileId;
-        $xml = '';
-        return $xml;
+        
+        $xml_customer = $this->_authorize->commit('getCustomerProfileRequest', '<customerProfileId>'.$customerProfileId.'</customerProfileId>');       
+        
+        $_customerPaymentProfileIds = array();
+        if( is_object($xml_customer)){            
+            
+            $this->_customerProfile  = $xml_customer->profile;
+            
+            $_customerPaymentProfileIds = array();
+            foreach ($this->_customerProfile->paymentProfiles as $profile){
+                $_customerPaymentProfileIds[] = $profile->customerPaymentProfileId;
+            }
+            
+            $_customerShippingAddressIds = array();
+            foreach ($this->_customerProfile->shipToList as $shipToList){
+                $_customerShippingAddressIds[] = $shipToList->customerAddressId;
+            }
+            
+        }
+        $this->_customerPaymentProfileIds = $_customerPaymentProfileIds;
+        
+        
+        $this->_customerShippingAddressIds = $_customerShippingAddressIds;
+        
     }
     
     /*
@@ -57,7 +80,7 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
         if($this->_customerProfileId){
             $xml .= "<customerProfileId>{$this->_customerProfileId}</customerProfileId>";
         }else{
-            /*
+            
             foreach($this->_billingsInformation as $billInf){
                 $xml .= '<paymentProfiles>';
                 $xml .= $billInf->getXml();
@@ -95,31 +118,29 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
             $action = 'updateCustomerProfileRequest';
         }
         
-        $response = $this->_authorize->commit($action, $xml);
-        $xml_response = $this->_authorize->parse_api_response($response);
+        $xml_response = $this->_authorize->commit($action, $xml);
         
-        if(is_array($xml_response )){
-            $this->_error = $xml_response;
+        
+        if( is_object($xml_response)==false){
+            $this->_error = $this->_authorize->getError();
             return false; //Error
         }else{
-            if ("Ok" == $xml_response->messages->resultCode) {
-                $this->_customerProfileId = $xml_response->customerProfileId;
-                $_customerPaymentProfileIds = array();
-                $_customerShippingAddressIds = array();
-                foreach ($xml_response->customerPaymentProfileIdList as $customerPaymentProfileId){
-                    $_customerPaymentProfileIds[] = $customerPaymentProfileId;
-                }
-                foreach ($xml_response->customerShippingAddressIdList as $customerShippingAddressId){
-                    $_customerShippingAddressIds[] = $customerShippingAddressId;
-                }
-                
-                $this->_customerPaymentProfileIds = $_customerPaymentProfileIds;
-                $this->_customerShippingAddressIds = $_customerShippingAddressIds;
-                
-                return $this->_customerProfileId;
-                
-                $this->_isEdited = false;
+            $this->_customerProfileId = $xml_response->customerProfileId;
+            $_customerPaymentProfileIds = array();
+            $_customerShippingAddressIds = array();
+            foreach ($xml_response->customerPaymentProfileIdList as $customerPaymentProfileId){
+                $_customerPaymentProfileIds[] = $customerPaymentProfileId->numericString;
             }
+            foreach ($xml_response->customerShippingAddressIdList as $customerShippingAddressId){
+                $_customerShippingAddressIds[] = $customerShippingAddressId->numericString;
+            }
+
+            $this->_customerPaymentProfileIds = $_customerPaymentProfileIds;
+            $this->_customerShippingAddressIds = $_customerShippingAddressIds;
+
+            return $this->_customerProfileId;
+            
+            $this->_isEdited = false;
         }
         return false;
         

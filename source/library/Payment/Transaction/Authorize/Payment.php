@@ -45,15 +45,9 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
     
     public function getXml(){
         
-        if( is_object($this->customer) ){
-            $_customerProfileId =$this->customer->_customerProfileId;
-            $_customerPaymentProfileId = $this->customer->_customerPaymentProfileIds[0]; // Por defult toma el primer valor
-            $_customerShippingAddressId = $this->customer->_customerShippingAddressIds[0];
-        }else{
-            $_customerProfileId = $this->_customerProfileId;
-            $_customerPaymentProfileId = $this->_customerPaymentProfileId;
-            $_customerShippingAddressId = $this->_customerShippingAddressId;
-        }
+        $_customerProfileId = $this->_customerProfileId;
+        $_customerPaymentProfileId = $this->_customerPaymentProfileId;
+        $_customerShippingAddressId = $this->_customerShippingAddressId;
         
          $xml =
                     "<amount>{$this->_amount}</amount>";
@@ -71,21 +65,21 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
                         "<amount>{$this->_shippingAmount}</amount>".
                         "<name>{$this->_shippingName}</name>".
                         "<description>{$this->_shippingDescription}</description>".
-                    "</shipping>".
-                    "<lineItems>";
+                    "</shipping>";                    
          }
+         //$xml .= "<lineItems>";
          foreach($this->_items as $item){
             $xml .=
-                            "<lineItem>".
+                            "<lineItems>".
                                 "<itemId>{$item['itemId']}</itemId>".
                                 "<name>{$item['name']}</name>".
-                                "<description>{$item['description']}</description>".
+                                //"<description>{$item['description']}</description>".
                                 "<quantity>{$item['quantity']}</quantity>".
                                 "<unitPrice>{$item['unitPrice']}</unitPrice>".
-                            "</lineItem>";
+                            "</lineItems>";
          }
          $xml .=
-                    "</lineItems>";
+     //               "</lineItems>".
                     "<customerProfileId>{$_customerProfileId}</customerProfileId>".
                     "<customerPaymentProfileId>{$_customerPaymentProfileId}</customerPaymentProfileId>".
                     "<customerShippingAddressId>{$_customerShippingAddressId}</customerShippingAddressId>";
@@ -114,37 +108,40 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
     public function commit(){
         if($this->_isEdited == false){
             return true;
-        }        
-        $xml ='';
-        if($this->_customer && $this->_customer->_customerProfileId){
-            $xml .= '<customerProfileId>'.$this->_customer->_customerProfileId.'</customerProfileId>';
         }
-        $xml = '<transaction>';
+        $xml ='';
+        $xml .= '<transaction>';
         $xml .= '<profileTransAuthCapture>';
         $xml .= $this->getXml();
         $xml .= '</profileTransAuthCapture>';
         $xml .= '</transaction>';
-        $xml .= "<validationMode>{$this->_authorize->_config['validationMode']}</validationMode>".
+   //     $xml .= "<validationMode>{$this->_authorize->_config['validationMode']}</validationMode>".
         $action = 'createCustomerProfileTransactionRequest';
         
-        $response = $this->_authorize->commit($action, $xml);
-        $xml_response = $this->_authorize->parse_api_response($response);
+        $xml_response = $this->_authorize->commit($action, $xml);
         
-        if(is_array($xml_response )){
-            $this->_error = $xml_response;
+        if(is_object($xml_response)==false ){
+            $this->_error = $this->_authorize->getError();
             return false; //Error
         }else{
-            if ("Ok" == $xml_response->messages->resultCode) {
-                $this->_customerProfileId = $xml_response->customerProfileId;
-                $_customerPaymentProfileIds = array();
-                $_customerShippingAddressIds = array();
-                
-                $this->_profileTransactionId = $xml_response->messages->message->msg->code;
-                
-                return $this->_profileTransactionId;
-                
-                $this->_isEdited = false;
+            $strdirectResponse = $xml_response->directResponse;
+            $directResponse= explode(',', $strdirectResponse);
+            $this->_isEdited = false;
+            
+            if($directResponse[0]==1){
+                $this->_profileTransactionId = $directResponse[6];
+                return true;
+            }elseif($directResponse[0]==2){
+                $this->_error = 'Decline';
+                return false;
+            }elseif($directResponse[0]==3){
+                $this->_error = 'Error';
+                return false;
+            }elseif($directResponse[0]==4){
+                $this->_error = 'Held for Review';
+                return false;
             }
+
         }
         return false;
     }
@@ -160,6 +157,9 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
         $this->_items[] = $product;
     }
     
+    public function getError(){
+        return $this->_error;
+    }
     
 }
 

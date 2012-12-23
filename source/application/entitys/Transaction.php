@@ -337,10 +337,10 @@ class Application_Entity_Transaction extends Core_Entity {
             $name = $prod['product_name'];
             $strsize = '';
             if($prod['product_size']){
-                $strsize = '('.$prod['product_size'].')';
+                $strsize = ' '.$prod['product_size'].'';
             }
-            $name .= $strsize;
-            $_payment->addProduct($prod['product_code'], $name, substr($prod['product_description'], 0, 250),$prod['transaction_details_product_cant'], $prod['transaction_detail_final_price']);
+            //$name .= $strsize;
+            $_payment->addProduct($prod['product_code'], substr(trim($name), 0, 30), substr($prod['product_description'], 0, 100),$prod['transaction_details_product_cant'], $prod['transaction_detail_final_price']);
             //$_id, $_name, $_description, $_quantity, $_unitPrice
         }
         $_payment->_amount = $this->_amount;
@@ -350,16 +350,40 @@ class Application_Entity_Transaction extends Core_Entity {
 
         $customerProfileId = $modelMember->getPropertie('_customerProfileId');
         if( $customerProfileId){
-            $_customer->_customerProfileId = $customerProfileId;
+            //$_customer->_customerProfileId = $customerProfileId;            
+            $_customer->identify($customerProfileId);
+        }else{
+            $customerProfileId = $_customer->commit();
         }
-        $customerProfileId = $_customer->commit();
         
-        
+        $_payment->_customerProfileId = $_customer->_customerProfileId;
+        $_payment->_customerPaymentProfileId = $_customer->_customerPaymentProfileIds[0];
+        $_payment->_customerShippingAddressId = $_customer->_customerShippingAddressIds[0];
+                
         if( $customerProfileId ){
             if( $this->_member >0){                
                 $modelMember->setPropertie('_customerProfileId', $customerProfileId);
+                $modelMember->update();
             }
-            $_payment->commit();
+            if($_payment->commit()){
+                $modelTransaction = new Application_Model_Transaction();
+                                
+                $modelTransaction->update(array(
+                    'transaction_code_payment'=>$_payment->_profileTransactionId,
+                    'transaction_payment_date'=>date('Y-m-d H:i:s'),
+                    'tansaction_state_id'=>  self::TRANSACTION_PAID
+                ), $this->_id);
+                
+                $this->_message = 'Payment Successful';
+                
+                return $_payment->_profileTransactionId;
+            }else{                
+                $this->_message = $_payment->getError();
+                return false;
+            }
+        }else{
+            $this->_message = 'No se pudo crear el perfil';
+            return false;
         }
         
     }

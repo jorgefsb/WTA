@@ -9,7 +9,7 @@ class Default_OrderController extends Core_Controller_ActionDefault
         parent::init();
         
         $this->isMember = Zend_Auth::getInstance()->hasIdentity();
-        $this->view->isMember = $this->isMember;
+        //$this->view->isMember = $this->isMember;
                 
         if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
             $this->redirect('/beta');
@@ -22,8 +22,9 @@ class Default_OrderController extends Core_Controller_ActionDefault
     }
     
     public function createAction(){
-      
+              
         if ($this->getRequest()->isXmlHttpRequest()) {
+            unset($this->view->identity);      
             
             $formValues = $this->_getAllParams();
             $errors = $this->validate($formValues);
@@ -134,16 +135,21 @@ class Default_OrderController extends Core_Controller_ActionDefault
                                                                                                                         'cardCode'=>$formValues['card_seccode'],
                                                                                                                     ));
                     
+                    if(!$paymentId){
+                        $this->view->messages = array('error'=>$transacction->getMessage());
+                    }else{
+                        $this->view->ok =1;
+                    }             
+                }else{
+                     $this->view->messages = array('error'=>$transacction->getMessage());
                 }
-                
-                
                 
                 //print_r($formValues);die();
 
                 
 
-                die();
-                print_r($formValues);die();
+                //die();
+                //print_r($formValues);die();
 
                 /* $product tiene que ser una entidad typo Application_Entity_Product
 

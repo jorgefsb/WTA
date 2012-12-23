@@ -54,20 +54,19 @@ class Payment_Transaction_Authorize {
         if (!$new_config) {
             $config = $this->_config;
         }
-        
         $posturl = "https://" . $config['host'] . $config['path'];
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $posturl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, Array("Content-Type: text/xml"));
-        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         $response = curl_exec($ch);
         
-        return $response;
+        return trim($response);
     }
 
     public function commit($action, $content) {
@@ -87,15 +86,15 @@ class Payment_Transaction_Authorize {
                 "</$action>";
         
         $response = $this->exec($xml);
-
+        
         $parsedresponse = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOWARNING);
         
         if ("Ok" != $parsedresponse->messages->resultCode) {
-            echo "The operation failed with the following errors:<br>";
+            $error =  "The operation failed with the following errors:<br>";
             foreach ($parsedresponse->messages->message as $msg) {
-                echo "[" . htmlspecialchars($msg->code) . "] " . htmlspecialchars($msg->text) . "<br>";
+                $error .= "[" . htmlspecialchars($msg->code) . "] " . htmlspecialchars($msg->text) . ". ";
             }
-            echo "<br>";
+            $this->_error[] = $error;
             return false;
         }
         return $parsedresponse;
@@ -106,7 +105,6 @@ class Payment_Transaction_Authorize {
     }
     
     public function parse_api_response($content){
-        
         $parsedresponse = simplexml_load_string($content, "SimpleXMLElement", LIBXML_NOWARNING);
         if ("Ok" != $parsedresponse->messages->resultCode) {
             $error = array();
@@ -117,6 +115,12 @@ class Payment_Transaction_Authorize {
             return $error;
         }
         return $parsedresponse;
+    }
+    
+    public function getError(){
+        if( !empty($this->error)){
+            return end($this->_error);
+        }
     }
 }
 
