@@ -350,7 +350,7 @@ class Application_Entity_Product extends Core_Entity {
     function getProductsByDesignType($category){
         $_product = new Application_Model_Product();
         if( !empty($category)){
-            $res = $_product->listingSimple(array('dt.design_type_name = ?'=>$category));
+            $res = $_product->listingSimple(array('dt.design_type_name = ?'=>$category, 'product_limited_quantity = ?'=>0));
         }else{
             $res = $_product->listingSimple();
         }
@@ -362,7 +362,7 @@ class Application_Entity_Product extends Core_Entity {
     function getProductsByCollectionType($category){
         $_product = new Application_Model_Product();
         if( !empty($category)){
-            $res = $_product->listingSimple(array('ct.collection_type_name = ?'=>$category));
+            $res = $_product->listingSimple(array('ct.collection_type_name = ?'=>$category, 'product_limited_quantity = ?'=>0));
         }else{
             $res = $_product->listingSimple();
         }

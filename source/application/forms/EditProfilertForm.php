@@ -44,16 +44,17 @@ class Application_Form_EditProfilertForm extends Core_Form {
                 )));
         $this->addElement(new Zend_Form_Element_Password('confirmPassword',
                         array(
-                            'label' => 'Comfirm Password ',
+                            'label' => 'Confirm Password ',
                             'validators' => array(
                                 new Zend_Validate_Identical(),
                                 new Zend_Validate_StringLength(array('min'=>8)))
                 )));
         
-        $this->addElement(new Zend_Form_Element_Submit('Create Account',
+        $this->addElement(new Zend_Form_Element_Submit('submit',
                         array('attribs' => array(
                                 'class' => 'submit-button'
-                        ))));
+                        ),
+                        'label'=>'Create Account')));
     }
 
    public function isValid($data, $id='') {

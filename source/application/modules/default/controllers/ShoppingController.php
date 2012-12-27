@@ -40,6 +40,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
        
     
     public function cartAction(){
+        $this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         
         //$this->view->nprod = $this->_session->count;    
@@ -52,6 +53,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
     
     
     public function checkoutAction(){
+        $this->view->isMember = true;
         $this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
         
@@ -71,6 +73,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
     
     
     public function checkoutcartAction(){
+        $this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
@@ -80,6 +83,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
     
     
     public function addtocartAction(){
+        $this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->_session->count++;
         
@@ -126,6 +130,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
     }
     
     public function removeitemAction(){ 
+        $this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->_session->count++;
         
@@ -153,6 +158,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
     }
     
     public function countcartAction(){
+        $this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         $count = 0;
         foreach($this->_session->cart as $product){
@@ -164,6 +170,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
     
     
     public function changeitemAction(){
+        $this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->_session->count++;
         

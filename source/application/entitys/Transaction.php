@@ -276,8 +276,12 @@ class Application_Entity_Transaction extends Core_Entity {
         $_country = new Application_Model_Regions();
         $_state = new Application_Model_SubRegions();
         
-        $modelMember = new Application_Entity_Member();
-        $modelMember->identify($this->_member);
+        $customerProfileId = 0;
+        if($this->_member>0){
+            $modelMember = new Application_Entity_Member();
+            $modelMember->identify($this->_member);
+            $customerProfileId = $modelMember->getPropertie('_customerProfileId');
+        }
         
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE);
 
@@ -337,9 +341,9 @@ class Application_Entity_Transaction extends Core_Entity {
             $name = $prod['product_name'];
             $strsize = '';
             if($prod['product_size']){
-                $strsize = ' '.$prod['product_size'].'';
+                $strsize = ' - '.$prod['product_size'].'';
             }
-            //$name .= $strsize;
+            $name .= $strsize;
             $_payment->addProduct($prod['product_code'], substr(trim($name), 0, 30), substr($prod['product_description'], 0, 100),$prod['transaction_details_product_cant'], $prod['transaction_detail_final_price']);
             //$_id, $_name, $_description, $_quantity, $_unitPrice
         }
@@ -348,7 +352,7 @@ class Application_Entity_Transaction extends Core_Entity {
 
         #Llenamos los datos de shipping
 
-        $customerProfileId = $modelMember->getPropertie('_customerProfileId');
+        
         if( $customerProfileId){
             //$_customer->_customerProfileId = $customerProfileId;            
             $_customer->identify($customerProfileId);

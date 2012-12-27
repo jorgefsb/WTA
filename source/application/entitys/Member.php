@@ -159,10 +159,10 @@ class Application_Entity_Member extends Core_Entity {
         $modelMember = new Application_Model_Member();
 
         if ($modelMember->update($this->setParamsDataBase(), $this->_id) !== FALSE) {
-            $this->_message = 'Registration was successful';
+            $this->_message = 'Profile update was successful';
             return true;
         } else {
-            $this->_message = 'registration fails';
+            $this->_message = 'update fails';
             return false;
         }
     }

@@ -41,7 +41,7 @@ class Core_Controller_ActionMember extends Core_Controller_Action {
                 'controller' => 'edit-profiler',
                 'action' => 'index',
                 'order' => 2
-            ),
+            )/*,
             array(
                 'label' => 'My Address',
                 'id' => 'my-address',
@@ -58,7 +58,7 @@ class Core_Controller_ActionMember extends Core_Controller_Action {
                 'controller' => 'payment-method',
                 'action' => 'index',
                 'order' => 4
-            )
+            )*/
         );
         $this->setRegisterNavigation($container);
     }

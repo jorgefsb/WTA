@@ -8,6 +8,7 @@ class Member_EditProfilerController extends Core_Controller_ActionMember
     public function indexAction()
     {           
        $form = new Application_Form_EditProfilertForm();
+       $form->getElement('submit')->setLabel('Update');
        $member = new Application_Entity_Member();
        $member->identify($this->_identity->member_id);
        $values = array(

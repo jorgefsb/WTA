@@ -4,26 +4,43 @@
     <div class="affiliates-content" >
         <h2 class="titulo_blanco">AFFILIATES</h2>
         <p class="parrafos affiliates" >
-            <span class="subtitulos_gris" >JOIN THE WeTheAdorned AFFILIATE PROGRAM</span>
-            WeTheAdorned is thrilled to partner with websites and blogs on the vanguard of innovation in fashion, lifestyle, designer, and beauty
+            <span class="subtitulos_gris" >Join the WeTheAdorned Affiliate Program</span>
+            WeTheAdorned is thrilled to partner with websites and blogs on the vanguard of innovation in fashion, lifestyle, designer, and beauty.
         </p>
 
-        <h3 class="titulo_blanco" style="font-size: 32px;" >THE BENEFITS 
-            <span class="subtitulo" >OF JOINING THE WeTheAdorned LINKSHARE AFFILIATE PROGRAM</span></h3>
+        <h3 class="titulo_blanco" style="font-size: 32px;" >How to Sign Up</h3>
 
         <div class="listado" >
             <ul>
-                <li>Competitive commission rates</li>
-                <li>Performance-based incentives</li>
-                <li>First look at product images from the latest exclusive collections</li>
-                <li>Advance notice of WeTheAdorned limited quantity releases</li>
-                <li>Access to WeTheAdorned ads</li>
-                <li>A dedicated affiliate team</li>
+                <li>Step 1: Complete the form below</li>
+                <li>Step 2: Our team will review your site</li>
+                <li>Step 3: If your site is approved for the program, our affiliate team will contact you</li>
             </ul>
         </div>
-
-
-
+        
+        <div>
+            <form id="frmAffiliates" action="/affiliates" name="frmAffiliates" method="post">
+                <label>First Name</label>
+                    <input type="text" name="firstname" value="" /><br/>
+                <label>Last Name</label>
+                    <input type="text" name="lastname" value="" /><br/>
+                <label>Website Name</label>
+                    <input type="text" name="website" value="" /><br/>
+                <label>Url</label>
+                    <input type="text" name="url" value="" /><br/>
+                <label>Email Address</label>
+                    <input type="text" name="email" value="" /><br/>
+                <label>Country</label>
+                    <input type="text" name="country" value="" /><br/>
+                <label>Site Information</label>
+                    <input type="text" name="siteinformation" value="" /><br/>
+                <q>Site Information. Please give us a little background information on your site and readership.</q><br/><br/>
+                <input type="submit" value="send" />
+            </form>
+        </div>
 
     </div>
 </div>
+<script>
+    WTA.Affiliates();
+</script>

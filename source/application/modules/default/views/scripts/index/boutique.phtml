@@ -71,14 +71,24 @@
 </div>
 
 <?php 
-    echo $this->partial('index/slider_products_boutique.phtml', 
+    /*echo $this->partial('index/slider_products_boutique.phtml', 
                                     array('data'=>$this->sliderProducts, 
                                                 'title'=>$this->product['actress']['_name'].' BOUTIQUE',
                                                 'url_base'=>$this->urlBase
                                         )
-                                    );
+                                    );*/
+        echo $this->partial('index/slider_products_boutique.phtml', 
+                                    array('section'=>'Boutique', 
+                                            'data'=>$this->sliderProducts, 
+                                            'url_base'=>$this->urlBase, 
+                                            'title'=>$this->product['actress']['_name'].' BOUTIQUE',
+                                            'category'=>'collection_type_name'
+                                            ));
+
+    
 ?>
     
-<script>   
+<script> 
+    $('html, body').css('background-color','#000');
     WTA.Exclusive();
 </script>

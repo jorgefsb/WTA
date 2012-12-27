@@ -52,9 +52,9 @@
                                         Welcome, <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> &nbsp; &nbsp;<span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="" >My profile</a></li>
-                                        <li><a href="" >Edit my address</a></li>
-                                        <li><a href="" >Payment method</a></li>
+                                        <li><a href="/member/dashboard" >My profile</a></li>
+                                        <!-- li><a href="" >Edit my address</a></li>
+                                        <li><a href="" >Payment method</a></li -->
                                         <li><a href="/signout" class="btn signout" >SIGN OUT</a></li>
                                     </ul>
                                 </div>
@@ -108,24 +108,35 @@
                     
                     <h1>MY ACCOUNT</h1>
                     <span class="linea-degr-left"></span>
+                    <?php if($_identity){ ?>
+                        <div class="row">
+                            <div class="span6">
+                                Welcome to your Dashboard <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> .
+                            </div>
+                            <div class="span2">
 
-                    <div class="row">
-                        <div class="span6">
-                            Welcome to your Dashboard <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> .
+                            </div>
+                            <div class="span4">
+                                <?php
+                                    $lastLogin = $_identity->member_last_date_login;
+                                    $str_lastLogin = date('F j, Y', strtotime($lastLogin));
+                                    
+                                    $memberDate = $_identity->member_create_date;
+                                    $str_memberDate = date('F j, Y', strtotime($memberDate));
+                                ?>
+                                <div>Last visit <?php echo $str_lastLogin ?></div>
+                                <div>Member since <?php echo $str_memberDate ?></div>
+                            </div>
                         </div>
-                        <div class="span2">
-
-                        </div>
-                        <div class="span4">
-                            <div>Last visit, 31 November 2012</div>
-                            <div>Member since, 1 November 2012</div>
-                        </div>
-                    </div>
-                    
+                    <?php } ?>
                     <div class="row">
                         <div class="span4">
                             <div class="shadow">
-                                <?php echo $this->navigation()->menu()->render(); ?>
+                                <?php 
+                                    if($_identity){ 
+                                        echo $this->navigation()->menu()->render(); 
+                                    }
+                                ?>
                             </div>
                         </div>
                         <div class="span1"></div>

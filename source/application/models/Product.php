@@ -319,7 +319,7 @@ class Application_Model_Product extends Core_Model {
     public function listingSimple($filtros=array()) {
 
         $where = array();
-        $where[] = 'product_delete <> 1';
+        $where[] = 'pr.product_public = 1  and product_delete <> 1';
         if( !empty($filtros)){
             foreach($filtros as $filtro=>$value){
                 $where[] = $this->_tableProduct->getAdapter()->quoteInto($filtro, $value);
@@ -349,7 +349,6 @@ class Application_Model_Product extends Core_Model {
                 ->joinLeft(array('dt' => $this->_tableDesignerType->getName()), 'pr.product_design_type=dt.design_type_id', '')
                 ->joinLeft(array('d' => $this->_tableDesigner->getName()), 'pr.product_designer=d.designer_id', '')
                 ->joinLeft(array('ct' => $this->_tableCollectionType->getName()), 'pr.product_collection_type=ct.collection_type_id', '')
-
                 ->where(implode(' and ', $where))
                 ->group('pr.product_id')        
                 ->order('product_price DESC');

@@ -28,7 +28,17 @@ var WTA = (function(){
             $(this).css('z-index', 19);
         })
         
+        var timeGift =null;
+        $('.getafgt, #popupgift').hover(function(){
+            $('#popupgift').stop(true, true).slideDown();
+            clearTimeout(timeGift);
+        },function(){
+            timeGift = setTimeout(function(){
+                $('#popupgift').stop(true, true).slideUp();
+            },500);
+        })
         
+        $('#popupgift').slideUp();
     };
     
     this.Exclusive = function(){
@@ -68,6 +78,76 @@ var WTA = (function(){
         }
         
     };
+    
+    this.ForgotPassword = function(){
+        $('#forgot').submit(function(e){
+            e.preventDefault();
+            
+            var  $this = $(this);
+            var $email = $this.find('input[name=mail]');
+            var validForm = true;
+            
+            if( !that.isEmail( $email.val() ) ){
+                validForm = false;
+                that.setMsgError($email, 'Oops, there\'s something wrong with your email. Please try again.');
+            }
+            
+            if(validForm){
+                $.ajax($this.attr('action'), {type:'post', data:$this.serialize()}).done(function(response){
+                    if(response.ok == 1){
+                        that.setMsgValid($email, 'We\'ve sent an email to retrieve your account');
+                        $this.find('input').fadeOut().delay(1000).remove();
+                    }else{
+                        that.setMsgValid($email, 'We\'ve sent an email to retrieve your account');
+                        $this.find('input').fadeOut().delay(1000).remove();
+                    }
+                });
+            }
+            
+        })
+        
+    }
+    
+    this.Affiliates = function(){
+        $('#frmAffiliates').submit(function(e){
+            
+            e.preventDefault();
+            
+            var $this = $(this);
+            var validForm = true;
+            
+            $this.find('span.error').remove();            
+            
+            $this.find('input[type=text]').each(function(){
+                if(that.isEmpty(this.value)){
+                    validForm = false;
+                }
+            });
+            
+            
+            if( !that.isEmail($this.find('input[name=email]').val())){
+                validForm = false;
+                that.setMsgError($this.find('q'), 'Oops, there\'s something wrong with your email. Please try again.');
+            }
+            
+            if(validForm){
+                $.ajax($this.attr('action'), {type: 'post', data: $this.serialize()}).done(function(response){
+                    if(response.send==1){
+                        $this.parent().prepend('Thank you for your interest in our Affiliate Program. Your information has been sent sucessfully. A member of our team will contact you shortly.');
+                        $this.fadeOut().delay(500).remove();
+                    }else{
+                        if(response.error){
+                            that.setMsgError($this.find('q'), response.error);
+                        }
+                    }
+                })
+            }else{
+                that.setMsgError($this.find('q'), 'Please complete all fields');
+            }
+            
+            
+        })
+    }
     
     
         
@@ -410,9 +490,9 @@ var WTA = (function(){
         
         var $slider_products = $('#slider_products');
         var isboutique = $('#contentBody').hasClass('boutique');
-        if( !isboutique){
+        //if( !isboutique){
             $('BODY').append($slider_products);
-        }
+//        }
         
         var $slider = $('#slider');        
         
@@ -438,39 +518,42 @@ var WTA = (function(){
         
         var bar = $('#slider_products').find('.bar')
         var timeOcultar = null;
+        var timeMostrar = null;
         
-        if( !isboutique){ 
-            $slider_products.mouseover(function(){
+        //if( !isboutique){ 
+            $slider_products.mouseover(function(){                
                 clearTimeout(timeOcultar);
                 timeOcultar = setTimeout(function(){
                     $slider_products.animate({marginTop: '-28px', height: 28});
                     bar.addClass('mostrar');
                 }, 5000);
             });
-        }
+        //}
         
         $slider_products.data('h',$slider_products.height());
         
         var showProducts = function(e){
- 
             var $this = $(this);                        
-            if($this.hasClass('mostrar')){
+            if($this.hasClass('mostrar') || !e){
                 //$('#slider_products').find('.slider-content').slideToggle();
                 $slider_products.animate({marginTop: '-175px', height: $slider_products.data('h')});
                 $('#slider').trigger('updateSizes');
                 $this.toggleClass('mostrar');
             }else{
-                if(e.type=='click'){
+                if(e &&e.type=='click'){
                     $slider_products.animate({marginTop: '-28px', height: 28});
                     $this.toggleClass('mostrar');
                 }
             }            
         }
         
-        if( !isboutique){ 
-            bar.mouseenter(showProducts);
+        //if( !isboutique){ 
+            bar.mouseenter(function(e){ 
+                timeMostrar = setTimeout(function(e){showProducts(e)}, 500);
+            });
             bar.click(showProducts);
-        }
+            bar.mouseout(function(){clearTimeout(timeMostrar);})
+        //}
         
         $('#prev2').click(function(e){
             e.preventDefault();
@@ -481,11 +564,11 @@ var WTA = (function(){
             $('#slider').trigger('next', {items:1});
         });
         
-        if( !isboutique){
+        //if( !isboutique){
             setTimeout(function(){
                 bar.trigger('click');
             }, 1500)
-        }
+        //}
     }
     /********************************* SLIDER PRODUCTOS *************************************/
     
@@ -653,6 +736,18 @@ var WTA = (function(){
             $element.parent().addClass('error');
         }else{
             $element.addClass('error');
+        }
+    }
+    
+    
+    this.setMsgValid = function($element, msgValid){
+        if(msgValid){
+            $element.parent().append('<span class="valid">'+msgValid+'</span>');
+        }
+        if($element.attr('type') && $element.attr('type')=='hidden'){
+            $element.parent().addClass('valid');
+        }else{
+            $element.addClass('valid');
         }
     }
     

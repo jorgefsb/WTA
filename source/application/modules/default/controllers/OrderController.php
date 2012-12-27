@@ -35,10 +35,15 @@ class Default_OrderController extends Core_Controller_ActionDefault
                 $transacction = new Application_Entity_Transaction();
                 
                 
+                $transacction->setPropertie('_member', '');
+                $transacction->setPropertie('_userMenbership', 0);
                 if(Zend_Auth::getInstance()->hasIdentity()){
                     $member = Zend_Auth::getInstance()->getIdentity();
-                    $transacction->setPropertie('_member', $member->member_id);
-                    $transacction->setPropertie('_userMenbership', $this->isMember);
+                    
+                    if( isset($member->member_id)){
+                        $transacction->setPropertie('_member', $member->member_id);
+                        $transacction->setPropertie('_userMenbership', $this->isMember);
+                    }
                 }
                 
                 $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_OUTSTANDING);
@@ -127,6 +132,8 @@ class Default_OrderController extends Core_Controller_ActionDefault
                     foreach ($products as $prod){
                         $transacction->addProduct($prod);
                     }
+                    $logTraking = $this->_session->_tracking->getLog();
+                    $transacction->saveTracking($logTraking);
                     $transacction->commit();
                     
                     $paymentId = $transacction->sendToPaymentGateway(array(
@@ -205,17 +212,17 @@ class Default_OrderController extends Core_Controller_ActionDefault
                 
         
         if( false === ($creditcard->isValid($formValues['card_number'])) ){            
-            $errores['card'] = 'Problems width payment method information.1';
+            $errores['card'] = 'There was a problem with your payment method information.';
         }
         
         $month = (int)$formValues['card_expirationmonth'];
         if( $month <= 0 && $month>12 ){
-            $errores['card'] = 'Problems in payment method information2.';
+            $errores['card'] = 'There was a problem with your payment method information.';
         }
         
         $year = (int)$formValues['card_expirationyear'];
         if( !is_numeric($year) ){
-            $errores['card'] = 'Problems in payment method information3.';
+            $errores['card'] = 'There was a problem with your payment method information.';
         }
         
         return $errores;

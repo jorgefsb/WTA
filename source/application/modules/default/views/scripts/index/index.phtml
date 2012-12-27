@@ -68,7 +68,8 @@
         <li>
             <a href="/limited-quantity" ><span>Shop Limited Quantity</span></a>
             <ul>
-                <?php if( !empty($menu_limitedq) ): ?>
+                <li><a href="/limited-quantity">Members only</a></li>
+                <?php /* if( !empty($menu_limitedq) ): ?>
                     <?php foreach($menu_limitedq as $product): ?>
                         <li>
                             <a href="/limited-quantity/<?php echo urlencode(strtolower($product['product_slug'])); ?>"><?php echo $product['product_name']; ?></a>                            
@@ -78,7 +79,7 @@
                             </ul>
                         </li>
                     <?php endforeach; ?>
-                <?php endif; ?>  
+                <?php endif; */ ?>  
             </ul>            
         </li>
         <?php /*
@@ -102,6 +103,24 @@
             </ul>
         </li> */?>
     </ul>
+
+    <!-- a class="btn likewys"  href="" >LIKE WHAT YOU SEE?</a -->
+    <div id="popupgift" class="menGift">
+        <ul>
+                <li>
+                    <a href="/get-a-free-gift" ><img src="<?php echo STATIC_URL?>/front/images/gift.png" /></a>
+                    <div class="linea_separacion"></div>
+                    <a   href="/get-a-free-gift" >
+                        RETAIL VALUE <strong>$99.00</strong>
+                        <span>BECOME A MEMBER TODAY  & 
+                        START  ENJOYING THE BENEFITS
+                        OF MEMBERSHIP.</span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <a class="btn getafgt"  href="/get-a-free-gift" >GET A FREE GIFT TODAY</a>
+
 </div>
 <script>
     

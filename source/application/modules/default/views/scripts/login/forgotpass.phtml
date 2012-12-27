@@ -2,10 +2,10 @@
     <div id="forgotpass" class="contenido">
         <div>
 
-            <form name="forgot" method="post">
+            <form name="forgot"  id="forgot" action="/member/recovery-account/recovery" method="post">
                 <h2>FORGOT YOUR PASSWORD?</h2>
                 <span class="instrucciones">Enter your email address. We'll send you and email width a new password </span>
-                <input type="text" name="email" placeholder="Email address"/>
+                <input type="text" name="mail" placeholder="Email address"/>
                 <input type="submit" value="GO" />
 
             </form>
@@ -15,3 +15,6 @@
         <div class="closex">X</div>
     </div>
 </div>
+<script>
+    WTA.ForgotPassword();
+</script>

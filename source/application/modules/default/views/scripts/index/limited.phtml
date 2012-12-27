@@ -15,7 +15,7 @@
         <h2><?php echo $this->product['designer']['_name']; ?></h2>
         
         <a href="" class="details">Details</a> /
-        <a href="/index/limitedcount/product/<?php echo $this->product['_id']?>" class=" liLight">SEE HOW MANY ITEMS ARE LEFT?</a>
+        <a  class="available"><?php echo $this->product['_cantLimitedQuantity'] - $this->product['_cantBuy']?> units available to members only</a>
         
         <div  class="details-content">
             <p>

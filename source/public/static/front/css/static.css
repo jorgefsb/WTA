@@ -286,6 +286,15 @@ p.parrafos{
     margin-bottom: 40px;
 }
 
+#frmAffiliates{color: #FFF;}
+#frmAffiliates label{display: inline-block; vertical-align: middle; min-width: 150px; text-align: right; margin-right: 15px;}
+#frmAffiliates input[type=text]{display: inline-block}
+
+.howit-content{width: 700px; padding: 10px 20px;}
+.howit-content h3{font-size: 22px;}
+.howit-content h3{font-size: 18px;}
+.howit-content p.parrafos a{color: #333}
+
 @media (max-width: 1115px) {
 
 
