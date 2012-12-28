@@ -19,7 +19,7 @@
         <link href="<?php echo STATIC_URL . '/front/'; ?>css/bgstretcher.css" rel="stylesheet">
 
         <link href="<?php echo STATIC_URL . '/front/'; ?>css/wta.css" rel="stylesheet">
-        <link href="/static/front/css/static.css"  rel="stylesheet" />
+        <link href="<?php echo STATIC_URL . '/front/'; ?>css/static.css"  rel="stylesheet" />
 
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front/'; ?>bootstrap/js/bootstrap.min.js"></script>
@@ -66,8 +66,8 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/member/dashboard" >My profile</a></li>
-                                        <!-- li><a href="" >Edit my address</a></li>
-                                        <li><a href="" >Payment method</a></li -->
+                                        <li><a href="/member/my-address" >Edit my address</a></li>
+                                        <li><a href="/member/payment-method" >Payment method</a></li>
                                         <li><a href="/signout" class="btn signout" >SIGN OUT</a></li>
                                     </ul>
                                 </div>

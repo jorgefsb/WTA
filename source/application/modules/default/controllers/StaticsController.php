@@ -20,6 +20,21 @@ class Default_StaticsController extends Core_Controller_ActionDefault
         
     }          
     
+    
+    private function loadOptionsMenu(){
+        $_product = new Application_Entity_Product();
+        $menu = array(        
+                'menu_designers' => $_product->designersWithTypes(),
+                'menu_collections_types' => $_product->collectionsTypesAvailables(),
+                'menu_boutiques' => $_product->boutiquesAvailables(),
+                'menu_limitedq' => $_product->listingLimitedQuantity()
+            );
+        //echo '<pre>';print_r($_product->listingLimitedQuantity());die();
+        
+        $this->view->menu = $menu;
+        return $menu;;
+    }   
+    
     public function affiliatesAction(){
         if( $this->getRequest()->isXmlHttpRequest()  ){
             $this->_helper->layout->disableLayout();
@@ -106,6 +121,9 @@ class Default_StaticsController extends Core_Controller_ActionDefault
         
     }   
     
+    public function giftAction(){
+        $this->loadOptionsMenu(); 
+   }
     
     
 }

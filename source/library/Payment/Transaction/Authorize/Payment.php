@@ -41,7 +41,6 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
      */
     
     protected $_items = array();
-    protected $_error;
     
     public function getXml(){
         
@@ -106,9 +105,7 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
     }
     
     public function commit(){
-        if($this->_isEdited == false){
-            return true;
-        }
+        
         $xml ='';
         $xml .= '<transaction>';
         $xml .= '<profileTransAuthCapture>';
@@ -157,9 +154,6 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
         $this->_items[] = $product;
     }
     
-    public function getError(){
-        return $this->_error;
-    }
     
 }
 

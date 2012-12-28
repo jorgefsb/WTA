@@ -22,6 +22,22 @@ class Application_Model_Member extends Core_Model {
         return $result;
     }
 
+    
+    /**
+     * metodo getMemberByEmail(), devuelve todos los datos de un Member
+     * @param $email    email de la Member Anonymous
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     */
+    function getMemberByEmail($email) {
+        $smt = $this->_tableMember->select()
+                ->where('member_mail =?', $email)
+                ->query();
+        $result = $smt->fetch();
+        $smt->closeCursor();
+        return $result;
+    }
+    
+    
     /**
      * metodo getMember(), devuelve todos los datos de un Member
      * @param $idMember    id de la Member  

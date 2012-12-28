@@ -1,5 +1,8 @@
 <?php 
-
+    $member = $this->member;
+    $shpAdd = $this->shippingAddress;
+    $billinfo = $this->billingInformation;
+    
     # Imprimimos el menu Change Section
     echo $this->partial('index/change_section.phtml', array('section'=>'Designers', 'menu'=>$this->menu));
 ?>
@@ -10,83 +13,88 @@
         <h1>Checkout <span>information</span></h1>
 
         <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
         </p>
         
         <form name="frmcheckout" id="frmcheckout" action="/order/create" method="post">
             <div class="section">
                 <span class="subtitle"> CONTACT INFORMATION</span>
                 <p>
-                incidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad mi.
                 </p>
-                <input type="text" name="inf_firstname"  id="inf_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
-                <input type="text" name="inf_lastname"  id="inf_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/>
-                <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="" placeholder="Email address" title="Email address" />
+                <!-- input type="text" name="inf_firstname"  id="inf_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
+                <input type="text" name="inf_lastname"  id="inf_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/ -->
+                <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" />
             </div>
             
             <div class="section">
-                <span class="subtitle">SHIPPING ADDRESS</span>
+                <span class="subtitle">SHIPPING INFORMATION</span>
                 <p>
-                    My shipping address is:
                 </p>
-                <input type="text" name="shp_firstname"  id="shp_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
-                <input type="text" name="shp_lastname"  id="shp_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/>
-                <input type="text" name="shp_address"  id="shp_address" value="" placeholder="Address*" title="Address"  class=""/>
-                <input type="text" name="shp_address2"  id="shp_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/>                                
-                <select id="shp_country" name="shp_country" class="regions"  >
+                <input type="text" name="shp_firstname"  id="shp_firstname" value="<?php echo isset($shpAdd['_firstName']) ? $shpAdd['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
+                <input type="text" name="shp_lastname"  id="shp_lastname" value="<?php echo isset($shpAdd['_lastName']) ? $shpAdd['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
+                <input type="text" name="shp_address"  id="shp_address" value="<?php echo isset($shpAdd['_address']) ? $shpAdd['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
+                <!-- input type="text" name="shp_address2"  id="shp_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/ -->                                
+                <select id="shp_country" name="shp_country" class="regions" >
                     <option value="0"> Country*</option>                    
                     <?php foreach($this->regions as $region): ?>
-                        <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php if( $region['country'] == $shpAdd['_country'] ){ ?>
+                            <option selected="selected" value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php }else{ ?>
+                            <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php } ?>
                     <?php endforeach; ?>
                 </select>
-                <select id="shp_region" name="shp_region"  class="subregions">
+                <select id="shp_region" name="shp_region"  class="subregions" data-class="dropup" data-default="<?php echo isset($shpAdd['_state']) ? $shpAdd['_state'] : ''; ?>" >
                     <option value="0"> Region / State*</option>
                 </select>                
-                <input type="text" name="shp_city"  id="shp_city" value="" placeholder="City*" title="City"  class="medialinea"/>
-                <input type="text" name="shp_cp"  id="shp_cp" value="" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                
-                <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="" placeholder="Phone number*" title="Phone number"  class=""/>
+                <input type="text" name="shp_city"  id="shp_city" value="<?php echo isset($shpAdd['_city']) ? $shpAdd['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>
+                <input type="text" name="shp_cp"  id="shp_cp" value="<?php echo isset($shpAdd['_zip']) ? $shpAdd['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                
+                <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="<?php echo isset($shpAdd['_phoneNumber']) ? $shpAdd['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
             </div>
             
             <div class="section">
-                <span class="subtitle">BILLING ADDRESS</span>
+                <span class="subtitle">BILLING INFORMATION</span>
                 <p>
                     <label><input type="checkbox" name="bill_same" id="bill_same" value="" /> Same as my shipping address</label>
                 </p>
                 <div id="bill_same_content">
-                    <input type="text" name="bill_firstname"  id="bill_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
-                    <input type="text" name="bill_lastname"  id="bill_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/>
-                    <input type="text" name="bill_address"  id="bill_address" value="" placeholder="Address*" title="Address"  class=""/>
-                    <input type="text" name="bill_address2"  id="bill_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/>                    
-                    <select id="bill_country" name="bill_country" class="regions">
-                        <option value="0"> Country*</option>                    
-                        <?php foreach($this->regions as $region): ?>
+                    <input type="text" name="bill_firstname"  id="bill_firstname" value="<?php echo isset($billinfo['_firstName']) ? $billinfo['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
+                    <input type="text" name="bill_lastname"  id="bill_lastname" value="<?php echo isset($billinfo['_lastName']) ? $billinfo['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
+                    <input type="text" name="bill_address"  id="bill_address" value="<?php echo isset($billinfo['_address']) ? $billinfo['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
+                    <!-- input type="text" name="bill_address2"  id="bill_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/ -->
+                    <select id="bill_country" name="bill_country" class="regions" >
+                        <option value="0"> Country*</option>                              
+                    <?php foreach($this->regions as $region): ?>
+                        <?php if( $region['country'] == $billinfo['_country'] ){ ?>
+                            <option selected="selected" value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php }else{ ?>
                             <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
-                        <?php endforeach; ?>
+                        <?php } ?>
+                    <?php endforeach; ?>
                     </select>
-                    <select id="bill_region" name="bill_region" class="subregions"   >
+                    <select id="bill_region" name="bill_region" class="subregions"  data-class="dropup" data-default="<?php echo isset($billinfo['_state']) ? $billinfo['_state'] : ''; ?>" >
                         <option value="0"> Region / State*</option>
                     </select>
-                    <input type="text" name="bill_cp"  id="bill_cp" value="" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>
-                    <input type="text" name="bill_city"  id="bill_city" value="" placeholder="City*" title="City"  class="medialinea"/>                    
-                    <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="" placeholder="Phone number*" title="Phone number"  class=""/>
+                    <input type="text" name="bill_cp"  id="bill_cp" value="<?php echo isset($billinfo['_zip']) ? $billinfo['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>
+                    <input type="text" name="bill_city"  id="bill_city" value="<?php echo isset($billinfo['_city']) ? $billinfo['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>                    
+                    <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="<?php echo isset($billinfo['_phoneNumber']) ? $billinfo['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
                 </div>
             </div>
             
             <div class="section select_sin_ancho" >
-                <span class="subtitle">PAYMENT METHOD</span>
+                <span class="subtitle">PAYMENT INFORMATION</span>
                 <p>
                 </p>
-                <input type="text" name="card_name"  id="card_name" value="" placeholder="Cardholder Name*" title="Cardholder Name" />
+                <!-- input type="text" name="card_name"  id="card_name" value="" placeholder="Cardholder Name*" title="Cardholder Name" / -->
                 <input type="text" name="card_number"  id="card_number" value="" placeholder="Card Number*" title="Card Number" />
                 <div class="divcardexpiration">
                     Card Expiration Date 
-                    <select id="card_expirationmonth" name="card_expirationmonth" >
+                    <select id="card_expirationmonth" name="card_expirationmonth"  data-class="dropup" >
                         <option value="0"> &nbsp;&nbsp;Select Month*&nbsp;&nbsp;</option>
                         <?php for($i=1; $i<=12; $i++): ?>
                             <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                         <?php endfor; ?>
                     </select>
-                    <select id="card_expirationyear" name="card_expirationyear" >
+                    <select id="card_expirationyear" name="card_expirationyear"   data-class="dropup">
                         <option value="0"> &nbsp;&nbsp;Select Year*&nbsp;&nbsp;</option>
                         <?php for($i=2013; $i<=2025; $i++): ?>
                             <option value="<?php echo $i; ?>"><?php echo $i; ?></option>

@@ -1,12 +1,12 @@
 <?php 
     # Imprimimos el menu Change Section
-    echo $this->partial('index/change_section.phtml', array('section'=>'CAMERON RICHARDSON BOUTIQUE', 'menu'=>$this->menu));
+    echo $this->partial('index/change_section.phtml', array('section'=>$this->product['actress']['_name'].' BOUTIQUE', 'menu'=>$this->menu));
     
     $name = explode(' ',$this->product['actress']['_name']);
     
 ?>
     
-<div id="contentBody" class="boutique">
+<div id="contentBody" class="boutique ajustar">
     
     <?php if($this->no_mostrar==true){ ?>
         <div  class="imgProd">
@@ -90,5 +90,5 @@
     
 <script> 
     $('html, body').css('background-color','#000');
-    WTA.Exclusive();
+    WTA.Exclusive();    
 </script>

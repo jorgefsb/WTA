@@ -37,6 +37,10 @@ class Application_Entity_Member extends Core_Entity {
 
     protected $_customerProfileId;
     
+    protected $_shippingAddress;
+    protected $_billingInformation;
+    
+    
     /**
      * __Construct         
      *
@@ -95,6 +99,23 @@ class Application_Entity_Member extends Core_Entity {
         return $data;
     }
 
+    /*
+     * metodo identifyByEmail(), obtiene los datos de un mienbro
+     *
+     * @param $email
+     * @return void
+     */
+
+    function identifyByEmail($email) {
+        $modelMember = new Application_Model_Member();
+        $data = $modelMember->getMemberByEmail($email);
+        if ($data != '') {
+            $this->asocParams($data);
+        }
+        return $data;
+    }
+    
+    
     /*
      * metodo identify(), obtiene los datos de un mienbro
      *
@@ -355,8 +376,8 @@ class Application_Entity_Member extends Core_Entity {
             $objMail = new Core_Mail();
             $objMail->addDestinatario($mail);
             $objMail->setAsunto('Password Recovery');
-            $mensaje = '<b>Password Recovery</b> <p>';
-            $mensaje.= '<a href="' . BASE_URL . '/member/recovery-account/confirm?id=' . $passwordTemp . '">link</a>';
+            $mensaje = '<p><p>';
+            $mensaje.= ' We have received request to reset your password. Please click the following link to reset it:  <a href="' . BASE_URL . '/member/recovery-account/confirm?id=' . $passwordTemp . '">Click Here</a>';
             $objMail->setMensaje($mensaje);
             $objMail->send();
             return true;
@@ -442,4 +463,66 @@ class Application_Entity_Member extends Core_Entity {
         return Application_Entity_CreditCard::listingForMember($this->_id);
     }
 
+    public function loadProfile(){
+        
+        $shpAdd = array();
+        $paymeth = array();
+        
+        if($this->_customerProfileId){
+            $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
+            $customer = $_transaction->customer();
+            $customer->identify($this->_customerProfileId);
+            
+            $shippings = $customer->getListShippingAddress();
+            $billings = $customer->getListBillingInformation();
+            
+            foreach($shippings as $ship){ 
+                $shpAdd[] = $ship->getAllProperties();
+            }
+            foreach($billings as $bill) {
+                $paymeth[] = $bill->getAllProperties();
+            }
+            
+        }
+        
+        $this->_shippingAddress = $shpAdd;
+        $this->_billingInformation= $paymeth;
+        
+    }
+    
+    public function saveShippingAddress($data){
+        $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
+        $customer = $_transaction->customer();
+        
+        $_shipping = $customer->shippingAddress();
+        $_shipping->_customerProfileId = $this->_customerProfileId;
+        foreach($data as $key=>$value){
+            $_shipping->$key = $value;
+        }
+        if(!$_shipping->commit()){ 
+            $this->_message = $_shipping->getError();
+            return false;
+        }
+        $this->_message = 'The Shipping Address was successfully saved';
+        return true;
+    }
+    
+    public function saveBillingInformation($data){
+        $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
+        $customer = $_transaction->customer();
+        
+        $_billing = $customer->billingInformation();
+        $_billing->_customerProfileId = $this->_customerProfileId;
+        foreach($data as $key=>$value){
+            $_billing->$key = $value;
+        }
+        if(!$_billing->commit()){ 
+            $this->_message = $_billing->getError();
+            return false;
+        }
+        $this->_message = 'The Billing Information was successfully saved';
+        return true;
+    }
+    
+    
 }

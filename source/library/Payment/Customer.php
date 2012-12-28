@@ -17,6 +17,7 @@ abstract  class Payment_Customer {
     protected $_billingsInformation = array();
     protected $_payments = array();
     protected $_isEdited = false;
+    protected $_error;
     
     public function __construct() {
         
@@ -33,6 +34,29 @@ abstract  class Payment_Customer {
         }
     }
     
+    public function getAllProperties(){
+        $_data = array();
+        foreach($this->_data as $key =>$propertie){
+            if(is_object($propertie)){
+                continue;
+            }
+            if( !empty($propertie)){
+                if(is_array($propertie) ) {
+                    if(!is_object($propertie[0])){
+                        $_data[$key] = $propertie;
+                    }
+                }else{
+                    $_data[$key] = $propertie;
+                }
+            }
+        }
+        return $_data;
+    }
+    
+    public function getError(){
+        return $this->_error;
+    }
+    
     /*
      * return Xml string for the request
      */
@@ -45,7 +69,7 @@ abstract  class Payment_Customer {
     abstract public function commit();
         
     /*
-     * return Xml string for the request
+     * regresa un listado de objetos
      */
     abstract public function getListShippingAddress();
     

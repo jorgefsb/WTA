@@ -47,22 +47,33 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
             
             $this->_customerProfile  = $xml_customer->profile;
             
-            $_customerPaymentProfileIds = array();
-            foreach ($this->_customerProfile->paymentProfiles as $profile){
-                $_customerPaymentProfileIds[] = $profile->customerPaymentProfileId;
+            $_customerPaymentProfileIds = array();            
+            foreach ($this->_customerProfile->paymentProfiles as $paymentProfile){
+                $_customerPaymentProfileIds[] = (string)$paymentProfile->customerPaymentProfileId;
+                $billinfo = $this->billingInformation();
+                $billinfo->loadFromXml($paymentProfile);
             }
             
             $_customerShippingAddressIds = array();
             foreach ($this->_customerProfile->shipToList as $shipToList){
-                $_customerShippingAddressIds[] = $shipToList->customerAddressId;
+                $_customerShippingAddressIds[] = (string)$shipToList->customerAddressId;
+                $shp = $this->shippingAddress();
+                $shp->loadFromXml($shipToList);
             }
             
         }
+        
         $this->_customerPaymentProfileIds = $_customerPaymentProfileIds;
-        
-        
         $this->_customerShippingAddressIds = $_customerShippingAddressIds;
         
+    }
+    
+    public function getListShippingAddress(){
+        return $this->_shippingsAddress;
+    }
+
+    public function getListBillingInformation(){
+        return $this->_billingsInformation;
     }
     
     /*
@@ -123,7 +134,7 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
         
         if( is_object($xml_response)==false){
             $this->_error = $this->_authorize->getError();
-            return false; //Error
+            return false; 
         }else{
             $this->_customerProfileId = $xml_response->customerProfileId;
             $_customerPaymentProfileIds = array();
@@ -145,23 +156,7 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
         return false;
         
     }
-        
-    /*
-     * return Xml string for the request
-     */
-    public function getListShippingAddress(){        
-        $xml = '';
-        return $xml;
-    }
-    
-    /*
-     * return Xml string for the request
-     */
-    public function getListBillingInformation(){        
-        $xml = '';
-        return $xml;
-    }
-        
+             
     /*
      * return new Object Payment_Transaction_Authorize_ShippingAddress
      */
@@ -187,14 +182,17 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
     /*
      * return new Object Payment_Transaction_Authorize_Payment
      */
-    public function payment(){
-        
+    public function payment(){        
         $_payment = new Payment_Transaction_Authorize_Payment();
         $_payment->_customer = $this;
         $_payment->_authorize = $this->_authorize;
         $this->_payments = $_payment;
         return $_payment;
     }
+    
+    //public function getCustomerProfile(){
+      //  return $this->_customerProfile;
+    //}
     
         
 }

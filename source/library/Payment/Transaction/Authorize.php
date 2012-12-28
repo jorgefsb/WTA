@@ -15,6 +15,7 @@ class Payment_Transaction_Authorize {
     public $_config = array();
     protected $_customers = null;
     protected $_error = '';
+    protected $_history = array();
 
 
     public function __construct($config = array()) {
@@ -54,6 +55,7 @@ class Payment_Transaction_Authorize {
         if (!$new_config) {
             $config = $this->_config;
         }
+        
         $posturl = "https://" . $config['host'] . $config['path'];
         
         $ch = curl_init();
@@ -65,6 +67,8 @@ class Payment_Transaction_Authorize {
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         $response = curl_exec($ch);
+        
+        $this->_history[] = array('send'=>$xml, 'response'=>$response, 'url'=>$posturl);
         
         return trim($response);
     }
@@ -90,18 +94,18 @@ class Payment_Transaction_Authorize {
         $parsedresponse = simplexml_load_string($response, "SimpleXMLElement", LIBXML_NOWARNING);
         
         if ("Ok" != $parsedresponse->messages->resultCode) {
-            $error =  "The operation failed with the following errors:<br>";
-            foreach ($parsedresponse->messages->message as $msg) {
-                $error .= "[" . htmlspecialchars($msg->code) . "] " . htmlspecialchars($msg->text) . ". ";
-            }
-            $this->_error[] = $error;
+            //$error =  "The operation failed with the following errors:";
+            //foreach ($parsedresponse->messages->message as $msg) {
+                //$error .= "[" . htmlspecialchars($msg->code) . "] " . htmlspecialchars($msg->text) . ". ";
+            //}
+            $this->_error[] = (string)$parsedresponse->messages->message->text;
             return false;
         }
         return $parsedresponse;
     }
 
     public function error() {
-        
+        return $this->_error;
     }
     
     public function parse_api_response($content){
@@ -118,10 +122,22 @@ class Payment_Transaction_Authorize {
     }
     
     public function getError(){
-        if( !empty($this->error)){
+        if( !empty($this->_error)){
             return end($this->_error);
         }
     }
+    
+    public function getHistory(){
+        return $this->_history;
+    }
+    
+    
+    public function getLastExecution(){
+        if( !empty($this->_history)){
+            return end($this->_history);
+        }
+    }
+    
 }
 
 ?>

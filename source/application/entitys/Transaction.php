@@ -276,68 +276,89 @@ class Application_Entity_Transaction extends Core_Entity {
         $_country = new Application_Model_Regions();
         $_state = new Application_Model_SubRegions();
         
+        $_customerAddressId = 0;
+        $_customerPaymentProfileId = 0;
         $customerProfileId = 0;
-        if($this->_member>0){
+        
+        if($this->_member>0){                                                               # Si es un miembro entonces lo identificamos
             $modelMember = new Application_Entity_Member();
             $modelMember->identify($this->_member);
+            
+        }else{                                                                                           # Si no es un miembro lo tratamos de indentificar como usuario anonymo que ya hizo alguna compra
+            $modelMember = new Application_Entity_MemberAnonymous(); 
+            $modelMember->identifyByEmail(trim($this->_mail));
+        }
+        
+        if($modelMember){                                                                     # Tomamos los datos de shipping, billing y Id de Customer 
+            $modelMember->loadProfile();
+            
+            $shippingAddress = $modelMember->getPropertie('_shippingAddress');
+            $billingInformation = $modelMember->getPropertie('_billingInformation');
+            
+            if( !empty($shippingAddress)){
+                $_customerAddressId =$shippingAddress[0]['_customerAddressId'];
+            }
+            if( !empty($billingInformation)){
+                $_customerPaymentProfileId = $billingInformation[0]['_customerPaymentProfileId'];
+            }
+            
             $customerProfileId = $modelMember->getPropertie('_customerProfileId');
         }
         
+        
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE);
 
+        #
+        # Apartir de aqui llenamos los datos de customer, shipping y billing necesarios
+        #
+        
         $_customer = $_transaction->customer();
         
         #Llenamos los datos del comprador
         $_customer->_email = $this->_mail;
 
         #Llenamos los datos de shipping
+        $a_state = $_state->getSubRegion($this->_shiAddSubregionId);
+        $a_country = $_country->getRegion($this->_shiAddRegionId);
+        
         $_shpAdd = $_customer->shippingAddress();
+        $_shpAdd->_customerProfileId = $customerProfileId;
+        $_shpAdd->_customerAddressId = $_customerAddressId;
         $_shpAdd->_firstName = $this->_shiAddFirstName;
         $_shpAdd->_lastName = $this->_shiAddLastName;
-        $_shpAdd->_address = $this->_shiAddAddAddres . ' ' . $this->_shiAddAddresContinued;
+        $_shpAdd->_address = $this->_shiAddAddAddres;
         $_shpAdd->_city = $this->_shiAddCity;
-
-        $a_state = $_state->getSubRegion($this->_shiAddSubregionId);
         $_shpAdd->_state = $a_state['name'];
-
-        $_shpAdd->_zip = $this->_shiAddPostalCode;
-
-        $a_country = $_country->getRegion($this->_shiAddRegionId);
+        $_shpAdd->_zip = $this->_shiAddPostalCode;        
         $_shpAdd->_country = $a_country['country'];
-
         $_shpAdd->_phoneNumber = $this->_shiAddPhoneNumber;
 
         #Llenamos los datos de billing
 
-        $_billInfo = $_customer->billingInformation();
-
- 
+        $a_state = $_state->getSubRegion($this->_billAddSubregionId);
+        $a_country = $_country->getRegion($this->_billAddRegionId);
+        
+        $_billInfo = $_customer->billingInformation(); 
+        $_billInfo->_customerPaymentProfileId = $_customerPaymentProfileId;
+        $_billInfo->_customerProfileId = $customerProfileId;
         $_billInfo->_firstName = $this->_billAddFirstName;
         $_billInfo->_lastName = $this->_billAddLastName;
-        $_billInfo->_address = $this->_billAddAddAddres . ' ' . $this->_billAddAddresContinued;
+        $_billInfo->_address = $this->_billAddAddAddres;
         $_billInfo->_city = $this->_billAddCity;
-
-        $a_state = $_state->getSubRegion($this->_billAddSubregionId);
         $_billInfo->_state = $a_state['name'];
-
         $_billInfo->_zip = $this->_billAddPostalCode;
-
-        $a_country = $_country->getRegion($this->_billAddRegionId);
         $_billInfo->_country = $a_country['country'];
-
         $_billInfo->_phoneNumber = $this->_billAddPhoneNumber;
-
         $_billInfo->_cardNumber = $dataCard['cardNumber'];
         $_billInfo->_expirationDate = $dataCard['expirationDate'];
         $_billInfo->_cardCode = $dataCard['cardCode'];
 
-        //$_customer->identify();
+        
         #Llenamos los datos del pago
         $_payment = $_customer->payment();        
 
-        $products = $this->listProducts();
+        $products = $this->listProducts();                                              # Agregamos los productos a la orden
         foreach ($products as $prod) {
-
             $name = $prod['product_name'];
             $strsize = '';
             if($prod['product_size']){
@@ -350,24 +371,55 @@ class Application_Entity_Transaction extends Core_Entity {
         $_payment->_amount = $this->_amount;
         $_payment->_cardCode = $dataCard['cardCode'];
 
-        #Llenamos los datos de shipping
+        
 
         
-        if( $customerProfileId){
-            //$_customer->_customerProfileId = $customerProfileId;            
-            $_customer->identify($customerProfileId);
+        if( $customerProfileId){                    # Validamos que tengamos un perfil creado
+            
+            if(!$_shpAdd->commit()){
+                //$this->_message = print_r($_transaction->getLastExecution(), true);
+                $this->_message = $_shpAdd->getError();
+                return false;
+            }
+            if(!$_billInfo->commit()){
+                $this->_message = $_billInfo->getError();
+                return false;
+            }
+            
+            $_payment->_customerProfileId = $customerProfileId;
+            $_payment->_customerPaymentProfileId = $_customerPaymentProfileId;
+            $_payment->_customerShippingAddressId = $_customerAddressId;
         }else{
+            
             $customerProfileId = $_customer->commit();
+            
+            if($customerProfileId){
+                if(!$this->_member){
+                    
+                }
+            }
+            
+            $_payment->_customerProfileId = $_customer->_customerProfileId;
+            $_payment->_customerPaymentProfileId = $_customer->_customerPaymentProfileIds[0];
+            $_payment->_customerShippingAddressId = $_customer->_customerShippingAddressIds[0];
         }
         
-        $_payment->_customerProfileId = $_customer->_customerProfileId;
-        $_payment->_customerPaymentProfileId = $_customer->_customerPaymentProfileIds[0];
-        $_payment->_customerShippingAddressId = $_customer->_customerShippingAddressIds[0];
                 
         if( $customerProfileId ){
             if( $this->_member >0){                
                 $modelMember->setPropertie('_customerProfileId', $customerProfileId);
                 $modelMember->update();
+            }else{
+                if($modelMember->getPropertie('_id')>0){
+                    $modelMember->setPropertie('_customerProfileId', $customerProfileId);
+                    $modelMember->update();
+                }else{
+                    $modelMember->setPropertie('_name', $this->_shiAddFirstName);
+                    $modelMember->setPropertie('_lastName', $this->_shiAddLastName);
+                    $modelMember->setPropertie('_mail', $this->_mail);
+                    $modelMember->setPropertie('_customerProfileId', $customerProfileId);
+                    $modelMember->createMemberAnonymous();
+                }
             }
             if($_payment->commit()){
                 $modelTransaction = new Application_Model_Transaction();
@@ -379,14 +431,14 @@ class Application_Entity_Transaction extends Core_Entity {
                 ), $this->_id);
                 
                 $this->_message = 'Payment Successful';
-                
                 return $_payment->_profileTransactionId;
             }else{                
+                //$this->_message = print_r($_transaction->getLastExecution(), true);
                 $this->_message = $_payment->getError();
                 return false;
             }
         }else{
-            $this->_message = 'No se pudo crear el perfil';
+            $this->_message = 'We had a problem. Please review your information and try again.';
             return false;
         }
         

@@ -23,16 +23,7 @@ class Payment_Transaction_Authorize_ShippingAddress extends Payment_ShippingAddr
      * phoneNumber
      * faxNumber
      */
-    
-    /*
-     * return String xml for the request
-     */
-    public function identify($customerShippingAddressId){
-        $xml = '';
-        return $xml;
-    }
-
-    
+        
     /*
      * return String xml for the request
      */
@@ -52,31 +43,58 @@ class Payment_Transaction_Authorize_ShippingAddress extends Payment_ShippingAddr
                     "<zip>{$this->_zip}</zip>".
                     "<country>{$this->_country}</country>".
                     "<phoneNumber>{$this->_phoneNumber}</phoneNumber>";
-                    //"<faxNumber></faxNumber>".
+                    //"<faxNumber></faxNumber>".        
         return $xml;
     }
     
-
     public function commit(){
         if($this->_isEdited == false){
             return true;
         }
         $xml ='';
-        if($this->_customer && $this->_customer->_customerProfileId){
+        if( $this->_customerProfileId>0){
+            $xml .= '<customerProfileId>'.$this->_customerProfileId.'</customerProfileId>';
+        }elseif($this->_customer && $this->_customer->_customerProfileId>0){
             $xml .= '<customerProfileId>'.$this->_customer->_customerProfileId.'</customerProfileId>';
         }
+        
         $xml .= '<address>';
         $xml .= $this->getXml();
+        if( $this->_customerAddressId >0 ){
+            $xml .= '<customerAddressId>'.$this->_customerAddressId.'</customerAddressId>';
+        }
         $xml .= '</address>';
         
-        if(!$this->_shippingAddressId){
-            $action = 'createCustomerShippingAddressRequest';
-        }else{
+        
+        if( $this->_customerAddressId>0 ){            
             $action = 'updateCustomerShippingAddressRequest';
+        }else{
+            $action = 'createCustomerShippingAddressRequest';
         }
-        $response = $this->_authorize->commit($action, $xml);
-        $xml_response = $this->_authorize->parse_api_response($response);
+        
+        $xml_response = $this->_authorize->commit($action, $xml);
+        
+        if( is_object($xml_response)==false){
+            $this->_error = $this->_authorize->getError();
+            return false; //Error
+        }else{
+            return true;
+        }
         $this->_isEdited = false;
+    }
+        
+    public function loadFromXml($shipToList){
+        if(is_object($shipToList)){
+            $this->_customerAddressId = (string)$shipToList->customerAddressId;
+            $this->_firstName = (string)$shipToList->firstName;
+            $this->_lastName = (string)$shipToList->lastName;
+            $this->_address = (string)$shipToList->address;
+            $this->_city = (string)$shipToList->city;
+            $this->_state = (string)$shipToList->state;
+            $this->_zip = (string)$shipToList->zip;
+            $this->_country = (string)$shipToList->country;
+            $this->_phoneNumber = (string)$shipToList->phoneNumber;
+        }
     }
     
         

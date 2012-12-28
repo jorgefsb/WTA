@@ -25,6 +25,10 @@ abstract class Payment_Payment{
         }
     }
     
+    public function getError(){
+        return $this->_error;
+    }
+    
     /*
      * Guarda los cambios o crea un nuevo Pago
      * return Xml string for the request

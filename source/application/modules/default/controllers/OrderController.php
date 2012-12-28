@@ -44,6 +44,13 @@ class Default_OrderController extends Core_Controller_ActionDefault
                         $transacction->setPropertie('_member', $member->member_id);
                         $transacction->setPropertie('_userMenbership', $this->isMember);
                     }
+                }else{
+                    $entity_member = new Application_Entity_Member();
+                    $entity_member->identifyByEmail(trim($formValues['inf_emailaddress']));
+                    if($entity_member->getPropertie('_id')>0){
+                        $this->view->messages = array('error'=>'You need to sign in before continuing');
+                        return;
+                    }
                 }
                 
                 $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_OUTSTANDING);
@@ -56,7 +63,7 @@ class Default_OrderController extends Core_Controller_ActionDefault
                 $transacction->setPropertie('_shiAddFirstName', $formValues['shp_firstname']);
                 $transacction->setPropertie('_shiAddLastName', $formValues['shp_lastname']);
                 $transacction->setPropertie('_shiAddAddAddres', $formValues['shp_address']);
-                $transacction->setPropertie('_shiAddAddresContinued', $formValues['shp_address2']);
+                //$transacction->setPropertie('_shiAddAddresContinued', $formValues['shp_address2']);
                 $transacction->setPropertie('_shiAddPostalCode', $formValues['shp_cp']);
                 $transacction->setPropertie('_shiAddRegionId', $formValues['shp_country']);
                 $transacction->setPropertie('_shiAddSubregionId', $formValues['shp_region']);
@@ -67,7 +74,7 @@ class Default_OrderController extends Core_Controller_ActionDefault
                     $transacction->setPropertie('_billAddFirstName', $formValues['shp_firstname']);
                     $transacction->setPropertie('_billAddLastName', $formValues['shp_lastname']);
                     $transacction->setPropertie('_billAddAddAddres', $formValues['shp_address']);
-                    $transacction->setPropertie('_billAddAddresContinued', $formValues['shp_address2']);
+                    //$transacction->setPropertie('_billAddAddresContinued', $formValues['shp_address2']);
                     $transacction->setPropertie('_billAddCity', $formValues['shp_city']);
                     $transacction->setPropertie('_billAddRegionId', $formValues['shp_country']);
                     $transacction->setPropertie('_billAddSubregionId', $formValues['shp_region']);
@@ -77,7 +84,7 @@ class Default_OrderController extends Core_Controller_ActionDefault
                     $transacction->setPropertie('_billAddFirstName', $formValues['bill_firstname']);
                     $transacction->setPropertie('_billAddLastName', $formValues['bill_lastname']);
                     $transacction->setPropertie('_billAddAddAddres', $formValues['bill_address']);
-                    $transacction->setPropertie('_billAddAddresContinued', $formValues['bill_address2']);
+                    //$transacction->setPropertie('_billAddAddresContinued', $formValues['bill_address2']);
                     $transacction->setPropertie('_billAddCity', $formValues['bill_city']);
                     $transacction->setPropertie('_billAddRegionId', $formValues['bill_country']);
                     $transacction->setPropertie('_billAddSubregionId', $formValues['bill_region']);
@@ -86,7 +93,7 @@ class Default_OrderController extends Core_Controller_ActionDefault
                 }
                 
                 $transacction->setPropertie('_mail', $formValues['inf_emailaddress']);
-                $transacction->setPropertie('_contactName', $formValues['inf_firstname'].' '.$formValues['inf_lastname']);                
+                $transacction->setPropertie('_contactName', $formValues['shp_firstname'].' '.$formValues['shp_lastname']);                
                 
                 $products = array();
                 /*agrega el producto a la transaccion*/
@@ -181,9 +188,10 @@ class Default_OrderController extends Core_Controller_ActionDefault
         $errores = array();
         
         $not_empty = array(
-            'inf_firstname',            'inf_lastname',            'inf_emailaddress',
+            //'inf_firstname',            'inf_lastname',            
+            'inf_emailaddress',
             'shp_firstname',            'shp_lastname',            'shp_address',            'shp_country',            'shp_region',            'shp_city',            'shp_cp',            'shp_phonenumber',            
-            'card_name',            'card_number',            'card_expirationmonth',            'card_expirationyear',            'card_seccode'
+            /*'card_name',*/            'card_number',            'card_expirationmonth',            'card_expirationyear',            'card_seccode'
         );
         
         $not_empty_bill = array('bill_firstname',            'bill_lastname',            'bill_address',            'bill_country',            'bill_region',            'bill_cp',            'bill_city',            'bill_phonenumber');
@@ -211,9 +219,9 @@ class Default_OrderController extends Core_Controller_ActionDefault
         }        
                 
         
-        if( false === ($creditcard->isValid($formValues['card_number'])) ){            
-            $errores['card'] = 'There was a problem with your payment method information.';
-        }
+        //if( false === ($creditcard->isValid($formValues['card_number'])) ){            
+          //  $errores['card'] = 'There was a problem with your payment method information.';
+        //}
         
         $month = (int)$formValues['card_expirationmonth'];
         if( $month <= 0 && $month>12 ){

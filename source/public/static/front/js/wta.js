@@ -8,10 +8,25 @@ $(document).ready(function(){
 $(window).load(function(){
     WTA.choose_category();
     WTA.initSelectRegions();
+    WTA.ajustarImgProd();
+    $(document).ajaxStop(function(){WTA.ajaxStatus(true)});
+    $(window).resize(WTA.ajustarImgProd);
 })
 
 var WTA = (function(){
     var that = this;
+    var jqxhr_active = true;
+    var ajaxQueue = [];
+        
+    this.ajaxStatus = function(status){
+        that.jqxhr_active = status;
+        if(status==true){
+            for(var i in that.ajaxQueue){                
+                that.ajaxQueue[i]();
+            }
+            that.ajaxQueue = []
+        }
+    }
     
     /*
      *  Iniciamos efectos y funcionalidades del home
@@ -52,7 +67,7 @@ var WTA = (function(){
             details.parent().find('.details-content').hide();            
         }
         
-    };
+    };    
     
     this.Designer = function(){
         
@@ -78,6 +93,7 @@ var WTA = (function(){
         }
         
     };
+    
     
     this.ForgotPassword = function(){
         $('#forgot').submit(function(e){
@@ -150,6 +166,22 @@ var WTA = (function(){
     }
     
     
+    this.ajustarImgProd = function(){
+        
+        var $contentBody = $('#contentBody.ajustar');
+        if($contentBody.length){
+            var $imgProd = $contentBody.find('.imgProd');
+            
+            var wHeight = $(window).height();
+            var fHeight = $('#footer').height();
+            var hHeight = $('#header').height();
+            var cHeight = $('#change_section').height();
+            
+            $imgProd.find('img').css('max-height', (wHeight-fHeight-hHeight-cHeight) );
+            
+            
+        }
+    }
         
     this.lightbox = function(){
         
@@ -377,7 +409,7 @@ var WTA = (function(){
                 if( !value ){
                     value = 1;
                     $this.val(1);
-                }
+                }               
                 $.ajax({
                     url: '/shopping/changeitem/clave/'+$this.data('code')+'/quantity/'+value+'/format/json'
                 }).done(function(response){
@@ -393,6 +425,16 @@ var WTA = (function(){
                     that.updateCart();
                 });
             });
+            
+            $popupShoppinCart.find('.checkout').click(function(e){
+                e.preventDefault();
+                if(that.jqxhr_active==false){
+                    var url = this.href;
+                    that.ajaxQueue.push(function(){console.log('si entro');document.location.href = url;});
+                }else{
+                    document.location.href = this.href;
+                }
+            })
             
             
             $('#scrollbar1').tinyscrollbar();
@@ -497,7 +539,7 @@ var WTA = (function(){
         var $slider = $('#slider');        
         
         $slider.carouFredSel({
-            auto: true,
+            auto: false,
             responsive: true,
             width: '100%',
             scroll: 1,            
@@ -523,11 +565,24 @@ var WTA = (function(){
         //if( !isboutique){ 
             $slider_products.mouseover(function(){                
                 clearTimeout(timeOcultar);
+                /*timeOcultar = setTimeout(function(){
+                    $slider_products.animate({marginTop: '-28px', height: 28});
+                    bar.addClass('mostrar');
+                }, 2000);*/
+            });
+            
+            $slider_products.mouseout(function(){
                 timeOcultar = setTimeout(function(){
                     $slider_products.animate({marginTop: '-28px', height: 28});
                     bar.addClass('mostrar');
-                }, 5000);
+                }, 2000);
+            })
+            
+            
+            $('#prev2, #next2').mouseover(function(){ 
+                clearTimeout(timeOcultar);                
             });
+            
         //}
         
         $slider_products.data('h',$slider_products.height());
@@ -549,7 +604,7 @@ var WTA = (function(){
         
         //if( !isboutique){ 
             bar.mouseenter(function(e){ 
-                timeMostrar = setTimeout(function(e){showProducts(e)}, 500);
+                timeMostrar = setTimeout(function(e){showProducts(e)}, 200);
             });
             bar.click(showProducts);
             bar.mouseout(function(){clearTimeout(timeMostrar);})
@@ -759,18 +814,24 @@ var WTA = (function(){
             $.ajax('regions/states/format/json/region/'+$this.val()).done(function(response){
                 if(response.subregions){
                     var $destino = $this.parent().parent().find('.subregions');
+                    var valdefault = $destino.parent().find('input[type=hidden]').data('default');
                     var select = '';
                     for(var i in response.subregions){
-                        select += '<li><a href="javascript:;" data-value="' + response.subregions[i]['id'] + '">' + response.subregions[i]['name'] + '</a></li>'
+                        if(valdefault == response.subregions[i]['name']){
+                            select += '<li><a href="javascript:;" class="selected" data-value="' + response.subregions[i]['id'] + '">' + response.subregions[i]['name'] + '</a></li>'
+                        }else{
+                            select += '<li><a href="javascript:;" data-value="' + response.subregions[i]['id'] + '">' + response.subregions[i]['name'] + '</a></li>'
+                        }
                     }                    
                     $destino.parent().find('.dropdown-menu').html('').append(select);
                     $destino.parent().find('.dropdown-menu a').click(function() {
                             $destino.parent().find('input[type=hidden]').val($(this).data('value')).trigger('change');
                             $destino.parent().find('.btn:eq(0)').text($(this).text());
                     });
+                    $destino.parent().find('.dropdown-menu a.selected').trigger('click');
                 }
             })
-        });
+        }).trigger('change');
     }
     
     this.checkout = function(){
@@ -789,10 +850,10 @@ var WTA = (function(){
             $('span.error').remove();
             $this.find('.error').removeClass('error');
             
-            var not_empty = ['inf_firstname', 'inf_lastname', 
+            var not_empty = [//'inf_firstname', 'inf_lastname', 
                                             'shp_firstname', 'shp_lastname', 'shp_address', 'shp_city', 'shp_region', 
                                                 'shp_cp', 'shp_country', 'shp_phonenumber',
-                                            'card_name', 'card_number', 'card_expirationmonth', 'card_expirationyear', 'car_seccode'];
+                                            /*'card_name',*/ 'card_number', 'card_expirationmonth', 'card_expirationyear', 'car_seccode'];
             var form_valid = true;
             
             var $email = $this.find('#inf_emailaddress');
@@ -838,7 +899,11 @@ var WTA = (function(){
                             that.setMsgError(obj, response.messages[i]);
                         }
                     }else{
-                        $('#linkprocessed').trigger('click');
+                       if(response.ok){
+                            $('#linkprocessed').trigger('click');
+                        }else{
+                            that.setMsgError(obj, 'We had a problem. Please review your information and try again');
+                        }
                     }
                 })
             }else{
@@ -897,13 +962,14 @@ jQuery(function($){
     $.bootstrap_selects = function(){
             $('select').each(function(i, e){
                     if (!($(e).data('convert') == 'no')) {
-                            $(e).hide().wrap('<div class="btn-group" id="select-group-' + i + '" />');
+                            $(e).hide().wrap('<div class="btn-group ' + $(e).data('class') + '" id="select-group-' + i + '" />');
                             var select = $('#select-group-' + i);
                             var current = ($(e).val()) ? $(e).find('option:selected').text(): '&nbsp;';
-                            select.html('<input type="hidden" value="' + $(e).val() + '" name="' + $(e).attr('name') + '" id="' + $(e).attr('id') + '" class="' + $(e).attr('class') + '" /><a class="btn" href="javascript:;">' + current + '</a><a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="caret"></span></a><ul class="dropdown-menu"></ul>');
+                            select.html('<input type="hidden" value="' + $(e).val() + '" name="' + $(e).attr('name') + '" id="' + $(e).attr('id') + '" class="' + $(e).attr('class') + '" data-default="'+$(e).data('default')+'" /><a class="btn dropdown-toggle" data-toggle="dropdown"  href="javascript:;">' + current + '</a><a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="caret"></span></a><ul class="dropdown-menu"></ul>');
+                           
                             $(e).find('option').each(function(o,q) {
                                     select.find('.dropdown-menu').append('<li><a href="javascript:;" data-value="' + $(q).attr('value') + '">' + $(q).text() + '</a></li>');
-                                    if ($(q).attr('selected')) select.find('.dropdown-menu li:eq(' + o + ')').click();
+                                    if ($(q).attr('selected')){select.find('.dropdown-menu li:eq(' + o + ')').click();};
                             });
                             select.find('.dropdown-menu a').click(function() {
                                     select.find('input[type=hidden]').val($(this).data('value')).trigger('change');
