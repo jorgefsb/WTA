@@ -502,7 +502,7 @@ class Application_Entity_Member extends Core_Entity {
                 $_shipping->$key = $value;
             }
             if(!$customer->commit()){ 
-                $this->_message = $_shipping->getError();
+                $this->_message = $customer->getError();
                 return false;
             }
             $modelMember = new Application_Model_Member();
@@ -527,14 +527,30 @@ class Application_Entity_Member extends Core_Entity {
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
         $customer = $_transaction->customer();
         
-        $_billing = $customer->billingInformation();
-        $_billing->_customerProfileId = $this->_customerProfileId;
-        foreach($data as $key=>$value){
-            $_billing->$key = $value;
-        }
-        if(!$_billing->commit()){ 
-            $this->_message = $_billing->getError();
-            return false;
+        if(!$this->_customerProfileId){                      # Si no existe el perfil lo creamos antes de mandar a guardar la direccion
+            $customer->_email = $this->_mail;
+            
+            $_billing = $customer->billingInformation();
+            foreach($data as $key=>$value){
+                $_billing->$key = $value;
+            }
+            if(!$customer->commit()){ 
+                $this->_message = $customer->getError();
+                return false;
+            }
+            $modelMember = new Application_Model_Member();
+            $modelMember->update(array('member_customerProfileId'=>$customer->_customerProfileId), $this->_id);
+        }else{
+        
+            $_billing = $customer->billingInformation();
+            $_billing->_customerProfileId = $this->_customerProfileId;
+            foreach($data as $key=>$value){
+                $_billing->$key = $value;
+            }
+            if(!$_billing->commit()){ 
+                $this->_message = $_billing->getError();
+                return false;
+            }
         }
         $this->_message = 'The Billing Information was successfully saved';
         return true;
