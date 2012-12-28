@@ -490,18 +490,34 @@ class Application_Entity_Member extends Core_Entity {
         
     }
     
-    public function saveShippingAddress($data){
+    public function saveShippingAddress($data){        
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
         $customer = $_transaction->customer();
         
-        $_shipping = $customer->shippingAddress();
-        $_shipping->_customerProfileId = $this->_customerProfileId;
-        foreach($data as $key=>$value){
-            $_shipping->$key = $value;
-        }
-        if(!$_shipping->commit()){ 
-            $this->_message = $_shipping->getError();
-            return false;
+        if(!$this->_customerProfileId){                      # Si no existe el perfil lo creamos antes de mandar a guardar la direccion
+            $customer->_email = $this->_mail;
+            
+            $_shipping = $customer->shippingAddress();
+            foreach($data as $key=>$value){
+                $_shipping->$key = $value;
+            }
+            if(!$customer->commit()){ 
+                $this->_message = $_shipping->getError();
+                return false;
+            }
+            $modelMember = new Application_Model_Member();
+            $modelMember->update(array('member_customerProfileId'=>$customer->_customerProfileId), $this->_id);
+        }else{
+            
+            $_shipping = $customer->shippingAddress();
+            $_shipping->_customerProfileId = $this->_customerProfileId;
+            foreach($data as $key=>$value){
+                $_shipping->$key = $value;
+            }
+            if(!$_shipping->commit()){ 
+                $this->_message = $_shipping->getError();
+                return false;
+            }
         }
         $this->_message = 'The Shipping Address was successfully saved';
         return true;

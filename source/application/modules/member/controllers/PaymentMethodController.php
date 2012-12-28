@@ -9,11 +9,19 @@ class Member_PaymentMethodController extends Core_Controller_ActionMember
         
         $member = new Application_Entity_Member();
         $member->identify($this->_identity->member_id);        
+        
+        $form = new Application_Form_BillingInformationForm();
+        
         if( $this->getRequest()->isPost()){
             $formValues = $this->getRequest()->getPost();
-            $form = new Application_Form_BillingInformationForm();
             
-            if( $form->isValid($formValues) ){        
+            if(!$form->getValue('id')>0){
+                $form->getElement('cardNumber')->setRequired(false);
+                $form->getElement('expirationDate')->setRequired(false);
+                $form->getElement('cardCode')->setRequired(false);
+            }
+            
+            if( $form->isValid($formValues) ){
                 $saved = $member->saveBillingInformation(array(
                                                                                                 '_customerPaymentProfileId'=>$form->getValue('id'),
                                                                                                 '_firstName'=>$form->getValue('firstName'),
@@ -41,18 +49,27 @@ class Member_PaymentMethodController extends Core_Controller_ActionMember
                 $form->populate($formValues);            
             }
         }else{
+            $form = new Application_Form_BillingInformationForm();
+            
             $member->loadProfile();
 
             $billingInformation = $member->getPropertie('_billingInformation');
 
             $populate = array();
-            foreach($billingInformation[0] as $key=>$value){
-                $populate[preg_replace('/^_/', '', $key)] = $value;
+            if(!empty($billingInformation)){
+                foreach($billingInformation[0] as $key=>$value){
+                    $populate[preg_replace('/^_/', '', $key)] = $value;
+                }
+
+                $populate['id']=$billingInformation[0]['_customerPaymentProfileId'];
+                
+                $form->getElement('cardNumber')->setAttrib('style', 'display:none')->setLabel('');
+                $form->getElement('expirationDate')->setAttrib('style', 'display:none')->setLabel('');
+                $form->getElement('cardCode')->setAttrib('style', 'display:none')->setLabel('');
+            }else{
             }
-            
-            $populate['id']=$billingInformation[0]['_customerPaymentProfileId'];
             //print_r($populate);die();
-            $form = new Application_Form_BillingInformationForm();
+            
             $form->populate($populate);
             
         }

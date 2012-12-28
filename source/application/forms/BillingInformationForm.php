@@ -84,30 +84,33 @@ class Application_Form_BillingInformationForm extends Core_Form {
                 )));
 
         
-        $this->addElement(new Zend_Form_Element_Hidden('cardNumber',
+        $this->addElement(new Zend_Form_Element_Text('cardNumber',
                         array(
-                            'label' => '',
+                            'label' => 'Card Number',
+                            'required' => true,
               //              'validators' => array(new Zend_Validate_Alnum(true)),
-                            'maxlength' => '200',
+                            'maxlength' => '18',
                             'size' => '40'
                 )));
         
-        $this->addElement(new Zend_Form_Element_Hidden('expirationDate',
+        $this->addElement(new Zend_Form_Element_Text('expirationDate',
                         array(
-                            'label' => '',
+                            'label' => 'Card Expiration Date (2017-05)',
+                            'required' => true,
                //             'validators' => array(new Zend_Validate_Alnum(true)),
-                            'maxlength' => '200',
+                            'maxlength' => '7',
                             'size' => '40'
                 )));
-        /*
+
+        
         $this->addElement(new Zend_Form_Element_Text('cardCode',
                         array(
                             'label' => 'Card Code',
                             'required' => true,
                             'validators' => array(new Zend_Validate_Alnum(true)),
-                            'maxlength' => '200',
+                            'maxlength' => '4',
                             'size' => '40'
-                )));*/
+                )));
 
         
         $this->addElement(new Zend_Form_Element_Submit('save',

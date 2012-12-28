@@ -42,11 +42,13 @@ class Member_MyAddressController extends Core_Controller_ActionMember
             $shippingAddress = $member->getPropertie('_shippingAddress');
 
             $populate = array();
-            foreach($shippingAddress[0] as $key=>$value){
-                $populate[preg_replace('/^_/', '', $key)] = $value;
-            }
+            if(!empty($shippingAddress)){
+                foreach($shippingAddress[0] as $key=>$value){
+                    $populate[preg_replace('/^_/', '', $key)] = $value;
+                }
             
-            $populate['id']=$shippingAddress[0]['_customerAddressId'];
+                $populate['id']=$shippingAddress[0]['_customerAddressId'];
+            }
             //print_r($populate);die();
             $form = new Application_Form_ShippingAddressForm();
             $form->populate($populate);
