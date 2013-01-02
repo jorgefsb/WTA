@@ -1,16 +1,18 @@
 <?php 
     $_identity = $this->identity ;
+    $this->headTitle()->setSeparator(' | ');
+    $this->headTitle('We The Adorned');
     //print_r($_identity);die('---');
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <?php $this->headTitle() ?>
-        <?php $this->headMeta() ?>
-        <?php $this->headLink() ?>
+        <?php echo  $this->headTitle() ?>
+        <?php echo $this->headMeta() ?>
+        <?php echo $this->headLink() ?>
 
-        <?php $this->headScript() ?>
-        <?php $this->headStyle() ?>      
+        <?php echo $this->headScript() ?>
+        <?php echo $this->headStyle() ?>      
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,7 +93,7 @@
                             <?php
                                 }else{
                             ?>
-                                <a class="btn liLight" href="/sign-in" >
+                                <a class="btn liLight" id="link-sign-in" href="/sign-in" >
                                     <strong>Sign in</strong>                                    
                                 </a>
                             <?php
@@ -106,8 +108,8 @@
 
                         <div class="nav-collapse collapse menu1">
                             <ul class="nav">
-                                <li><a href="/about-wta" title="" class="liLight">About WTA</a></li>
-                                <li><a href="/how-it-works" title="" class="liLight" data-top="5">How it works</a></li>
+                                <li><a href="/about-wta" id="link-about-wta" title="" class="liLight">About WTA</a></li>
+                                <li><a href="/how-it-works" id="link-how-it-works" title="" class="liLight" data-top="5">How it works</a></li>
                                 <li><a href="/coming-soon" title="" class="liLight" >PRESS</a></li>
                                 <!-- li><a href="/coming-soon" title="" class="liLight">CALENDAR</a></li -->
                             </ul>
@@ -164,7 +166,7 @@
                                 <a class="btn twitter" target="__blank" href="https://twitter.com/WeTheAdorned/">
                                 </a>
 
-                                <a class="contactus liLight" href="/contact-us">
+                                <a class="contactus liLight" id="link-contact-us" href="/contact-us">
                                     Contact us
                                 </a>
 

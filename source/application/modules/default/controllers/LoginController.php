@@ -19,8 +19,11 @@ class Default_LoginController extends Core_Controller_ActionDefault
     }      
     
     public function signinAction(){
-        $this->_helper->layout->disableLayout();  
-                
+        $this->view->headTitle('Sign-in');
+        $this->view->headScript()->appendScript('document.location.href = "'.BASE_URL.'#sign-in";');
+        if( $this->getRequest()->isXmlHttpRequest()  ){
+            $this->_helper->layout->disableLayout();
+        }
     }
     
     public function forgotpassAction(){

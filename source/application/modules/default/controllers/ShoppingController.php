@@ -51,7 +51,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
     
     
     public function checkoutAction(){        
-        
+        $this->view->headTitle('Checkout');
         if($this->view->isMember){
             $member = new Application_Entity_Member();
             $member->identify($this->_identity->member_id);     

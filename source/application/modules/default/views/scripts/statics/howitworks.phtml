@@ -1,5 +1,7 @@
-<div class="wLight">
+<div <?php echo !$this->visible ? 'class="wLight"' : 'id="contentBody"'?>>
+        
     <div class="howit-content contenido">
+        <?php echo !$this->visible ? '<div class="closex">X</div>' : ''?>
         <h2 class="">HOW IT WORKS</h2>
         <h3 class=""  >IN-SEASON. EXCLUSIVE. LIMITED.</h3>
         <p class="parrafos " >
@@ -41,6 +43,5 @@ How can we afford to do this?  Easy: we cut out the middleman. All he was doing 
         When it is ready to ship, your remaining balance is processed and then your order is delivered to you in our signature, archival packaging. Now, go out and rock it like the sophisticated fashionista you are! 
         </p>
         
-        <div class="closex">X</div>
     </div>
 </div>

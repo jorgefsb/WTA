@@ -1,8 +1,8 @@
 
-<div class="wLight">
+<div <?php echo !$this->visible ? 'class="wLight"' : 'id="contentBody"'?>>
 
     <div class="sAbout">
-        <div class="closex">X</div>
+        <?php echo !$this->visible ? '<div class="closex">X</div>' : ''?>
         <div>
             <p>
                 <span>ABOUT WE THE ADORNED</span><br/>

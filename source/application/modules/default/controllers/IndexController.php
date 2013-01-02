@@ -42,7 +42,6 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function indexAction(){        
         $this->loadOptionsMenu();
         
-        
         /*
          * Tracking
          */
@@ -80,8 +79,10 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $product_active = $this->getParam('product', '');  // Obtenemos el producto de la URL
         $id_prod = preg_replace('/^.*-(\d+).*$/', '$1', $product_active);
         
+        $imprime_productNameTitle = true;
         if( !$id_prod ){
             $id_prod = $this->view->sliderProducts[0]['product_id'];
+            $imprime_productNameTitle = false;
         }
         
         $_product->identify($id_prod);
@@ -96,6 +97,13 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->product = $properties;
         $this->view->urlBase = '/designers/';
                 
+        $this->view->headTitle(
+                                                (($imprime_productNameTitle) ? $properties['_name'] :   // Nombre del producto o
+                                                ucfirst($category_active)).  // Tipo de diseno
+                                                ' - '.$properties['designer']['_name']. ' Designer' // designer
+                                            );
+        $this->view->headMeta()->appendName('description', trim(strip_tags($properties['_descriptionDesigner'])));
+        
         
         /*
          * Tracking
@@ -130,6 +138,10 @@ class Default_IndexController extends Core_Controller_ActionDefault
                         
         $this->view->urlBase = '/exclusive-collections/';
                 
+        
+        $this->view->headTitle(ucfirst($category_active).' -  Exclusive Collection');
+        $this->view->headMeta()->appendName('description', $category_active.' -  Exclusive Collection');
+        
         /*
          * Tracking
          */
@@ -165,9 +177,11 @@ class Default_IndexController extends Core_Controller_ActionDefault
         
         $product_active = $this->getParam('product', '');  // Obtenemos el producto de la URL
         $id_prod = preg_replace('/^.*-(\d+).*$/', '$1', $product_active);
-        
+                
+        $imprime_productNameTitle = true;
         if( !$id_prod ){
-            $id_prod = $this->view->sliderProducts[0]['product_id'];
+            $id_prod = $this->view->sliderProducts[0]['product_id'];        
+            $imprime_productNameTitle = false;
         }
         
         $_product->identify($id_prod);
@@ -209,6 +223,13 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->urlBase = '/exclusive-collections/';
         
         
+        $this->view->headTitle(
+                                                (($imprime_productNameTitle) ? $properties['_name'] : '').  // Nombre del producto 
+                                                ' - '.ucfirst($category_active)
+                                            );
+        $this->view->headMeta()->appendName('description', trim(strip_tags($properties['_description'])));
+        
+        
         /*
          * Tracking
          */
@@ -236,9 +257,12 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $product_active = $this->getParam('product', '');  // Obtenemos el producto de la URL
         $id_prod = preg_replace('/^.*-(\d+).*$/', '$1', $product_active);
         $no_mostrar = false;
+        
+        $imprime_productNameTitle = true;
         if( !$id_prod ){
             $id_prod = $this->view->sliderProducts[0]['product_id'];
             $no_mostrar = true;
+            $imprime_productNameTitle = false;
         }
         
         $_product->identify($id_prod);
@@ -254,10 +278,17 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $properties['actress'] = $_actress->getProperties();
                 
         $this->view->product = $properties;
-        
+                
         
         $this->view->no_mostrar = $no_mostrar;
         $this->view->urlBase = '/boutique/'.preg_replace('/\s+/', '-',trim($properties['actress']['_name'])).'/';
+        
+        
+        $this->view->headTitle(
+                                                (($imprime_productNameTitle) ? $properties['_name'].' - ' : '').  
+                                                $properties['actress']['_name'] 
+                                            );
+        $this->view->headMeta()->appendName('description', $properties['actress']['_name'].' - '.trim(strip_tags($properties['_description'])));
         
         
         /*
@@ -274,6 +305,9 @@ class Default_IndexController extends Core_Controller_ActionDefault
     public function celebritysAction(){
         $this->loadOptionsMenu();
         
+        
+        $this->view->headTitle('Celebrity Boutique');
+        $this->view->headMeta()->appendName('description', 'Choose your favorite celebrity');
         
         /*
          * Tracking
@@ -296,8 +330,10 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $product_active = $this->getParam('product', '');  // Obtenemos el producto de la URL
         $id_prod = preg_replace('/^.*-(\d+).*$/', '$1', $product_active);
         
+        $imprime_productNameTitle = true;
         if( !$id_prod ){
             $id_prod = $this->view->sliderProducts[0]['product_id'];
+            $imprime_productNameTitle = false;
         }
         
         $_product->identify($id_prod);
@@ -337,6 +373,11 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->next = $next;
         $this->view->urlBase = '/limited-quantity/';
         
+        $this->view->headTitle(
+                                                (($imprime_productNameTitle) ? $properties['_name'].' - ' : '').  // Nombre del producto 
+                                                ' Limited quantity'
+                                            );
+        $this->view->headMeta()->appendName('description', trim(strip_tags($properties['_description'])));
         
         /*
          * Tracking

@@ -11,6 +11,16 @@ $(window).load(function(){
     WTA.ajustarImgProd();
     $(document).ajaxStop(function(){WTA.ajaxStatus(true)});
     $(window).resize(WTA.ajustarImgProd);
+    
+    
+    if(window.location.hash) {                  // si viene un hash en la url y existe un link con link+hash como id lo ejecuta
+        var hash = window.location.hash
+        var link = $('#link-'+ hash.replace('#', '') );
+        if(link.length){
+            link.trigger('click');
+        }
+    }
+    
 })
 
 var WTA = (function(){
