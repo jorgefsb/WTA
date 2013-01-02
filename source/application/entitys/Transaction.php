@@ -434,7 +434,13 @@ class Application_Entity_Transaction extends Core_Entity {
                 return $_payment->_profileTransactionId;
             }else{                
                 //$this->_message = print_r($_transaction->getLastExecution(), true);
-                $this->_message = $_payment->getError();
+                //$this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again.';
+                $error=$_payment->getError();
+                if($error=='Decline' || $error == 'Error'){
+                    $this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again.';
+                }else{
+                    $this->_message = $_payment->getError();
+                }
                 return false;
             }
         }else{

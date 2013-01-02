@@ -14,14 +14,27 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         var requestTitle = $(this).attr("title");
             $.ajax({
                 type: "POST",
-                url: "/admin/orders/get-member-information?transaction="+request+"&member="+requestTitle,
+                url: "/admin/orders/get-order-information?transaction="+request,
                 data: { id: $(this).id }
-            }).done(function(data) {
-                $.each(data, function(index, value) { 
-                    $("#"+index).text(value);
-                });
+            }).done(function(response) {
+                $("#myModal").find(".modal-body").html(response);
             });
         });
+        
+        $(".btn-tracking").click(function(e){
+            e.preventDefault();
+            $("#myModalTracking").modal("show");
+            var request = $(this).attr("id");
+            var requestTitle = $(this).attr("title");
+            $.ajax({
+                type: "POST",
+                url: "/admin/orders/get-tracking?transaction="+request,
+                data: { id: $(this).id }
+            }).done(function(response) {
+                $("#myModalTracking").find(".modal-body").html(response);
+            });
+        }); 
+
     });
 ');
         $this->view->headScript()->appendScript('
@@ -34,10 +47,11 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
                 url: "/admin/orders/get-state?country="+$(this).attr("value"),
                 data: { id: $(this).id }
             }).done(function(data) {
-            $("#state").empty();
+                $("#state").empty();
                 $.each(data, function(index, value) { 
                     $("#state").append("<option value=\'"+value["id"]+"\'>"+value["name"]+"</option>");
                 });
+                $("#state").trigger("liszt:updated");
             });
             
         });
@@ -46,7 +60,7 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $this->view->headScript()->appendScript('
     $(document).ready(function(){
     $("#filter").css("display", "none");
-    $("#plusFilter").click(function () {
+    $("#plusFilter").click(function () {        
         $("#filter").toggle("slow",function(){
          if($("#filter").css("display") == "none"){
         $("#plusFilter").attr("class", "icon-plus");
@@ -59,6 +73,11 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
 ');
         $modelRegions = new Application_Model_Regions();
         $arrayData = $this->getRequest()->getQuery();
+        
+        if( empty($arrayData) ){
+            $arrayData['status'][] = Application_Entity_Transaction::TRANSACTION_PAID;
+        }
+        
         $this->view->fromDate = (isset($arrayData['fromDate']) && $arrayData['fromDate'] != '') ? $arrayData['fromDate'] : '';
         $this->view->toDate = (isset($arrayData['toDate']) && $arrayData['toDate'] != '') ? $arrayData['toDate'] : '';
         $this->view->menbers = isset($arrayData['menbers']) ? $arrayData['menbers'] : array();
@@ -87,46 +106,74 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         if (!(isset($arrayData['countries']) && $arrayData['countries'] != '')) {
             unset($arrayData['countries']);
         }
-
+        
         $this->view->orders = Application_Entity_Transaction::listOrders($arrayData);
         $this->view->userOrders = Application_Entity_Transaction::listOrdensUsers();
-        $this->view->country = $modelRegions->listing();
+        $this->view->country = $modelRegions->listing(array(840));
     }
 
-    public function getMemberInformationAction() {
+    public function getOrderInformationAction() {
         $this->_helper->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $idTransaction = $this->getParam('transaction');
+        
         $transsaction = new Application_Entity_Transaction();
-        $data = $transsaction->identify($this->getParam('transaction'));
+        $data = $transsaction->identify($idTransaction);
         $nameMember = $this->getParam('member');
         $modelRegions = new Application_Model_Regions();
-        $country = Core_Utils::fetchPairs($modelRegions->listing(), 4);
-        $subregions = Core_Utils::fetchPairs($modelRegions->listingSubregions());
-        $array['contact'] = 'Member: ' . $nameMember;
-        $array['mail'] = 'Mail: ' . $data['transaction_mail'];
+        $modelsubRegion = new Application_Model_SubRegions();
+        $this->view->country = Core_Utils::fetchPairs($modelRegions->listing(), 4);
+        //$subregions = Core_Utils::fetchPairs($modelRegions->listingSubregions());
+        
+        $data['contact'] = 'Member: ' . $nameMember;
+        $data['mail'] = 'Mail: ' . $data['transaction_mail'];
 
-        $array['shiFirstName'] = 'First Name: ' . $data['transaction_shi_add_first_name'];
-        $array['shiLastName'] = 'Last Name: ' . $data['transaction_shi_add_last_name'];
-        $array['shiAddres'] = 'Address: ' . $data['transaction_shi_add_addres'];
-        $array['shiAddresContinued'] = 'Address Continued: ' . $data['transaction_shi_add_addres_continued'];
-        $array['shiPostalCode'] = 'Postal Code: ' . $data['transaction_shi_add_postal_code'];
-        $array['shiRegion'] = 'Country: ' . (isset($country[$data['transaction_shi_add_region_id']])?$country[$data['transaction_shi_add_region_id']]:'');
-        $array['shiSubRegion'] = 'State: ' . (isset($subregions[$data['transaction_shi_add_subregion_id']])?$subregions[$data['transaction_shi_add_subregion_id']]:'');
-        $array['shiCity'] = 'City: ' . $data['transaction_shi_add_city'];
-        $array['shiPhone'] = 'Phone: ' . $data['transaction_shi_add_phone_number'];
-        $array['billFirstName'] = 'First Name: ' . $data['transaction_bill_add_first_name'];
-        $array['billLastName'] = 'Last Name: ' . $data['transaction_bill_add_last_name'];
-        $array['billAddres'] = 'Address: ' . $data['transaction_bill_add_addres'];
-        $array['billAddresContinued'] = 'Address Continued: ' . $data['transaction_bill_add_addres_continued'];
-        $array['billCity'] = 'City: ' . $data['transaction_bill_add_city'];
-        $array['billRegion'] = 'Country: ' . (isset($country[$data['transaction_bill_add_region_id']])?$country[$data['transaction_bill_add_region_id']]:'');
-        $array['billSubRegion'] = 'State: ' . (isset($subregions[$data['transaction_bill_add_subregion_id']])?$subregions[$data['transaction_bill_add_subregion_id']]:'');
-        $array['billPostalCode'] = 'Postal Code: ' . $data['transaction_bill_add_postal_code'];
-        $array['billPhone'] = 'Phone: ' . $data['transaction_bill_add_phone_number'];
-
-        $array['cardNumber'] = 'Card Number: ' . str_pad($data['transaction_card_number'], 16, '*', STR_PAD_LEFT);
-        $this->_helper->json($array);
+        if($data['transaction_shi_add_subregion_id']){
+            $subregion = $modelsubRegion->getSubRegion($data['transaction_shi_add_subregion_id']);
+            $this->view->subregion_shp = $subregion['name'];
+        }
+        
+        if($data['transaction_bill_add_region_id']){
+            $subregion = $modelsubRegion->getSubRegion($data['transaction_bill_add_subregion_id']);
+            $this->view->subregion_bill = $subregion['name'];
+        }
+        
+        $this->view->data = $data;
     }
+    
+    public function getTrackingAction(){
+        $this->_helper->layout()->disableLayout();
+        
+        $idTransaction = $this->getParam('transaction');
+        
+        $modelTraking = new Application_Model_Tracking();
+        $data = $modelTraking->getTrakingByTransaction($idTransaction);
+        
+        $data = unserialize($data['tracking_code']);
+        
+        $this->view->data = $data;
+        
+        $_product = new Application_Entity_Product();
+        
+        $productos_vistos = array();
+        if(is_array($data)){
+            foreach($data as $action){
+                if( isset($action['data']['code']) && !empty($action['data']['code']) ){
+                    if( !isset($productos_vistos[$action['data']['code']]) && (int)$action['data']['code']>0){
+                        $_product->identify($action['data']['code']);
+                        $tmpProperties = $_product->getProperties();
+                        $tmpProperties['images'] = $_product->listingImg();
+                        $productos_vistos[$action['data']['code']] = $tmpProperties;
+                    }
+                }
+            }
+        }
+        
+        $this->view->productos_vistos = $productos_vistos;
+        
+        
+    }
+    
 
     public function getStateAction() {
         $this->_helper->layout()->disableLayout();
@@ -151,4 +198,6 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $this->_redirect($_SERVER['HTTP_REFERER']);
     }
 
+    
+    
 }

@@ -1,0 +1,27 @@
+<?php
+$data = $this->data;
+
+echo '<div><strong>Email : </strong>' . $data['transaction_mail'] . '</div>';
+
+echo '<h3>Shipping Information</h3>';
+echo '<div><strong>First Name: </strong>' . $data['transaction_shi_add_first_name'] . '</div>';
+echo '<div><strong>Last Name: </strong>' . $data['transaction_shi_add_last_name'] . '</div>';
+echo '<div><strong>Address: </strong>' . $data['transaction_shi_add_addres'] . '</div>';
+echo '<div><strong>Address Continued: </strong>' . $data['transaction_shi_add_addres_continued'] . '</div>';
+echo '<div><strong>Postal Code: </strong>' . $data['transaction_shi_add_postal_code'] . '</div>';
+echo '<div><strong>Country: </strong>' . (isset($this->country[$data['transaction_shi_add_region_id']])?$this->country[$data['transaction_shi_add_region_id']]:'');
+echo '<div><strong>State: </strong>' . $this->subregion_shp;
+echo '<div><strong>City: </strong>' . $data['transaction_shi_add_city'] . '</div>';
+echo '<h3>Billing Information</h3>';
+echo '<div><strong>Phone: </strong>' . $data['transaction_shi_add_phone_number'] . '</div>';
+echo '<div><strong>First Name: </strong>' . $data['transaction_bill_add_first_name'] . '</div>';
+echo '<div><strong>Last Name: </strong>' . $data['transaction_bill_add_last_name'] . '</div>';
+echo '<div><strong>Address: </strong>' . $data['transaction_bill_add_addres'] . '</div>';
+echo '<div><strong>Address Continued: </strong>' . $data['transaction_bill_add_addres_continued'] . '</div>';
+echo '<div><strong>City: </strong>' . $data['transaction_bill_add_city'] . '</div>';
+echo '<div><strong>Country: </strong>' . (isset($this->country[$data['transaction_bill_add_region_id']])?$this->country[$data['transaction_bill_add_region_id']]:'');
+echo '<div><strong>State: </strong>' . $this->subregion_bill;
+echo '<div><strong>Postal Code: </strong>' . $data['transaction_bill_add_postal_code'] . '</div>';
+echo '<div><strong>Phone: </strong>' . $data['transaction_bill_add_phone_number'] . '</div>';
+
+?>

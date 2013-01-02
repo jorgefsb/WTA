@@ -49,8 +49,9 @@ class Application_Model_Regions extends Core_Model {
                     )
                 )->order('name asc');
                 
-        if($idRegion!='')
-        $smt = $smt->where('region_id = ?', $idRegion);
+        if($idRegion!=''){
+            $smt = $smt->where('region_id = ?', $idRegion);
+        }
         $smt = $smt->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();

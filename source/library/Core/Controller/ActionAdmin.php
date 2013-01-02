@@ -92,7 +92,7 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'controller' => 'members',
                 'resource' => 'members',
                 'order' => 5
-            ),
+            )/*,
             array(
                 'label' => 'Shopping reports',
                 'id' => 'shopping-reports',
@@ -100,7 +100,7 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'resource' => 'shopping-reports',
                 'controller' => 'shopping-reports',
                 'order' => 6
-            ),
+            ),*/
         );
         $this->setRegisterNavigation($container);
     }

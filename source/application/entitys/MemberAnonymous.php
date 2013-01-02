@@ -135,11 +135,15 @@ class Application_Entity_MemberAnonymous extends Core_Entity {
             $shippings = $customer->getListShippingAddress();
             $billings = $customer->getListBillingInformation();
             
-            foreach($shippings as $ship){ 
-                $shpAdd[] = $ship->getAllProperties();
+            if(is_array($shippings)){
+                foreach($shippings as $ship){ 
+                    $shpAdd[] = $ship->getAllProperties();
+                }
             }
-            foreach($billings as $bill) {
-                $paymeth[] = $bill->getAllProperties();
+            if(is_array($billings)){
+                foreach($billings as $bill) {
+                    $paymeth[] = $bill->getAllProperties();
+                }
             }
             
         }

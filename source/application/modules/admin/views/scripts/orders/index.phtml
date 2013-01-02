@@ -4,61 +4,63 @@
     </div>
     <div class="box-content">
         <form method="get" action="">
-            <div class="span4">
+            <div >
                 <h3>Filters <a href="#" id="plusFilter"  class="icon-plus"></a></h3>
-                <div class="well" id="filter" style="display:none">
+                <div class="well" id="filter" >
 
-                    <h4>Date Range</h4>
-                    <div class="control-group" style="text-align: left">
-                        <label class="control-label" for="fromDate">From Date</label>
-                        <div class="controls">
-                            <input type="text" class="datepicker" value="<?php echo $this->fromDate; ?>" id="fromDate" name="fromDate" value="">
+
+                    <div class="container-fluid">
+                        <div class="span2">
+                            <h4>Date Range</h4>
+                        </div>
+                        <div class="span2">
+                            <!-- label class="control-label" for="fromDate">From Date</label-->
+                            <input type="text" class="datepicker" value="<?php echo $this->fromDate; ?>" id="fromDate" name="fromDate" value=""  style="width:100px" placeholder="From Date">
+                        </div>
+                        <div class="span2">
+                            <!-- label class="control-label" for="toDate">To Date</label -->
+                            <input type="text" class="datepicker" value="<?php echo $this->toDate; ?>" id="toDate" name="toDate" value="" style="width:100px"  placeholder="To Date">
                         </div>
                     </div>
-                    <div class="control-group" style="text-align: left">
-                        <label class="control-label" for="toDate">To Date</label>
-                        <div class="controls">
-                            <input type="text" class="datepicker" value="<?php echo $this->toDate; ?>" id="toDate" name="toDate" value="">
+                    <div class="container-fluid">
+                        <div class="span2">
+                            <h4>Member</h4>
                         </div>
-                    </div>
-
-                    <h4>Member</h4>
-                    <div class="control-group">
-                        <label class="control-label" for="menbers">Select Member</label>
-                        <div class="controls">
-                            <select style="width: 210px;" id="menbers" name="menbers[]" multiple data-rel="chosen">
+                        <div class="span2">
+                            <select style="width: 200px;" id="menbers" name="menbers[]" multiple data-rel="chosen"   data-placeholder='Choose a Member'>
                                 <?php foreach ($this->userOrders as $index): ?>
                                     <option value="<?php echo $index['member_id'] ?>" <?php echo in_array($index['member_id'], $this->menbers) ? 'selected' : '' ?> ><?php echo $index['member_name'] . ' ' . $index['member_last_name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
-                    
-                    <h4>Country</h4>
-                    <div class="control-group">
-                        <label class="control-label" for="countries">Select Countries</label>
-                        <div class="controls">
-                            <select style="width: 210px;" id="countries" name="countries" data-rel="chosen">
+
+
+                    <div class="container-fluid">
+                        <div class="span2">
+                            <h4>Location</h4>
+                        </div>
+                        <div class="span4">
+                            <select style="width: 200px;" id="countries" name="countries" data-rel="chosen"  data-placeholder='Choose a Country'>
                                 <option value="" ></option>
                                 <?php foreach ($this->country as $index): ?>
                                     <option value="<?php echo $index['id'] ?>" <?php echo ($index['id'] == $this->countrySelect) ? 'selected' : '' ?> ><?php echo $index['country'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                    </div>
-                    <h4>State</h4>
-                    <div class="control-group">
-                        <label class="control-label" for="state">Select State</label>
-                        <div class="controls">
-                            <select id="state" name="state" >
+                        <div class="span4">
+                            <select id="state" name="state"  data-rel="chosen"  style="width: 200px;"  data-placeholder='Choose a State'>
                                 <?php foreach ($this->subRegions as $index): ?>
                                     <option value="<?php echo $index['id'] ?>" <?php echo ($index['id'] == $this->subRegionsSelect) ? 'selected' : '' ?> ><?php echo $index['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                    </div>
-                    <h4>Status</h4>
-                    <div class="control-group" style="text-align: left">
+                    </div>  
+
+                    <div class="container-fluid">
+                        <div class="span2">
+                            <h4>Status Order</h4>
+                        </div>
                         <?php
                         $state = array(
                             Application_Entity_Transaction::TRANSACTION_OUTSTANDING => 'OUTSTANDING',
@@ -67,15 +69,20 @@
                         );
                         ?>
                         <?php foreach ($state as $index => $value): ?>
-                            <label>
-                                <input <?php echo in_array($index, $this->status) ? 'checked="checked"' : '' ?> type="checkbox" id="status<?php echo $index; ?>" name="status[]" value="<?php echo $index; ?>" /><?php echo $value; ?>
-                            </label>
+                            <div class="span3">
+                                <label>
+                                    <input <?php echo in_array($index, $this->status) ? 'checked="checked"' : '' ?> type="checkbox" id="status<?php echo $index; ?>" name="status[]" value="<?php echo $index; ?>" /><?php echo $value; ?>
+                                </label>
+                            </div>
                         <?php endforeach; ?>
 
-                    </div>
+                    </div>  
 
-                    <h4>Delivered</h4>
-                    <div class="control-group" style="text-align: left">
+                    <div class="container-fluid">
+                        <div class="span2">
+                            <h4>Delivered</h4>
+                        </div>
+
                         <?php
                         $stateDelivered = array(
                             1 => 'Yes',
@@ -83,13 +90,16 @@
                         );
                         ?>
                         <?php foreach ($stateDelivered as $index => $value): ?>
-                            <label><input <?php echo in_array($index, $this->stateDelivered) ? 'checked="checked"' : '' ?> type="checkbox" id="stateDelivered<?php echo $index; ?>" name="stateDelivered[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
+                            <div class="span3">
+                                <label><input <?php echo in_array($index, $this->stateDelivered) ? 'checked="checked"' : '' ?> type="checkbox" id="stateDelivered<?php echo $index; ?>" name="stateDelivered[]" value="<?php echo $index; ?>" /><?php echo $value; ?></label>
+                            </div>
                         <?php endforeach; ?>
 
-                    </div>
+                    </div>  
+
                     <div style="text-align: right">
-                        <a href="/admin/orders">Cancel Filter</a>
-                        <input type="submit" value="Send" />
+                        <a href="/admin/orders"  class="btn" >Cancel Filter</a>
+                        <input type="submit" class="btn" value="Send" />
                     </div>
                 </div>
             </div>
@@ -97,9 +107,9 @@
         </form> 
         <table class="table">
             <thead>
-                <tr>
+                <tr>                    
                     <th>
-                        Registration Date
+                        ID
                     </th>
                     <th>
                         Member
@@ -111,6 +121,9 @@
                         Product
                     </th>
                     <th>
+                        Create Date
+                    </th>
+                    <th>
                         Delivered
                     </th>
                     <th>
@@ -118,15 +131,15 @@
                     </th>
                 </tr>
             </thead>
-            <?php foreach ($this->orders as $index): $priceTotal=0; ?>
+            <?php foreach ($this->orders as $index): $priceTotal = 0; ?>
                 <tr>
                     <td>
-                        <?php echo $index['transaction_payment_date']; ?>
+                        <?php echo $index['transaction_id']; ?>
                     </td>
                     <td>
-                        
-                            <?php echo $index['member_name']; ?> 
-                            <?php echo $index['member_last_name']; ?>
+
+                        <?php echo $index['member_name']; ?> 
+                        <?php echo $index['member_last_name']; ?>
                     </td>
                     <td>
                         <?php echo $index['tansaction_state_name']; ?>
@@ -184,16 +197,17 @@
                                             <span class="label label-success">$<?php echo $product[3]; ?></span>
                                         </td>
                                     <?php } else {
-                                        $price = $product[2]; ?>
+                                        $price = $product[2];
+                                        ?>
                                         <td>
                                             <span class="label label-success">$<?php echo $product[2]; ?></span>
                                         </td>
                                         <td style="text-decoration: line-through" >
                                             $<?php echo $product[3]; ?>
                                         </td>
-                                    <?php } ?>
+                                        <?php } ?>
                                     <td >
-                                        <?php echo $product[4]; ?>
+        <?php echo $product[4]; ?>
                                     </td>
 
                                 </tr>
@@ -216,6 +230,9 @@
                         </table>
                     </td>
                     <td>
+                        <?php echo $index['transaction_payment_date']; ?>
+                    </td>
+                    <td>
                         <?php
                         $arrayEstatus = array('No', 'Yes');
                         echo $arrayEstatus[$index['transaction_delivered']];
@@ -228,62 +245,49 @@
                     </td>
                     <td>
                         <?php if ($index['tansaction_state_id'] == 2) { ?>
-                            <?php if ($index['transaction_delivered'] == 1) { ?>
+        <?php if ($index['transaction_delivered'] == 1) { ?>
                                 <a href="/admin/orders/undelivered?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info"> <span class="icon-arrow-down icon-white"></span>Undelivered</a>
 
                             <?php } else { ?>
                                 <a href="/admin/orders/delivered?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info"> <span class="icon-arrow-up icon-white"></span>Delivered</a>
                             <?php } ?>
-                        <?php } ?>
-                    </td>
-                    <td>                        <a href="#" id="<?php echo $index['transaction_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn-setting">View More
+    <?php } ?>
+                        <br/><br/>
+                        <a href="#" id="<?php echo $index['transaction_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn btn-mini btn-info btn-setting">
+                            View information
                         </a>
-</td>
+                        <br/><br/>  
+                        <a href="#" id="<?php echo $index['transaction_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn btn-mini btn-info btn-tracking">
+                            View tracking
+                        </a>
+                    </td>
                 </tr>
-            <?php endforeach; ?>
+<?php endforeach; ?>
         </table>
     </div>
 </div>
 
-<div class="modal hide fade" id="myModal">
+<div class="modal hide fade" id="myModal" style=" top: 10%; margin-top: 0px;">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
-        <h3 id="contact"></h3>
+        <h3>Order Information</h3>
     </div>
     <div class="modal-body">
-        <dl>
-            <dt>Contact information </dt>
-            <dd id="mail"></dd>
-            <dd id="phone"></dd>
-            <dd id="fax"></dd>
+        
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
 
-            <dt>Billing address</dt>
-            <dd id="billFirstName"></dd>
-            <dd id="billLastName"></dd>
-            <dd id="billAddres"></dd>
-            <dd id="billAddresContinued"></dd>
-            <dd id="billRegion"></dd>
-            <dd id="billSubRegion"></dd>
-            <dd id="billCity"></dd>
-            <dd id="billPostalCode"></dd>
-            <dd id="billPhone"></dd>
+    </div>
+</div>
 
-            <dt>Shipping address</dt>
-            <dd id="shiFirstName"></dd>
-            <dd id="shiLastName"></dd>
-            <dd id="shiAddres"></dd>
-            <dd id="shiAddresContinued"></dd>
-            <dd id="shiRegion"></dd>
-            <dd id="shiSubRegion"></dd>
-            <dd id="shiCity"></dd>
-            <dd id="shiPostalCode"></dd>
-            <dd id="shiPhone"></dd>
-
-            <dt>Payment Method</dt>
-            <dd id="cardNumber"></dd>
-            <dd id="cardType"></dd>
-            <dd id="expire"></dd>
-        </dl>            
+<div class="modal hide fade" id="myModalTracking" style="width: 900px; margin-left: -400px; top: 10%;  margin-top: 0px;">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Tracking</h3>
+    </div>
+    <div class="modal-body">
+        
     </div>
     <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">Close</a>

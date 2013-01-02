@@ -15,12 +15,11 @@
         <h2><?php echo $this->product['designer']['_name']; ?></h2>
         
         <a href="" class="details">Details</a> /
-        <a  class="available"><?php echo $this->product['_cantLimitedQuantity'] - $this->product['_cantBuy']?> units available to members only</a>
+        <a  class="available"><?php echo $this->product['_cantLimitedQuantity'] - $this->product['_cantBuy']?> units available to members only</a>        
         
         <div  class="details-content">
             <p>
-                <strong>T.CYIA</strong>  large cuff features a bright antique nickel shark tooth with oxidized nickel details. It sits atop an oxidized nickel cuff. 
-    The cuff is 3 2/8" long, shark is 2.5" at widest and 3" long.
+                <?php echo $this->product['_description']; ?>
             </p>
 
             <div class="precios">
@@ -35,7 +34,6 @@
                     <strong class="<?php echo (!$this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_priceMember'], 2); ?></strong>
                 </div>
             </div>
-            
         </div>
         
         <div class="btns-options" >

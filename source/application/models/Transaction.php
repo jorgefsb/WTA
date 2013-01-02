@@ -112,7 +112,8 @@ class Application_Model_Transaction extends Core_Model {
                 ->join(array('trd' => $this->_tableTransactionDetails->getName()), 'trd.transaction_id=tr.transaction_id', '')
                 ->join(array('trs' => $this->_tableTransactionState->getName()), 'trs.tansaction_state_id=tr.tansaction_state_id', '')
                 ->join(array('pr' => $this->_tableProduct->getName()), 'pr.product_id=trd.product_id', '')
-                ->join(array('mem' => $this->_tableMemeber->getName()), 'mem.member_id=tr.member_id', '')
+                ->joinLeft(array('mem' => $this->_tableMemeber->getName()), 'mem.member_id=tr.member_id', '')
+                ->order('tr.transaction_id DESC')
                 ->group('tr.transaction_id');
         foreach($filtro as $index=>$value){
             switch ($index) {

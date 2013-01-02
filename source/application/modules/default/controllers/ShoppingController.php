@@ -4,9 +4,7 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
 {
     
     public function init() {
-        parent::init();
-        
-        $action = $this->_getParam('action','');
+        parent::init();        
         
         $this->view->isMember = Zend_Auth::getInstance()->hasIdentity();
         
@@ -93,8 +91,6 @@ class Default_ShoppingController extends Core_Controller_ActionDefault
         $this->_helper->layout->disableLayout();
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
-        $this->view->cart = $this->_session->cart;
-        
     }
     
     

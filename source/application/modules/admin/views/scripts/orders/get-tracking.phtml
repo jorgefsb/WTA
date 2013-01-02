@@ -1,0 +1,77 @@
+<?php
+    $productos = $this->productos_vistos;
+?>
+
+<table class="table">
+    <thead>
+        <tr >
+            <th width="220">Action</th>
+            <th width="250">Description</th>
+            <th width="80">Product</th>
+            <th width="160">Date</th>
+            <th width="190">URL</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+
+            if(is_array($this->data)){
+                foreach($this->data as $action){
+                    $nameAction = $action['name'];
+                    $imgProd = '';
+                    $description = '';
+                    switch($action['name']){
+                        case 'PAGE':
+                            $nameAction = 'View Page';                                                                    
+                            if( preg_match('/checkout/', $action['url']) ){
+                                $description = 'checkout';
+                            }
+                            break;
+                        case 'PRODUCT':
+                            $nameAction = 'View Product';
+                            break;
+                        case 'REMOVEPROD':
+                            $nameAction = 'Delete Product from Shopping Cart';
+                            break;
+                        case 'ADD2CART':
+                            $nameAction = 'Add Product to Shpping Cart';
+                            break;
+                        case 'CHANGEPROD':
+                            $nameAction = 'Change '. $action['data']['field'];
+                            break;
+                    }
+                    
+                    
+                    if(isset($action['data']['code'])){
+                        if( isset($productos[$action['data']['code']]) ){
+                            $imgProd = '<img src="'.DINAMIC_URL.'/product/mini/'.$productos[$action['data']['code']]['images'][0]['image_name'] .'" />';                            
+                            $description = 'Product: ('.$productos[$action['data']['code']]['_code'].') '.$productos[$action['data']['code']]['_name'];
+                        }
+                    }else{
+                        if(isset($action['data']['category'])){
+                            $description = 'Category: '.$action['data']['category'];
+                        }
+                    }
+                    
+                    if( !preg_match('/http/', $action['url']) ){
+                        $action['url'] = BASE_URL. trim($action['url'], '/');
+                    }
+
+                    
+                    
+        ?>
+                    <tr>
+                        <td><?php echo $nameAction ?></td>
+                        <td><?php echo $description ?></td>
+                        <td style="text-align: center"><?php echo $imgProd ?></td>
+                        <td><?php echo $action['date'] ?></td>
+                        <td><a href="<?php echo $action['url'] ?>" target="__blank"><?php echo $action['url'] ?></a></td>
+                    </tr>
+        <?php
+                }
+            }
+
+        ?>
+        
+    </tbody>
+</table>

@@ -61,7 +61,7 @@ class Default_BetaController extends Core_Controller_ActionDefault
          */
         $this->_tackName = 'PAGE';
         $this->_tackUrl = $_SERVER['REQUEST_URI'];
-        $this->_tackData =array('code'=>$code);
+        //$this->_tackData =array('code'=>$code);
         $this->_tackUrlRef = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
         
         

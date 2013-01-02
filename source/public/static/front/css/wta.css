@@ -74,7 +74,7 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 #contentBody .logo p span{color: #dad09b; font-style: italic; font-weight: bold }
 
 #contentBody .likewys, #contentBody .getafgt{background: #191919; color: #f0ce7d; box-shadow: none; text-shadow: none; position: absolute; right: 2%}
-#contentBody .getafgt{bottom: 210px;}
+#contentBody .getafgt{bottom: 240px;}
 
 
 #change_section{background: #101010; color: #eadcb4; font-family: Arial, Helvetica, sans-serif}
@@ -288,7 +288,8 @@ body.white .navbar-inverse  .navbar-inner{background: #000;}
 #slider_products #prev2{top: 30%; right: 101%; background-position: 0 0; }
 #slider_products #next2{top: 30%; left: 100%; background-position: -26px 0;  }
 
-.btns-options .btn , #contentBody.boutique .info .btns-options a{background: #333333; color: #FFF; box-shadow: none; text-shadow: none; font-size: 10px; text-transform: uppercase; padding: 2px 5px; font-family: 'Times New Roman';box-shadow: none}
+.btns-options .btn {background: #333333; color: #FFF; box-shadow: none; text-shadow: none; font-size: 10px; text-transform: uppercase; padding: 2px 5px; font-family: 'Times New Roman';box-shadow: none}
+#contentBody.boutique .info .btns-options a{box-shadow: none; text-shadow: none; font-size: 10px; }
 #contentBody > .btns-options {position: absolute; top: 30px; right: 10%; }
 #contentBody .info .btns-options {margin-top: 15px; }
 #contentBody .info .btns-options a{color: #fcd279; background: #101010; min-width: 80px; box-shadow: 1px 1px 2px #999}
@@ -348,14 +349,14 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 .sAbout span{ color: #FFF}
 .sAbout, .wContact{ position: relative;background-color:#000;z-index: 1000; padding:20px 0px 0px 20px; width:618px; }/*618px*/
 .sAbout{width: 650px;}
-.sAbout > div{display: inline-block; vertical-align: top; background:url(../images/pareja.png) bottom right no-repeat; }/*350px*/
+.sAbout > div{display: inline-block; vertical-align: top; background:url(../images/pareja.jpg) bottom right no-repeat; }/*350px*/
 .sAbout p{ color:#747474; padding: 10px 190px 10px 10px; line-height: 24px;}
 .sAbout p a{color: #FFF;}
 .sAbout .leer_mas{background: #1e1e1e; display: inline-block; padding: 5px 10px; border: 1px solid #1e1e1e; color: #FFF; font-family: 'Rimes New Roman'; position: relative; text-transform: uppercase; font-size: 11px; margin: 10px 0px 20px 240px}
 .sAbout .leer_mas:before{content: ""; display:inline-block; border-top: 17px solid transparent; border-right: 12px solid #1e1e1e;  border-bottom: 17px solid transparent; position: absolute; right: 100%; top: -2px;}
 .sAbout p span:first-child { font-size: 28px;font-family:"Times New Roman", Times, serif; padding-bottom: 5px; border-bottom: solid 1px #222222   }
 
-.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(../images/pareja.png) bottom right no-repeat; height: 370px; vertical-align: bottom; }
+.sAbout .colLeft{ width:39%; height: 100%; background-size:100% 100%; background:url(../images/pareja.jpg) bottom right no-repeat; height: 370px; vertical-align: bottom; }
 
 .sAbout .colLeft a{ background-color:#121212; border-radius:5px; display: block; height:41px; line-height: 41px; text-align: center;  width:100px; color: #ff4f4f;}
 /*.sAbout{border: 10px solid rgb(100, 100, 100);	border: 10px solid rgba(254, 252, 254, 0.3);-moz-background-clip: padding;-webkit-background-clip: padding;background-clip: padding-box;}*/
