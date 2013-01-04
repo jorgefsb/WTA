@@ -103,7 +103,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
                                                 ' - '.$properties['designer']['_name']. ' Designer' // designer
                                             );
         $this->view->headMeta()->appendName('description', trim(strip_tags($properties['_descriptionDesigner'])));
-        
+        $this->view->isMember = true;
         
         /*
          * Tracking
@@ -229,7 +229,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
                                             );
         $this->view->headMeta()->appendName('description', trim(strip_tags($properties['_description'])));
         
-        
+        $this->view->isMember = true;
         /*
          * Tracking
          */
@@ -290,7 +290,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
                                             );
         $this->view->headMeta()->appendName('description', $properties['actress']['_name'].' - '.trim(strip_tags($properties['_description'])));
         
-        
+        $this->view->isMember = true;
         /*
          * Tracking
          */
@@ -309,6 +309,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
         $this->view->headTitle('Celebrity Boutique');
         $this->view->headMeta()->appendName('description', 'Choose your favorite celebrity');
         
+        $this->view->isMember = true;
         /*
          * Tracking
          */
@@ -379,6 +380,7 @@ class Default_IndexController extends Core_Controller_ActionDefault
                                             );
         $this->view->headMeta()->appendName('description', trim(strip_tags($properties['_description'])));
         
+        $this->view->isMember = true;
         /*
          * Tracking
          */
