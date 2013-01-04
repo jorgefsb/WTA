@@ -3,7 +3,7 @@ WTA-Frontend
 
 Frontend for the WTA project
 
-Requeriments
+Requirements
 -------------
 
 - Zend Framework 1.11
