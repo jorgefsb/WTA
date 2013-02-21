@@ -110,13 +110,16 @@ class Default_OrderController extends Core_Controller_ActionDefault
                     }
                     $name .= $strsize;
                     $prod['quantity'] = (isset($prod['quantity']) ? $prod['quantity'] : 1);
-                    if ($this->isMember) {
+                    /*
+                     * SIEMPRE ES PRECIO MIEMBRO, SIN IMPORTAR SI ESTA LOGUEADO O NO
+                     */
+                    //if ($this->isMember) {
                         $uniPrice = $prod['_priceMember'];
                         $total += $uniPrice*$prod['quantity'];
-                    } else {
-                        $uniPrice = $prod['_price'];
-                        $total += $uniPrice*$prod['quantity'];
-                    }
+                    //} else {
+                    //    $uniPrice = $prod['_price'];
+                    //    $total += $uniPrice*$prod['quantity'];
+                    //}
                     
                     $products[] = array(
                                                     'id'=>$prod['_id'],
