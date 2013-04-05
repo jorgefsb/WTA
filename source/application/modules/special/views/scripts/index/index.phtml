@@ -1,0 +1,65 @@
+<?php
+    $menu = $this->menu;
+    $menu_designers = $menu['menu_designers'];
+    $menu_collections_types = $menu['menu_collections_types'];
+    $menu_boutiques = $menu['menu_boutiques'];
+    $menu_limitedq = $menu['menu_limitedq'];
+    
+?>
+
+<div id="contentBody" class="special"><!-- CONTENT -->
+    <h1>Experience the exclusivity of membership for FREE for a limited time only</h1>
+    <h2>Shop the pre-launch limited quantity collections you won't find anywhere else while you still can</h2>
+    
+    <h3>
+        <span class="linea-degr-left"></span>
+        Get adorned!
+        <span class="linea-degr-right"></span>
+    </h3>
+    
+    <div class="row-fluid maxWidth">
+    <?php 
+        foreach($this->products as $prod){
+    ?>
+            
+            <div class="span4">
+                <article>
+                    <div class="img">
+                        <img src="<?php echo DINAMIC_URL.'/product/thumbs/'.$prod['images'][0]['image_name']; ?>" />
+                    </div>
+                    <header>                        
+                        <h1><?php echo $prod['_name']; ?></h1>
+                        <h3>Article #<?php echo $prod['_code']; ?></h3>
+                        <h2>T.CYIA</h2>
+                    </header>
+                    <p  class="dsc">
+                        <?php echo strip_tags($prod['_description']); ?>
+                    </p>
+                    <p>
+                        Number of units: <?php echo $prod['_cantLimitedQuantity']; ?>
+                    </p>
+                    <div class="precios">
+                        <div class="">
+                            <span>Guest price</span>
+                            <strong class="inactivo">$<?php echo number_format($prod['_price'], 2); ?></strong>
+                        </div>
+                        <div class="">
+                            <span>Member price</span>
+                            <strong class="activo">$<?php echo (int)$prod['_priceMember']; ?></strong>
+                        </div>
+                    </div>
+                    <a href="" class="btn btn-negro addToCart" data-code="<?php echo $prod['_id']; ?>" data-redirect="/special/checkout">
+                        BUY NOW
+                    </a>
+                </article>
+            </div>
+    
+    <?php 
+        }
+    ?>
+    </div>
+</div>
+<script>
+    
+    
+</script>

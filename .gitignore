@@ -5,3 +5,4 @@ source/data/cache
 source/application/configs/application.ini
 source/application/configs/private.ini
 source/public/dinamic
+/nbproject/private/

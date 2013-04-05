@@ -1,0 +1,137 @@
+<?php
+    $menu = $this->menu;
+    $menu_designers = $menu['menu_designers'];
+    $menu_collections_types = $menu['menu_collections_types'];
+    $menu_boutiques = $menu['menu_boutiques'];
+    $menu_limitedq = $menu['menu_limitedq'];
+    
+?>
+
+<div id="contentBody"><!-- CONTENT -->
+
+    <ul id="lissections">
+        <li>
+            <a href="/designers" ><span>Shop by Designer</span></a>
+            <ul>
+                <?php if( !empty($menu_designers) ): ?>
+                        <?php foreach($menu_designers as $designer=>$types): ?>
+                            <li>
+                                <span><?php echo $designer;?></span>
+                                <?php if( !empty($types) ):  ?>
+                                    <ul>
+                                    <?php foreach($types as $type): ?>
+                                        <li><a href="/designers/<?php echo urlencode(strtolower($type)); ?>"><?php echo $type; ?></a></li>
+                                    <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>                                            
+                    <li>
+                        <span>BLISS LAU</span>
+                        <ul>
+                            <li><a>coming soon</a></li>
+                        </ul>
+                    </li>
+            </ul>
+        </li>
+        <li>
+            <a href="/exclusive-collections" ><span>Shop by...</span></a>
+            <ul>
+                <?php if( !empty($menu_collections_types) ): ?>
+                    <?php foreach($menu_collections_types as $collection): ?>
+                        <li>
+                            <a href="/exclusive-collections/<?php echo urlencode(strtolower($collection['collection_type_name'])); ?>"><?php echo $collection['collection_type_name']; ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>  
+            </ul>
+        </li>
+        <li>
+            <a href="/boutique" ><span>Shop by Celebrity </span></a>    
+            <ul>
+                <?php if( !empty($menu_boutiques) ): ?>
+                    <?php foreach($menu_boutiques as $boutique): ?>
+                        <li>
+                            <a href="/boutique/<?php echo urlencode(strtolower($boutique['actress_name'])); ?>"><?php echo $boutique['actress_name']; ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>  
+            </ul>            
+        </li>
+        <li>
+            <a href="/limited-quantity" ><span>Shop Limited Quantity</span></a>
+            <ul>
+                <li><a href="/limited-quantity">Members only</a></li>
+                <?php /* if( !empty($menu_limitedq) ): ?>
+                    <?php foreach($menu_limitedq as $product): ?>
+                        <li>
+                            <a href="/limited-quantity/<?php echo urlencode(strtolower($product['product_slug'])); ?>"><?php echo $product['product_name']; ?></a>                            
+                            <ul>
+                                <li>total quantity - <?php echo $product['product_cant_limited_quantity']; ?></li>
+                                <li>units left - <?php echo $product['product_cant_buy']; ?></li>
+                            </ul>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; */ ?>  
+            </ul>            
+        </li>
+        <?php /*
+        <li class="menGift">
+            <a href="/get-a-free-gift" ><span>Get a free gift today</span></a>
+            <ul>
+                <li>
+                    <a href="/get-a-free-gift" ><img src="<?php echo STATIC_URL?>/front-beta/images/gift.png" /></a>
+                    <div class="linea_separacion"></div>
+                    <div>
+                        RETAIL VALUE <strong>$99.00</strong>
+                        <span>BECOME A MEMBER TODAY  & 
+                        START  ENJOYING THE BENEFITS
+                        OF MEMBERSHIP.</span>                        
+                        <div>
+                            <a href="/get-a-free-gift" class="btn btn-negro">VIEW THIS ITEM</a>
+                            <a href="" class="btn btn-negro">BECOME A MEMBER</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li> */?>
+    </ul>
+
+    <!-- a class="btn likewys"  href="" >LIKE WHAT YOU SEE?</a -->
+    <div id="popupgift" class="menGift">
+        <ul>
+                <li>
+                    <a href="/get-a-free-gift" ><img src="<?php echo STATIC_URL?>/front-beta/images/gift.png" /></a>
+                    <div class="linea_separacion"></div>
+                    <a   href="/get-a-free-gift" >
+                        RETAIL VALUE <strong>$99.00</strong>
+                        <span>BECOME A MEMBER TODAY  & 
+                        START  ENJOYING THE BENEFITS
+                        OF MEMBERSHIP.</span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <a class="btn getafgt"  href="/get-a-free-gift" >GET A FREE GIFT TODAY</a>
+
+</div>
+<script>
+    
+    WTA.Home();
+    WTA.bgSlider(['<?php echo STATIC_URL?>/front-beta/images/home/bk1.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk2.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk3.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk4.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk5.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk6.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk7.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk8.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk9.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk10.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk11.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk12.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk13.jpg', 
+                            '<?php echo STATIC_URL?>/front-beta/images/home/bk14.jpg'],
+                            '#bgslider')
+</script>

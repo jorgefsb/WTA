@@ -1,0 +1,62 @@
+<?php 
+    # Imprimimos el menu Change Section
+    echo $this->partial('index/change_section.phtml', array('section'=>'Designers', 'menu'=>$this->menu));
+    $_products = $this->sliderProducts;
+?>
+
+<?php
+    $categorys = $this->categorys;
+    $category_active = $this->category_active;        
+    
+?>
+<?php /*
+<div id="change_category">
+    <span>Choose another category</span>
+    <select id="choosecat">
+        <?php foreach($categorys as $cat): ?>
+            <?php if ($category_active == strtolower($cat)){ ?>
+                <option selected="selected " value="<?php echo $this->urlBase.urlencode(strtolower($cat));  ?>" ><?php echo $cat; ?></option>
+            <?php }else{ ?>
+                <option value="<?php echo $this->urlBase.urlencode(strtolower($cat));  ?>" ><?php echo $cat; ?></option>
+            <?php } ?>
+        <?php endforeach; ?>        
+    </select>
+</div>
+ * 
+ */?>
+<div  id="contentBody" class="itemlist" >        
+    <h1>
+        <?php echo $category_active; ?>
+    </h1>
+    <div class="leyenda">
+        <span class="linea-degr-left"></span>
+        WeTheAdorned.com
+        <span class="linea-degr-right"></span>
+    </div>
+    <h2>
+        EXCLUSIVE COLLECTION
+    </h2>
+    <ul >
+        <?php if( !empty($_products) ): ?>
+            <?php foreach($_products as $product): ?>
+                <li>
+                    <img src="<?php echo DINAMIC_URL.'/product/thumbnails/'.$product['image']; ?>" />
+                    <div>
+                        <a href="" class="addToCart" data-code="<?php echo $product['product_id']; ?>" ></a>
+                        <a href="<?php echo $this->urlBase. urlencode(strtolower($product['collection_type_name'])).'/'
+                                                                    .$product['product_slug'] ?>" class="viewdetail" ></a>
+                        <span class="name"><?php echo $product['product_name']; ?></span>
+                        <span class="price">Guest price $<?php echo number_format($product['product_price'], 2); ?></span>
+                        <span class="price">Member price $<?php echo number_format($product['product_price_member'],2); ?></span>
+                    </div>
+                    
+                </li>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </ul>
+    
+</div>
+
+<script>
+    $('html, body').addClass('white');
+</script>

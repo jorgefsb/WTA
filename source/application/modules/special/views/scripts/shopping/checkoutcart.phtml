@@ -1,0 +1,113 @@
+
+    <h2>Shopping cart</h2>
+    <div class="shoppingCart"><!-- SHOPPING CART -->            
+        <div>
+            <h3>    Order sumary <span class="linea-degr-right"></span></h3>
+            Confirm your items before making the payment
+            <div class="headers">
+                <span>Guest price </span>
+                <span>Member price </span>
+            </div>
+
+            <?php
+            $total = 0;
+            $nprod = count($this->cart);
+            if ($nprod) {
+                foreach ($this->cart as $index => $prod) {
+                    if($this->isMember){
+                        $total += $prod['_priceMember'] * (int)$prod['quantity'];
+                    }else{
+                        $total += $prod['_price'] * (int)$prod['quantity'];
+                    }
+            ?>
+
+                    <div class="prod"><!-- PRODUCT -->
+
+                        <div class="prices">
+                            <div><strong class="<?php echo ($this->isMember) ? 'prec1' : 'prec2';?>">$<?php echo number_format($prod['_price'] * (int)$prod['quantity'], 2) ?></strong></div>
+                            <div><strong class="<?php echo (!$this->isMember) ? 'prec1' : 'prec2';?>">$<?php echo number_format($prod['_priceMember'] * (int)$prod['quantity'], 2) ?></strong></div>                                        
+                        </div>
+
+                        <img src="<?php echo DINAMIC_URL . '/product/mini/' . $prod['images'][0]['image_name']; ?>" />
+
+                        <div class="info">
+                            <span class="name">Item #<?php echo $prod['_code']; ?><strong> <em><?php echo $prod['_name']; ?></em></strong></span>
+                            <span class="dsc"><?php echo $prod['designer']['_name']; ?></span>
+
+                            <div class="controls">
+
+                                <?php
+                                if (!empty($prod['sizes'])) {
+                                    ?>
+                                    <label class="size">
+                                        SIZE 
+                                        <?php
+                                        foreach ($prod['sizes'] as $size) {
+                                            if ($prod['size_prod'] == $size['product_size_size_id']) {
+                                                echo $size['size_name'];
+                                                break;
+                                            } 
+                                        }
+                                        ?>
+                                    </label>
+                                    <?php
+                                }
+                                ?>
+                                <label class="quantity">QTY <?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 0); ?></label><br/>
+                                <a href="/shopping/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >remove</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <?php if ($index < $nprod - 1): ?>
+                        <div class="linea_separacion" >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </div>
+                    <?php endif; ?>
+                    <?php
+                }
+                ?>        
+                <?php
+            }
+            ?>
+        </div>
+
+    </div>
+
+    <div class="total">
+        <table>
+            <tr>
+                <td></td>
+                <td>Shipping charge</td>                        
+                <td>N/A</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Taxes & Feeds</td>                        
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span class="linea_horiz"></span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    Total
+                </td>
+                <td>
+                    <?php echo number_format($total, 2); ?>
+                </td>
+            </tr>
+        </table>
+        <label class="acept-terms">
+            <input type="checkbox" name="cb_terms" id="cb_termns" value="1" />
+            I have read the WTA customer agreement, and I agree to accept the 
+            <a href="/terms-of-service" target="__blank">terms and conditions.</a>
+        </label>
+        <div>
+            <a href="" id="checkoutsubmit" class="submit gradient">Submit my order</a>
+        </div>
+
+    </div>
+    <script>        
+        WTA.checkoutForm();
+    </script>

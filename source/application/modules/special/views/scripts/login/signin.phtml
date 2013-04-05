@@ -1,0 +1,63 @@
+<div class="wLight">
+    <div id="signin" class="contenido">
+        <div>
+            <div>
+
+                <form id="formSignin" action="/member/login" name="signin" method="post">
+                    <h2>SIGN IN</h2>
+                    <span class="linea_horiz"></span>
+                    <span class="instrucciones">Sign in with your WTA account</span>
+                    <label>                    
+                        <input type="text" id="email" name="email" placeholder="Email address" class="" />
+                    </label>
+                    <label>
+                        <input type="password" id="password" name="password"  placeholder="Password"   />
+                    <label>
+                    <!-- label><input type="checkbox" name="remember" value="1" /> Remember my session</labe l-->
+
+                    <a class="forgot liLight" href="/forgotpass">FORGOT MY  <strong>PASSWORD</strong></a>
+                    <input type="submit" value="SIGN IN" />
+
+                </form>
+
+            </div>
+
+            <div>
+
+                <form id="formRegister" action="/member/create-account" name="register" method="post">
+                    <h2>JOIN</h2>
+                    <span class="linea_horiz"></span>
+                    <span class="instrucciones">Become a member</span>
+
+                    <div>
+                        <input type="text" name="firstname" id="firstname" placeholder="First name" />                        
+                        <input type="text" name="lastname" id="lastname" placeholder="Last name" />
+                    </div>
+
+                    <label>
+                        <input type="text" name="email" id="email"  placeholder="Email address"  class="" />
+                    </label>
+
+                    <div>
+
+                        <input type="password" name="password1" id="password1"  placeholder="Password"  class="" />
+                        <input type="password" name="password2" id="password2"  placeholder="Confirm Password"   />
+                    </div>
+
+                    <label class="privacy">
+                        <input type="checkbox" name="cbterms" id="cbterms" /> I have read and agreed to WTA's <a href="/privacy" target="__black" >Privacy Policy</a> and <a href="/terms-of-service" target="__black" >Terms of Service.</a>
+                    </label>
+
+                    <input type="submit" value="JOIN" />
+
+                </form>
+
+            </div>
+        </div>
+        <span class="closex">X</span>
+    </div>
+</div>
+<script> 
+    WTA.lightbox();
+    WTA.signin();
+</script>
