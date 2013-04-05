@@ -7,9 +7,11 @@ class Special_StaticsController extends Core_Controller_ActionDefault
     public function init() {
         parent::init();
         
-        if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
-            $this->redirect('/beta');
-        }
+        $this->_helper->layout->setLayout('layout-special');
+        
+        //if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
+          //  $this->redirect('/beta');
+        //}
         
         /*
          * Tracking

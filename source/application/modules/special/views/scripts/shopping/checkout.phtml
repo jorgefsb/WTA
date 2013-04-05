@@ -13,18 +13,16 @@
         <?php 
             if( $this->cart[0]){
         ?>
+            <div class="imgPrincipal">
                 <img src="<?php echo DINAMIC_URL . '/product/thumbs/' . $this->cart[0]['images'][0]['image_name']; ?>" />
+            </div>
         <?php
             }
         ?>
-        <h1>Checkout2 <span>information</span></h1>
-
-        <p>
-        </p>
         
         <form name="frmcheckout" id="frmcheckout" action="/order/create" method="post">
             <div class="section">
-                <span class="subtitle"> CONTACT INFORMATION</span>
+                <h2> CONTACT INFORMATION</h2>
                 <p>
                 </p>
                 <!-- input type="text" name="inf_firstname"  id="inf_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
@@ -33,7 +31,7 @@
             </div>
             
             <div class="section">
-                <span class="subtitle">SHIPPING INFORMATION</span>
+                <h2>SHIPPING INFORMATION</h2>
                 <p>
                 </p>
                 <input type="text" name="shp_firstname"  id="shp_firstname" value="<?php echo isset($shpAdd['_firstName']) ? $shpAdd['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
@@ -59,10 +57,10 @@
             </div>
             
             <div class="section">
-                <span class="subtitle">BILLING INFORMATION</span>
-                <p>
-                    <label><input type="checkbox" name="bill_same" id="bill_same" value="" /> Same as my shipping address</label>
-                </p>
+                <h2>BILLING INFORMATION</h2>                
+                <label><input type="checkbox" name="bill_same" id="bill_same" value="" /> Same as my shipping address</label>
+                
+                <p></p>
                 <div id="bill_same_content">
                     <input type="text" name="bill_firstname"  id="bill_firstname" value="<?php echo isset($billinfo['_firstName']) ? $billinfo['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
                     <input type="text" name="bill_lastname"  id="bill_lastname" value="<?php echo isset($billinfo['_lastName']) ? $billinfo['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
@@ -88,28 +86,69 @@
             </div>
             
             <div class="section select_sin_ancho" >
-                <span class="subtitle">PAYMENT INFORMATION</span>
+                <h2>PAYMENT INFORMATION</h2>
                 <p>
                 </p>
                 <!-- input type="text" name="card_name"  id="card_name" value="" placeholder="Cardholder Name*" title="Cardholder Name" / -->
                 <input type="text" name="card_number"  id="card_number" value="" placeholder="Card Number*" title="Card Number" />
                 <div class="divcardexpiration">
-                    Card Expiration Date 
-                    <select id="card_expirationmonth" name="card_expirationmonth"  data-class="dropup" >
-                        <option value="0"> &nbsp;&nbsp;Select Month*&nbsp;&nbsp;</option>
-                        <?php for($i=1; $i<=12; $i++): ?>
-                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                        <?php endfor; ?>
-                    </select>
-                    <select id="card_expirationyear" name="card_expirationyear"   data-class="dropup">
-                        <option value="0"> &nbsp;&nbsp;Select Year*&nbsp;&nbsp;</option>
-                        <?php for($i=2013; $i<=2025; $i++): ?>
-                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                        <?php endfor; ?>
-                    </select><br/>
+                    Card Expiration Date <br/>
+                    <input type="text" name="card_expirationmonth"  id="card_expirationmonth" value="" placeholder="Month" title="Month" class="medialinea" />
+                    <input type="text" name="card_expirationyear"  id="card_expirationyear" value="" placeholder="Year" title="Year" class="medialinea"  />                    
                 </div>
-                <input type="text" name="card_seccode"  id="car_seccode" value="" placeholder="Security Code*" title="Security Code"  />
+                <div class="securityCode">
+                    <input type="text" name="card_seccode"  id="car_seccode" value="" placeholder="Security Code*" title="Security Code"   class="medialinea" />
+                    <?php //what´s this <span class="icon-question-sign"></span> ?>
+                </div>
             </div>
+            
+            <div class="total section">
+                <?php
+                    $total = 0;
+                    $nprod = count($this->cart);
+                    if ($nprod) {
+                        foreach ($this->cart as $index => $prod) {
+                            if($this->isMember){
+                                $total += $prod['_priceMember'] * (int)$prod['quantity'];
+                            }else{
+                                $total += $prod['_price'] * (int)$prod['quantity'];
+                            }
+                        }
+                    }
+                ?>
+                <br/>
+                <table>
+                    <tr>
+                        <td>Shipping</td>                        
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>                        
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><span class="linea_horiz"></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total
+                        </td>
+                        <td>
+                            $<?php echo (int)$total; ?>
+                        </td>
+                    </tr>
+                </table>
+                <label class="acept-terms">
+                    <input type="checkbox" name="cb_terms" id="cb_termns" value="1" />
+                    I have read the WTA customer agreement, and I agree to accept the 
+                    <a href="/special/terms-of-service" target="__blank">terms and conditions.</a>
+                </label>
+                <div>
+                    <a href="" id="checkoutsubmit" class="submit gradient">Submit my order</a>
+                </div>
+
+            </div>
+            
         </form>
     </div>
     
@@ -126,4 +165,5 @@
 <script>
     //WTA.updateCart();
     WTA.checkout();
+    WTA.checkoutForm();
 </script>

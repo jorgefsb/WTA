@@ -177,18 +177,19 @@ a:hover{ color: #fee7a4 !important}
 .shoppingCart > div{max-height: 350px; overflow: auto}
 .shoppingCart h3{font-size: 11px;  text-transform: uppercase; font-weight: normal; line-height: 16px; margin-left: 7px; margin-bottom: 0px;}
 .shoppingCart .prod{position: relative; padding-top: 35px; background: url('../images/line_slist.png') bottom center no-repeat;}
-.shoppingCart .prod img{float: left; margin-right: 20px; margin-top: -10px }
+.shoppingCart .prod img{float: left; margin: 10px;}
 .shoppingCart .prod .prices{position: absolute; right: 0px; font-size: 11px; text-transform: uppercase; top: 0px}
 .shoppingCart .prod .prices div{display: inline-block; width: 100px; text-align: right; }
 .shoppingCart .prod .prices strong{ color: #FFF; line-height: 26px}
-.shoppingCart .prod .prices .prec1{font-size: 15px; font-weight: normal;  }
+.shoppingCart .prod .prices .prec1{font-size: 21px; font-weight: normal;  }
 .shoppingCart .prod .prices .prec2{ font-size: 19px; }
-.shoppingCart .prod .info{width: 200px; line-height: 15px; text-align: left; padding-bottom: 0px; }
+.shoppingCart .prod .info{width: 200px; line-height: 22px; text-align: left; padding-bottom: 0px; }
 .shoppingCart .prod .info span{display: block}
-.shoppingCart .prod .info .name{font-size: 11px;}
-.shoppingCart .prod .info .dsc{font-size: 10px;}
+.shoppingCart .prod .info .name{font-size: 18px;}
+.shoppingCart .prod .info .dsc{font-size: 18px;}
 .shoppingCart .prod .controls {text-align: right; padding-top: 8px}
-.shoppingCart .prod .controls label{font-size: 11px;  display: inline-block;; color: #888888}
+.shoppingCart .prod .controls label{font-size: 18px;  display: inline-block;; color: #888888; font-weight: bold}
+.shoppingCart .prod .controls label span{font-size: 16px; display: inline-block;  font-weight: normal}
 /*.shoppingCart .prod .controls select{width: 100px; background: #272727; border: 0px;  border-radius: 3px;}*/
 .shoppingCart .prod .controls input{width: 30px; background: #272727;  border: 0px; border-radius: 3px; text-align: center; vertical-align: inherit; padding: 2px 2px; color: #989898; display: inline-block}
 .shoppingCart .prod .controls label.quantity{margin-left: 60px; ;}
@@ -519,19 +520,22 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout  .select_sin_ancho .btn-group > .btn{width: 100px}
 #contentBody.checkout  .select_sin_ancho .btn-group > .btn.dropdown-toggle{ width: auto }
 
-#contentBody.checkout form .section{margin: 15px 0 25px; font-size: 12px;}
+#contentBody.checkout  .imgPrincipal{text-align: center; margin-top: 20px}
+
+#contentBody.checkout form {width: 407px;}
+#contentBody.checkout form .section{margin: 15px 0 25px; font-size: 12px; border-width: 1px 0px 0px; border-style: dotted; border-color: #e0e0e0  }
 #contentBody.checkout form label{color: #070707; font-size: 12px; }
-#contentBody.checkout form label input{vertical-align: sub; margin-right: 3px;}
+#contentBody.checkout form label input{vertical-align: top; margin-right: 3px;}
 #contentBody.checkout form input[type=text]{border: 1px solid #d6d6d6; border-radius: 0px; font-size: 13px; padding: 4px 5px; background: #fff; color: #787878; margin-bottom: 0px; margin-top: 3px; box-shadow: none; font-weight: bold}
 #contentBody.checkout form input[type=text], #contentBody.checkout form input[type=password]{width: 395px;}
 #contentBody.checkout form .medialinea{display: inline-block; width: 190px !important;}
 #contentBody.checkout .divcardexpiration{margin-top: 2px;}
 
-#contentBody.checkout .shoppingCart{display: block; position: static; background: #f8f8f8; color: #505050; padding: 10px; box-shadow: 0 0 4px 2px #bbb; border-radius: 0px; }
-#contentBody.checkout .shoppingCart > div{max-height: none; overflow: visible}
+#contentBody.checkout .shoppingCart{display: block; position: static; background: #f8f8f8; color: #505050; padding: 0px; box-shadow: 0 0 4px 2px #bbb; border-radius: 0px; }
+#contentBody.checkout .shoppingCart > div{max-height: none; overflow: visible; background: #fcfcfc;}
 #contentBody.checkout .shoppingCart h3{text-transform: none; font-size: 16px; font-weight: normal;  margin: 0px;}
 #contentBody.checkout .shoppingCart .prod {padding-top: 5px;}
-#contentBody.checkout .shoppingCart .prod img {margin-top: 0px;}
+/*#contentBody.checkout .shoppingCart .prod img {margin-top: 0px;}*/
 #contentBody.checkout .shoppingCart .prod .prices{right: 11px; margin-top: 10px}
 #contentBody.checkout .shoppingCart .prod .prices strong {color: #6d6b6b; }
 #contentBody.checkout .shoppingCart .prod .prices div{text-align: center; width: 100px}
@@ -540,18 +544,23 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout .shoppingCart .headers{background: #d2d0d0; position: relative}
 #contentBody.checkout .shoppingCart .headers span{position: relative; display: inline-block; width: 100px; text-transform: uppercase; color: #2d2d2d; text-align:  center}
 #contentBody.checkout .shoppingCart .headers span{left: 273px;}
-#contentBody.checkout .shoppingCart .prod {padding-bottom: 10px;}
+#contentBody.checkout .shoppingCart .prod {padding-bottom: 10px; background: #fff;}
 #contentBody.checkout .shoppingCart .prod .controls label.quantity{margin: 3px 0 5px; }
 #contentBody.checkout .shoppingCart .prod .controls .remove{margin: 0;}
 #contentBody.checkout .shoppingCart .linea_separacion{width: 90%; margin: 0 auto; border-bottom: 0px dotted #bab9ba; color: #bab9ba; clear: both; background: transparent; text-align: center; overflow: hidden; height: 12px}
-#contentBody.checkout .total{width: 100%; padding: 5px; font-size: 14px; color: #505050; margin-top: 5px; }
-#contentBody.checkout .total table {width: 100%; margin-bottom: 20px;}
+
+#contentBody.checkout .shoppingCart .linea-degr-right{margin-left: 0px;}
+
+#contentBody.checkout .total{width: 100%; padding: 5px;  color: #505050; margin-top: 5px; }
+#contentBody.checkout .total table {width: 100%; margin-bottom: 20px; font-size: 19px;}
 #contentBody.checkout .total table td:first-child{width: 120px;}
-#contentBody.checkout .total table td:last-child{text-align: right; font-weight: bold}
-#contentBody.checkout .total table tr:last-child td{font-size: 18px;}
-#contentBody.checkout .acept-terms{font-size: 11px; position: relative; margin-left: 140px; line-height: 14px; color: #333; }
+#contentBody.checkout .total table td:last-child{text-align: right; }
+#contentBody.checkout .total table tr:last-child td{font-size: 26px;}
+#contentBody.checkout .acept-terms{font-size: 11px; position: relative; margin-left: 25px; line-height: 14px; color: #333; font-family: Arial, Helvetica;}
 #contentBody.checkout .acept-terms input{position: absolute; left: -20px; top: -4px;}
-#contentBody.checkout .acept-terms a {color: #333}
+#contentBody.checkout .acept-terms a {color: #333;  font-family: Arial, Helvetica; text-decoration: underline}
+#contentBody.checkout .securityCode {font-size: 20px;  font-weight: bold}
+#contentBody.checkout .securityCode input{vertical-align: middle; margin-right: 10px}
 #contentBody.checkout a.submit{color: #FFF;text-shadow: 0px 0px 1px #555; text-transform: uppercase; padding: 8px 15px; border-radius: 3px; font-weight: normal; letter-spacing: -1px;;
 margin: 30px 0 0 200px;                              
 display: inline-block;

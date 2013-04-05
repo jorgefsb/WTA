@@ -8,6 +8,8 @@ class Special_OrderController extends Core_Controller_ActionDefault
     public function init() {
         parent::init();
         
+        $this->_helper->layout->setLayout('layout-special');
+        
         $this->isMember = Zend_Auth::getInstance()->hasIdentity();
         //$this->view->isMember = $this->isMember;
                 

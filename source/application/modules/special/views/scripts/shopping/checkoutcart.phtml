@@ -2,11 +2,12 @@
     <h2>Shopping cart</h2>
     <div class="shoppingCart"><!-- SHOPPING CART -->            
         <div>
-            <h3>    Order sumary <span class="linea-degr-right"></span></h3>
+            <h3>    Order sumary </h3>
+            <span class="linea-degr-right"></span><br/>
             Confirm your items before making the payment
             <div class="headers">
-                <span>Guest price </span>
-                <span>Member price </span>
+                <span></span>
+                <span>Price </span>
             </div>
 
             <?php
@@ -24,8 +25,8 @@
                     <div class="prod"><!-- PRODUCT -->
 
                         <div class="prices">
-                            <div><strong class="<?php echo ($this->isMember) ? 'prec1' : 'prec2';?>">$<?php echo number_format($prod['_price'] * (int)$prod['quantity'], 2) ?></strong></div>
-                            <div><strong class="<?php echo (!$this->isMember) ? 'prec1' : 'prec2';?>">$<?php echo number_format($prod['_priceMember'] * (int)$prod['quantity'], 2) ?></strong></div>                                        
+                            <!-- div><strong class="<?php echo ($this->isMember) ? 'prec1' : 'prec2';?>">$<?php echo number_format($prod['_price'] * (int)$prod['quantity'], 2) ?></strong></div -->
+                            <div><strong class="<?php echo (!$this->isMember) ? 'prec1' : 'prec2';?>">$<?php echo (int)($prod['_priceMember'] * (int)$prod['quantity']) ?></strong></div>                                        
                         </div>
 
                         <img src="<?php echo DINAMIC_URL . '/product/mini/' . $prod['images'][0]['image_name']; ?>" />
@@ -40,11 +41,11 @@
                                 if (!empty($prod['sizes'])) {
                                     ?>
                                     <label class="size">
-                                        SIZE 
+                                        RING SIZE 
                                         <?php
                                         foreach ($prod['sizes'] as $size) {
                                             if ($prod['size_prod'] == $size['product_size_size_id']) {
-                                                echo $size['size_name'];
+                                                echo '<span>'.$size['size_name'].'</span>';
                                                 break;
                                             } 
                                         }
@@ -53,8 +54,8 @@
                                     <?php
                                 }
                                 ?>
-                                <label class="quantity">QTY <?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 0); ?></label><br/>
-                                <a href="/shopping/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >remove</a>
+                                <!-- label class="quantity">QTY <?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 0); ?></label><br/ -->
+                                <!-- a href="/shopping/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >remove</a -->
                             </div>
                         </div>
 
@@ -72,7 +73,7 @@
         </div>
 
     </div>
-
+<?php /*
     <div class="total">
         <table>
             <tr>
@@ -111,3 +112,5 @@
     <script>        
         WTA.checkoutForm();
     </script>
+ * 
+ */
