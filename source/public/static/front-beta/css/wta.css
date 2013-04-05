@@ -341,7 +341,7 @@ a:hover{ color: #fee7a4 !important}
 #contentBody.special  .linea-degr-left{margin-right: 3px;}
 
 #contentBody.special article {color: #fff; max-width: 300px; padding: 15px; margin: 0 auto;}
-#contentBody.special article .img{min-height: 120px;}
+#contentBody.special article .img img{max-height: 267px;}
 #contentBody.special article h1{font-size: 24px; margin: 0; }
 #contentBody.special article h3{font-size: 12px; font-weight: normal;  margin: 0;  line-height: 14px;}
 #contentBody.special article h2{font-size: 18px;  margin: 0 0 20px;  line-height: 18px; }
@@ -521,6 +521,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout  .select_sin_ancho .btn-group > .btn.dropdown-toggle{ width: auto }
 
 #contentBody.checkout  .imgPrincipal{text-align: center; margin-top: 20px}
+#contentBody.checkout  .imgPrincipal img{max-height: 267px;}
 
 #contentBody.checkout form {width: 407px;}
 #contentBody.checkout form .section{margin: 15px 0 25px; font-size: 12px; border-width: 1px 0px 0px; border-style: dotted; border-color: #e0e0e0  }
