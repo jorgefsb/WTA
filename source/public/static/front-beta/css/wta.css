@@ -18,7 +18,7 @@ html, body{background: #090909; padding: 0px}
 html.white, body.white{background: #FFF;}
 body.white .navbar-inverse  .navbar-inner{background: #000;}
 
-
+a.disabled, a.disabled:hover{/*color: #555 !important;*/ cursor: default}
 
 #header .dropdown-menu li > a:hover,
 #header .dropdown-menu li > a:focus,
@@ -73,9 +73,9 @@ a:hover{ color: #fee7a4 !important}
 #footer .navbar-inner{font-size: 16px;  padding: 0 20px; background: #010101; }
 #footer .navbar .nav > li > a{color: #f0ce73; padding: 10px 7px; }
 #footer .navbar .nav > li > a:hover{color: #f0ce73; }
-#footer .facebook{ background: url('../images/socialmedia_yellow.png') 0 0 no-repeat; width: 25px;  height: 25px; padding: 4px 0; box-shadow: none}
-#footer .twitter{ background: url('../images/socialmedia_yellow.png') -40px 0 no-repeat; width: 25px;  height: 25px; padding: 4px 0; box-shadow: none; margin-left: 10px; }
-#footer .contactus{text-transform: uppercase; color: #f0ce73; margin-left: 10px; font-size: 11px; text-decoration: none}
+#footer .facebook{ background: url('../images/socialmedia_yellow.png') 0 0 no-repeat; width: 25px;  height: 25px; padding: 4px 0; box-shadow: none; display: inline-block; vertical-align: top}
+#footer .twitter{ background: url('../images/socialmedia_yellow.png') -40px 0 no-repeat; width: 25px;  height: 25px; padding: 4px 0; box-shadow: none; margin-left: 10px;  display: inline-block; vertical-align: top}
+#footer .contactus{text-transform: uppercase; color: #FFF; margin-left: 10px; font-size: 11px; text-decoration: none}
 #footer .contactus:hover {color: #f0ce73;}
 
 #footer blockquote{color: #f0ce73; border: 0px; text-align: center; font-size: 10px; margin-top: 10px; text-transform: uppercase; font-weight: bold}
@@ -341,7 +341,7 @@ a:hover{ color: #fee7a4 !important}
 #contentBody.special  .linea-degr-left{margin-right: 3px;}
 
 #contentBody.special article {color: #fff; max-width: 300px; padding: 15px; margin: 0 auto;}
-#contentBody.special article .img img{max-height: 267px;}
+#contentBody.special article .img img{max-height: 146px;}
 #contentBody.special article h1{font-size: 24px; margin: 0; }
 #contentBody.special article h3{font-size: 12px; font-weight: normal;  margin: 0;  line-height: 14px;}
 #contentBody.special article h2{font-size: 18px;  margin: 0 0 20px;  line-height: 18px; }
@@ -431,18 +431,27 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 .aWraper .aBack .torres_float{ vertical-align:top;  }
 
 /* ########################################### */
-
+/*
 #processed .contenido,  #limitedleft .contenido{padding: 20px 50px;  }
 #processed h1, #limitedleft h1{color: #353636;    font-size: 34px;    font-weight: normal;    line-height: 27px; margin-bottom: 15px;    text-transform: uppercase}
 #processed p, #limitedleft p{font-size: 14px; color: #161616;       }
 #processed ul li{color: #787878; font-size: 12px; list-style: none;}
 #linkprocessed{display: none}
-
+*/
 
 #limitedleft h1{font-size: 34px; line-height: 17px;}
 #limitedleft p{font-style: italic; font-size: 16px;}
 #limitedleft{text-align: center}
 #limitedleft .contenido{padding: 50px 0px 0px; }
+
+.wLight{padding: 2px;}
+#processed{background: transparent url('../images/bg-popup.png') center top no-repeat; width: 403px; height: 360px;  z-index: 1000; position: relative; text-align: center; padding-top: 1px;}
+#processed h1{background: #000; color: #f0ce73; font-family: Georgia, 'Times New Roman', Arial; font-size: 22px; margin: 45px 20px 0px; font-weight: normal; text-align: center}
+#processed .closex{font-size: 24px; right: 24px; top: 24px; font-weight: normal; color: #FFF;}
+#processed p{color: #b89630; font-size: 24px; text-align: center; font-family: Georgia, 'Times New Roman', Arial; padding: 0px 15px;  line-height: 26px;}
+#processed .btn{margin: 5px auto; font-family: Georgia, 'Times New Roman', Arial;}
+#processed input{display: inline-block; font-size: 13px; padding: 3px; }
+#processed p.small{font-size: 15px; line-height: 22px; padding: 0px 31px}
 
 /*  SECCION  DE  COMING SOON */
 .comming_soon {    
@@ -532,9 +541,10 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout form .medialinea{display: inline-block; width: 190px !important;}
 #contentBody.checkout .divcardexpiration{margin-top: 2px;}
 
-#contentBody.checkout .shoppingCart{display: block; position: static; background: #f8f8f8; color: #505050; padding: 0px; box-shadow: 0 0 4px 2px #bbb; border-radius: 0px; }
+#contentBody.checkout .shoppingCart{display: block; position: static; background: #f8f8f8; color: #505050; padding: 5px 0;  box-shadow: 0 0 4px 2px #bbb; border-radius: 0px; }
 #contentBody.checkout .shoppingCart > div{max-height: none; overflow: visible; background: #fcfcfc;}
-#contentBody.checkout .shoppingCart h3{text-transform: none; font-size: 16px; font-weight: normal;  margin: 0px;}
+#contentBody.checkout .shoppingCart h3{text-transform: none; font-size: 16px; font-weight: normal;  margin: 0px 0 0 10px;; position: relative}
+#contentBody.checkout .shoppingCart h3 .linea-degr-right{position: absolute; left: 0px; bottom: -2px; }
 #contentBody.checkout .shoppingCart .prod {padding-top: 5px;}
 /*#contentBody.checkout .shoppingCart .prod img {margin-top: 0px;}*/
 #contentBody.checkout .shoppingCart .prod .prices{right: 11px; margin-top: 10px}
@@ -563,7 +573,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout .securityCode {font-size: 20px;  font-weight: bold}
 #contentBody.checkout .securityCode input{vertical-align: middle; margin-right: 10px}
 #contentBody.checkout a.submit{color: #FFF;text-shadow: 0px 0px 1px #555; text-transform: uppercase; padding: 8px 15px; border-radius: 3px; font-weight: normal; letter-spacing: -1px;;
-margin: 30px 0 0 200px;                              
+margin: 30px 35px 0 ;
 display: inline-block;
 background: #d4b03d; /* Old browsers */
 /* IE9 SVG, needs conditional override of 'filter' to 'none' */

@@ -20,7 +20,7 @@ $(window).load(function(){
             link.trigger('click');
         }
     }
-    
+    $(' .disabled').unbind('click').click(function(e){e.preventDefault(); return false;})
 })
 
 var WTA = (function(){
@@ -973,6 +973,13 @@ var WTA = (function(){
                 })
             }
         });
+    }
+    
+    this.abandon = function(){
+        window.onbeforeunload = function(){
+            $('#checkoutcancel').trigger('click');
+            return "Would you like to receive offers from our products...";
+        }
     }
     
     return this;

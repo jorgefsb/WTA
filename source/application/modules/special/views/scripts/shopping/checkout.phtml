@@ -11,14 +11,18 @@
     
     <div >
         <?php 
-            if( $this->cart[0]){
+            /*if( $this->cart[0]){
         ?>
             <div class="imgPrincipal">
                 <img src="<?php echo DINAMIC_URL . '/product/mobile/' . $this->cart[0]['images'][0]['image_name']; ?>" />
             </div>
         <?php
-            }
+            }*/
         ?>
+        
+        <div class="imgPrincipal">
+            <img src="<?php echo STATIC_URL . '/front-beta/images/specials/melody.jpg';?>" />
+        </div>
         
         <form name="frmcheckout" id="frmcheckout" action="/order/create" method="post">
             <div class="section">
@@ -144,7 +148,8 @@
                     <a href="/special/terms-of-service" target="__blank">terms and conditions.</a>
                 </label>
                 <div>
-                    <a href="" id="checkoutsubmit" class="submit gradient">Submit my order</a>
+                    <a href="/special/before-you-go" id="checkoutcancel" class="submit gradient liLight">Cancel order</a>
+                    <a href="" id="checkoutsubmit" class="submit gradient">Submit my order</a>                    
                 </div>
 
             </div>
@@ -160,10 +165,11 @@
         
     
 </div>
-<a href="/order/processed" class="liLight" id="linkprocessed"></a>
+<a href="/special/order/processed" class="liLight" id="linkprocessed"></a>
 
 <script>
     //WTA.updateCart();
     WTA.checkout();
     WTA.checkoutForm();
+    WTA.abandon();
 </script>
