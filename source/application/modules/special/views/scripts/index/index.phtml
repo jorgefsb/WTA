@@ -48,7 +48,7 @@
                             <strong class="activo">$<?php echo (int)$prod['_priceMember']; ?></strong>
                         </div>
                     </div>
-                    <a href="" class="btn btn-negro addToCart" data-code="<?php echo $prod['_id']; ?>" data-redirect="/special/checkout">
+                    <a href="" class="btn btn-negro addToCart" data-code="<?php echo $prod['_id']; ?>" data-redirect="/special/checkout" onClick="_gaq.push(['_trackEvent', 'Special', 'Click', '<?php echo $prod['_name']; ?>']);">
                         BUY NOW
                     </a>
                 </article>

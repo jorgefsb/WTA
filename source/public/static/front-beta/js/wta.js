@@ -925,7 +925,33 @@ var WTA = (function(){
                         }
                     }else{
                        if(response.ok){
-                            $('#linkprocessed').trigger('click');
+                           
+                           $('#linkprocessed').trigger('click');
+                           
+                           _gaq.push([
+                               '_addTrans',    
+                               response.data.transactionID, // transaction ID - required    
+                               'WeTheAdorned',  // affiliation or store name    
+                               response.data.total,          // total - required    
+                               '',           // tax    
+                               '',              // shipping    
+                               '',       // city    
+                               '',     // state or province    
+                               ''             // country  
+                           ]);
+                                                      
+                           _gaq.push(['_addItem',    
+                               response.data.transactionID,           // transaction ID - required    
+                               response.data.products[0].code,           // SKU/code - required    
+                               response.data.products[0].name,        // product name    
+                               '',   // category or variation    
+                               response.data.products[0].finalPrice,          // unit price - required    
+                               response.data.products[0].quantity               // quantity - required  
+                            ]);
+                           
+                           _gaq.push(['_trackTrans']); 
+                           
+                            
                         }else{
                             that.setMsgError(obj, 'We had a problem. Please review your information and try again');
                         }

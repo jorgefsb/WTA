@@ -158,6 +158,11 @@ class Special_OrderController extends Core_Controller_ActionDefault
                         $this->view->messages = array('error'=>$transacction->getMessage());
                     }else{
                         $this->view->ok =1;
+                        $this->view->data = array(
+                            'products'    =>  $products,
+                            'transactionID'=>$paymentId,
+                            'total'=>$total 
+                        );
                     }             
                 }else{
                      $this->view->messages = array('error'=>$transacction->getMessage());
