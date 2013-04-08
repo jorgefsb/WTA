@@ -25,6 +25,8 @@ class Special_OrderController extends Core_Controller_ActionDefault
     
     public function createAction(){
               
+        $shipping_charge = 5; // $5 dollares de envio
+        
         if ($this->getRequest()->isXmlHttpRequest()) {
             unset($this->view->identity);      
             
@@ -140,7 +142,9 @@ class Special_OrderController extends Core_Controller_ActionDefault
                                                 );                    
                 }
                 
-                $transacction->setPropertie('_amount', $total);                
+                
+                $transacction->setPropertie('_shiAmount', $shipping_charge);                
+                $transacction->setPropertie('_amount', $total+$shipping_charge);                
                 
                 $transacction->initTransactionDb();
                 if( $transacction->createTransaction() ){

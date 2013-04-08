@@ -44,6 +44,9 @@ class Application_Entity_Transaction extends Core_Entity {
     protected $_cardNumber;
     protected $_mail;
     protected $_contactName;
+    
+    protected $_shiAmount;
+    
     /**
      * __Construct         
      *
@@ -104,6 +107,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $this->_billAddPostalCode = $data['transaction_bill_add_postal_code'];
         $this->_billAddPhoneNumber = $data['transaction_bill_add_phone_number'];
 
+        $this->_shiAmount = $data['transaction_shi_amount'];
         
         $this->_cardNumber = $data['transaction_card_number'];
         $this->_mail = $data['transaction_mail'];
@@ -163,6 +167,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_bill_add_postal_code'] = $this->_billAddPostalCode;
         $data['transaction_bill_add_phone_number'] = $this->_billAddPhoneNumber;
         
+        $data['transaction_shi_amount'] = $this->_shiAmount;
         
         $data['transaction_card_number'] = $this->_cardNumber;
         
@@ -368,11 +373,16 @@ class Application_Entity_Transaction extends Core_Entity {
             $_payment->addProduct($prod['product_code'], substr(trim($name), 0, 30), substr($prod['product_description'], 0, 100),$prod['transaction_details_product_cant'], $prod['transaction_detail_final_price']);
             //$_id, $_name, $_description, $_quantity, $_unitPrice
         }
+        
+        // Costo del envio 
+        $_payment->_shippingAmount = $this->_shiAmount;
+        $_payment->_shippingName = 'Shipping Cost';
+        
         $_payment->_amount = $this->_amount;
         $_payment->_cardCode = $dataCard['cardCode'];
 
         
-
+        
         
         if( $customerProfileId){                    # Validamos que tengamos un perfil creado
             
