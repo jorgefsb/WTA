@@ -50,9 +50,13 @@ class Special_OrderController extends Core_Controller_ActionDefault
                     $entity_member = new Application_Entity_Member();
                     $entity_member->identifyByEmail(trim($formValues['inf_emailaddress']));
                     if($entity_member->getPropertie('_id')>0){
-                        $this->view->messages = array('error'=>'You need to sign in before continuing');
-                        return;
+                        $transacction->setPropertie('_member', $entity_member->getPropertie('_id'));
+                        $transacction->setPropertie('_userMenbership', 1);
+                        
+                        //$this->view->messages = array('error'=>'You need to sign in before continuing');
+                        //return;
                     }
+                    
                 }
                 
                 $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_OUTSTANDING);
