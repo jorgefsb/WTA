@@ -11,6 +11,8 @@
 
             <?php
             $total = 0;
+            $totalGuest = 0;
+            $this->isMember = true; ///////////////////// PRECIO DE MIEMBRO 
             $nprod = count($this->cart);
             if ($nprod) {
                 foreach ($this->cart as $index => $prod) {
@@ -19,6 +21,9 @@
                     }else{
                         $total += $prod['_price'] * (int)$prod['quantity'];
                     }
+                    
+                    $totalGuest += $prod['_price'] * (int)$prod['quantity'];
+                    
             ?>
 
                     <div class="prod"><!-- PRODUCT -->
@@ -40,7 +45,7 @@
                                 if (!empty($prod['sizes'])) {
                                     ?>
                                     <label class="size">
-                                        RING SIZE 
+                                        RING SIZE: 
                                         <?php
                                         foreach ($prod['sizes'] as $size) {
                                             if ($prod['size_prod'] == $size['product_size_size_id']) {
@@ -69,8 +74,12 @@
                 <?php
             }
             ?>
-        </div>
-
+            <div class="save">
+                <?php  if($totalGuest-$total > 0){ ?>
+                    OUR EXCLUSIVE FOLIO MEMBERS SAVE <?php echo $totalGuest-$total; ?>
+                <?php } ?>
+            </div>
+        </div>        
     </div>
 <?php /*
     <div class="total">

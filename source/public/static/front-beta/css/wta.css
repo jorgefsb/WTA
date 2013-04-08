@@ -188,7 +188,7 @@ a:hover{ color: #fee7a4 !important}
 .shoppingCart .prod .info .name{font-size: 18px;}
 .shoppingCart .prod .info .dsc{font-size: 18px;}
 .shoppingCart .prod .controls {text-align: right; padding-top: 8px}
-.shoppingCart .prod .controls label{font-size: 18px;  display: inline-block;; color: #888888; font-weight: bold}
+.shoppingCart .prod .controls label{font-size: 15px;  display: inline-block;; color: #888888; font-weight: bold}
 .shoppingCart .prod .controls label span{font-size: 16px; display: inline-block;  font-weight: normal}
 /*.shoppingCart .prod .controls select{width: 100px; background: #272727; border: 0px;  border-radius: 3px;}*/
 .shoppingCart .prod .controls input{width: 30px; background: #272727;  border: 0px; border-radius: 3px; text-align: center; vertical-align: inherit; padding: 2px 2px; color: #989898; display: inline-block}
@@ -559,6 +559,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout .shoppingCart .prod .controls label.quantity{margin: 3px 0 5px; }
 #contentBody.checkout .shoppingCart .prod .controls .remove{margin: 0;}
 #contentBody.checkout .shoppingCart .linea_separacion{width: 90%; margin: 0 auto; border-bottom: 0px dotted #bab9ba; color: #bab9ba; clear: both; background: transparent; text-align: center; overflow: hidden; height: 12px}
+#contentBody.checkout .shoppingCart .save{background: #FFF; color: #000; text-align: center; font-size: 14px; font-weight: bold }
 
 #contentBody.checkout .shoppingCart .linea-degr-right{margin-left: 0px;}
 

@@ -124,21 +124,22 @@
                 <table>
                     <tr>
                         <td>Shipping</td>                        
-                        <td>$0</td>
+                        <td>$<?php echo $this->shipping; ?></td>
                     </tr>
-                    <tr>
+                    <!-- tr>
                         <td>Tax</td>                        
                         <td>$0</td>
-                    </tr>
+                    </tr -->
                     <tr>
                         <td colspan="3"><span class="linea_horiz"></span></td>
                     </tr>
+                    <tr><td colspan="3">&nbsp;</td></tr>
                     <tr>
                         <td>
                             Total
                         </td>
                         <td>
-                            $<?php echo (int)$total; ?>
+                            $<?php echo (int)$total+(int)$this->shipping; ?>
                         </td>
                     </tr>
                 </table>

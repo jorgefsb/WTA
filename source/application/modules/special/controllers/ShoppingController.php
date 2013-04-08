@@ -73,6 +73,8 @@ class Special_ShoppingController extends Core_Controller_ActionDefault
         $_regions = new Application_Model_Regions();
         $this->view->regions = $_regions->listing(array(840));        
         
+        $this->view->shipping = 5;
+        
         /*
          * Tracking
          */
