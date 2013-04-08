@@ -185,6 +185,29 @@ class Special_StaticsController extends Core_Controller_ActionDefault
         $this->_helper->layout->disableLayout();
     }
     
+    public function subscriptionAction(){
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        
+        $email = $this->getRequest()->getParam('email');
+        
+        if( $this->getRequest()->isXmlHttpRequest()  ){
+            if($email){
+                $_subscription = new Application_Entity_SubscriptionMail();
+                $_subscription->setPropertie('_email', $email );
+                $_subscription->createSubscription();
+
+                $this->_helper->json(array('ok'=>1));
+            }else{
+                $this->_helper->json(array('error'=>0));
+            }
+        }else{
+            exit();
+        }
+        
+    }
+    
     
 }
 

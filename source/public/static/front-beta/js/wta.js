@@ -1008,6 +1008,30 @@ var WTA = (function(){
         }
     }
     
+    this.initFormSubscriptions = function(){                        
+        $('#saveSubscription').click(function(e){
+            e.preventDefault();
+            var $email = $('#input_suscription');
+            if( !that.isEmail( $email.val() ) ){
+                that.setMsgError($email, 'Oops, there\'s something wrong with your email.');
+                return false;
+            }
+            $.ajax('/special/statics/subscription', 
+                {
+                    type: 'post',
+                    data: {email:$email.val()}
+                }
+            ).done(function(response){
+                    if(response.ok){
+                        $('.closex').trigger('click');
+                    }else{
+                        alert('Error');
+                    }
+            })
+        })
+    }
+    
+    
     return this;
     
 })();
