@@ -1,0 +1,106 @@
+<?php
+    $menu = $this->menu;
+    $menu_designers = $menu['menu_designers'];
+    $menu_collections_types = $menu['menu_collections_types'];
+    $menu_boutiques = $menu['menu_boutiques'];
+    $menu_limitedq = $menu['menu_limitedq'];
+    
+?>
+<div id="change_section"><!-- CONTENT -->
+    <span><?php echo $this->section; ?></span>
+    <span class="submenu-btn">Change section <span class="caret"></span></span>
+    <div class="submenu-content">
+        <ul>
+            <li>
+                <a href="/designers" ><span>Shop by  Designers </span></a>
+                <ul>
+                    <?php if( !empty($menu_designers) ): ?>
+                            <?php foreach($menu_designers as $designer=>$types): ?>
+                                <li>
+                                    <span><?php echo $designer;?></span>
+                                    <span class="linea_separacion"></span>
+                                    <?php if( !empty($types) ):  ?>
+                                        <ul>
+                                        <?php foreach($types as $type): ?>
+                                            <li><a href="/designers/<?php echo urlencode(strtolower($type)); ?>"><?php echo $type; ?></a></li>
+                                        <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>                                                  
+                        <li>
+                            <span>BLISS LAU</span>
+                            <span class="linea_separacion"></span>
+                            <ul>
+                                <li><a>coming soon</a></li>
+                            </ul>
+                        </li>
+                </ul>
+            </li>
+            <li class="simple">
+                <a href="/exclusive-collections" ><span>Shop by...</span></a>
+                <ul>
+                    <?php if( !empty($menu_collections_types) ): ?>
+                        <?php foreach($menu_collections_types as $collection): ?>
+                            <li>
+                                <a href="/exclusive-collections/<?php echo urlencode(strtolower($collection['collection_type_name'])); ?>"><?php echo $collection['collection_type_name']; ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>  
+                </ul>
+            </li>
+            <li class="simple">
+                <a href="/boutique" ><span>Shop by Celebrity</span></a>    
+                <ul>
+                    <?php if( !empty($menu_boutiques) ): ?>
+                        <?php foreach($menu_boutiques as $boutique): ?>
+                            <li>
+                                <a href="/boutique/<?php echo urlencode(strtolower($boutique['actress_name'])); ?>"><?php echo $boutique['actress_name']; ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>  
+                </ul>
+            </li>
+            <li>
+                <a href="/limited-quantity" ><span>Limited Quantity</span></a>
+                <ul>
+                    <li><a href="/limited-quantity">Members only</a></li>
+                    <?/* php if( !empty($menu_limitedq) ): ?>
+                        <?php foreach($menu_limitedq as $product): ?>
+                            <li>
+                                <a href="/limited-quantity/<?php echo urlencode(strtolower($product['product_slug'])); ?>"><?php echo $product['product_name']; ?></a>                            
+                                <span class="linea_separacion"></span>
+                                <ul>
+                                    <li>total quantity - <?php echo $product['product_cant_limited_quantity']; ?></li>
+                                    <li>units left - <?php echo $product['product_cant_buy']; ?></li>
+                                </ul>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; */ ?>  
+                </ul>                
+            </li>
+            <li class="menGift">
+                <a href="/get-a-free-gift" ><span>Get a free gift today</span></a>
+                <ul>
+                <li>                    
+                    <div>
+                        RETAIL VALUE <strong>$99.00</strong>
+                        <div class="linea_separacion"></div>
+                        <span>BECOME A MEMBER TODAY  & 
+                        START  ENJOYING THE BENEFITS
+                        OF MEMBERSHIP.</span>
+                        <div>
+                            <a href="/get-a-free-gift" class="btn btn-negro">VIEW THIS ITEM</a>
+                            <a href="" class="btn btn-negro">BECOME A MEMBER</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    WTA.iniMenuSections();
+</script>

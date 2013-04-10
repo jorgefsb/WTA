@@ -1,0 +1,204 @@
+<?php 
+    $_identity = $this->identity ;
+    $this->headTitle()->setSeparator(' | ');
+    $this->headTitle('We The Adorned');
+    //print_r($_identity);die('---');
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <?php echo  $this->headTitle() ?>
+        <?php echo $this->headMeta() ?>
+        <?php echo $this->headLink() ?>
+
+        <?php echo $this->headScript() ?>
+        <?php echo $this->headStyle() ?>      
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="shortcut icon" href="<?php echo STATIC_URL . '/favicon.ico'; ?>"/>
+        
+        <link href="<?php echo STATIC_URL . '/front-fase2/'; ?>bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="<?php echo STATIC_URL . '/front-fase2/'; ?>bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="<?php echo STATIC_URL . '/front-fase2/'; ?>css/bgstretcher.css" rel="stylesheet">
+
+        <link href="<?php echo STATIC_URL . '/front-fase2/'; ?>css/wta.css" rel="stylesheet">
+        <link href="<?php echo STATIC_URL . '/front-fase2/'; ?>css/static.css"  rel="stylesheet" />
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>bootstrap/js/bootstrap.min.js"></script>
+        
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/bgstretcher.js"></script>         
+        
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/ddpowerzoomer.js"></script> 
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.carouFredSel.js"></script> 
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.mousewheel.js"></script> 
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.touchSwipe.js"></script> 
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.ba-throttle-debounce.js"></script>         
+        
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.tinyscrollbar.min.js"></script>         
+
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/wta.js"></script>
+        
+        <!-- script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/prefixfree.js"></script-->
+        
+        <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+    </head>
+    <body>
+        <!--script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37330521-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+        </script -->
+        
+        <div id="bgslider2"></div> <!-- SLIDER -->
+
+        <div class="container-fluid"> 
+            
+
+            <div id="header">
+                
+                <div class="navbar navbar-inverse"> <!-- MENU  -->
+                    <div class="navbar-inner">
+                        
+                        <a href="/special" class="logo"  ><img src="<?php echo STATIC_URL?>/front-fase2/images/wta-logo-menu.png"  /></a>
+                        <span class="frase">Exclusive fashion jewelry for a limited time only</span>
+                        
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".menu1">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <div class="pull-right">
+                            
+                            <div class="nav-collapse collapse menu1">
+                                <ul class="nav">
+                                    <li><a href="#" id="link-about-wta" title="" class="liLight ">About</a></li>
+                                    <li><a href="#" id="link-how-it-works" title="" class="liLight " data-top="5">How it Works</a></li>
+                                    <li><a href="#" title="" class="liLight " >Press</a></li>
+                                    <li>
+                                        <a class="btn liLight " id="link-sign-in" href="#" >
+                                            Sign in
+                                        </a>
+                                        <a class="btn " id="btnShoppingCart">
+                                            <span class="iconCart"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            
+                            <?php
+                            /*
+                                if($_identity && !empty($_identity)){
+                            ?>
+                                <div class="btn-group btn-group-inverse">
+                                    <a class="btn dropdown-toggle" href="#" data-toggle="dropdown"  >
+                                        Welcome, <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> &nbsp; &nbsp;<span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/member/dashboard" >My profile</a></li>
+                                        <li><a href="/member/my-address" >Edit my address</a></li>
+                                        <li><a href="/member/payment-method" >Payment method</a></li>
+                                        <li><a href="/signout" class="btn signout" >SIGN OUT</a></li>
+                                    </ul>
+                                </div>
+                            <?php
+                                }else{
+                            ?>
+                                <a class="btn liLight" id="link-sign-in" href="/sign-in" >
+                                    <strong>Sign in</strong>                                    
+                                </a>
+                            <?php
+                                }
+                            ?>
+                            <a class="btn" id="btnShoppingCart">
+                                <strong>Your Shopping Cart is empty<span id="itemsCount"></span></strong>
+                            </a>
+ */ ?>
+                        </div>
+
+
+                        
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="popupShoppinCart" class="shoppingCart"><!-- SHOPPING CART -->
+                <span class="closex">x</span>
+                <h3>Your shopping list</h3>                       
+                <div id="scrollbar1">
+                    <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+                        <div class="viewport">
+                            <div class="overview">
+                                
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+
+
+            <?php echo $this->layout()->content ?>
+
+
+
+            <div id="footer"> <!-- FOOTER -->
+
+                <div class="navbar navbar-inverse"> <!-- MENU  -->
+                    <div class="navbar-inner">
+
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".menu2">
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <div class="nav-collapse collapse menu2">
+                            <ul class="nav">
+                                <li><a href="/special" title="" >Home</a></li>
+                                <li><a href="#" title=""  class="">Affiliates</a></li>
+                                <li><a href="/fase2/terms-of-service" title="" >Terms of service</a></li>
+                                <li><a href="#" title="" class="" >Rewarding our members</a></li>
+                                <li><a href="#" title="" class="" >Help</a></li>
+                                <li><a href="#" title="" class="">Privacy</a></li>
+                            </ul>
+
+                            <div class="pull-right">
+                                <a class=" facebook" target="__blank" href="https://www.facebook.com/pages/WeTheAdornedcom/117992215024061" >
+                                </a>
+
+                                <a class=" twitter" target="__blank" href="https://twitter.com/WeTheAdorned/">
+                                </a>
+
+                                <a class="contactus liLight" id="link-contact-us" href="/fase2/contact-us">
+                                    Contact us
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <blockquote>
+                    <span class="linea-degr-left"></span>Copyright <?php echo date('Y'); ?> - Wetheadorned.com<span class="linea-degr-right"></span>
+                </blockquote>
+
+            </div>
+
+        </div>
+        <div id="overlay"></div>        
+    </body>
+</html>

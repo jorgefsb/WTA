@@ -1,0 +1,121 @@
+<?php
+    $menu = $this->menu;
+    $menu_designers = $menu['menu_designers'];
+    $menu_collections_types = $menu['menu_collections_types'];
+    $menu_boutiques = $menu['menu_boutiques'];
+    $menu_limitedq = $menu['menu_limitedq'];
+    
+?>
+
+<div id="contentBody" class="row-fluid home"><!-- CONTENT -->
+    <div class="span5 offset1">
+        <ul id="lissections">
+            <li>
+                <a href="/fase2/designers" ><span>Designers</span></a>
+                <ul>
+                    <?php if( !empty($menu_designers) ): ?>
+                            <?php foreach($menu_designers as $designer=>$types): ?>
+                                <li>
+                                    <span><?php echo $designer;?></span>
+                                    <?php if( !empty($types) ):  ?>
+                                        <ul>
+                                        <?php foreach($types as $type): ?>
+                                            <li><a href="/fase2/designers/<?php echo urlencode(strtolower($type)); ?>"><?php echo $type; ?></a></li>
+                                        <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>                                            
+                        <li>
+                            <span>BLISS LAU</span>
+                            <ul>
+                                <li><a>coming soon</a></li>
+                            </ul>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/fase2/exclusive-collections" ><span>Style.</span></a>
+                <ul>
+                    <?php if( !empty($menu_collections_types) ): ?>
+                        <?php foreach($menu_collections_types as $collection): ?>
+                            <li>
+                                <a href="/fase2/exclusive-collections/<?php echo urlencode(strtolower($collection['collection_type_name'])); ?>"><?php echo $collection['collection_type_name']; ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>  
+                </ul>
+            </li>
+            <li>
+                <a href="/fase2/boutique" ><span>Celebrity </span></a>    
+                <ul>
+                    <?php if( !empty($menu_boutiques) ): ?>
+                        <?php foreach($menu_boutiques as $boutique): ?>
+                            <li>
+                                <a href="/fase2/boutique/<?php echo urlencode(strtolower($boutique['actress_name'])); ?>"><?php echo $boutique['actress_name']; ?></a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>  
+                </ul>            
+            </li>
+            <li>
+                <a href="/fase2/limited-quantity" ><span>Limited Quantity</span></a>
+                <ul>
+                    <li><a href="/fase2/limited-quantity">reserved for members only</a></li>
+                    <?php /* if( !empty($menu_limitedq) ): ?>
+                        <?php foreach($menu_limitedq as $product): ?>
+                            <li>
+                                <a href="/limited-quantity/<?php echo urlencode(strtolower($product['product_slug'])); ?>"><?php echo $product['product_name']; ?></a>                            
+                                <ul>
+                                    <li>total quantity - <?php echo $product['product_cant_limited_quantity']; ?></li>
+                                    <li>units left - <?php echo $product['product_cant_buy']; ?></li>
+                                </ul>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; */ ?>  
+                </ul>            
+            </li>        
+        </ul>
+    </div>
+
+    <!-- a class="btn likewys"  href="" >LIKE WHAT YOU SEE?</a -->
+    <div id="popupgift" class="menGift">
+        <ul>
+                <li>
+                    <a href="/fase2/get-a-free-gift" ><img src="<?php echo STATIC_URL?>/front-fase2/images/gift.png" /></a>
+                    <div class="linea_separacion"></div>
+                    <a   href="/fase2/get-a-free-gift" >
+                        RETAIL VALUE <strong>$99.00</strong>
+                        <span>BECOME A MEMBER TODAY  & 
+                        START  ENJOYING THE BENEFITS
+                        OF MEMBERSHIP.</span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <a class="btn getafgt"  href="/fase2//get-a-free-gift" >WANT A FREE GIFT?</a>
+
+</div>
+<script>
+    
+    WTA.Home();
+    $(document).ready(function(){
+        WTA.bgSlider(['<?php echo STATIC_URL?>/front/images/home/bk1.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk2.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk3.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk4.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk5.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk6.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk7.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk8.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk9.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk10.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk11.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk12.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk13.jpg', 
+                                '<?php echo STATIC_URL?>/front/images/home/bk14.jpg'],
+                                '#bgslider2')
+        });
+                            
+</script>

@@ -1,0 +1,176 @@
+<?php 
+    $member = $this->member;
+    $shpAdd = $this->shippingAddress;
+    $billinfo = $this->billingInformation;
+    
+    # Imprimimos el menu Change Section
+    //echo $this->partial('index/change_section.phtml', array('section'=>'Designers', 'menu'=>$this->menu));
+?>
+
+<div  id="contentBody" class="checkout" >        
+    
+    <div >
+        <?php 
+            /*if( $this->cart[0]){
+        ?>
+            <div class="imgPrincipal">
+                <img src="<?php echo DINAMIC_URL . '/product/mobile/' . $this->cart[0]['images'][0]['image_name']; ?>" />
+            </div>
+        <?php
+            }*/
+        ?>
+        
+        <div class="imgPrincipal">
+            <img src="<?php echo STATIC_URL . '/front-fase2/images/specials/melody.jpg';?>" />
+        </div>
+        
+        <form name="frmcheckout" id="frmcheckout" action="/fase2/order/create" method="post">
+            <div class="section">
+                <h2> CONTACT INFORMATION</h2>
+                <p>
+                </p>
+                <!-- input type="text" name="inf_firstname"  id="inf_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
+                <input type="text" name="inf_lastname"  id="inf_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/ -->
+                <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" />
+            </div>
+            
+            <div class="section">
+                <h2>SHIPPING INFORMATION</h2>
+                <p>
+                </p>
+                <input type="text" name="shp_firstname"  id="shp_firstname" value="<?php echo isset($shpAdd['_firstName']) ? $shpAdd['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
+                <input type="text" name="shp_lastname"  id="shp_lastname" value="<?php echo isset($shpAdd['_lastName']) ? $shpAdd['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
+                <input type="text" name="shp_address"  id="shp_address" value="<?php echo isset($shpAdd['_address']) ? $shpAdd['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
+                <!-- input type="text" name="shp_address2"  id="shp_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/ -->                                
+                <select id="shp_country" name="shp_country" class="regions" >
+                    <option value="0"> Country*</option>                    
+                    <?php foreach($this->regions as $region): ?>
+                        <?php if( $region['country'] == $shpAdd['_country'] ){ ?>
+                            <option selected="selected" value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php }else{ ?>
+                            <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php } ?>
+                    <?php endforeach; ?>
+                </select>
+                <select id="shp_region" name="shp_region"  class="subregions" data-class="dropup" data-default="<?php echo isset($shpAdd['_state']) ? $shpAdd['_state'] : ''; ?>" >
+                    <option value="0"> Region / State*</option>
+                </select>                
+                <input type="text" name="shp_city"  id="shp_city" value="<?php echo isset($shpAdd['_city']) ? $shpAdd['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>
+                <input type="text" name="shp_cp"  id="shp_cp" value="<?php echo isset($shpAdd['_zip']) ? $shpAdd['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                
+                <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="<?php echo isset($shpAdd['_phoneNumber']) ? $shpAdd['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
+            </div>
+            
+            <div class="section">
+                <h2>BILLING INFORMATION</h2>                
+                <label><input type="checkbox" name="bill_same" id="bill_same" value="" /> Same as my shipping address</label>
+                
+                <p></p>
+                <div id="bill_same_content">
+                    <input type="text" name="bill_firstname"  id="bill_firstname" value="<?php echo isset($billinfo['_firstName']) ? $billinfo['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
+                    <input type="text" name="bill_lastname"  id="bill_lastname" value="<?php echo isset($billinfo['_lastName']) ? $billinfo['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
+                    <input type="text" name="bill_address"  id="bill_address" value="<?php echo isset($billinfo['_address']) ? $billinfo['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
+                    <!-- input type="text" name="bill_address2"  id="bill_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/ -->
+                    <select id="bill_country" name="bill_country" class="regions" >
+                        <option value="0"> Country*</option>                              
+                    <?php foreach($this->regions as $region): ?>
+                        <?php if( $region['country'] == $billinfo['_country'] ){ ?>
+                            <option selected="selected" value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php }else{ ?>
+                            <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php } ?>
+                    <?php endforeach; ?>
+                    </select>
+                    <select id="bill_region" name="bill_region" class="subregions"  data-class="dropup" data-default="<?php echo isset($billinfo['_state']) ? $billinfo['_state'] : ''; ?>" >
+                        <option value="0"> Region / State*</option>
+                    </select>
+                    <input type="text" name="bill_city"  id="bill_city" value="<?php echo isset($billinfo['_city']) ? $billinfo['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>                    
+                    <input type="text" name="bill_cp"  id="bill_cp" value="<?php echo isset($billinfo['_zip']) ? $billinfo['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                    
+                    <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="<?php echo isset($billinfo['_phoneNumber']) ? $billinfo['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
+                </div>
+            </div>
+            
+            <div class="section select_sin_ancho" >
+                <h2>PAYMENT INFORMATION</h2>
+                <p>
+                </p>
+                <!-- input type="text" name="card_name"  id="card_name" value="" placeholder="Cardholder Name*" title="Cardholder Name" / -->
+                <input type="text" name="card_number"  id="card_number" value="" placeholder="Card Number*" title="Card Number" />
+                <div class="divcardexpiration">
+                    Card Expiration Date <br/>
+                    <input type="text" name="card_expirationmonth"  id="card_expirationmonth" value="" placeholder="Month" title="Month" class="medialinea" />
+                    <input type="text" name="card_expirationyear"  id="card_expirationyear" value="" placeholder="Year" title="Year" class="medialinea"  />                    
+                </div>
+                <div class="securityCode">
+                    <input type="text" name="card_seccode"  id="car_seccode" value="" placeholder="Security Code*" title="Security Code"   class="medialinea" />
+                    <?php //what´s this <span class="icon-question-sign"></span> ?>
+                </div>
+            </div>
+            
+            <div class="total section">
+                <?php
+                    $total = 0;
+                    $nprod = count($this->cart);
+                    if ($nprod) {
+                        foreach ($this->cart as $index => $prod) {
+                            if($this->isMember){
+                                $total += $prod['_priceMember'] * (int)$prod['quantity'];
+                            }else{
+                                $total += $prod['_price'] * (int)$prod['quantity'];
+                            }
+                        }
+                    }
+                ?>
+                <br/>
+                <table>
+                    <tr>
+                        <td>Shipping</td>                        
+                        <td>$<?php echo $this->shipping; ?></td>
+                    </tr>
+                    <!-- tr>
+                        <td>Tax</td>                        
+                        <td>$0</td>
+                    </tr -->
+                    <tr>
+                        <td colspan="3"><span class="linea_horiz"></span></td>
+                    </tr>
+                    <tr><td colspan="3">&nbsp;</td></tr>
+                    <tr>
+                        <td>
+                            Total
+                        </td>
+                        <td>
+                            $<?php echo (int)$total+(int)$this->shipping; ?>
+                        </td>
+                    </tr>
+                </table>
+                <label class="acept-terms">
+                    <input type="checkbox" name="cb_terms" id="cb_termns" value="1" />
+                    I have read the WTA customer agreement, and I agree to accept the 
+                    <a href="/fase2/terms-of-service" target="__blank">terms and conditions.</a>
+                </label>
+                <div>
+                    <a href="/fase2/before-you-go" id="checkoutcancel" class="submit gradient liLight">Cancel order</a>
+                    <a href="" id="checkoutsubmit" class="submit gradient">Submit my order</a>                    
+                </div>
+
+            </div>
+            
+        </form>
+    </div>
+    
+    <div id="checkout-cart">
+        <?php 
+            echo $this->partial('shopping/checkoutcart.phtml', array('cart'=>$this->cart));
+        ?>
+    </div>
+        
+    
+</div>
+<a href="/fase2/order/processed" class="liLight" id="linkprocessed"></a>
+
+<script>
+    //WTA.updateCart();
+    WTA.checkout();
+    WTA.checkoutForm();
+    WTA.abandon();
+</script>
