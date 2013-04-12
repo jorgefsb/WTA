@@ -1,6 +1,6 @@
 <?php 
     # Imprimimos el menu Change Section
-    echo $this->partial('index/change_section.phtml', array('section'=>$this->product['actress']['_name'].' BOUTIQUE', 'menu'=>$this->menu));
+//    echo $this->partial('index/change_section.phtml', array('section'=>$this->product['actress']['_name'].' BOUTIQUE', 'menu'=>$this->menu));
     
     $name = explode(' ',$this->product['actress']['_name']);
     
@@ -53,7 +53,7 @@
                 
                 <div >
                     <span>member price</span>
-                    <strong class="<?php echo (!$this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_priceMember'], 2); ?></strong>
+                    <strong class="<?php echo (!$this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo (int)$this->product['_priceMember']; ?></strong>
                 </div>
             </div>
         </div>

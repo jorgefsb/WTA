@@ -236,7 +236,8 @@ var WTA = (function(){
                         $('.wLight').fadeOut().delay(500).remove();
                         $('#overlay').fadeOut();
                     });
-                    $('html, body').animate({'scrollTop': 0}, 500)
+                    $('html, body').animate({'scrollTop': 0}, 500)                    
+                    setTimeout(function(){$wLight.find('.scrollbar').mCustomScrollbar();},1000);
                 }
             })
         })
@@ -678,6 +679,7 @@ var WTA = (function(){
     
     this.signin = function(){
         $('#formSignin').submit(function(e){            // Validaciones para el login
+            
             e.preventDefault();
             var $this = $(this);            
             var $email = $this.find('#email');
@@ -703,7 +705,7 @@ var WTA = (function(){
                         }).done(function(response){
                             if(response.message){
                                 if(response.message == 'Incorrect Authentication'){
-                                        that.setMsgError($this.find('input[type=submit]'), 'Hmm, not it. We can’t remember ours either. Try again!   .');
+                                        that.setMsgError($this.find('.submit'), 'Hmm, not it. We can’t remember ours either. Try again!');
                                 }else{
                                     if(response.message == 'Successful Authentication'){
                                         that.setMsgError($this.find('input[type=submit]'), 'Corrrect');
@@ -1073,4 +1075,19 @@ jQuery(function($){
     };
     
     $.bootstrap_selects();
+    
+    $('ul.nav li.dropdown').hover(function() { 
+            $(this).closest('.dropdown-menu').stop(true, true).fadeIn(); 
+            $(this).addClass('open'); 
+        }, function() { 
+            $(this).closest('.dropdown-menu').fadeOut(); 
+            $(this).removeClass('open'); 
+    }).find('.dropdown-menu').hover(function() { console.log('aaa');
+            $(this).fadeIn(); 
+            $(this).parent().addClass('open'); 
+        }, function() { console.log('ss');
+            $(this).closest('.dropdown-menu').fadeOut(); 
+            $(this).parent().removeClass('open'); 
+    });
+    
 });

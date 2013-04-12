@@ -25,6 +25,7 @@
 
         <link href="<?php echo STATIC_URL . '/front-fase2/'; ?>css/wta.css" rel="stylesheet">
         <link href="<?php echo STATIC_URL . '/front-fase2/'; ?>css/static.css"  rel="stylesheet" />
+        <link href="<?php echo STATIC_URL . '/front-fase2/'; ?>css/jquery.mCustomScrollbar.css"  rel="stylesheet" />
 
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.js"></script>
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>bootstrap/js/bootstrap.min.js"></script>
@@ -41,6 +42,9 @@
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.tinyscrollbar.min.js"></script>         
 
         <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/wta.js"></script>
+                
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/jquery.mCustomScrollbar.min.js"></script>
         
         <!-- script type="text/javascript" src="<?php echo STATIC_URL . '/front-fase2/'; ?>js/prefixfree.js"></script-->
         
@@ -71,7 +75,7 @@
                 <div class="navbar navbar-inverse"> <!-- MENU  -->
                     <div class="navbar-inner">
                         
-                        <a href="/special" class="logo"  ><img src="<?php echo STATIC_URL?>/front-fase2/images/wta-logo-menu.png"  /></a>
+                        <a href="/fase2" class="logo"  ><img src="<?php echo STATIC_URL?>/front-fase2/images/wta-logo-menu.png"  /></a>
                         <span class="frase">Exclusive fashion jewelry for a limited time only</span>
                         
                         <a class="btn btn-navbar" data-toggle="collapse" data-target=".menu1">
@@ -84,13 +88,40 @@
                             
                             <div class="nav-collapse collapse menu1">
                                 <ul class="nav">
-                                    <li><a href="#" id="link-about-wta" title="" class="liLight ">About</a></li>
-                                    <li><a href="#" id="link-how-it-works" title="" class="liLight " data-top="5">How it Works</a></li>
-                                    <li><a href="#" title="" class="liLight " >Press</a></li>
+                                    <li  class="dropdown">
+                                        <a href="#" id="link-about-wta" title="" data-toggle="dropdown">About</a>
+                                        <ul class="submenu dropdown-menu">
+                                            <li><a href="/fase2/about-wta" title="" class="liLight " >Why join?</a></li>
+                                            <li><a href="/fase2/about-wta" title="" class="liLight " >Why membership?</a></li>
+                                            <li><a href="/fase2/about-wta" title="" class="liLight " >About us</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/fase2/how-it-works" id="link-how-it-works" title="" class="liLight " data-top="5">How it Works</a></li>
+                                    <li><a href="/fase2/coming-soon" title="" class="liLight " >Press</a></li>
+                                    <li class="dropdown">
+                                         <?php                                        
+                                            if($_identity && !empty($_identity)){
+                                        ?>
+                                            <a class="btn dropdown-toggle" href="#" data-toggle="dropdown"  >
+                                                Welcome, <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> <!--&nbsp; &nbsp;<span class="caret"></span -->
+                                            </a>
+                                            <ul class="submenu dropdown-menu">
+                                                <li><a href="/member/dashboard" >My profile</a></li>
+                                                <li><a href="/member/my-address" >Edit my address</a></li>
+                                                <li><a href="/member/payment-method" >Payment method</a></li>
+                                                <li><a href="/signout" class="btn signout" >SIGN OUT</a></li>
+                                            </ul>
+                                        <?php
+                                            }else{
+                                        ?>
+                                            <a class="btn liLight" id="link-sign-in" href="/fase2/sign-in" >
+                                                <strong>Sign in</strong>                                    
+                                            </a>
+                                        <?php
+                                            }
+                                        ?>
+                                    </li>
                                     <li>
-                                        <a class="btn liLight " id="link-sign-in" href="#" >
-                                            Sign in
-                                        </a>
                                         <a class="btn " id="btnShoppingCart">
                                             <span class="iconCart"></span>
                                         </a>
@@ -99,34 +130,7 @@
 
                             </div>
                             
-                            <?php
-                            /*
-                                if($_identity && !empty($_identity)){
-                            ?>
-                                <div class="btn-group btn-group-inverse">
-                                    <a class="btn dropdown-toggle" href="#" data-toggle="dropdown"  >
-                                        Welcome, <strong> <?php echo $_identity->member_name . ' ' . $_identity->member_last_name ?></strong> &nbsp; &nbsp;<span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/member/dashboard" >My profile</a></li>
-                                        <li><a href="/member/my-address" >Edit my address</a></li>
-                                        <li><a href="/member/payment-method" >Payment method</a></li>
-                                        <li><a href="/signout" class="btn signout" >SIGN OUT</a></li>
-                                    </ul>
-                                </div>
-                            <?php
-                                }else{
-                            ?>
-                                <a class="btn liLight" id="link-sign-in" href="/sign-in" >
-                                    <strong>Sign in</strong>                                    
-                                </a>
-                            <?php
-                                }
-                            ?>
-                            <a class="btn" id="btnShoppingCart">
-                                <strong>Your Shopping Cart is empty<span id="itemsCount"></span></strong>
-                            </a>
- */ ?>
+                            
                         </div>
 
 
@@ -167,12 +171,12 @@
 
                         <div class="nav-collapse collapse menu2">
                             <ul class="nav">
-                                <li><a href="/special" title="" >Home</a></li>
-                                <li><a href="#" title=""  class="">Affiliates</a></li>
+                                <li><a href="/fase2" title="" >Home</a></li>
+                                <li><a href="/fase2/affiliates" title=""  class="">Affiliates</a></li>
                                 <li><a href="/fase2/terms-of-service" title="" >Terms of service</a></li>
-                                <li><a href="#" title="" class="" >Rewarding our members</a></li>
-                                <li><a href="#" title="" class="" >Help</a></li>
-                                <li><a href="#" title="" class="">Privacy</a></li>
+                                <li><a href="/fase2/rewarding-our-members" title="" class="" >Rewarding our members</a></li>
+                                <li><a href="/fase2/help" title="" class="" >Help</a></li>
+                                <li><a href="/fase2/privacy" title="" class="">Privacy</a></li>                                
                             </ul>
 
                             <div class="pull-right">

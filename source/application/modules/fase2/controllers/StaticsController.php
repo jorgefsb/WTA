@@ -177,7 +177,6 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
     public function giftAction(){
         $this->view->headTitle('Get a free gift');
         $this->view->headMeta()->appendName('description', 'BECOME A MEMBER TODAY & start enjoying the BENEFITS OF MEMBERSHIP. T.Cyia’s larger ram skull ring features horns that wrap around the finger, creating the top of two bands. Made of bronze with 24 kt gold plating this ring has been E-coated to protect the integrity of the finish');
-        $this->loadOptionsMenu(); 
    }
    
    

@@ -6,9 +6,9 @@ class Fase2_LoginController extends Core_Controller_ActionDefault
     public function init() {
         parent::init();
         
-        if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
-            $this->redirect('/beta');
-        }
+        //if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
+          //  $this->redirect('/beta');
+        //}
         
                 
     }

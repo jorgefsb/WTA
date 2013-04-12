@@ -93,7 +93,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         $properties['designer'] = $_designer->getProperties();
                 
         $this->view->product = $properties;
-        $this->view->urlBase = '/designers/';
+        $this->view->urlBase = '/fase2/designers/';
                 
         $this->view->headTitle(
                                                 (($imprime_productNameTitle) ? $properties['_name'] :   // Nombre del producto o
@@ -134,7 +134,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         $_product = new Application_Entity_Product();
         $this->view->sliderProducts = $_product->getProductsByCollectionType($category_active);
                         
-        $this->view->urlBase = '/exclusive-collections/';
+        $this->view->urlBase = '/fase2/exclusive-collections/';
                 
         
         $this->view->headTitle(ucfirst($category_active).' -  Exclusive Collection');
@@ -218,7 +218,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         
         $this->view->prev = $prev;
         $this->view->next = $next;
-        $this->view->urlBase = '/exclusive-collections/';
+        $this->view->urlBase = '/fase2/exclusive-collections/';
         
         
         $this->view->headTitle(
@@ -240,7 +240,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
     
     
     public function boutiqueAction(){
-        $this->loadOptionsMenu();
+        //$this->loadOptionsMenu();
         
         $celebrity = $this->getParam('celebrity', '');
         
@@ -279,7 +279,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
                 
         
         $this->view->no_mostrar = $no_mostrar;
-        $this->view->urlBase = '/boutique/'.preg_replace('/\s+/', '-',trim($properties['actress']['_name'])).'/';
+        $this->view->urlBase = '/fase2/boutique/'.preg_replace('/\s+/', '-',trim($properties['actress']['_name'])).'/';
         
         
         $this->view->headTitle(
@@ -301,7 +301,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
     
     
     public function celebritysAction(){
-        $this->loadOptionsMenu();
+        //$this->loadOptionsMenu();
         
         
         $this->view->headTitle('Celebrity Boutique');
@@ -319,7 +319,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
     
     public function limitedAction(){
         
-        $this->loadOptionsMenu();
+        //$this->loadOptionsMenu();
              
         $_product = new Application_Entity_Product();
         
@@ -370,7 +370,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         
         $this->view->prev = $prev;
         $this->view->next = $next;
-        $this->view->urlBase = '/limited-quantity/';
+        $this->view->urlBase = '/fase2/limited-quantity/';
         
         $this->view->headTitle(
                                                 (($imprime_productNameTitle) ? $properties['_name'].' - ' : '').  // Nombre del producto 

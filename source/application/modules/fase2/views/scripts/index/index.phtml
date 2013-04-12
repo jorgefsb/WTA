@@ -12,7 +12,7 @@
         <ul id="lissections">
             <li>
                 <a href="/fase2/designers" ><span>Designers</span></a>
-                <ul>
+                <ul class="submenu">
                     <?php if( !empty($menu_designers) ): ?>
                             <?php foreach($menu_designers as $designer=>$types): ?>
                                 <li>
@@ -37,7 +37,7 @@
             </li>
             <li>
                 <a href="/fase2/exclusive-collections" ><span>Style.</span></a>
-                <ul>
+                <ul class="submenu">
                     <?php if( !empty($menu_collections_types) ): ?>
                         <?php foreach($menu_collections_types as $collection): ?>
                             <li>
@@ -49,7 +49,7 @@
             </li>
             <li>
                 <a href="/fase2/boutique" ><span>Celebrity </span></a>    
-                <ul>
+                <ul class="submenu">
                     <?php if( !empty($menu_boutiques) ): ?>
                         <?php foreach($menu_boutiques as $boutique): ?>
                             <li>
@@ -61,7 +61,7 @@
             </li>
             <li>
                 <a href="/fase2/limited-quantity" ><span>Limited Quantity</span></a>
-                <ul>
+                <ul class="submenu">
                     <li><a href="/fase2/limited-quantity">reserved for members only</a></li>
                     <?php /* if( !empty($menu_limitedq) ): ?>
                         <?php foreach($menu_limitedq as $product): ?>
@@ -94,7 +94,7 @@
                 </li>
         </ul>
     </div>
-    <a class="btn getafgt"  href="/fase2//get-a-free-gift" >WANT A FREE GIFT?</a>
+    <a class="btn getafgt"  href="/fase2/get-a-free-gift" >WANT A FREE GIFT?</a>
 
 </div>
 <script>
