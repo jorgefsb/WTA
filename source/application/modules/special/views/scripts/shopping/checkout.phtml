@@ -42,8 +42,10 @@
                 <input type="text" name="shp_lastname"  id="shp_lastname" value="<?php echo isset($shpAdd['_lastName']) ? $shpAdd['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
                 <input type="text" name="shp_address"  id="shp_address" value="<?php echo isset($shpAdd['_address']) ? $shpAdd['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
                 <!-- input type="text" name="shp_address2"  id="shp_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/ -->                                
+                <input type="text" name="shp_city"  id="shp_city" value="<?php echo isset($shpAdd['_city']) ? $shpAdd['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>
+                <input type="text" name="shp_cp"  id="shp_cp" value="<?php echo isset($shpAdd['_zip']) ? $shpAdd['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                
                 <select id="shp_country" name="shp_country" class="regions" >
-                    <option value="0"> Country*</option>                    
+                    <!-- option value="0"> Country*</option -->                    
                     <?php foreach($this->regions as $region): ?>
                         <?php if( $region['country'] == $shpAdd['_country'] ){ ?>
                             <option selected="selected" value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
@@ -55,8 +57,7 @@
                 <select id="shp_region" name="shp_region"  class="subregions" data-class="dropup" data-default="<?php echo isset($shpAdd['_state']) ? $shpAdd['_state'] : ''; ?>" >
                     <option value="0"> Region / State*</option>
                 </select>                
-                <input type="text" name="shp_city"  id="shp_city" value="<?php echo isset($shpAdd['_city']) ? $shpAdd['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>
-                <input type="text" name="shp_cp"  id="shp_cp" value="<?php echo isset($shpAdd['_zip']) ? $shpAdd['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                
+                
                 <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="<?php echo isset($shpAdd['_phoneNumber']) ? $shpAdd['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
             </div>
             
@@ -70,8 +71,10 @@
                     <input type="text" name="bill_lastname"  id="bill_lastname" value="<?php echo isset($billinfo['_lastName']) ? $billinfo['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
                     <input type="text" name="bill_address"  id="bill_address" value="<?php echo isset($billinfo['_address']) ? $billinfo['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
                     <!-- input type="text" name="bill_address2"  id="bill_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/ -->
+                    <input type="text" name="bill_city"  id="bill_city" value="<?php echo isset($billinfo['_city']) ? $billinfo['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>                    
+                    <input type="text" name="bill_cp"  id="bill_cp" value="<?php echo isset($billinfo['_zip']) ? $billinfo['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                    
                     <select id="bill_country" name="bill_country" class="regions" >
-                        <option value="0"> Country*</option>                              
+                        <!-- option value="0"> Country*</option -->                              
                     <?php foreach($this->regions as $region): ?>
                         <?php if( $region['country'] == $billinfo['_country'] ){ ?>
                             <option selected="selected" value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
@@ -83,8 +86,7 @@
                     <select id="bill_region" name="bill_region" class="subregions"  data-class="dropup" data-default="<?php echo isset($billinfo['_state']) ? $billinfo['_state'] : ''; ?>" >
                         <option value="0"> Region / State*</option>
                     </select>
-                    <input type="text" name="bill_city"  id="bill_city" value="<?php echo isset($billinfo['_city']) ? $billinfo['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>                    
-                    <input type="text" name="bill_cp"  id="bill_cp" value="<?php echo isset($billinfo['_zip']) ? $billinfo['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>                    
+                    
                     <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="<?php echo isset($billinfo['_phoneNumber']) ? $billinfo['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
                 </div>
             </div>
@@ -95,10 +97,25 @@
                 </p>
                 <!-- input type="text" name="card_name"  id="card_name" value="" placeholder="Cardholder Name*" title="Cardholder Name" / -->
                 <input type="text" name="card_number"  id="card_number" value="" placeholder="Card Number*" title="Card Number" />
-                <div class="divcardexpiration">
+                <!-- div class="divcardexpiration">
                     Card Expiration Date <br/>
                     <input type="text" name="card_expirationmonth"  id="card_expirationmonth" value="" placeholder="Month" title="Month" class="medialinea" />
                     <input type="text" name="card_expirationyear"  id="card_expirationyear" value="" placeholder="Year" title="Year" class="medialinea"  />                    
+                </div -->
+                <div class="divcardexpiration">
+                    Card Expiration Date <br/>
+                    <select id="card_expirationmonth" name="card_expirationmonth"  data-class="dropup" >
+                        <option value="0"> &nbsp;&nbsp;Select Month*&nbsp;&nbsp;</option>
+                        <?php for($i=1; $i<=12; $i++): ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php endfor; ?>
+                    </select>
+                    <select id="card_expirationyear" name="card_expirationyear"   data-class="dropup">
+                        <option value="0"> &nbsp;&nbsp;Select Year*&nbsp;&nbsp;</option>
+                        <?php for($i=2013; $i<=2025; $i++): ?>
+                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                        <?php endfor; ?>
+                    </select><br/>
                 </div>
                 <div class="securityCode">
                     <input type="text" name="card_seccode"  id="car_seccode" value="" placeholder="Security Code*" title="Security Code"   class="medialinea" />

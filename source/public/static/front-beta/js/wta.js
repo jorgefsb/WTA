@@ -958,7 +958,7 @@ var WTA = (function(){
                     }
                 })
             }else{
-                that.setMsgError($('#checkoutsubmit'), 'You are empty fields');
+                that.setMsgError($('#checkoutsubmit'), 'You have empty fields');
             }
         });
         

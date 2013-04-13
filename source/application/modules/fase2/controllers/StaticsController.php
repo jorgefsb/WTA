@@ -174,6 +174,22 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
         
     }   
     
+    public function membershipAction(){
+        
+        $this->view->headTitle('benefits of membership');
+        $this->view->headMeta()->appendName('description', 'Wetheadorned is the first membership site that truly provides real benefits to becoming a member');
+        
+        $this->view->visible = true;
+        $this->view->headScript()->appendScript('document.location.href = "'.BASE_URL.'#benefits-of-membership";');
+        
+        
+        if( $this->getRequest()->isXmlHttpRequest()  ){
+            $this->_helper->layout->disableLayout();
+            $this->view->visible = false;
+        }
+        
+    }   
+    
     public function giftAction(){
         $this->view->headTitle('Get a free gift');
         $this->view->headMeta()->appendName('description', 'BECOME A MEMBER TODAY & start enjoying the BENEFITS OF MEMBERSHIP. T.Cyia’s larger ram skull ring features horns that wrap around the finger, creating the top of two bands. Made of bronze with 24 kt gold plating this ring has been E-coated to protect the integrity of the finish');

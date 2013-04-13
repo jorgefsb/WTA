@@ -577,9 +577,10 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout .acept-terms a {color: #333;  font-family: Arial, Helvetica; text-decoration: underline}
 #contentBody.checkout .securityCode {font-size: 20px;  font-weight: bold}
 #contentBody.checkout .securityCode input{vertical-align: middle; margin-right: 10px}
-#contentBody.checkout a.submit{color: #FFF;text-shadow: 0px 0px 1px #555; text-transform: uppercase; padding: 8px 15px; border-radius: 3px; font-weight: normal; letter-spacing: -1px;;
-margin: 30px 35px 0 ;
+#contentBody.checkout a.submit{color: #FFF;text-shadow: 0px 0px 1px #555; text-transform: uppercase; padding: 8px 15px; border-radius: 3px; font-weight: bold; 
+margin: 30px 20px 0 ;
 display: inline-block;
+font-size: 14px;
 background: #d4b03d; /* Old browsers */
 /* IE9 SVG, needs conditional override of 'filter' to 'none' */
 background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iI2Q0YjAzZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjODlhMzEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -590,6 +591,7 @@ background: -o-linear-gradient(top, #d4b03d 1%,#c89a31 100%); /* Opera 11.10+ */
 background: -ms-linear-gradient(top, #d4b03d 1%,#c89a31 100%); /* IE10+ */
 background: linear-gradient(to bottom, #d4b03d 1%,#c89a31 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', endColorstr='#c89a31',GradientType=0 ); /* IE6-8 */}
+#checkoutcancel{font-size: 11px !important; font-weight: normal !important;}
 .linea_horiz{background: transparent url(../images/linea_degradada_horizontal.png) center center no-repeat; width: 380px; height: 1px; display: inline-block }
 
 #welcome-beta{width: 400px; margin: 100px auto; font-size: 15px; color: #dedede}

@@ -971,7 +971,7 @@ var WTA = (function(){
                     }
                 })
             }else{
-                that.setMsgError($('#checkoutsubmit'), 'You are empty fields');
+                that.setMsgError($('#checkoutsubmit'), 'You have empty fields');
             }
         });
         
@@ -1076,18 +1076,22 @@ jQuery(function($){
     
     $.bootstrap_selects();
     
+    var tiempo_desaparencer = 0;
     $('ul.nav li.dropdown').hover(function() { 
-            $(this).closest('.dropdown-menu').stop(true, true).fadeIn(); 
+            //$(this).closest('.dropdown-menu').stop(true, true).fadeIn(); 
             $(this).addClass('open'); 
+            clearTimeout(tiempo_desaparencer );
         }, function() { 
-            $(this).closest('.dropdown-menu').fadeOut(); 
-            $(this).removeClass('open'); 
-    }).find('.dropdown-menu').hover(function() { console.log('aaa');
-            $(this).fadeIn(); 
+            //$(this).closest('.dropdown-menu').fadeOut(); 
+            var $this =$(this);
+            clearTimeout(tiempo_desaparencer );
+            tiempo_desaparencer =setTimeout(function(){ $this.removeClass('open'); }, 150);
+    }).find('.dropdown-menu').hover(function() { 
+            //$(this).fadeIn(); 
+            clearTimeout(tiempo_desaparencer );
             $(this).parent().addClass('open'); 
-        }, function() { console.log('ss');
-            $(this).closest('.dropdown-menu').fadeOut(); 
-            $(this).parent().removeClass('open'); 
+        }, function() { 
+            //$(this).fadeOut(); 
     });
     
 });
