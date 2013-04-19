@@ -98,10 +98,10 @@ a.btn-amarillo:hover{background: #191919 !important; }
 #footer .navbar-inner{font-size: 16px;  padding: 0 20px; background: #010101; }
 #footer .navbar .nav > li > a{color: #f0ce73; padding: 10px 7px; }
 #footer .navbar .nav > li > a:hover{color: #f0ce73; }
-#footer .facebook{ background: url('../images/socialmedia_blue.png') -3px 0 no-repeat; width: 22px;  height: 18px; padding: 4px 0; box-shadow: none; display: inline-block; vertical-align: sub; margin-top: 10px}
-#footer .facebook:hover{background-position: -3px -22px}
-#footer .twitter{ background: url('../images/socialmedia_blue.png') -28px 0 no-repeat; width: 22px;  height: 18px; padding: 4px 0; box-shadow: none; margin-left: 10px;  display: inline-block; vertical-align: sub;  margin-top: 10px}
-#footer .twitter:hover{background-position: -28px -22px}
+#footer .facebook{ background: url('../images/socialmedia_blue.png') 0px 0 no-repeat; width: 44px;  height: 39px; padding: 4px 0; box-shadow: none; display: inline-block; vertical-align: middle; margin-top: 10px}
+#footer .facebook:hover{background-position: 0px -48px}
+#footer .twitter{ background: url('../images/socialmedia_blue.png') -45px 0 no-repeat; width: 44px;  height: 39px; padding: 4px 0; box-shadow: none; margin-left: 10px;  display: inline-block; vertical-align: middle;  margin-top: 10px}
+#footer .twitter:hover{background-position: -46px -48px}
 #footer .contactus{text-transform: uppercase; color: #FFF; margin-left: 10px; font-size: 11px; text-decoration: none}
 #footer .contactus:hover {color: #f0ce73;}
 

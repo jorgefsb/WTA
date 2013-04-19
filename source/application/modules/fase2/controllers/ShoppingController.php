@@ -85,6 +85,42 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         
     }
     
+    public function membershipAction(){        
+        $this->view->headTitle('Membership');
+        if($this->view->isMember){
+            $member = new Application_Entity_Member();
+            $member->identify($this->_identity->member_id);     
+            $member->loadProfile();
+            $shippingAddress = $member->getPropertie('_shippingAddress');            
+            $billingInformation = $member->getPropertie('_billingInformation');           
+            
+            $this->view->member =  $this->_identity;
+            $this->view->shippingAddress = $shippingAddress[0];
+            $this->view->billingInformation = $billingInformation[0];
+        }else{
+            $this->view->shippingAddress = array();
+            $this->view->billingInformation = array();
+        }
+                
+        $this->view->isMember = true;
+        
+        //$this->loadOptionsMenu();
+        $this->view->cart = $this->_session->cart;
+        
+        $_regions = new Application_Model_Regions();
+        $this->view->regions = $_regions->listing(array(840));        
+        
+        $this->view->shipping = 5;
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'PAGE';
+        $this->_tackUrl = $_SERVER['REQUEST_URI'];
+        $this->_tackData =array();
+        $this->_tackUrlRef = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+        
+    }
     
     public function checkoutcartAction(){
         $this->view->isMember = true;

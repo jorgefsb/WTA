@@ -34,7 +34,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         //echo '<pre>';print_r($_product->listingLimitedQuantity());die();
         
         $this->view->menu = $menu;
-        return $menu;;
+        return $menu;
     }    
     
     
@@ -47,7 +47,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         $this->_tackName = 'PAGE';
         $this->_tackUrl = $_SERVER['REQUEST_URI'];
         $this->_tackUrlRef = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-        $_SESSION['demo']++;
+
     } 
     
     public function designersAction(){
