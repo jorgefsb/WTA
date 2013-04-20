@@ -622,13 +622,20 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout  .imgPrincipal img{max-height: 267px;}
 
 #contentBody.checkout form {width: 407px;}
-#contentBody.checkout form .section{margin: 15px 0 25px; font-size: 12px; border-width: 1px 0px 0px; border-style: dotted; border-color: #e0e0e0  }
+#contentBody.checkout form .section{margin: 0px 0 5px; font-size: 12px; border-width: 0px 0px 1px; border-style: dotted; border-color: #e0e0e0; padding-bottom: 10px; overflow: auto; }
+#contentBody.checkout form .section h2{margin: 0px; cursor: pointer}
+#contentBody.checkout form .section h2 span{line-height: 16px;}
+#contentBody.checkout form .section h2+div{display: none}
 #contentBody.checkout form label{color: #070707; font-size: 12px; }
 #contentBody.checkout form label input{vertical-align: top; margin-right: 3px;}
 #contentBody.checkout form input[type=text]{border: 1px solid #d6d6d6; border-radius: 0px; font-size: 13px; padding: 4px 5px; background: #fff; color: #787878; margin-bottom: 0px; margin-top: 3px; box-shadow: none; font-weight: bold}
 #contentBody.checkout form input[type=text], #contentBody.checkout form input[type=password]{width: 395px;}
 #contentBody.checkout form .medialinea{display: inline-block; width: 190px !important;}
 #contentBody.checkout .divcardexpiration{margin-top: 2px;}
+
+#contentBody.checkout form .disabled input{border: 0px solid ;}
+#contentBody.checkout form .section #inf_emailaddress{width: 313px;}
+.paso2, .paso3, .paso4{float: right; margin-top: 10px}
 
 #contentBody.checkout .shoppingCart{display: block; position: static; background: #f8f8f8; color: #505050; padding: 5px 0;  box-shadow: 0 0 4px 2px #bbb; border-radius: 0px; }
 #contentBody.checkout .shoppingCart > div{max-height: none; overflow: visible; background: #fcfcfc;}
@@ -664,8 +671,25 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout .acept-terms a {color: #333;  font-family: Arial, Helvetica; text-decoration: underline}
 #contentBody.checkout .securityCode {font-size: 20px;  font-weight: bold}
 #contentBody.checkout .securityCode input{vertical-align: middle; margin-right: 10px}
-#contentBody.checkout a.submit{color: #FFF;text-shadow: 0px 0px 1px #555; text-transform: uppercase; padding: 8px 15px; border-radius: 3px; font-weight: normal; 
-margin: 30px 35px 0 ;
+#contentBody.checkout .btn-gris{display: block; width: 250px; margin: 5px auto; text-align: center}
+
+
+.btn-gris{color: #FFF;text-shadow: 0px 0px 1px #555; text-transform: uppercase; padding: 8px 30px; border-radius: 3px; font-weight: normal; border: 0px;cursor: pointer;
+display: inline-block;
+background: #64605a; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iI2Q0YjAzZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjODlhMzEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top, #64605a 1%, #4f4c47 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#64605a), color-stop(100%,#4f4c47)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #64605a 1%,#4f4c47 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #64605a 1%,#4f4c47 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #64605a 1%,#4f4c47 100%); /* IE10+ */
+background: linear-gradient(to bottom, #64605a 1%,#4f4c47 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#64605a', endColorstr='#4f4c47',GradientType=0 ); /* IE6-8 */}
+
+
+
+.btn-amarillo{color: #FFF;text-shadow: 0px 0px 1px #555; text-transform: uppercase; padding: 8px 15px; border-radius: 3px; font-weight: normal; border: 0px;cursor: pointer;
 display: inline-block;
 background: #d4b03d; /* Old browsers */
 /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -677,6 +701,8 @@ background: -o-linear-gradient(top, #d4b03d 1%,#c89a31 100%); /* Opera 11.10+ */
 background: -ms-linear-gradient(top, #d4b03d 1%,#c89a31 100%); /* IE10+ */
 background: linear-gradient(to bottom, #d4b03d 1%,#c89a31 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', endColorstr='#c89a31',GradientType=0 ); /* IE6-8 */}
+
+
 .linea_horiz{background: transparent url(../images/linea_degradada_horizontal.png) center center no-repeat; width: 380px; height: 1px; display: inline-block }
 
 #welcome-beta{width: 400px; margin: 100px auto; font-size: 15px; color: #dedede}

@@ -975,6 +975,58 @@ var WTA = (function(){
             }
         });
         
+        //efecto accordion
+        $('.acordion').click(function(){
+            var $this = $(this);
+            if($this.hasClass('lock')){
+                return false;
+            }
+            var div = $this.next();
+            if(div){
+                div.slideDown();                
+                $this.parent().removeClass('disabled');
+            }
+        });
+        
+        $('.paso1').click(function(){
+            var $this = $(this);
+            if($this.html()=='Edit'){
+                $this.parent().find('input').attr('readonly',false);
+                $this.html('Next');
+            }else{            
+                //$this.parent().addClass('disabled');
+                $this.parent().find('input').attr('readonly', 'readonly');
+                $('.paso2').parent().prev().removeClass('lock').trigger('click');
+                $this.html('Edit');
+            }
+        })
+        $('.paso2').click(function(){
+            var $this = $(this);
+            if($this.html()=='Edit'){
+                $this.parent().find('input').attr('readonly',false);
+                $this.html('Next');
+            }else{            
+                //$this.parent().addClass('disabled');
+                $this.parent().find('input').attr('readonly', 'readonly');
+                $('.paso3').parent().prev().removeClass('lock').trigger('click');
+                $this.html('Edit');
+            }
+        })
+        $('.paso3').click(function(){
+            var $this = $(this);
+            if($this.html()=='Edit'){
+                $this.parent().find('input').attr('readonly',false);
+                $this.html('Next');
+            }else{            
+                //$this.parent().addClass('disabled');
+                $this.parent().find('input').attr('readonly', 'readonly');
+                $('.paso4').parent().prev().removeClass('lock').trigger('click');
+                $this.html('Edit');
+            }
+        })
+        
+        
+        
     }
     
     this.checkoutForm = function(){
@@ -1043,6 +1095,7 @@ var WTA = (function(){
             })
         })
     }
+    
     
     
     return this;
