@@ -9,18 +9,30 @@
 <div id="contentBody" class="boutique ajustar">
     
     <?php if($this->no_mostrar==true){ ?>
-        <div  class="imgProd">
-                <?php if( strpos(strtolower($this->product['actress']['_name']), 'ivana') !==FALSE){ ?>
-                    <img src="<?php echo STATIC_URL;?>/front-fase2/images/ivana.jpg" />
-                    <h2>
-                <?php }else ?>
-                <?php if( strpos(strtolower($this->product['actress']['_name']), 'cameron') !==FALSE){ ?>
-                    <img src="<?php echo STATIC_URL;?>/front-fase2/images/cameron.jpg" />
-                <?php }else ?>
-                <?php if( strpos(strtolower($this->product['actress']['_name']), 'melody') !==FALSE){ ?>
-                    <img src="<?php echo STATIC_URL;?>/front-fase2/images/melody.jpg" />
-                <?php } ?>
-        </div>
+    <div class="celebrity">
+            <div  class="imgProd ">
+                    <?php if( strpos(strtolower($this->product['actress']['_name']), 'ivana') !==FALSE){ ?>
+                        <img src="<?php echo STATIC_URL;?>/front-fase2/images/ivana.jpg" />                    
+                    <?php }else ?>
+                    <?php if( strpos(strtolower($this->product['actress']['_name']), 'cameron') !==FALSE){ ?>
+                        <img src="<?php echo STATIC_URL;?>/front-fase2/images/cameron.jpg" />
+                    <?php }else ?>
+                    <?php if( strpos(strtolower($this->product['actress']['_name']), 'melody') !==FALSE){ ?>
+                        <img src="<?php echo STATIC_URL;?>/front-fase2/images/melody.jpg" />
+                    <?php } ?>
+            </div>
+            <div class="info">
+                <h1>                
+                    <span class="name1"><?php echo $name[0]; ?></span>
+                    <span class="name2"><?php echo $name[1]; ?></span>
+                </h1>
+                <div  class="details-content">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu lectus id risus condimentum hendrerit. Pellentesque sagittis euismod odio eu consequat. Pellentesque ultrices elementum iaculis. Sed eget leo quis felis aliquet pharetra sed nec ipsum. Duis quis tempor augue. Suspendisse potenti. Donec convallis placerat elit quis elementum. Vivamus in ullamcorper arcu. Mauris tristique placerat est non dapibus. 
+                    </p>
+                </div>
+            </div>
+    </div>
     <?php }else{ ?>
     <div  class="imgProd">
         <?php if( !empty($this->product['celebrity']) && !empty($this->product['celebrity']['product_actress_img'])){ ?>

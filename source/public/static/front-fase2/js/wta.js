@@ -722,11 +722,8 @@ var WTA = (function(){
         $('#formRegister').submit(function(e){            // Validaciones para el login
             e.preventDefault();
             var $this = $(this);            
-            var $firstname = $this.find('#firstname');
-            var $lastname = $this.find('#lastname');
             var $email = $this.find('#email');
             var $password1 = $this.find('#password1');
-            var $password2 = $this.find('#password2');
             var $cbterms = $this.find('#cbterms');
             
             var validForm = true;

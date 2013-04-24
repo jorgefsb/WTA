@@ -286,7 +286,7 @@ a.signout{margin:  0 auto;}
 #contentBody.limited{/*padding-top: 30px;*/}
 .imgProd { text-align: center; margin: 0 auto; width: 450px; margin: 0px 10px 10px 10px; display: inline-block; }
 .imgProd img{max-height: 500px; max-width: 500px; transition: all 500ms ease 0s; }
-.info{width: 400px;  text-align: center;  color: #787878; display: inline-block; vertical-align: middle; letter-spacing: -1px; word-spacing: 2px; margin-left: 20px; padding-bottom: 50px;}
+.info{width: 400px;  text-align: center;  color: #787878; display: inline-block; vertical-align: middle; /*letter-spacing: -1px;*/ word-spacing: 2px; margin-left: 20px; padding-bottom: 50px;}
 .info h1{ color: #000; font-size: 28px; text-transform: lowercase; font-weight: bold; line-height: 24px}
 .info h3{ text-transform: uppercase;  font-weight: normal; margin: 0 auto; font-size: 12px; line-height: 15px}
 .info h2{ font-size: 18px; font-weight: normal; margin-top: 3px; line-height: 16px; margin-bottom: 5px}
@@ -334,10 +334,16 @@ a.signout{margin:  0 auto;}
 #contentBody.boutique .info .name1{color: #FFF;}
 #contentBody.boutique .info .name2{color: #b8b8b8;}
 #contentBody.boutique h2{color: #FFF}
-#contentBody.boutique .precios > div {background: url('../images/line_vertical.png') left center no-repeat; padding-left: 8px;   letter-spacing: 0px;}
+#contentBody.boutique .precios > div {background: url('../images/line_vertical.png') left center no-repeat; padding-left: 8px;   /*letter-spacing: 0px;*/}
 #contentBody.boutique .precios span{font-size: 11px; color: #FFF;}
 #contentBody.boutique .precios > div:first-child{background: none;}
 /*#slider_products.boutique{margin-top: 0px; position:  static}*/
+
+#contentBody.boutique .celebrity {text-align: center}
+#contentBody.boutique .celebrity .imgProd{margin-left: -50px; margin-right: 40px; max-width: 40%}
+#contentBody.boutique .celebrity .info {vertical-align: middle; text-align: left; width: 60%;}
+#contentBody.boutique .celebrity .info p{display: inline-block; width: 100%; line-height: 24px; color: #f0ce73; font-size: 16px; text-align: left}
+
 
 .powerzoom{z-index: 1000; border-radius: 50%; box-shadow: 0px 0px 2px #666, inset 0px 0px 36px #999; background: #FFF; overflow: hidden;}
 .powerzoom div{z-index: 999; width: 100%; height: 100%; overflow: hidden;   background-repeat: no-repeat; border-radius: 50%; }
@@ -348,7 +354,7 @@ a.signout{margin:  0 auto;}
 #contentBody a.next3{left: 90%; background-position: -39px 0;  }
 
 /* PRODUCTS SLIDER*/
-#slider_products{position: fixed; width: 100%; /*margin-top: -175px;*/ z-index: 5000; overflow: hidden; bottom: 90px;}
+#slider_products{position: fixed; width: 100%; /*margin-top: -175px;*/ z-index: 5000; overflow: hidden; bottom: 106px;}
 #slider_products .bar{padding: 0 30px; background: #101010; color: #f0ce73; text-transform: uppercase;  line-height: 28px; font-size: 11px; cursor: pointer}
 #slider_products .bar .wetheadorned{position: absolute}
 #slider_products .bar .collectionsName{display: block; margin: 0 auto; width: 300px; text-align: center}
@@ -356,7 +362,7 @@ a.signout{margin:  0 auto;}
 #slider_products .slider-content div.collectionsName{padding: 20px; width: 230px; display: inline-block; vertical-align: top}
 #slider_products .slider-content div.collectionsName span{color: #f0ce73; text-transform: uppercase; line-height: 26px; border-bottom: 1px solid #FFF; font-size: 11px; font-weight: bold; display: block; margin-bottom: 10px;}
 #slider_products .slider-content div.collectionsName p{font-size: 11px; color: #968453}
-#slider_products #slider-div{display: block; margin-left: 300px; margin-top: -75px; margin-right: 40px; position: relative}
+#slider_products #slider-div{display: block; margin-left: 50px; /*margin-top: -75px;*/ margin-right: 40px;  padding: 10px; position: relative}
 #slider_products #slider li{display:  inline-block; min-height: 130px;}
 #slider_products #slider li a.dsc{display: inline-block; min-width: 130px; max-width: 200px; margin-left: 15px; vertical-align: middle; color: #f0ce73; font-size: 13px; }
 #slider_products #slider li a.dsc strong{font-style: italic; display: inline-block; width: 120px;}
@@ -450,6 +456,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 .wLight{padding: 2px;}
 .popup{background: transparent url('../images/bg-popup.png') center top no-repeat; width: 403px; height: 360px;  z-index: 1000; position: relative; padding-top: 1px; text-align: center; }
 .popup.large{background: transparent url('../images/bg-popup-large.png') center top no-repeat; width: 403px; height: 520px;  }
+.popup.wide{background: transparent url('../images/bg-popup-wide.png') center top no-repeat; width: 522px; height: 440px;  }
 .popup.gradient{
     text-align: left;
     height: auto;
@@ -539,6 +546,18 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #signin h1 img, #membership h1 img{margin-top: -4px}
 #signin .forgot{font-size: 12px; color:#f0ce73; display: block; margin: 25px auto 10px}
 
+#reserved4members{padding-top: 60px; color:#f0ce73;}
+#reserved4members h1{ margin: 25px 20px; padding: 10px 0}
+#reserved4members form{display: inline-block; width: 40%; vertical-align: top}
+#reserved4members form h2{text-align: center; font-size: 20px; color: #fff; font-weight: 300; line-height: 20px; margin-bottom: 15px;}
+#reserved4members form input{width: 80%; border-radius: 0px; margin-bottom: 7px; }
+#reserved4members form label{margin-bottom: 0px;}
+#reserved4members form a.btn-amarillo{margin: 15px auto 0; padding: 5px 10px}
+
+#exclusive-stuff{padding-top: 45px; color:#f0ce73;}
+#exclusive-stuff h1{ margin: 5px 20px 80px; padding: 10px 0}
+#exclusive-stuff .btn-amarillo{padding: 5px 10px;}
+
 #membership h1 { margin: 16px 20px 10px; }
 #membership p{padding: 0 35px; font-family: Georgia, Arial, Helvetica; font-size: 15px; line-height: 16px; }
 
@@ -607,7 +626,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout h1{ font-size: 26px; color: #070707; text-transform: uppercase; font-weight: normal}
 #contentBody.checkout h1 span{ font-style: italic}
 #contentBody.checkout h2{ font-size: 22px; color: #070707; text-transform: none; font-weight: normal}
-#contentBody.checkout span.subtitle{letter-spacing: 1px;  font-size: 11px; color: #070707; text-transform: uppercase; display: block}
+#contentBody.checkout span.subtitle{/*letter-spacing: 1px; */ font-size: 11px; color: #070707; text-transform: uppercase; display: block}
 
 #contentBody.checkout .btn-group > .btn{font-size: 12px; color: #787878; padding: 3px 5px; text-align: left; background: #fff; width: 170px; font-weight: bold}
 #contentBody.checkout .btn-group > .btn:hover{background: #FFF !important; color: #787878 !important; }

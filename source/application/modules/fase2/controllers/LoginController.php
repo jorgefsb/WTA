@@ -31,5 +31,14 @@ class Fase2_LoginController extends Core_Controller_ActionDefault
     }
     
     
+    public function reservedAction(){
+        $this->_helper->layout->disableLayout();  
+    }
+    
+    public function exclusiveAction(){
+        $this->_helper->layout->disableLayout();  
+    }
+    
+    
 }
 
