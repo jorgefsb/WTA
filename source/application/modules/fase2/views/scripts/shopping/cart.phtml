@@ -3,16 +3,72 @@
     $total = 0;
     $nprod = count($this->cart);
     if($nprod){
-        foreach($this->cart as $prod){
-            if($this->isMember){
-                $total += $prod['_priceMember'] * (int)$prod['quantity'];
-            }else{
-                $total += $prod['_price'] * (int)$prod['quantity'];
-            }
 ?>
+        <div class="head row-fluid">
+            <div class="span4 offset8">
+                Price
+            </div>
+        </div>
+<?php
+        $totalGuest = 0;
+        foreach($this->cart as $key=>$prod){
+            $priceLocal = 0;
+            if($this->isMember){
+                $priceLocal = $prod['_priceMember'] * (int)$prod['quantity'];                
+            }else{
+                $priceLocal += $prod['_price'] * (int)$prod['quantity'];
+            }
+            $total += $priceLocal;
+            $totalGuest += $prod['_price'] * (int)$prod['quantity'];
+?>            
 
             <div class="prod"><!-- PRODUCT -->
+                <div class="row-fluid">
+                    <div class="span2">
+                        <img src="<?php echo DINAMIC_URL.'/product/thumbs/'.$prod['images'][0]['image_name']; ?>" />
+                    </div>
 
+                    <div class="span6 info">
+                        <span class="name">Item #<?php echo $prod['_code']; ?><strong> <em><?php echo $prod['_name']; ?></em></strong></span><br/>
+                        <span class="dsc"><?php echo $prod['designer']['_name']; ?></span>
+
+                        
+                        <?php 
+                            if( !empty($prod['sizes']) ){
+                        ?>
+                                <label class="size" >
+                                    SIZE 
+                                    <select class="products_size">
+                                        <?php
+                                            foreach($prod['sizes'] as $size){
+                                                if( $prod['size_prod'] ==  $size['product_size_size_id'] ){
+                                                    echo '<option selected="selected" value="'.$size['product_size_size_id'].'">'.$size['size_name'].'</option>';
+                                                }else{
+                                                    echo '<option value="'.$size['product_size_size_id'].'">'.$size['size_name'].'</option>';
+                                                }
+                                            }
+                                        ?>
+                                        </select>
+                                    </label>
+                        <?php
+                            }                    
+                        ?>                        
+                        <label class="quantity">QTY: <input type="text" data-code="<?php echo $prod['clave'] ?>" name="quantity" class="quantity" value="<?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 1); ?>" /></label>                                       
+                    </div>
+
+                    <div class="span4">
+                        <div><strong class="prec1"><br/>$<?php echo (int)($priceLocal) ?></strong></div>
+                        <!-- div>Member price <strong class="<?php echo (!$this->isMember) ? 'prec1' : 'prec2'; ?>"><br/>$<?php echo number_format($prod['_priceMember'] * (int)$prod['quantity'],2) ?></strong></div -->
+                        <a href="/shopping/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >X</a>
+                    </div>
+                </div>
+            </div>
+            <?php if($key<count($this->cart)){ ?>
+                <div class="linea_separacion" >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </div>
+            <?php } ?>    
+                
+                <?php /*
+                
                 <div class="prices">
                     <div>Guest price <strong class="<?php echo ($this->isMember) ? 'prec1' : 'prec2';?>"><br/>$<?php echo number_format($prod['_price'] * (int)$prod['quantity'],2) ?></strong></div>
                     <div>Member price <strong class="<?php echo (!$this->isMember) ? 'prec1' : 'prec2'; ?>"><br/>$<?php echo number_format($prod['_priceMember'] * (int)$prod['quantity'],2) ?></strong></div>                                        
@@ -49,17 +105,26 @@
                     <label class="quantity">QTY <input type="text" data-code="<?php echo $prod['clave'] ?>" name="quantity" class="quantity" value="<?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 1); ?>" /></label>
                     <a href="/shopping/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >remove</a>
                 </div>
-
-            </div>
+                */ ?>
 <?php 
         }
 ?>
+                <div class="btns-checkout">
+                    <a href="/fase2/checkout" class="checkout btn btn-amarillo" >Check out as member</a>
+                    <div class="linea_horiz"></div>
+                </div>                
+                
+                <div class="save">
+                    <?php  if(!$this->isMember && $totalGuest-$total > 0){ ?>
+                        Our Exclusive Folio Members save $<?php echo $totalGuest-$total; ?>
+                    <?php } ?>
+                </div>
   
-    <div class="rowtotal">
+    <!-- div class="rowtotal">
         <span>Subtotal</span>
         <span class="ntotal">$<?php echo number_format($total,2); ?></span>
         <a href="/fase2/checkout" class="checkout btn" >Check out</a>
-    </div>      
+    </div -->      
 <?php
     }else{
         

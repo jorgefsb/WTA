@@ -3,7 +3,7 @@
 class Fase2_OrderController extends Core_Controller_ActionDefault       
 {
     
-    protected $isMember = 1;
+    protected $isMember = 0;
     
     public function init() {
         parent::init();
@@ -194,6 +194,10 @@ class Fase2_OrderController extends Core_Controller_ActionDefault
     
     
     public function processedAction(){
+        $this->_helper->layout->disableLayout();
+    }
+    
+    public function errorAction(){
         $this->_helper->layout->disableLayout();
     }
         

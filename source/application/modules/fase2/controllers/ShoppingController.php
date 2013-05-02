@@ -17,6 +17,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
                 ->addActionContext('countcart', 'json')
                 ->initContext();        
                 
+        $this->view->shipping = 5;
         
     }
     
@@ -36,7 +37,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
        
     
     public function cartAction(){
-        $this->view->isMember = true;
+        //$this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         
         //$this->view->nprod = $this->_session->count;    
@@ -65,7 +66,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
             $this->view->billingInformation = array();
         }
                 
-        $this->view->isMember = true;
+        //$this->view->isMember = true;
         
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
@@ -73,7 +74,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         $_regions = new Application_Model_Regions();
         $this->view->regions = $_regions->listing(array(840));        
         
-        $this->view->shipping = 5;
+        
         
         /*
          * Tracking
@@ -102,7 +103,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
             $this->view->billingInformation = array();
         }
                 
-        $this->view->isMember = true;
+        
         
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
@@ -123,7 +124,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
     }
     
     public function checkoutcartAction(){
-        $this->view->isMember = true;
+        //$this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
@@ -131,16 +132,16 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
     
     
     public function addtocartAction(){
-        $this->view->isMember = true;
+        //$this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->_session->count++;
         
         $code = $this->getRequest()->getParam('code', 0);
         
         // PARA LA ETAPA ESPECIAL SOLO SE PUEDE COMPRAR DE A 1 PRODUCTO        
-        //if ( !$this->_session->cart ){
+        if ( !$this->_session->cart ){
             $this->_session->cart = array();        
-        //}
+        }
         
         $_product = new Application_Entity_Product();
         $_product->identify($code);
@@ -178,7 +179,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
     }
     
     public function removeitemAction(){ 
-        $this->view->isMember = true;
+        //$this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->_session->count++;
         
@@ -206,7 +207,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
     }
     
     public function countcartAction(){
-        $this->view->isMember = true;
+        //$this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         $count = 0;
         foreach($this->_session->cart as $product){
@@ -218,7 +219,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
     
     
     public function changeitemAction(){
-        $this->view->isMember = true;
+        //$this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->_session->count++;
         

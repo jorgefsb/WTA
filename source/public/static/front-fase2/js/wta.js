@@ -232,7 +232,7 @@ var WTA = (function(){
                     }else{
                         $wLight.css("top",'70px');
                     }
-                    $wLight.find('.closex').click( function(){
+                    $wLight.find('.closex, .continue').click( function(){
                         $('.wLight').fadeOut().delay(500).remove();
                         $('#overlay').fadeOut();
                     });
@@ -404,7 +404,7 @@ var WTA = (function(){
             
             var $checkoutcart = $('#checkout-cart');
             
-            if($checkoutcart.length){
+            if($checkoutcart.length){   // En caso que estemos en la pagina de checkout actualiza el listado de productos
                 $checkoutcart.load('/fase2/shopping/checkoutcart', function(response, status, xhr) {
                      if (status == "error") {
                         var msg = "Sorry but there was an error.";
@@ -467,14 +467,14 @@ var WTA = (function(){
                 e.preventDefault();
                 if(that.jqxhr_active==false){
                     var url = this.href;
-                    that.ajaxQueue.push(function(){console.log('si entro');document.location.href = url;});
+                    that.ajaxQueue.push(function(){document.location.href = url;});
                 }else{
                     document.location.href = this.href;
                 }
             })
             
             
-            $('#scrollbar1').tinyscrollbar();
+            //$('#scrollbar1').tinyscrollbar();
         });
 
     }
@@ -484,9 +484,11 @@ var WTA = (function(){
             var $this = $(this);
             if( $this.hasClass('activo') ){ // oculta
                 $this.removeClass('activo');
-                $('#popupShoppinCart').slideUp();
+                //$('#popupShoppinCart').slideUp();
+                $('#popupShoppinCart').fadeOut();
             }else{
-                that.updateCart(function(){$('#popupShoppinCart').slideDown();});
+                //that.updateCart(function(){$('#popupShoppinCart').slideDown();});
+                that.updateCart(function(){$('#popupShoppinCart').fadeIn();});
                 $this.addClass('activo');                
             }
         });

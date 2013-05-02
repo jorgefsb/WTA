@@ -4,45 +4,39 @@
         <div>
             <h3>Order sumary <span class="linea-degr-right"></span></h3>
             &nbsp;&nbsp;&nbsp;&nbsp;Confirm your items before making the payment
-            <div class="headers">
-                <span></span>
-                <span>Price </span>
+            
+            <div class="head row-fluid">
+                <div class="span4 offset8">
+                    Price
+                </div>
             </div>
 
             <?php
-            $total = 0;
-            $totalGuest = 0;
-            $this->isMember = true; ///////////////////// PRECIO DE MIEMBRO 
-            $nprod = count($this->cart);
-            if ($nprod) {
-                foreach ($this->cart as $index => $prod) {
+                $total =0;
+                $totalGuest = 0;
+                foreach($this->cart as $key=>$prod){
+                   $priceLocal = 0;
                     if($this->isMember){
-                        $total += $prod['_priceMember'] * (int)$prod['quantity'];
+                        $priceLocal = $prod['_priceMember'] * (int)$prod['quantity'];                
                     }else{
-                        $total += $prod['_price'] * (int)$prod['quantity'];
+                        $priceLocal += $prod['_price'] * (int)$prod['quantity'];
                     }
-                    
+                    $total += $priceLocal;
                     $totalGuest += $prod['_price'] * (int)$prod['quantity'];
-                    
-            ?>
+        ?>            
 
                     <div class="prod"><!-- PRODUCT -->
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <img src="<?php echo DINAMIC_URL.'/product/thumbs/'.$prod['images'][0]['image_name']; ?>" />
+                            </div>
 
-                        <div class="prices">
-                            <!-- div><strong class="<?php echo ($this->isMember) ? 'prec1' : 'prec2';?>">$<?php echo number_format($prod['_price'] * (int)$prod['quantity'], 2) ?></strong></div -->
-                            <div><strong class="<?php echo (!$this->isMember) ? 'prec1' : 'prec2';?>">$<?php echo (int)($prod['_priceMember'] * (int)$prod['quantity']) ?></strong></div>                                        
-                        </div>
+                            <div class="span6 info">
+                                <span class="name">Item #<?php echo $prod['_code']; ?><strong> <em><?php echo $prod['_name']; ?></em></strong></span><br/>
+                                <span class="dsc"><?php echo $prod['designer']['_name']; ?></span>
 
-                        <img src="<?php echo DINAMIC_URL . '/product/mini/' . $prod['images'][0]['image_name']; ?>" />
-
-                        <div class="info">
-                            <span class="name">Item #<?php echo $prod['_code']; ?><strong> <em><?php echo $prod['_name']; ?></em></strong></span>
-                            <span class="dsc"><?php echo $prod['designer']['_name']; ?></span>
-
-                            <div class="controls">
-
-                                <?php
-                                if (!empty($prod['sizes'])) {
+                                <?php 
+                                    if (!empty($prod['sizes'])) {
                                     ?>
                                     <label class="size">
                                         RING SIZE: 
@@ -56,69 +50,36 @@
                                         ?>
                                     </label>
                                     <?php
-                                }
-                                ?>
-                                <!-- label class="quantity">QTY <?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 0); ?></label><br/ -->
-                                <!-- a href="/shopping/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >remove</a -->
+                                }             
+                                ?>         
+                                <label class="quantity">QTY <?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 0); ?></label>
+                            </div>
+
+                            <div class="span4">
+                                <div><strong class="prec1"><br/>$<?php echo (int)($priceLocal) ?></strong></div>
+                                <!-- div>Member price <strong class="<?php echo (!$this->isMember) ? 'prec1' : 'prec2'; ?>"><br/>$<?php echo number_format($prod['_priceMember'] * (int)$prod['quantity'],2) ?></strong></div -->
+                                <a href="/shopping/removeitem/clave/<?php echo $prod['clave'] ?>/format/json" class="remove" >X</a>
                             </div>
                         </div>
-
-
                     </div>
-                    <?php if ($index < $nprod - 1): ?>
+                    <?php  if($key<count($this->cart)){ ?>
                         <div class="linea_separacion" >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </div>
-                    <?php endif; ?>
-                    <?php
+                    <?php } 
                 }
-                ?>        
-                <?php
-            }
-            ?>
-            <div class="save">
-                <?php  if($totalGuest-$total > 0){ ?>
-                    Our Exclusive Folio Members save $<?php echo $totalGuest-$total; ?>
-                <?php } ?>
-            </div>
-        </div>        
-    </div>
-<?php /*
-    <div class="total">
-        <table>
-            <tr>
-                <td></td>
-                <td>Shipping charge</td>                        
-                <td>N/A</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Taxes & Feeds</td>                        
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="3"><span class="linea_horiz"></span></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    Total
-                </td>
-                <td>
-                    <?php echo number_format($total, 2); ?>
-                </td>
-            </tr>
-        </table>
-        <label class="acept-terms">
-            <input type="checkbox" name="cb_terms" id="cb_termns" value="1" />
-            I have read the WTA customer agreement, and I agree to accept the 
-            <a href="/terms-of-service" target="__blank">terms and conditions.</a>
-        </label>
-        <div>
-            <a href="" id="checkoutsubmit" class="submit gradient">Submit my order</a>
-        </div>
+        ?>
+                        <div class="btns-checkout">
+                            <a href="/fase2/checkout" class="checkout btn btn-amarillo" >Check out as member</a>
+                            <div class="linea_horiz"></div>
+                        </div>                
 
+                        <div class="save">
+                            <?php  if(!$this->isMember && $totalGuest-$total > 0){ ?>
+                                Our Exclusive Folio Members save $<?php echo $totalGuest-$total; ?>
+                            <?php } ?>
+                        </div>
+        </div>
     </div>
-    <script>        
-        WTA.checkoutForm();
+    
+    <script>    
+        $('#total').html(<?php echo $total+$this->shipping; ?>);
     </script>
- * 
- */

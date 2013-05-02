@@ -168,9 +168,10 @@
                     I have read the WTA customer agreement, and I agree to accept the 
                     <a href="/fase2/terms-of-service" target="__blank">terms and conditions.</a>
                 </label>
+                <br/>
                 <div>
-                    <a href="/fase2/before-you-go" id="checkoutcancel" class="btn-gris">PLACE ORDER</a>
-                    <a href="" id="checkoutsubmit" class="btn-gris">ADD TO CART AND KEEP SHOPPING</a>                    
+                    <a href="" id="checkoutsubmit" class="btn-gris">PLACE ORDER</a>
+                    <a href="" id="" class="btn-gris">ADD TO CART KEEP SHOPPING</a>
                 </div>
 
             </div>
@@ -180,17 +181,31 @@
     
     <div id="checkout-cart">
         <?php 
-            echo $this->partial('shopping/checkoutcart.phtml', array('cart'=>$this->cart));
+            echo $this->partial('shopping/checkoutcart.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping));
         ?>
     </div>
         
     
 </div>
 <a href="/fase2/order/processed" class="liLight" id="linkprocessed"></a>
+<a href="/fase2/order/error" class="liLight" id="linkerror"></a>
+<a href="/fase2/before-you-go" id="checkoutcancel" ></a>
 
 <script>
     //WTA.updateCart();
     WTA.checkout();
     WTA.checkoutForm();
     WTA.abandon();
+    
+    $(document).ready(function(){
+        $('.remove').click(function(e){
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('href')
+            }).done(function(response){
+                WTA.updateCart();
+            });
+        });
+    })
+    
 </script>
