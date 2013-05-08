@@ -59,7 +59,8 @@ class Special_IndexController extends Core_Controller_ActionDefault
         $this->_tackName = 'PAGE';
         $this->_tackUrl = $_SERVER['REQUEST_URI'];
         $this->_tackUrlRef = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-        
+                
+        $this->view->isSubscribed = $this->_session->isSubscribed;
     }
     
     public function designersAction(){

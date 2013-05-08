@@ -342,10 +342,13 @@ a:hover{ color: #fee7a4 !important}
 #contentBody.special  .linea-degr-right{margin-left: 3px;}
 #contentBody.special  .linea-degr-left{margin-right: 3px;}
 
-#contentBody.special article {color: #fff; max-width: 300px; padding: 15px; margin: 0 auto;}
+#contentBody.special .span4{position: relative}
+#contentBody.special .span4:before{content:""; width: 1px; height: 395px; position: absolute; left: -15px; top: 20px; background: transparent url(../images/degradado-vertical-golden.png) left center no-repeat}
+#contentBody.special .span4:first-child:before{display: none}
+#contentBody.special article {color: #fff; max-width: 300px; padding: 15px; margin: 0 auto; position: relative}
 #contentBody.special article .img img{max-height: 146px;}
 #contentBody.special article h1{font-size: 24px; margin: 0; }
-#contentBody.special article h3{font-size: 12px; font-weight: normal;  margin: 0;  line-height: 14px;}
+#contentBody.special article h3{font-size: 12px; font-weight: normal;  margin: 0;  line-height: 14px; margin-bottom: 5px;}
 #contentBody.special article h2{font-size: 18px;  margin: 0 0 20px;  line-height: 18px; }
 #contentBody.special article p{text-align: justify; font-size: 12px; line-height: 14px; margin-top: 5px;}
 #contentBody.special article p.dsc{ min-height: 60px;}
@@ -354,8 +357,8 @@ a:hover{ color: #fee7a4 !important}
 #contentBody.special article .precios span{text-transform: uppercase; font-size: 12px; display: block; margin-bottom: 10px}
 #contentBody.special article .precios strong.inactivo{font-size: 21px; /*text-decoration: line-through; */color: #b8b4ae ; vertical-align: sub; }
 #contentBody.special article .precios strong.activo{font-size: 36px; color: #b8b4ae;  }
-#contentBody.special article .btn{font-size: 12px; font-weight: bold; padding: 0px 30px; font-family: Georgia;}
-
+#contentBody.special article .btn{font-size: 16px; font-weight: bold; padding: 5px 40px; font-family: Georgia;}
+#contentBody.special article .soldout{position: absolute; top: 0px; left: 0px;}
 .maxWidth{max-width: 1200px; margin: 0 auto;}
 
 

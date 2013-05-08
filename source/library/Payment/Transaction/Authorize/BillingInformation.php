@@ -46,7 +46,7 @@ class Payment_Transaction_Authorize_BillingInformation extends Payment_BillingIn
                         "<zip>{$this->_zip}</zip>".
                         "<country>{$this->_country}</country>".
                         "<phoneNumber>{$this->_phoneNumber}</phoneNumber>".
-                        //"<faxNumber></faxNumber>".
+                        "<faxNumber>{$this->_faxNumber}</faxNumber>".
                     "</billTo>".
                     "<payment>".
                         "<creditCard>".
@@ -94,6 +94,7 @@ class Payment_Transaction_Authorize_BillingInformation extends Payment_BillingIn
         
         if( is_object($xml_response)==false){
             $this->_error = $this->_authorize->getError();
+            $this->_errorMsg = $this->_authorize->getErrorMsg();
             return false; //Error
         }else{
             return true;
@@ -112,8 +113,10 @@ class Payment_Transaction_Authorize_BillingInformation extends Payment_BillingIn
                 $this->_zip = (string)$paymentProfile->billTo->zip;
                 $this->_country = (string)$paymentProfile->billTo->country;
                 $this->_phoneNumber =(string)$paymentProfile->billTo->phoneNumber;
+                $this->_faxNumber =(string)$paymentProfile->billTo->faxNumber;
                 $this->_cardNumber =(string)$paymentProfile->payment->creditCard->cardNumber;
                 $this->_expirationDate =(string)$paymentProfile->payment->creditCard->expirationDate;
+
         }
     }
         

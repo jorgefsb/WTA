@@ -195,14 +195,18 @@ var WTA = (function(){
         
     this.lightbox = function(){
         
-        $('#overlay').click(function(){
-            $('.wLight .closex').trigger('click');
-        })
         
         $('.liLight').unbind('click').click( function(event){
             $('#overlay').css('background-color', 'transparent');   
             var $link = $(this);
             event.preventDefault();
+            
+            if( !$link.hasClass('popup-modal') ){                
+                $('#overlay').click(function(){
+                    $('.wLight .closex').trigger('click');
+                })
+            }
+            
             $('.wLight').remove();
             $.ajax({
                 url:this.href,
@@ -1008,7 +1012,11 @@ var WTA = (function(){
         }
     }
     
-    this.initFormSubscriptions = function(){                        
+    this.initFormSubscriptions = function(){
+        $('#susbcriptions').submit(function(e){
+            e.preventDefault();
+            return false;
+        })
         $('#saveSubscription').click(function(e){
             e.preventDefault();
             var $email = $('#input_suscription');

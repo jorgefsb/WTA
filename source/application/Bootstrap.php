@@ -16,6 +16,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 || define('NAME_SITE', $app['siteName']);
         $doctypeHelper = new Zend_View_Helper_Doctype();
         $doctypeHelper->doctype(Zend_View_Helper_Doctype::XHTML1_TRANSITIONAL);
+        
+        require_once APPLICATION_PATH . '/../library/dompdf/dompdf_config.inc.php';
+        $autoloader = Zend_Loader_Autoloader::getInstance(); // assuming we're in a controller  
+        $autoloader->pushAutoloader('DOMPDF_autoload');
     }
     
 /*    protected function _initForceSSL() {

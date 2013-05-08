@@ -98,8 +98,10 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
              $xml .=
                     "<recurringBilling>{$this->_recurringBilling}</recurringBilling>";
         }
+        if($this->_cardCode){
              $xml .=
                     "<cardCode>{$this->_cardCode}</cardCode>";
+        }
                     
         return $xml;
     }
@@ -119,6 +121,7 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
         
         if(is_object($xml_response)==false ){
             $this->_error = $this->_authorize->getError();
+            $this->_errorMsg = $this->_authorize->getErrorMsg();
             return false; //Error
         }else{
             $strdirectResponse = $xml_response->directResponse;
@@ -130,12 +133,15 @@ class Payment_Transaction_Authorize_Payment extends Payment_Payment {
                 return true;
             }elseif($directResponse[0]==2){
                 $this->_error = 'Decline';
+                $this->_errorMsg = $directResponse[3];
                 return false;
             }elseif($directResponse[0]==3){
                 $this->_error = 'Error';
+                $this->_errorMsg = $directResponse[3];
                 return false;
             }elseif($directResponse[0]==4){
                 $this->_error = 'Held for Review';
+                $this->_errorMsg = $directResponse[3];
                 return false;
             }
 

@@ -165,12 +165,15 @@ class Special_OrderController extends Core_Controller_ActionDefault
                     if(!$paymentId){
                         $this->view->messages = array('error'=>$transacction->getMessage());
                     }else{
-                        $this->view->ok =1;
+
                         $this->view->data = array(
                             'products'    =>  $products,
                             'transactionID'=>$paymentId,
                             'total'=>$total 
                         );
+                                               
+                        $this->view->ok =1;
+                        
                     }             
                 }else{
                      $this->view->messages = array('error'=>$transacction->getMessage());
@@ -195,6 +198,41 @@ class Special_OrderController extends Core_Controller_ActionDefault
     
     public function processedAction(){
         $this->_helper->layout->disableLayout();
+    }
+    
+    public function testAction(){
+        
+        /*
+         * Ejemplo de plantilla de pdf 
+         * 
+        require_once APPLICATION_PATH.'/../library/dompdf/dompdf_config.inc.php';
+        $autoloader = Zend_Loader_Autoloader::getInstance(); // assuming we're in a controller  
+        $autoloader->pushAutoloader('DOMPDF_autoload');  
+        
+        $dompdf = new DOMPDF();
+        $dompdf->load_html( $this->view->action('pdf', 'order', 'special') );
+        $dompdf->set_paper('a4', 'portrait');
+        $dompdf->render();
+        
+        $strPdf = $dompdf->output();
+        
+        file_put_contents(APPLICATION_PUBLIC. '/dinamic/orders/'.date('y-n-d-h-i-s').'.pdf', $strPdf);
+        */
+        
+        /*
+         * generacion de pdf de una orden
+         */
+        
+        $transacction = new Application_Entity_Transaction();        
+        $transacction->identify(107);
+        $transacction->createPdf();
+        
+        exit(0);
+        
+    }
+    
+    public function pdfAction(){        
+        $this->_helper->layout->disableLayout();                
     }
         
     public function validate(&$formValues){

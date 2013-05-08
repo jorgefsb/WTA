@@ -36,14 +36,14 @@ class Payment_Transaction_Authorize_ShippingAddress extends Payment_ShippingAddr
         $xml = 
                     "<firstName>{$this->_firstName}</firstName>".
                     "<lastName>{$this->_lastName}</lastName>".
-                    //<company></company>",
+                    "<company>{$this->_company}</company>".
                     "<address>{$this->_address}</address>".
                     " <city>{$this->_city}</city>".
                     "<state>{$this->_state}</state>".
                     "<zip>{$this->_zip}</zip>".
                     "<country>{$this->_country}</country>".
-                    "<phoneNumber>{$this->_phoneNumber}</phoneNumber>";
-                    //"<faxNumber></faxNumber>".        
+                    "<phoneNumber>{$this->_phoneNumber}</phoneNumber>".
+                    "<faxNumber>{$this->_faxNumber}</faxNumber>";
         return $xml;
     }
     
@@ -76,6 +76,7 @@ class Payment_Transaction_Authorize_ShippingAddress extends Payment_ShippingAddr
         
         if( is_object($xml_response)==false){
             $this->_error = $this->_authorize->getError();
+            $this->_errorMsg = $this->_authorize->getErrorMsg();
             return false; //Error
         }else{
             return true;
@@ -94,6 +95,7 @@ class Payment_Transaction_Authorize_ShippingAddress extends Payment_ShippingAddr
             $this->_zip = (string)$shipToList->zip;
             $this->_country = (string)$shipToList->country;
             $this->_phoneNumber = (string)$shipToList->phoneNumber;
+            $this->_faxNumber = (string)$shipToList->faxNumber;
         }
     }
     

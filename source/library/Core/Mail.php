@@ -19,6 +19,7 @@ class Core_Mail {
     private $_subject;
     private $_from;
     private $_error;
+    private $_adjuntos;
 
     function __construct() {
         $config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/application.ini");
@@ -60,6 +61,12 @@ class Core_Mail {
                 $mensaje['errorAplication'][] = 'debe tener almenos un destinatario';
                 $this->_error = $mensaje;
             }
+            if (!empty($this->_adjuntos)) {
+                foreach ($this->_adjuntos as $key => $val) {
+                    $at = $mail->createAttachment(file_get_contents($val));
+                }
+            }
+            
             if (!empty($mensaje)) {
                 $this->_error = $mensaje;
                 return false;
@@ -99,6 +106,11 @@ class Core_Mail {
     function setDestinatarioCreateUser(){
         
     }
+    
+    function addAdjunto($file){
+        $this->_adjuntos[] = $file;
+    }
+    
 
 }
 

@@ -47,6 +47,12 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
             
             $this->_customerProfile  = $xml_customer->profile;
             
+            
+            $this->_merchantCustomerId = (string)$this->_customerProfile->merchantCustomerId;
+            $this->_email = (string)$this->_customerProfile->email;
+            $this->_description = (string)$this->_customerProfile->description;
+            
+            
             $_customerPaymentProfileIds = array();            
             foreach ($this->_customerProfile->paymentProfiles as $paymentProfile){
                 $_customerPaymentProfileIds[] = (string)$paymentProfile->customerPaymentProfileId;
@@ -134,6 +140,7 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
         
         if( is_object($xml_response)==false){
             $this->_error = $this->_authorize->getError();
+            $this->_errorMsg = $this->_authorize->getErrorMsg();
             return false; 
         }else{
             $this->_customerProfileId = $xml_response->customerProfileId;

@@ -431,7 +431,7 @@ class Application_Entity_Transaction extends Core_Entity {
                     $modelMember->createMemberAnonymous();
                 }
             }
-            if($_payment->commit()){
+            if($_payment->commit()===true){
                 $modelTransaction = new Application_Model_Transaction();
                                 
                 $modelTransaction->update(array(
@@ -440,24 +440,231 @@ class Application_Entity_Transaction extends Core_Entity {
                     'tansaction_state_id'=>  self::TRANSACTION_PAID
                 ), $this->_id);
                 
+                $this->identify($this->_id);
+                
+                $file =$this->createPdf();
+                
+                /*
+                 * Enviamos el correo con la nota de pago
+                 */
+                $this->sendPurchaseConfirmMail($file);
+                
                 $this->_message = 'Payment Successful';
                 return $_payment->_profileTransactionId;
             }else{                
                 //$this->_message = print_r($_transaction->getLastExecution(), true);
                 //$this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again.';
                 $error=$_payment->getError();
-                if($error=='Decline' || $error == 'Error'){
+                $error_message = Payment_Transaction_Authorize::getDescriptionCode($error);
+                
+                if($error && $error_message){
+                    $this->_message = 'We had a problem. '.$error_message;
+                }else{
+                    $this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again. (Error code: '.$error.')';
+                }
+                
+                /*if($error=='Decline' || $error == 'Error'){ ESTA ES LA VALIDACION ANTERIOR
                     $this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again.';
                 }else{
                     $this->_message = $_payment->getError();
-                }
+                }*/
                 return false;
             }
         }else{
-            $this->_message = 'We had a problem. Please review your information and try again.';
+            //die(print_r($_transaction->getLastExecution()));
+            $error = $_customer->getError();
+            $error_message = Payment_Transaction_Authorize::getDescriptionCode($error);
+            $this->_message = 'We had a problem. Please review your information and try again. '.$error_message;
             return false;
         }
         
     }
+    
+    public function sendPurchaseConfirmMail($file){
+        
+                        
+        $objMail = new Core_Mail();
+        $objMail->addDestinatario($this->_mail);
+        $objMail->setAsunto('Thank you for your recent purchase from WeTheAdorned.');
+
+        $objMail->addAdjunto($file);
+        $mensaje = '<p>Thank you for your recent purchase from WeTheAdorned<p>';
+        
+        $objMail->setMensaje($mensaje);
+        return $objMail->send();                
+    }
+    
+    
+    public function createPdf(){
+        
+        $_country = new Application_Model_Regions();
+        $_state = new Application_Model_SubRegions();
+        
+        $a_state_sh = $_state->getSubRegion($this->_shiAddSubregionId);
+        $a_country_sh = $_country->getRegion($this->_shiAddRegionId);
+        
+        $a_state_bil = $_state->getSubRegion($this->_billAddSubregionId);
+        $a_country_bil = $_country->getRegion($this->_billAddRegionId);
+        
+        $products = $this->listProducts();
+        
+        $html = '<html>
+                        <head>
+                            <title>WeTheAdorned</title>
+                            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                            <style>            
+                                html{margin: 0}      
+                                table {border-collapse: collapse; border-spacing: 0;margin: 0;padding: 0;}
+                                th {font-weight: bold; vertical-align: bottom;margin: 0;padding: 0; border:0px;}
+                                td {font-weight: normal; vertical-align: top;margin: 0;padding: 0; border:0px; font-family: Arial, georgia, sans-serif ; color: #3b261c}
+                            </style>
+                        </head>
+                        <body>
+                            <div style=" background: #231f20; width: 100%">
+                                <table border="0" style="border-collapse: collapse; border-spacing: 0px " cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td align ="center" style=" background: #231f20; ">
+                                            <img src="'.STATIC_URL .'/front-beta/images/order/header-order.jpg"  />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="  background: #FFF;  width:100%; padding: 0 30px">
+                                <table border="0" style="border-collapse: collapse; border-spacing: 0px " cellpadding="0" cellspacing="0"  width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 16px; padding: 0px 0px 10px 3px;">
+                                            Thank you for your order!
+                                        </td>
+                                    </tr>                
+                                    <tr>
+                                        <td style="background: #231f20; color:#FFF; padding: 2px 5px;">Order Information</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px; font-size: 12px;">Merchant: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;WeTheAdorned</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-top: 2px solid #AAAAAA; background: #FFF; padding: 5px">
+                                            <table  border="0" style="border-collapse: collapse; border-spacing: 0px; width: 100%; font-size: 12px;" cellpadding="0" cellspacing="0" >                            
+                                                <tr>
+                                                    <td>Billing Information</td>
+                                                    <td>Shipping Information</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>'.$this->_billAddFirstName.' '.$this->_billAddLastName.'</td>
+                                                    <td>'.$this->_shiAddFirstName.' '.$this->_shiAddLastName.'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>'.$this->_billAddAddAddres.'</td>
+                                                    <td>'.$this->_shiAddAddAddres.'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>'.$this->_billAddCity.', '.$a_state_bil['name'].' '.$this->_billAddPostalCode. '</td>
+                                                    <td>'.$this->_shiAddCity.', '.$a_state_sh['name'].' '.$this->_shiAddPostalCode. '</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>'.$a_country_bil['country'].'</td>
+                                                    <td>'.$a_country_sh['country'].'</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>'.$this->_billAddPhoneNumber.'</td>
+                                                    <td>'.$this->_shiAddPhoneNumber.'</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="background: #FFF; padding: 12px; border-top: 2px solid #AAAAAA;">
+                                            <table  border="0" style="border-collapse: collapse; border-spacing: 0px; width: 100%; font-size: 12px;" cellpadding="0" cellspacing="0">                           
+                                                <tr>
+                                                    <td style="width: 40px;">Item</td>
+                                                    <td style="width: 100px;">Description</td>
+                                                    <td style="width: 50px; text-align: center">Qty</td>
+                                                    <td style="width: 50px; text-align: center">Taxable</td>                                    
+                                                    <td style="width: 60px; text-align: right">Unit Price</td>
+                                                    <td style="width: 60px; text-align: right">Item Total</td>
+                                                </tr>';
+                                                if ($products) {
+                                                    foreach ($products as $prod) {                                                       
+                                                        $html .= '<tr>
+                                                                        <td style="width: 40px;">'.$prod['product_code'] .'</td>
+                                                                        <td style=" width: 190px; text-align: left" >'.$prod['product_name'].' '.$prod['product_size'] .'</td>
+                                                                        <td style=" width: 50px; text-align: center">'.$prod['transaction_details_product_cant'] .'</td>
+                                                                        <td style=" width: 40px; text-align: center">N</td>
+                                                                        <td style="width: 40px; text-align: right">US $ '.number_format($prod['transaction_detail_final_price'],2) .'</td>
+                                                                        <td style="width: 40px; text-align: right">US $ '.number_format($prod['transaction_details_amount'],2) .'</td>
+                                                                    </tr>';
+                                                    }
+                                                }
+                                                $html .= '<tr><td>&nbsp;</td></tr>                                                  
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td style="color: #333; font-size: 12px; font-weight: normal; text-align: right">Shipping:</td>
+                                                                <td style="color: #333; font-size: 12px; font-weight: bold; text-align: right">$ '.number_format($this->_shiAmount, 2) .'</td>
+                                                            </tr>                            
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td style="color: #333; font-size: 12px; font-weight: normal; text-align: right">Total:</td>
+                                                                <td style="color: #333; font-size: 12px; font-weight: bold; text-align: right">$ '.number_format($this->_amount, 2) .'</td>
+                                                            </tr>                            
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style=" font-size: 12px;">
+                                            Transaction ID: &nbsp;&nbsp;&nbsp;&nbsp;'.$this->_codePayment.'
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br/><br/>
+                            <div style="  background: #231f20;  width:100%">
+                                <table border="0" style="border-collapse: collapse; border-spacing: 0px " cellpadding="0" cellspacing="0"  width="100%">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align ="center">
+                                            <img src="'.STATIC_URL .'/front-beta/images/order/info-wetheadorned-com.jpg"  />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </body>
+                    </html>';                                                        
+
+        $dompdf = new DOMPDF();
+        $dompdf->load_html($html);
+        $dompdf->set_paper('a4', 'portrait');
+        $dompdf->render();
+
+        $strPdf = $dompdf->output();
+        $file = APPLICATION_PUBLIC . '/dinamic/orders/' . $this->_codePayment . '-' . date('ynd-his') . '.pdf';
+        file_put_contents($file, $strPdf);
+        
+        return $file;
+    }
+    
+    
+
     
 }
