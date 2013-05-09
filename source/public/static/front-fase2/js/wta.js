@@ -62,7 +62,7 @@ var WTA = (function(){
                 //    .find('>li >ul').stop(true, true).slideUp();
             //}
         }).find(' span').click(function(e){                        
-            $(this).parent().find('>ul').stop(true, true).slideToggle();
+            $(this).parent().find('>ul').stop(true, true).fadeToggle();
         })
         
         var timeGift =null;
@@ -117,11 +117,13 @@ var WTA = (function(){
     };
     
     
-    this.ForgotPassword = function(){
+    this.ForgotPassword = function(){ 
         $('#forgot').submit(function(e){
-            e.preventDefault();
-            
+            e.preventDefault();                                    
             var  $this = $(this);
+            
+            $this.find('span.error').remove();            
+            
             var $email = $this.find('input[name=mail]');
             var validForm = true;
             
@@ -133,6 +135,7 @@ var WTA = (function(){
             if(validForm){
                 $.ajax($this.attr('action'), {type:'post', data:$this.serialize()}).done(function(response){
                     if(response.ok == 1){
+                        $this.find('span.error').remove();            
                         that.setMsgValid($email, 'We\'ve sent an email to retrieve your account');
                         $this.find('input').fadeOut().delay(1000).remove();
                     }else{
@@ -142,6 +145,9 @@ var WTA = (function(){
                 });
             }
             
+        }).find('.submit').unbind('click').click(function(e){
+            e.preventDefault();
+            $('#forgot').submit();
         })
         
     }

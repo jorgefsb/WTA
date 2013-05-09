@@ -223,9 +223,24 @@ class Special_OrderController extends Core_Controller_ActionDefault
          * generacion de pdf de una orden
          */
         
+        
         $transacction = new Application_Entity_Transaction();        
-        $transacction->identify(107);
-        $transacction->createPdf();
+        $transacction->identify(116);
+        $file = $transacction->createPdf();		
+        $objMail = new Core_Mail();        
+        $objMail->addDestinatario('camacho@intagono.com');        
+        $objMail->setAsunto('Thank you for your recent purchase from WeTheAdorned.');        
+        $objMail->addAdjunto($file);        
+        $objMail->setMensaje('<p>Thank you for your recent purchase from WeTheAdorned</p>');		        
+        if( !$objMail->send() ){						
+            print_r($objMail->getError());		
+            
+        }else{			
+            die('Se envio');		
+            
+        }			
+        exit(0);
+        
         
         exit(0);
         

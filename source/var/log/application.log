@@ -29,3 +29,23 @@ Stack trace:
 #13 C:\Winginx\home\wta\source\library\Zend\Application.php(366): Zend_Application_Bootstrap_Bootstrap->run()
 #14 C:\Winginx\home\wta\source\public\index.php(38): Zend_Application->run()
 #15 {main}
+2013-05-08T11:57:54-05:00 ERR (3): exception 'Zend_Mail_Protocol_Exception' with message '5.7.8 Username and Password not accepted. Learn more at
+ 5.7.8 http://support.google.com/mail/bin/answer.py?answer=14257
+ 5.7.8 {BADCREDENTIALS} cv9sm8136525bkb.5 - gsmtp
+' in C:\Winginx\home\wta\source\library\Zend\Mail\Protocol\Abstract.php:431
+Stack trace:
+#0 C:\Winginx\home\wta\source\library\Zend\Mail\Protocol\Smtp\Auth\Login.php(95): Zend_Mail_Protocol_Abstract->_expect(235)
+#1 C:\Winginx\home\wta\source\library\Zend\Mail\Protocol\Smtp.php(217): Zend_Mail_Protocol_Smtp_Auth_Login->auth()
+#2 C:\Winginx\home\wta\source\library\Zend\Mail\Transport\Smtp.php(200): Zend_Mail_Protocol_Smtp->helo('localhost')
+#3 C:\Winginx\home\wta\source\library\Zend\Mail\Transport\Abstract.php(348): Zend_Mail_Transport_Smtp->_sendMail()
+#4 C:\Winginx\home\wta\source\library\Zend\Mail.php(1194): Zend_Mail_Transport_Abstract->send(Object(Zend_Mail))
+#5 C:\Winginx\home\wta\source\library\Core\Mail.php(76): Zend_Mail->send(Object(Zend_Mail_Transport_Smtp))
+#6 C:\Winginx\home\wta\source\application\entitys\Member.php(382): Core_Mail->send()
+#7 C:\Winginx\home\wta\source\application\modules\member\controllers\RecoveryAccountController.php(54): Application_Entity_Member->sendPasswordRecovery('camacho@intagon...')
+#8 C:\Winginx\home\wta\source\library\Zend\Controller\Action.php(516): Member_RecoveryAccountController->recoveryAction()
+#9 C:\Winginx\home\wta\source\library\Zend\Controller\Dispatcher\Standard.php(308): Zend_Controller_Action->dispatch('recoveryAction')
+#10 C:\Winginx\home\wta\source\library\Zend\Controller\Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#11 C:\Winginx\home\wta\source\library\Zend\Application\Bootstrap\Bootstrap.php(97): Zend_Controller_Front->dispatch()
+#12 C:\Winginx\home\wta\source\library\Zend\Application.php(366): Zend_Application_Bootstrap_Bootstrap->run()
+#13 C:\Winginx\home\wta\source\public\index.php(38): Zend_Application->run()
+#14 {main}

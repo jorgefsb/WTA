@@ -197,6 +197,18 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
         return $_payment;
     }
     
+    
+    /*
+     * return new Object Payment_Transaction_Authorize_Payment
+     */
+    public function subscription(){        
+        $_subscription = new Payment_Transaction_Authorize_Subscription();
+        $_subscription->_customer = $this;
+        $_subscription->_authorize = $this->_authorize;
+        $this->_subscriptions = $_subscription;
+        return $_subscription;
+    }
+    
     //public function getCustomerProfile(){
       //  return $this->_customerProfile;
     //}

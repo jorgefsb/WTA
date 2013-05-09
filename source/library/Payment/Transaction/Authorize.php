@@ -186,6 +186,9 @@ class Payment_Transaction_Authorize {
             case 'E00011':
                 return 'Access denied. You do not have the appropriate permissions.';
                 break;
+            case 'E00012':
+                return 'A duplicate subscription already exist.';
+                break;
             case 'E00013':
                 return 'The field is invalid';
                 break;
@@ -197,15 +200,69 @@ class Payment_Transaction_Authorize {
                 break;            
             case 'E00016':
                 return 'The field type is invalid.';
+                break;      
+            case 'E00017':
+                return 'The startDate cannot occur in the past';
+                break;      
+            case 'E00018':
+                return 'The credit card expires before the subscription startDate';
                 break;   
             case 'E00019':
                 return 'The customer taxId or driversLicense information is required';
                 break;   
+            case 'E00020':
+                return 'The payment gateway account is not enabled for eCheck.Net subscriptions';
+                break;   
+            case 'E00021':
+                return 'The payment gateway account is not enabled for credit card subscriptions';
+                break;   
+            case 'E00022':
+                return 'The interval length cannot exceed 365 days or 12 months';
+                break;   
+            case 'E00024':
+                return 'The trialOccurrences is required when trialAmount is specified';
+                break;   
+            case 'E00025':
+                return 'Automated Recurring Billing is not enabled';
+                break;   
+            case 'E00026':
+                return 'Both trialAmount and trialOccurrences are required';
+                break;   
             case 'E00027':
                 return 'The transaction was unsuccessful.';
+                break;
+            case 'E00028':
+                return 'The trialOccurrences must be less than totalOccurrences.';
                 break;   
             case 'E00029':
                 return 'Payment information is required.';
+                break;   
+            case 'E00030':
+                return 'A paymentSchedule is required.';
+                break;   
+            case 'E00031':
+                return 'The amount is required.';
+                break;   
+            case 'E00032':
+                return 'The startDate is required';
+                break;   
+            case 'E00033':
+                return 'The subscription Start Date cannot be changed.';
+                break;   
+            case 'E00034':
+                return 'The interval information cannot be changed';
+                break;   
+            case 'E00035':
+                return 'The subscription cannot be found. ';
+                break;   
+            case 'E00036':
+                return 'The payment type cannot be changed';
+                break;   
+            case 'E00037 ':
+                return 'The subscription cannot be update';
+                break;   
+            case 'E00038 ':
+                return 'The subscription cannot be canceled';
                 break;   
             case 'E00039':
                 return 'A duplicate record already exists.';

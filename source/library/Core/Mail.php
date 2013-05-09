@@ -63,7 +63,8 @@ class Core_Mail {
             }
             if (!empty($this->_adjuntos)) {
                 foreach ($this->_adjuntos as $key => $val) {
-                    $at = $mail->createAttachment(file_get_contents($val));
+                    $at = $mail->createAttachment(file_get_contents($val));                    
+                    $at->filename = basename($val);
                 }
             }
             

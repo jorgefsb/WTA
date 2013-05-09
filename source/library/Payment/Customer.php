@@ -16,6 +16,7 @@ abstract  class Payment_Customer {
     protected $_shippingsAddress = array();
     protected $_billingsInformation = array();
     protected $_payments = array();
+    protected $_subscriptions = array();    
     protected $_isEdited = false;
     protected $_error;
     
@@ -89,6 +90,12 @@ abstract  class Payment_Customer {
      * return new Object Payment_Payment
      */
     abstract public function payment();
+    
+    
+    /*
+     * return new Object Payment_Payment
+     */
+    abstract public function subscription();
     
         
 }
