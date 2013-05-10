@@ -16,6 +16,7 @@ class Core_Controller_ActionDefault extends Core_Controller_Action {
         }
         
         $this->_identity = $this->view->identity = Zend_Auth::getInstance()->getIdentity();
+        
         if(!isset($this->_identity->member_id)){
             unset($this->_identity);
             unset($this->view->identity);

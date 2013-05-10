@@ -146,7 +146,7 @@ class Default_OrderController extends Core_Controller_ActionDefault
                     $transacction->saveTracking($logTraking);
                     $transacction->commit();
                     
-                    $paymentId = $transacction->sendToPaymentGateway(array(
+                    $paymentId = $transacction->sendOrder2PG(array(
                                                                                                                         'cardNumber'=>$formValues['card_number'],
                                                                                                                         'expirationDate'=>$formValues['card_expirationyear'] . '-' . sprintf('%02d', $formValues['card_expirationmonth']),
                                                                                                                         'cardCode'=>$formValues['card_seccode'],

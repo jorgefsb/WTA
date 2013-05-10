@@ -4,11 +4,20 @@ class Core_Controller_ActionMember extends Core_Controller_Action {
 
     public function init() {
         $this->_identity = Zend_Auth::getInstance()->getIdentity();
+        
+        $member = Zend_Auth::getInstance()->getIdentity();
+        
         $this->_helper->layout->setLayout('layout-member');
-        /*
-        if( !Zend_Auth::getInstance()->hasIdentity() ){
-            $this->redirect('/');
-        }*/
+        
+        if( !$this->_identity || !property_exists($member, 'member_id')){
+            if(!$this->_identity){
+                if($this->getRequest()->getControllerName() != 'login'){
+                    $this->redirect('/member/login');
+                }
+            }else{
+                $this->redirect('/');
+            }
+        }
         
         parent::init();
         if(isset($this->_session->navigatorMember)){
@@ -19,8 +28,7 @@ class Core_Controller_ActionMember extends Core_Controller_Action {
             if($activeNav){
                 $activeNav->active = true;
                 $activeNav->setClass("active");
-            }
-            
+            }            
         }
     }
     

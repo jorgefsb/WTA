@@ -336,6 +336,7 @@ class Application_Entity_Member extends Core_Entity {
         $result = $auth->authenticate($adapter);
         if ($result->isValid()) {
             $data = $adapter->getResultRowObject(null, 'member_password');
+            $data->ejemplo = 'ssss';
             $auth->getStorage()->write($data);
             
             $modelMember = new Application_Model_Member();
@@ -433,9 +434,14 @@ class Application_Entity_Member extends Core_Entity {
         return $modelMember->update($data, $this->_id);
     }
 
-    function addMembership() {
+    /*
+    function addMembership($membership_id) {
         $membership = new Application_Entity_Membership();
-        $dataMembership = $membership->getMembershipActive();
+        $membership->identify($membership_id);
+        
+        $dataMembership = $membership->getProperties();
+        
+        
         $transacction = new Application_Entity_Transaction();
         $transacction->setPropertie('_member', $this->_id);
         if ($dataMembership['membership_isfree'] == 1) {
@@ -457,7 +463,7 @@ class Application_Entity_Member extends Core_Entity {
             $modelMember->update($data, $this->_id);
         }
         $transacction->addMembership($membership);
-    }
+    }*/
     
     function getCreditCard(){
         return Application_Entity_CreditCard::listingForMember($this->_id);

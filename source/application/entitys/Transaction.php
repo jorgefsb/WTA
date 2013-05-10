@@ -274,9 +274,19 @@ class Application_Entity_Transaction extends Core_Entity {
         return $modelTransaction->listProducts($this->_id);
     }
     
-    /* Funciones para transaccion con banco */
+    /*
+     * Send Subscription to payment gateway
+     */
+    public function sendSubscription2PG(){
+        
+    }
     
-    public function sendToPaymentGateway($dataCard){        
+    /* 
+     * Send Order to payment gateway
+     * Funciones para transaccion con banco, envia la orden
+     */      
+    //public function sendToPaymentGateway($dataCard){        
+    public function sendOrder2PG($dataCard){        
             
         $_country = new Application_Model_Regions();
         $_state = new Application_Model_SubRegions();

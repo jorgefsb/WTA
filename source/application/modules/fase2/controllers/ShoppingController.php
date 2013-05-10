@@ -6,7 +6,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
     public function init() {
         parent::init();        
         
-        $this->view->isMember = Zend_Auth::getInstance()->hasIdentity();
+        //$this->view->isMember = Zend_Auth::getInstance()->hasIdentity();
         
         $this->_helper->layout->setLayout('layout-fase2');
         

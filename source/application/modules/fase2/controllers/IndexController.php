@@ -8,7 +8,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         
         $this->_helper->layout->setLayout('layout-fase2');
         
-        $this->view->isMember = Zend_Auth::getInstance()->hasIdentity();
+        //$this->view->isMember = Zend_Auth::getInstance()->hasIdentity();
         
         //$action = $this->_getParam('action','');
                 
