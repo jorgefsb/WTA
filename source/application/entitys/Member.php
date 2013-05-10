@@ -36,17 +36,17 @@ class Application_Entity_Member extends Core_Entity {
     protected $_billAddPhoneNumber;*/
 
     protected $_customerProfileId;
-    
+
     protected $_shippingAddress;
     protected $_billingInformation;
-    
-    
+
+
     /**
-     * __Construct         
+     * __Construct
      *
      */
     function __construct() {
-        
+
     }
 
     private function asocParams($data) {
@@ -78,9 +78,9 @@ class Application_Entity_Member extends Core_Entity {
         $this->_billAddSubregionId = $data['member_bill_add_subregion_id'];
         $this->_billAddPostalConde = $data['member_bill_add_postal_code'];
         $this->_billAddPhoneNumber = $data['member_bill_add_phone_number'];*/
-                
+
         $this->_customerProfileId = $data['member_customerProfileId'];
-                
+
     }
 
     /*
@@ -114,8 +114,8 @@ class Application_Entity_Member extends Core_Entity {
         }
         return $data;
     }
-    
-    
+
+
     /*
      * metodo identify(), obtiene los datos de un mienbro
      *
@@ -135,7 +135,7 @@ class Application_Entity_Member extends Core_Entity {
     /*
      * metodo setParamsDataBase()
      *
-     * @param 
+     * @param
      * @return array
      */
 
@@ -168,11 +168,11 @@ class Application_Entity_Member extends Core_Entity {
         $data['member_bill_add_subregion_id'] = $this->_billAddSubregionId;
         $data['member_bill_add_postal_code'] = $this->_billAddPostalConde;
         $data['member_bill_add_phone_number'] = $this->_billAddPhoneNumber;*/
-        
+
         $data['member_last_date_login'] = date('Y-m-d H:i:s');
-        
+
         $data['member_customerProfileId'] = $this->_customerProfileId;
-        
+
         return $this->cleanArray($data);
     }
 
@@ -191,8 +191,8 @@ class Application_Entity_Member extends Core_Entity {
     /*
      * metodo createMember()
      *
-     * @param 
-     * @return 
+     * @param
+     * @return
      */
 
     function createMember($password) {
@@ -220,7 +220,7 @@ class Application_Entity_Member extends Core_Entity {
      * metodo confirmAccount()
      *
      * @param $idConfirm
-     * @return 
+     * @return
      */
 
     function confirmAccount($idConfirm) {
@@ -268,7 +268,7 @@ class Application_Entity_Member extends Core_Entity {
     /*
      * metodo setMailAdmin(), envia correo al administrador especificando los datos de usuario registrado
      *
-     * @param 
+     * @param
      * @return void
      */
 
@@ -281,7 +281,7 @@ class Application_Entity_Member extends Core_Entity {
     }
 
     /*
-     * metodo createIdConfirm(), generador del codigo autogenrado 
+     * metodo createIdConfirm(), generador del codigo autogenrado
      *
      * @param int $length, tamaño de la cadena generada
      * @return string
@@ -317,7 +317,7 @@ class Application_Entity_Member extends Core_Entity {
      * metodo login()
      *
      * @param $user,$password
-     * @return 
+     * @return
      */
 
     function autentificate($usuario, $password) {
@@ -336,12 +336,16 @@ class Application_Entity_Member extends Core_Entity {
         $result = $auth->authenticate($adapter);
         if ($result->isValid()) {
             $data = $adapter->getResultRowObject(null, 'member_password');
+
+
+            $this->getMembership();
+
             $data->ejemplo = 'ssss';
             $auth->getStorage()->write($data);
-            
+
             $modelMember = new Application_Model_Member();
             $modelMember->update(array('member_last_date_login' => date('Y-m-d H:i:s')), $data->member_id);
-            
+
             $this->_message = 'Successful Authentication';
             return TRUE;
         } else {
@@ -438,10 +442,10 @@ class Application_Entity_Member extends Core_Entity {
     function addMembership($membership_id) {
         $membership = new Application_Entity_Membership();
         $membership->identify($membership_id);
-        
+
         $dataMembership = $membership->getProperties();
-        
-        
+
+
         $transacction = new Application_Entity_Transaction();
         $transacction->setPropertie('_member', $this->_id);
         if ($dataMembership['membership_isfree'] == 1) {
@@ -464,63 +468,69 @@ class Application_Entity_Member extends Core_Entity {
         }
         $transacction->addMembership($membership);
     }*/
-    
+
+
+    function getMembership(){
+        $modelMemberShip = new Application_Model_Membership();
+        return $modelMemberShip->getMembershipActive($this->_id);
+    }
+
     function getCreditCard(){
         return Application_Entity_CreditCard::listingForMember($this->_id);
     }
 
     public function loadProfile(){
-        
+
         $shpAdd = array();
         $paymeth = array();
-        
+
         if($this->_customerProfileId){
             $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
             $customer = $_transaction->customer();
             $customer->identify($this->_customerProfileId);
-            
+
             $shippings = $customer->getListShippingAddress();
             $billings = $customer->getListBillingInformation();
-            
-            foreach($shippings as $ship){ 
+
+            foreach($shippings as $ship){
                 $shpAdd[] = $ship->getAllProperties();
             }
             foreach($billings as $bill) {
                 $paymeth[] = $bill->getAllProperties();
             }
-            
+
         }
-        
+
         $this->_shippingAddress = $shpAdd;
         $this->_billingInformation= $paymeth;
-        
+
     }
-    
-    public function saveShippingAddress($data){        
+
+    public function saveShippingAddress($data){
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
         $customer = $_transaction->customer();
-        
+
         if(!$this->_customerProfileId){                      # Si no existe el perfil lo creamos antes de mandar a guardar la direccion
             $customer->_email = $this->_mail;
-            
+
             $_shipping = $customer->shippingAddress();
             foreach($data as $key=>$value){
                 $_shipping->$key = $value;
             }
-            if(!$customer->commit()){ 
+            if(!$customer->commit()){
                 $this->_message = $customer->getError();
                 return false;
             }
             $modelMember = new Application_Model_Member();
             $modelMember->update(array('member_customerProfileId'=>$customer->_customerProfileId), $this->_id);
         }else{
-            
+
             $_shipping = $customer->shippingAddress();
             $_shipping->_customerProfileId = $this->_customerProfileId;
             foreach($data as $key=>$value){
                 $_shipping->$key = $value;
             }
-            if(!$_shipping->commit()){ 
+            if(!$_shipping->commit()){
                 $this->_message = $_shipping->getError();
                 return false;
             }
@@ -528,32 +538,32 @@ class Application_Entity_Member extends Core_Entity {
         $this->_message = 'The Shipping Address was successfully saved';
         return true;
     }
-    
+
     public function saveBillingInformation($data){
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
         $customer = $_transaction->customer();
-        
+
         if(!$this->_customerProfileId){                      # Si no existe el perfil lo creamos antes de mandar a guardar la direccion
             $customer->_email = $this->_mail;
-            
+
             $_billing = $customer->billingInformation();
             foreach($data as $key=>$value){
                 $_billing->$key = $value;
             }
-            if(!$customer->commit()){ 
+            if(!$customer->commit()){
                 $this->_message = $customer->getError();
                 return false;
             }
             $modelMember = new Application_Model_Member();
             $modelMember->update(array('member_customerProfileId'=>$customer->_customerProfileId), $this->_id);
         }else{
-        
+
             $_billing = $customer->billingInformation();
             $_billing->_customerProfileId = $this->_customerProfileId;
             foreach($data as $key=>$value){
                 $_billing->$key = $value;
             }
-            if(!$_billing->commit()){ 
+            if(!$_billing->commit()){
                 $this->_message = $_billing->getError();
                 return false;
             }
@@ -561,6 +571,6 @@ class Application_Entity_Member extends Core_Entity {
         $this->_message = 'The Billing Information was successfully saved';
         return true;
     }
-    
-    
+
+
 }

@@ -10,8 +10,8 @@ class Application_Model_Member extends Core_Model {
 
     /**
      * metodo getMember(), devuelve todos los datos de un Member
-     * @param $idMember    id de la Member  
-     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     * @param $idMember    id de la Member
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor
      */
     function getMember($idMember) {
         $smt = $this->_tableMember->select()
@@ -22,11 +22,11 @@ class Application_Model_Member extends Core_Model {
         return $result;
     }
 
-    
+
     /**
      * metodo getMemberByEmail(), devuelve todos los datos de un Member
      * @param $email    email de la Member Anonymous
-     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor
      */
     function getMemberByEmail($email) {
         $smt = $this->_tableMember->select()
@@ -36,12 +36,12 @@ class Application_Model_Member extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
-    
-    
+
+
     /**
      * metodo getMember(), devuelve todos los datos de un Member
-     * @param $idMember    id de la Member  
-     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     * @param $idMember    id de la Member
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor
      */
     function getMemberForIdConfirm($idConfirm) {
         $smt = $this->_tableMember->select()
@@ -53,8 +53,8 @@ class Application_Model_Member extends Core_Model {
     }
     /**
      * metodo getMember(), devuelve todos los datos de un Member
-     * @param $idMember    id de la Member  
-     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     * @param $idMember    id de la Member
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor
      */
     function getMembers() {
         $smt = $this->_tableMember->select()
@@ -65,8 +65,8 @@ class Application_Model_Member extends Core_Model {
     }
     /**
      * metodo getMember(), devuelve todos los datos de un Member
-     * @param $idMember    id de la Member  
-     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     * @param $idMember    id de la Member
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor
      */
     function searchMember($value) {
         $smt = $this->_tableMember->select();
@@ -85,9 +85,9 @@ class Application_Model_Member extends Core_Model {
     }
 
     /**
-     * metodo insert(), registra los datos de la Member 
+     * metodo insert(), registra los datos de la Member
      * @param array             $data   array con los datos de la Member array('column'=>'valor')
-     * @return bolean or int    devuelve un entero en caso de que el registro sea exitos        
+     * @return bolean or int    devuelve un entero en caso de que el registro sea exitos
      */
     public function insert($data) {
         if ($this->_tableMember->insert($data)) {
@@ -98,10 +98,10 @@ class Application_Model_Member extends Core_Model {
     }
 
     /**
-     * metodo update(), registra los datos de la Member 
+     * metodo update(), registra los datos de la Member
      * @param array     $data           array con los datos de la Member array('column'=>'valor')
      * @param int       $idMember  id de la Member
-     * @return bolean   
+     * @return bolean
      */
     public function update($data, $idMember) {
         if ($idMember != '') {
@@ -121,9 +121,9 @@ class Application_Model_Member extends Core_Model {
     }
 
     /**
-     * metodo insert(), registra los datos de la Member 
+     * metodo insert(), registra los datos de la Member
      * @param array             $data   array con los datos de la Member array('column'=>'valor')
-     * @return bolean or int    devuelve un entero en caso de que el registro sea exitos        
+     * @return bolean or int    devuelve un entero en caso de que el registro sea exitos
      */
     public function insertPasswordReset($passwordTemp, $mail) {
         if ($passwordTemp != '' && $mail != '') {

@@ -12,8 +12,8 @@ class Application_Model_Membership extends Core_Model {
 
     /**
      * metodo getMembership(), devuelve todos los datos de un Membership
-     * @param $idMembership    id de la Membership  
-     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     * @param $idMembership    id de la Membership
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor
      */
     function getMembership($idMembership) {
         $smt = $this->_tableMembership->select()
@@ -24,11 +24,11 @@ class Application_Model_Membership extends Core_Model {
         return $result;
     }
 
-    
+
     /**
      * metodo  getMembership(),  devuelve todos los datos de la membresia
      * @param  void
-     * @return array            devuelve un array asociativo con las columnas y su respectivo valor    
+     * @return array            devuelve un array asociativo con las columnas y su respectivo valor
      */
     function getMemberships() {
         $smt = $this->_tableMembership->select()
@@ -41,7 +41,7 @@ class Application_Model_Membership extends Core_Model {
     /**
      * metodo insert(),         registra los datos de la Membresia
      * @param array             $data   array con los datos de la Menbresia array('campo'=>'valor del campo')
-     * @return bolean or int    devuelve un entero en caso de que el registro sea exitos        
+     * @return bolean or int    devuelve un entero en caso de que el registro sea exitos
      */
     public function insert($data) {
         if ($this->_tableMembership->insert($data)) {
@@ -55,7 +55,7 @@ class Application_Model_Membership extends Core_Model {
      * metodo update(), actualiza los datos de la menbresia
      * @param array     $data          array con los datos de la menbresia array('column'=>'valor')
      * @param int       $idMembership  id de la menbresia
-     * @return bolean   
+     * @return bolean
      */
     public function update($data, $idMembership) {
         if ($idMembership != '') {
@@ -66,11 +66,11 @@ class Application_Model_Membership extends Core_Model {
             return false;
         }
     }
-    
-    
+
+
     /**
-     * metodo getMembershipActive(), devuelve la menbresia activa 
-     * @param void  
+     * metodo getMembershipActive(), devuelve la menbresia activa
+     * @param void
      * @return array            devuelve un array asociativo con las
      *                          columnas y su respectivo valor de la menbresia
      */
@@ -82,7 +82,7 @@ class Application_Model_Membership extends Core_Model {
         $smt->closeCursor();
         return $result;
     }
-    
+
     /**
      * metodo insertMembershipMember(), registra las menbresias de los usuarios
      * @param array             $data   array con los datos de la Menbresia array('campo'=>'valor del campo')
@@ -109,6 +109,12 @@ class Application_Model_Membership extends Core_Model {
             return $this->_tableMembershipMember->update($data, $where);
         } else {
             return false;
+        }
+    }
+
+    function getMembershipByUser($idMember){
+        if($idMember){
+             $this->_tableMembershipMember->select()->where('member_id =?', $idMember)->where('membership_member_status = ?', Application_Entity_Membership::MENBERSHIPT_ACTIVE);
         }
     }
 

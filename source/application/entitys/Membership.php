@@ -7,26 +7,26 @@
  */
 class Application_Entity_Membership extends Core_Entity {
     const MENBERSHIPT_ACTIVE = 1;
-    const MENBERSHIPT_INACTIVE = 2;
-    const MENBERSHIPT_PENDING = 3;
+    const MENBERSHIPT_EXPIRED = 2;
+    const MENBERSHIPT_SUSPENDED = 2;
+    const MENBERSHIPT_CANCELLED = 2;
+    const MENBERSHIPT_TERMINATED = 3;
 
     protected $_id;
     protected $_membershipId;
     protected $_memberId;
     protected $_startDate;
-    protected $_endDate;
     protected $_price;
-    protected $_paymentDate;
-    protected $_pasarela;
     protected $_status;
     protected $_isfree;
+    protected $_transactionId;
 
     /**
-     * __Construct         
+     * __Construct
      *
      */
     function __construct() {
-        
+
     }
 
     private function asocParams($data) {
@@ -34,12 +34,10 @@ class Application_Entity_Membership extends Core_Entity {
         $this->_membershipId = $data['membership_id'];
         $this->_memberId = $data['member_id'];
         $this->_startDate = $data['membership_member_start_date'];
-        $this->_endDate = $data['membership_member_end_date'];
         $this->_price = $data['membership_member_price'];
-        $this->_paymentDate = $data['membership_member_payment_date'];
-        $this->_pasarela = $data['membership_member_pasarela'];
         $this->_status = $data['membership_member_status'];
         $this->_isfree = $data['membership_member_isfree'];
+        $this->_transactionId = $data['transaction_id'];
     }
 
     /*
@@ -60,7 +58,7 @@ class Application_Entity_Membership extends Core_Entity {
     /*
      * metodo setParamsDataBase()
      *
-     * @param 
+     * @param
      * @return array
      */
 
@@ -69,12 +67,10 @@ class Application_Entity_Membership extends Core_Entity {
         $data['membership_id'] = $this->_membershipId;
         $data['member_id'] = $this->_memberId;
         $data['membership_member_start_date'] = $this->_startDate;
-        $data['membership_member_end_date'] = $this->_endDate;
         $data['membership_member_price'] = $this->_price;
-        $data['membership_member_payment_date'] = $this->_paymentDate;
-        $data['membership_member_pasarela'] = $this->_pasarela;
         $data['membership_member_status'] = $this->_status;
         $data['membership_member_isfree'] = $this->_isfree;
+        $data['transaction_id'] = $this->_transactionId;
 
         return $this->cleanArray($data);
     }
@@ -93,7 +89,7 @@ class Application_Entity_Membership extends Core_Entity {
     }
 
     /**
-     * metodo insert(), registro de la menbresia
+     * metodo insert(), registro de la membresia
      * @param   void    sin parametros
      * @return  bolean  si se registro devuelve true en caso contrario false
      */
@@ -103,13 +99,8 @@ class Application_Entity_Membership extends Core_Entity {
             $this->_status = self::MENBERSHIPT_PENDING;
         }
         $data = $this->setParamsDataBase();
-        $date['membership_member_register_date'] = date('Y-m-d H:i:s');
         $id = $modelMemberShip->insertMembershipMember($data);
         if ($id != FALSE) {
-            $this->_id = $id;
-            if ($this->_isfree == 1) {
-                $this->active();
-            }
             return TRUE;
         } else {
             $this->_message = 'Registration to failure';
@@ -133,5 +124,5 @@ class Application_Entity_Membership extends Core_Entity {
         $modelMemberShip = new Application_Model_Membership();
         return $modelMemberShip->getMembershipActive();
     }
-
+    
 }

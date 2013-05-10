@@ -1,6 +1,6 @@
 <?php
 
-class Fase2_OrderController extends Core_Controller_ActionDefault
+class Fase2_MembershipController extends Core_Controller_ActionDefault
 {
 
     protected $isMember = 0;
@@ -24,8 +24,6 @@ class Fase2_OrderController extends Core_Controller_ActionDefault
     }
 
     public function createAction(){
-
-        $shipping_charge = 5; // $5 dollares de envio
 
         if ($this->getRequest()->isXmlHttpRequest()) {
             unset($this->view->identity);
@@ -52,11 +50,11 @@ class Fase2_OrderController extends Core_Controller_ActionDefault
                     $entity_member = new Application_Entity_Member();
                     $entity_member->identifyByEmail(trim($formValues['inf_emailaddress']));
                     if($entity_member->getPropertie('_id')>0){
-                        $transacction->setPropertie('_member', $entity_member->getPropertie('_id'));
-                        $transacction->setPropertie('_userMenbership', 1);
+                        //$transacction->setPropertie('_member', $entity_member->getPropertie('_id')); Esto solo aplicaba en casos especiales
+                        //$transacction->setPropertie('_userMenbership', 1);
 
-                        //$this->view->messages = array('error'=>'You need to sign in before continuing');
-                        //return;
+                        $this->view->messages = array('error'=>'You need to sign in before continuing');
+                        return;
                     }
 
                 }
@@ -104,45 +102,10 @@ class Fase2_OrderController extends Core_Controller_ActionDefault
                 $transacction->setPropertie('_contactName', $formValues['shp_firstname'].' '.$formValues['shp_lastname']);
 
                 $products = array();
-                /*agrega el producto a la transaccion*/
-                $total = 0;
-                foreach ($this->_session->cart as $prod) {
-                    $name = $prod['_name'];
-                    $strsize = '';
-                    $sizeId = null;
-                    foreach ($prod['sizes'] as $size) {
-                        if ($prod['size_prod'] == $size['product_size_size_id']) {
-                            $sizeId = $size['product_size_size_id'];
-                            $strsize .= $size['size_name'];
-                        }
-                    }
-                    $name .= $strsize;
-                    $prod['quantity'] = (isset($prod['quantity']) ? $prod['quantity'] : 1);
 
-                    if ($this->isMember) {
-                        $uniPrice = $prod['_priceMember'];
-                        $total += $uniPrice*$prod['quantity'];
-                    } else {
-                        $uniPrice = $prod['_price'];
-                        $total += $uniPrice*$prod['quantity'];
-                    }
+                $total = 0; // Precio de la membresia por mes
 
-                    $products[] = array(
-                                                    'id'=>$prod['_id'],
-                                                    'code'=>$prod['_code'],
-                                                    'name'=>$prod['_name'],
-                                                    'quantity'=>$prod['quantity'],
-                                                    'price'=>$prod['_price'],
-                                                    'priceMember'=>$prod['_priceMember'],
-                                                    'finalPrice'=>$uniPrice,
-                                                    'sizeName'=>$strsize,
-                                                    'sizeId'=>$sizeId,
-                                                );
-                }
-
-
-                $transacction->setPropertie('_shiAmount', $shipping_charge);
-                $transacction->setPropertie('_amount', $total+$shipping_charge);
+                $transacction->setPropertie('_amount', $total);
 
                 $transacction->initTransactionDb();
                 if( $transacction->createTransaction() ){

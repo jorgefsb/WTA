@@ -44,17 +44,17 @@ class Application_Entity_Transaction extends Core_Entity {
     protected $_cardNumber;
     protected $_mail;
     protected $_contactName;
-    
+
     protected $_shiAmount;
-    
+
     /**
-     * __Construct         
+     * __Construct
      *
      */
     function __construct() {
-        
+
     }
-    
+
     /*
      * Inicia una transaccion a nivel Base de datos
      */
@@ -62,8 +62,8 @@ class Application_Entity_Transaction extends Core_Entity {
         $modelTransaction = new Application_Model_Transaction();
         $modelTransaction->initTransactionDb();
     }
-        
-    
+
+
     /*
      * Guarda los cambios en la base de datos de forma permanente
      */
@@ -71,7 +71,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $modelTransaction = new Application_Model_Transaction();
         $modelTransaction->commit();
     }
-    
+
 
     static function listing() {
         $modelTransaction = new Application_Model_Transaction();
@@ -87,7 +87,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $this->_delivered = $data['transaction_delivered'];
         $this->_userMenbership = $data['transaction_user_menbership'];
         $this->_deliveredDate = $data['transaction_delivered_date'];
-        
+
         $this->_shiAddFirstName = $data['transaction_shi_add_first_name'];
         $this->_shiAddLastName = $data['transaction_shi_add_last_name'];
         $this->_shiAddAddAddres = $data['transaction_shi_add_addres'];
@@ -108,11 +108,11 @@ class Application_Entity_Transaction extends Core_Entity {
         $this->_billAddPhoneNumber = $data['transaction_bill_add_phone_number'];
 
         $this->_shiAmount = $data['transaction_shi_amount'];
-        
+
         $this->_cardNumber = $data['transaction_card_number'];
         $this->_mail = $data['transaction_mail'];
         $this->_contactName = $data['transaction_contact_name'];
-        
+
     }
 
     /*
@@ -134,9 +134,9 @@ class Application_Entity_Transaction extends Core_Entity {
     /*
      * metodo setParamsDataBase()
      *
-     * @param 
+     * @param
      * @return array
-     */ 
+     */
 
     function setParamsDataBase() {
         $data['transaction_id'] = $this->_id;
@@ -147,7 +147,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_delivered'] = $this->_delivered;
         $data['transaction_user_menbership'] = $this->_userMenbership;
         $data['transaction_delivered_date'] = $this->_deliveredDate;
-        
+
         $data['transaction_shi_add_first_name'] = $this->_shiAddFirstName;
         $data['transaction_shi_add_last_name'] = $this->_shiAddLastName;
         $data['transaction_shi_add_addres'] = $this->_shiAddAddAddres;
@@ -166,14 +166,14 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_bill_add_subregion_id'] = $this->_billAddSubregionId;
         $data['transaction_bill_add_postal_code'] = $this->_billAddPostalCode;
         $data['transaction_bill_add_phone_number'] = $this->_billAddPhoneNumber;
-        
+
         $data['transaction_shi_amount'] = $this->_shiAmount;
-        
+
         $data['transaction_card_number'] = $this->_cardNumber;
-        
+
         $data['transaction_mail'] = $this->_mail;
         $data['transaction_contact_name'] = $this->_contactName;
-        
+
         return $this->cleanArray($data);
     }
 
@@ -187,8 +187,8 @@ class Application_Entity_Transaction extends Core_Entity {
     /*
      * metodo createTransaction()
      *
-     * @param 
-     * @return 
+     * @param
+     * @return
      */
 
     function createTransaction() {
@@ -217,7 +217,7 @@ class Application_Entity_Transaction extends Core_Entity {
 
     function addProduct($product) {
         $transactionDetails = new Application_Model_TransactionDetails();
-        $data['product_id'] = $product['id'];        
+        $data['product_id'] = $product['id'];
         $data['product_code'] = $product['code'];
         $data['product_name'] = $product['name'];
         $data['product_type_id'] = self::TYPE_PRODUCT;
@@ -229,7 +229,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['product_size'] = $product['sizeName']; // Nombre del tamano
         $data['product_size_id'] = $product['sizeId']; // Id del tamano
         $data['transaction_id'] = $this->_id;
-        
+
         return $transactionDetails->insert($data);
     }
 
@@ -249,15 +249,15 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_delivered_date'] = NULL;
         $modelTransaction->update($data, $this->_id);
     }
-    
+
     function saveTracking($aTraking){
         $modelTraking = new Application_Model_Tracking();
         return $modelTraking->insert(array(
                                                             'tracking_transaction_id' => $this->_id,
-                                                            'tracking_code'=>  serialize($aTraking)            
+                                                            'tracking_code'=>  serialize($aTraking)
                                                         ));
     }
-    
+
 
     static function listOrders($filtro=array()) {
         $modelTransaction = new Application_Model_Transaction();
@@ -268,74 +268,80 @@ class Application_Entity_Transaction extends Core_Entity {
         $modelTransaction = new Application_Model_Transaction();
         return $modelTransaction->listOrdensUsers();
     }
-    
+
     public function listProducts(){
         $modelTransaction = new Application_Model_Transaction();
         return $modelTransaction->listProducts($this->_id);
     }
-    
+
     /*
      * Send Subscription to payment gateway
      */
     public function sendSubscription2PG(){
-        
+
+        // Creamos el pago por 3 meses de la membresia
+        // Si pasa lo suscribimos
+        // 
+
+
+
     }
-    
-    /* 
+
+    /*
      * Send Order to payment gateway
      * Funciones para transaccion con banco, envia la orden
-     */      
-    //public function sendToPaymentGateway($dataCard){        
-    public function sendOrder2PG($dataCard){        
-            
+     */
+    //public function sendToPaymentGateway($dataCard){
+    public function sendOrder2PG($dataCard){
+
         $_country = new Application_Model_Regions();
         $_state = new Application_Model_SubRegions();
-        
+
         $_customerAddressId = 0;
         $_customerPaymentProfileId = 0;
         $customerProfileId = 0;
-        
+
         if($this->_member>0){                                                               # Si es un miembro entonces lo identificamos
             $modelMember = new Application_Entity_Member();
             $modelMember->identify($this->_member);
-            
+
         }else{                                                                                           # Si no es un miembro lo tratamos de indentificar como usuario anonymo que ya hizo alguna compra
-            $modelMember = new Application_Entity_MemberAnonymous(); 
+            $modelMember = new Application_Entity_MemberAnonymous();
             $modelMember->identifyByEmail(trim($this->_mail));
         }
-        
-        if($modelMember){                                                                     # Tomamos los datos de shipping, billing y Id de Customer 
+
+        if($modelMember){                                                                     # Tomamos los datos de shipping, billing y Id de Customer
             $modelMember->loadProfile();
-            
+
             $shippingAddress = $modelMember->getPropertie('_shippingAddress');
             $billingInformation = $modelMember->getPropertie('_billingInformation');
-            
+
             if( !empty($shippingAddress)){
                 $_customerAddressId =$shippingAddress[0]['_customerAddressId'];
             }
             if( !empty($billingInformation)){
                 $_customerPaymentProfileId = $billingInformation[0]['_customerPaymentProfileId'];
             }
-            
+
             $customerProfileId = $modelMember->getPropertie('_customerProfileId');
         }
-        
-        
+
+
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE);
 
         #
         # Apartir de aqui llenamos los datos de customer, shipping y billing necesarios
         #
-        
+
         $_customer = $_transaction->customer();
-        
+
         #Llenamos los datos del comprador
         $_customer->_email = $this->_mail;
 
         #Llenamos los datos de shipping
         $a_state = $_state->getSubRegion($this->_shiAddSubregionId);
         $a_country = $_country->getRegion($this->_shiAddRegionId);
-        
+
         $_shpAdd = $_customer->shippingAddress();
         $_shpAdd->_customerProfileId = $customerProfileId;
         $_shpAdd->_customerAddressId = $_customerAddressId;
@@ -344,7 +350,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $_shpAdd->_address = $this->_shiAddAddAddres;
         $_shpAdd->_city = $this->_shiAddCity;
         $_shpAdd->_state = $a_state['name'];
-        $_shpAdd->_zip = $this->_shiAddPostalCode;        
+        $_shpAdd->_zip = $this->_shiAddPostalCode;
         $_shpAdd->_country = $a_country['country'];
         $_shpAdd->_phoneNumber = $this->_shiAddPhoneNumber;
 
@@ -352,8 +358,8 @@ class Application_Entity_Transaction extends Core_Entity {
 
         $a_state = $_state->getSubRegion($this->_billAddSubregionId);
         $a_country = $_country->getRegion($this->_billAddRegionId);
-        
-        $_billInfo = $_customer->billingInformation(); 
+
+        $_billInfo = $_customer->billingInformation();
         $_billInfo->_customerPaymentProfileId = $_customerPaymentProfileId;
         $_billInfo->_customerProfileId = $customerProfileId;
         $_billInfo->_firstName = $this->_billAddFirstName;
@@ -368,9 +374,9 @@ class Application_Entity_Transaction extends Core_Entity {
         $_billInfo->_expirationDate = $dataCard['expirationDate'];
         $_billInfo->_cardCode = $dataCard['cardCode'];
 
-        
+
         #Llenamos los datos del pago
-        $_payment = $_customer->payment();        
+        $_payment = $_customer->payment();
 
         $products = $this->listProducts();                                              # Agregamos los productos a la orden
         foreach ($products as $prod) {
@@ -383,19 +389,19 @@ class Application_Entity_Transaction extends Core_Entity {
             $_payment->addProduct($prod['product_code'], substr(trim($name), 0, 30), substr($prod['product_description'], 0, 100),$prod['transaction_details_product_cant'], $prod['transaction_detail_final_price']);
             //$_id, $_name, $_description, $_quantity, $_unitPrice
         }
-        
-        // Costo del envio 
+
+        // Costo del envio
         $_payment->_shippingAmount = $this->_shiAmount;
         $_payment->_shippingName = 'Shipping Cost';
-        
+
         $_payment->_amount = $this->_amount;
         $_payment->_cardCode = $dataCard['cardCode'];
 
-        
-        
-        
+
+
+
         if( $customerProfileId){                    # Validamos que tengamos un perfil creado
-            
+
             if(!$_shpAdd->commit()){
                 //$this->_message = print_r($_transaction->getLastExecution(), true);
                 $this->_message = $_shpAdd->getError();
@@ -405,28 +411,28 @@ class Application_Entity_Transaction extends Core_Entity {
                 $this->_message = $_billInfo->getError();
                 return false;
             }
-            
+
             $_payment->_customerProfileId = $customerProfileId;
             $_payment->_customerPaymentProfileId = $_customerPaymentProfileId;
             $_payment->_customerShippingAddressId = $_customerAddressId;
         }else{
-            
+
             $customerProfileId = $_customer->commit();
-            
+
             if($customerProfileId){
                 if(!$this->_member){
-                    
+
                 }
             }
-            
+
             $_payment->_customerProfileId = $_customer->_customerProfileId;
             $_payment->_customerPaymentProfileId = $_customer->_customerPaymentProfileIds[0];
             $_payment->_customerShippingAddressId = $_customer->_customerShippingAddressIds[0];
         }
-        
-                
+
+
         if( $customerProfileId ){
-            if( $this->_member >0){                
+            if( $this->_member >0){
                 $modelMember->setPropertie('_customerProfileId', $customerProfileId);
                 $modelMember->update();
             }else{
@@ -443,36 +449,36 @@ class Application_Entity_Transaction extends Core_Entity {
             }
             if($_payment->commit()===true){
                 $modelTransaction = new Application_Model_Transaction();
-                                
+
                 $modelTransaction->update(array(
                     'transaction_code_payment'=>$_payment->_profileTransactionId,
                     'transaction_payment_date'=>date('Y-m-d H:i:s'),
                     'tansaction_state_id'=>  self::TRANSACTION_PAID
                 ), $this->_id);
-                
+
                 $this->identify($this->_id);
-                
+
                 $file =$this->createPdf();
-                
+
                 /*
                  * Enviamos el correo con la nota de pago
                  */
                 $this->sendPurchaseConfirmMail($file);
-                
+
                 $this->_message = 'Payment Successful';
                 return $_payment->_profileTransactionId;
-            }else{                
+            }else{
                 //$this->_message = print_r($_transaction->getLastExecution(), true);
                 //$this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again.';
                 $error=$_payment->getError();
                 $error_message = Payment_Transaction_Authorize::getDescriptionCode($error);
-                
+
                 if($error && $error_message){
                     $this->_message = 'We had a problem. '.$error_message;
                 }else{
                     $this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again. (Error code: '.$error.')';
                 }
-                
+
                 /*if($error=='Decline' || $error == 'Error'){ ESTA ES LA VALIDACION ANTERIOR
                     $this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again.';
                 }else{
@@ -487,43 +493,43 @@ class Application_Entity_Transaction extends Core_Entity {
             $this->_message = 'We had a problem. Please review your information and try again. '.$error_message;
             return false;
         }
-        
+
     }
-    
+
     public function sendPurchaseConfirmMail($file){
-        
-                        
+
+
         $objMail = new Core_Mail();
         $objMail->addDestinatario($this->_mail);
         $objMail->setAsunto('Thank you for your recent purchase from WeTheAdorned.');
 
         $objMail->addAdjunto($file);
         $mensaje = '<p>Thank you for your recent purchase from WeTheAdorned<p>';
-        
+
         $objMail->setMensaje($mensaje);
-        return $objMail->send();                
+        return $objMail->send();
     }
-    
-    
+
+
     public function createPdf(){
-        
+
         $_country = new Application_Model_Regions();
         $_state = new Application_Model_SubRegions();
-        
+
         $a_state_sh = $_state->getSubRegion($this->_shiAddSubregionId);
         $a_country_sh = $_country->getRegion($this->_shiAddRegionId);
-        
+
         $a_state_bil = $_state->getSubRegion($this->_billAddSubregionId);
         $a_country_bil = $_country->getRegion($this->_billAddRegionId);
-        
+
         $products = $this->listProducts();
-        
+
         $html = '<html>
                         <head>
                             <title>WeTheAdorned</title>
                             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                            <style>            
-                                html{margin: 0}      
+                            <style>
+                                html{margin: 0}
                                 table {border-collapse: collapse; border-spacing: 0;margin: 0;padding: 0;}
                                 th {font-weight: bold; vertical-align: bottom;margin: 0;padding: 0; border:0px;}
                                 td {font-weight: normal; vertical-align: top;margin: 0;padding: 0; border:0px; font-family: Arial, georgia, sans-serif ; color: #3b261c}
@@ -548,7 +554,7 @@ class Application_Entity_Transaction extends Core_Entity {
                                         <td style="font-size: 16px; padding: 0px 0px 10px 3px;">
                                             Thank you for your order!
                                         </td>
-                                    </tr>                
+                                    </tr>
                                     <tr>
                                         <td style="background: #231f20; color:#FFF; padding: 2px 5px;">Order Information</td>
                                     </tr>
@@ -560,7 +566,7 @@ class Application_Entity_Transaction extends Core_Entity {
                                     </tr>
                                     <tr>
                                         <td style="border-top: 2px solid #AAAAAA; background: #FFF; padding: 5px">
-                                            <table  border="0" style="border-collapse: collapse; border-spacing: 0px; width: 100%; font-size: 12px;" cellpadding="0" cellspacing="0" >                            
+                                            <table  border="0" style="border-collapse: collapse; border-spacing: 0px; width: 100%; font-size: 12px;" cellpadding="0" cellspacing="0" >
                                                 <tr>
                                                     <td>Billing Information</td>
                                                     <td>Shipping Information</td>
@@ -594,17 +600,17 @@ class Application_Entity_Transaction extends Core_Entity {
 
                                     <tr>
                                         <td style="background: #FFF; padding: 12px; border-top: 2px solid #AAAAAA;">
-                                            <table  border="0" style="border-collapse: collapse; border-spacing: 0px; width: 100%; font-size: 12px;" cellpadding="0" cellspacing="0">                           
+                                            <table  border="0" style="border-collapse: collapse; border-spacing: 0px; width: 100%; font-size: 12px;" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td style="width: 40px;">Item</td>
                                                     <td style="width: 100px;">Description</td>
                                                     <td style="width: 50px; text-align: center">Qty</td>
-                                                    <td style="width: 50px; text-align: center">Taxable</td>                                    
+                                                    <td style="width: 50px; text-align: center">Taxable</td>
                                                     <td style="width: 60px; text-align: right">Unit Price</td>
                                                     <td style="width: 60px; text-align: right">Item Total</td>
                                                 </tr>';
                                                 if ($products) {
-                                                    foreach ($products as $prod) {                                                       
+                                                    foreach ($products as $prod) {
                                                         $html .= '<tr>
                                                                         <td style="width: 40px;">'.$prod['product_code'] .'</td>
                                                                         <td style=" width: 190px; text-align: left" >'.$prod['product_name'].' '.$prod['product_size'] .'</td>
@@ -615,7 +621,7 @@ class Application_Entity_Transaction extends Core_Entity {
                                                                     </tr>';
                                                     }
                                                 }
-                                                $html .= '<tr><td>&nbsp;</td></tr>                                                  
+                                                $html .= '<tr><td>&nbsp;</td></tr>
                                                             <tr>
                                                                 <td>&nbsp;</td>
                                                                 <td>&nbsp;</td>
@@ -623,7 +629,7 @@ class Application_Entity_Transaction extends Core_Entity {
                                                                 <td>&nbsp;</td>
                                                                 <td style="color: #333; font-size: 12px; font-weight: normal; text-align: right">Shipping:</td>
                                                                 <td style="color: #333; font-size: 12px; font-weight: bold; text-align: right">$ '.number_format($this->_shiAmount, 2) .'</td>
-                                                            </tr>                            
+                                                            </tr>
                                                             <tr>
                                                                 <td>&nbsp;</td>
                                                                 <td>&nbsp;</td>
@@ -631,7 +637,7 @@ class Application_Entity_Transaction extends Core_Entity {
                                                                 <td>&nbsp;</td>
                                                                 <td style="color: #333; font-size: 12px; font-weight: normal; text-align: right">Total:</td>
                                                                 <td style="color: #333; font-size: 12px; font-weight: bold; text-align: right">$ '.number_format($this->_amount, 2) .'</td>
-                                                            </tr>                            
+                                                            </tr>
                                             </table>
                                         </td>
                                     </tr>
@@ -660,7 +666,7 @@ class Application_Entity_Transaction extends Core_Entity {
                             </div>
 
                         </body>
-                    </html>';                                                        
+                    </html>';
 
         $dompdf = new DOMPDF();
         $dompdf->load_html($html);
@@ -670,11 +676,11 @@ class Application_Entity_Transaction extends Core_Entity {
         $strPdf = $dompdf->output();
         $file = APPLICATION_PUBLIC . '/dinamic/orders/' . $this->_codePayment . '-' . date('ynd-his') . '.pdf';
         file_put_contents($file, $strPdf);
-        
+
         return $file;
     }
-    
-    
 
-    
+
+
+
 }
