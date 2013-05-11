@@ -3,6 +3,13 @@
     $shpAdd = $this->shippingAddress;
     $billinfo = $this->billingInformation;
     
+    $email = '';
+    $pass = '';
+    if( $this->invitation ){
+         $email = $this->invitation['email'];
+         $pass = $this->invitation['password'];
+    }
+    
     # Imprimimos el menu Change Section
     //echo $this->partial('index/change_section.phtml', array('section'=>'Designers', 'menu'=>$this->menu));
 ?>
@@ -10,32 +17,28 @@
 <div  id="contentBody" class="checkout" >        
     
     <div >
-        <?php 
-            /*if( $this->cart[0]){
-        ?>
-            <div class="imgPrincipal">
-                <img src="<?php echo DINAMIC_URL . '/product/mobile/' . $this->cart[0]['images'][0]['image_name']; ?>" />
-            </div>
-        <?php
-            }*/
-        ?>
-        
+
         <div class="imgPrincipal">
             <img src="<?php echo STATIC_URL . '/front-fase2/images/specials/melody.jpg';?>" />
         </div>
         
         <form name="frmcheckout" id="frmcheckout" action="/fase2/order/create" method="post">
-            <div class="section">
-                <h2> CONTACT INFORMATION</h2>
-                <!-- input type="text" name="inf_firstname"  id="inf_firstname" value="" placeholder="First Name" title="First Name"  class="medialinea" />
-                <input type="text" name="inf_lastname"  id="inf_lastname" value="" placeholder="Last Name" title="Last Name"  class="medialinea"/ -->
-                <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" />
-                <span class="btn-amarillo paso paso1">NEXT</span>
+            <div class="section text-center">
+                <h2>CUSTOMER FOLIO</h2>
+                <div class="inputs show">
+                    <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
+                    <input type="password" name="folio_password"  id="folio_password" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  />
+                    <?php /* <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" /> */ ?>
+                </div>
+                <div class="valores">
+                    <span id="vfolio_email"><?php echo $email; ?></span>
+                </div>
+                <span class="btn-amarillo paso paso1 center">JOIN AND COMPLETE FOLIO</span>
             </div>
             
             <div class="section">
                 <h2 class="acordion lock">SHIPPING INFORMATION</h2>
-                <div>
+                <div class="inputs">
                     <input type="text" name="shp_firstname"  id="shp_firstname" value="<?php echo isset($shpAdd['_firstName']) ? $shpAdd['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
                     <input type="text" name="shp_lastname"  id="shp_lastname" value="<?php echo isset($shpAdd['_lastName']) ? $shpAdd['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
                     <input type="text" name="shp_address"  id="shp_address" value="<?php echo isset($shpAdd['_address']) ? $shpAdd['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
@@ -56,9 +59,16 @@
                         <option value="0"> Region / State*</option>
                     </select>                
 
-                    <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="<?php echo isset($shpAdd['_phoneNumber']) ? $shpAdd['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
-                    <span class="btn-amarillo paso paso2">NEXT</span>
+                    <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="<?php echo isset($shpAdd['_phoneNumber']) ? $shpAdd['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>                    
                 </div>                
+                <div class="valores">
+                    <span id="vshp_firstname"></span> <span id="vshp_lastname"></span><br/>
+                    <span id="vshp_address"></span><br/>
+                    <span id="vshp_city"></span> <span id="vshp_cp"></span><br/>
+                    <span id="vshp_country"></span> <span id="vshp_region"></span><br/>
+                    <span id="vshp_phonenumber"></span><br/>
+                </div>
+                <span class="btn-amarillo paso paso2">NEXT</span>
             </div>
             
             <div class="section">
@@ -66,7 +76,7 @@
                 <div>
                     <label><input type="checkbox" name="bill_same" id="bill_same" value="" /> Same as my shipping address</label>
 
-                    <div id="bill_same_content">
+                    <div id="bill_same_content" class="inputs">
                         <input type="text" name="bill_firstname"  id="bill_firstname" value="<?php echo isset($billinfo['_firstName']) ? $billinfo['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
                         <input type="text" name="bill_lastname"  id="bill_lastname" value="<?php echo isset($billinfo['_lastName']) ? $billinfo['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
                         <input type="text" name="bill_address"  id="bill_address" value="<?php echo isset($billinfo['_address']) ? $billinfo['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
@@ -88,14 +98,21 @@
                         </select>
 
                         <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="<?php echo isset($billinfo['_phoneNumber']) ? $billinfo['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
+                    </div>                  
+                    <div  class="valores">
+                        <span id="vbill_firstname"></span> <span id="vbill_lastname"></span><br/>
+                        <span id="vbill_address"></span><br/>
+                        <span id="vbill_city"></span> <span id="vbill_cp"></span><br/>
+                        <span id="vbill_country"></span> <span id="vbill_region"></span><br/>
+                        <span id="vbill_phonenumber"></span><br/>
                     </div>                    
-                    <span class="btn-amarillo paso paso3">NEXT</span>
                 </div>                
+                <span class="btn-amarillo paso paso3">NEXT</span>
             </div>
             
             <div class="section select_sin_ancho" >
                 <h2 class="acordion lock">PAYMENT INFORMATION</h2>
-                <div>
+                <div class="inputs">
                     <!-- input type="text" name="card_name"  id="card_name" value="" placeholder="Cardholder Name*" title="Cardholder Name" / -->
                     <input type="text" name="card_number"  id="card_number" value="" placeholder="Card Number*" title="Card Number" />
                     <!-- div class="divcardexpiration">
@@ -121,9 +138,14 @@
                     <div class="securityCode">
                         <input type="text" name="card_seccode"  id="car_seccode" value="" placeholder="Security Code*" title="Security Code"   class="medialinea" />
                         <?php //what´s this <span class="icon-question-sign"></span> ?>
-                    </div>
-                    <span class="btn-amarillo paso paso4">NEXT</span>
-                </div>                
+                    </div>                    
+                </div>    
+                <div class="valores">
+                    <span id="vcard_number"></span><br/>
+                    <span id="vcard_expirationmonth"></span>/<span id="vcard_expirationyear"></span><br/>
+                    <span id="vcar_seccode"></span>
+                </div>
+                <span class="btn-amarillo paso paso4">NEXT</span>
             </div>
             
             <div class="total section">
@@ -132,7 +154,7 @@
                     $nprod = count($this->cart);
                     if ($nprod) {
                         foreach ($this->cart as $index => $prod) {
-                            if($this->isMember){
+                            if($this->hasMembership){
                                 $total += $prod['_priceMember'] * (int)$prod['quantity'];
                             }else{
                                 $total += $prod['_price'] * (int)$prod['quantity'];
@@ -170,8 +192,8 @@
                 </label>
                 <br/>
                 <div>
-                    <a href="" id="checkoutsubmit" class="btn-gris">PLACE ORDER</a>
-                    <a href="" id="" class="btn-gris">ADD TO CART KEEP SHOPPING</a>
+                    <a href="" id="checkoutsubmit" class="btn-gris disabled">PLACE ORDER</a>
+                    <a href="/fase2/checkout" id="" class="addMembership btn-gris disabled" data-form="frmcheckout">ADD TO CART KEEP SHOPPING</a>
                 </div>
 
             </div>
@@ -181,11 +203,10 @@
     
     <div id="checkout-cart">
         <?php 
-            echo $this->partial('shopping/checkoutcart.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping));
+            echo $this->partial('shopping/checkoutcart.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>true));
         ?>
     </div>
         
-    
 </div>
 <a href="/fase2/order/processed" class="liLight" id="linkprocessed"></a>
 <a href="/fase2/order/error" class="liLight" id="linkerror"></a>
@@ -193,7 +214,7 @@
 
 <script>
     //WTA.updateCart();
-    WTA.checkout();
+    WTA.membership();
     WTA.checkoutForm();
     WTA.abandon();
     

@@ -114,8 +114,15 @@ class Application_Model_Membership extends Core_Model {
 
     function getMembershipByUser($idMember){
         if($idMember){
-             $this->_tableMembershipMember->select()->where('member_id =?', $idMember)->where('membership_member_status = ?', Application_Entity_Membership::MENBERSHIPT_ACTIVE);
+            $smt = $this->_tableMembershipMember->select()
+                            ->where('member_id =?', $idMember)
+                            ->where('membership_member_status = ?', Application_Entity_Membership::MENBERSHIPT_ACTIVE)
+                           ->query();
+            $result = $smt->fetch();
+            $smt->closeCursor();
+            return $result;
         }
+        return false;
     }
 
 

@@ -20,6 +20,10 @@ class Core_Controller_ActionDefault extends Core_Controller_Action {
         if(!isset($this->_identity->member_id)){
             unset($this->_identity);
             unset($this->view->identity);
+        }else{
+            if(isset($this->_identity->membership)){
+                $this->hasMembership = $this->view->hasMembership = true;
+            }
         }
         
     }

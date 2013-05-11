@@ -37,6 +37,9 @@ class Fase2_LoginController extends Core_Controller_ActionDefault
     
     public function exclusiveAction(){
         $this->_helper->layout->disableLayout();  
+        $this->view->invitation = $this->_session->invitation = array(
+            'email'=>$this->getRequest()->getParam('email'),
+            'password'=>$this->getRequest()->getParam('password'));
     }
     
     

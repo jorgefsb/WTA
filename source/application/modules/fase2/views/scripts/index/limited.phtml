@@ -25,24 +25,27 @@
             <div class="precios">
                 <div>
                     <span>Guest price</span>
-                    <strong class="<?php echo ($this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_price'], 2); ?></strong>
+                    <strong class="<?php echo ($this->hasMembership) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_price'], 2); ?></strong>
                 </div>
                 
                 
                 <div >
                     <span>member price</span>
-                    <strong class="<?php echo (!$this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo (int)$this->product['_priceMember']; ?></strong>
+                    <strong class="<?php echo (!$this->hasMembership) ? 'inactivo' : 'activo';?>">$<?php echo (int)$this->product['_priceMember']; ?></strong>
                 </div>
             </div>
         </div>
         
         <div class="btns-options" >
-            <!-- a href="" class="btn addToCart" data-code="<?php echo $this->product['_id']; ?>">
-                Add to my cart
-            </a-->
-            <a href="/fase2/login/reserved" class="btn liLight" >
-                Add to my cart
-            </a>
+            <?php if($this->hasMembership){ ?>
+                <a href="" class="btn addToCart" data-code="<?php echo $this->product['_id']; ?>">
+                    Add to my cart
+                </a>
+            <?php }else{ ?>
+                <a href="/fase2/login/reserved" class="btn liLight" >
+                    Add to my cart
+                </a>
+            <?php } ?>
             <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwetheadorned.com%2F&media=<?php echo urldecode(DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']); ?>" class="pin-it-button btn" count-layout="horizontal">Pin It</a>
         </div>
     </div>

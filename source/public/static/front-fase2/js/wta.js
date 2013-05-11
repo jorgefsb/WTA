@@ -220,10 +220,19 @@ var WTA = (function(){
         $('.liLight').unbind('click').click( function(event){
             $('#overlay').css('background-color', 'transparent');   
             var $link = $(this);
+            var url = this.href;
             event.preventDefault();
-            $('.wLight').remove();
+                
+            var data = '';
+            if($link.hasClass('submit') && $link.data('form')){                
+                var $form = $('#'+$link.data('form'));
+                data = $form.serialize();
+            }
+            $('.wLight').remove();       
             $.ajax({
-                url:this.href,
+                url: url,
+                type: 'post',
+                data: data,
                 success:function(html, textStatus, jqXHR){
                     $('body').prepend(html);
                     var $wLight = $('.wLight');
@@ -513,6 +522,35 @@ var WTA = (function(){
                 $('#btnShoppingCart').html('Your S. Cart is empty');
             }
         });*/
+    }
+    
+    this.addMembershipToCart = function(){
+        $('.addMembership').click(function(e){
+            e.preventDefault();
+            var $this = $(this);
+            var data = '';
+            if($this.data('form')){                
+                var $form = $('#'+$this.data('form'));
+                data = $form.serialize();
+            }
+
+            $.ajax({
+                type: 'POST',                    
+                url: '/fase2/shopping/addmembershiptocart/format/json', 
+                data: data
+            }).done(function(response){
+                if(response.ok){
+                    if( $this.data('redirect') ){
+                        window.location.href = $this.data('redirect');
+                    }else{
+                        $('.closex').trigger('click');
+                        that.updateCart(function(){$('#popupShoppinCart').slideDown();});                        
+                    }
+                }else{
+                    alert('No se pudo agregar la membresia');
+                }
+            });
+        })   
     }
     
     /********************************* / CART *************************************/
@@ -993,39 +1031,97 @@ var WTA = (function(){
             }
         });
         
+        
         $('.paso1').click(function(){
             var $this = $(this);
-            if($this.html()=='Edit'){
-                $this.parent().find('input').attr('readonly',false);
+            
+            if($this.html()=='Edit'){                                
+                $this.parent().find('.valores').css('display', 'none');
+                $this.parent().find('.inputs').css('display', 'block');
                 $this.html('Next');
             }else{            
-                //$this.parent().addClass('disabled');
-                $this.parent().find('input').attr('readonly', 'readonly');
-                $('.paso2').parent().prev().removeClass('lock').trigger('click');
+                $this.parent().find('.inputs').css('display', 'none');
+                $this.parent().find('.valores').css('display', 'inline-block')                
+                
+                $this.parent().find('input').each(function(){
+                    var span = $('#v'+this.id);
+                    if(span.length){
+                        span.html(this.value);
+                    }
+                })
+                
+                $('.paso2').show().parent().find('h2').removeClass('lock').trigger('click')
                 $this.html('Edit');
+                
             }
         })
         $('.paso2').click(function(){
             var $this = $(this);
             if($this.html()=='Edit'){
-                $this.parent().find('input').attr('readonly',false);
+                $this.parent().find('.valores').css('display', 'none');
+                $this.parent().find('.inputs').css('display', 'block');
                 $this.html('Next');
             }else{            
-                //$this.parent().addClass('disabled');
-                $this.parent().find('input').attr('readonly', 'readonly');
-                $('.paso3').parent().prev().removeClass('lock').trigger('click');
+               $this.parent().find('.inputs').css('display', 'none');
+                $this.parent().find('.valores').css('display', 'inline-block')         
+                
+                $this.parent().find('input,select').each(function(){
+                    var span = $('#v'+this.id);
+                    if(span.length){
+                        span.html($(this).val());
+                    }
+                })
+                
+                $('.paso3').show().parent().find('h2').removeClass('lock').trigger('click');
                 $this.html('Edit');
             }
         })
         $('.paso3').click(function(){
             var $this = $(this);
+            var cb = $('#bill_same');
             if($this.html()=='Edit'){
-                $this.parent().find('input').attr('readonly',false);
+                $this.parent().find('.valores').css('display', 'none');
+                $this.parent().find('.inputs').css('display', 'block');                
+                $('#bill_same').attr('disabled', false);
                 $this.html('Next');
             }else{            
-                //$this.parent().addClass('disabled');
-                $this.parent().find('input').attr('readonly', 'readonly');
-                $('.paso4').parent().prev().removeClass('lock').trigger('click');
+                $this.parent().find('.inputs').css('display', 'none');
+                
+                $('#bill_same').attr('disabled', 'disabled');
+                
+                if( cb.attr('checked') != 'checked' ){
+                    $this.parent().find('.valores').css('display', 'inline-block')         
+                    $this.parent().find('input,select').each(function(){
+                        var span = $('#v'+this.id);
+                        if(span.length){
+                            span.html($(this).val());
+                        }
+                    })
+                }                
+                $('.paso4').show().parent().find('h2').removeClass('lock').trigger('click');
+                $this.html('Edit');
+            }
+        })
+        
+        $('.paso4').click(function(){
+            var $this = $(this);
+            
+            if( $this.html()=='Edit' ){
+                $this.parent().find('.valores').css('display', 'none');
+                $this.parent().find('.inputs').css('display', 'block');                
+                $this.html('Next');
+            }else{            
+                $this.parent().find('.inputs').css('display', 'none');
+                $this.parent().find('.valores').css('display', 'inline-block')         
+                                    
+                $this.parent().find('input,select').each(function(){
+                    var span = $('#v'+this.id);
+                    if(span.length){
+                        span.html($(this).val());
+                    }
+                })
+                $('#checkoutsubmit').removeClass('disabled');
+                $('.addMembership ').removeClass('disabled');
                 $this.html('Edit');
             }
         })
@@ -1034,9 +1130,222 @@ var WTA = (function(){
         
     }
     
+    
+    this.membership = function(){
+        $('#bill_same').change(function(){
+            if(this.checked){
+                $('#bill_same_content').slideUp();
+            }else{
+                $('#bill_same_content').slideDown();
+            }
+        });
+        
+        $('#frmcheckout').submit(function(e){
+            e.preventDefault();
+            var $this = $(this);
+            
+            $('span.error').remove();
+            $this.find('.error').removeClass('error');
+            
+            var not_empty = [//'inf_firstname', 'inf_lastname', 
+                                            'shp_firstname', 'shp_lastname', 'shp_address', 'shp_city', 'shp_region', 
+                                                'shp_cp', 'shp_country', 'shp_phonenumber',
+                                            /*'card_name',*/ 'card_number', 'card_expirationmonth', 'card_expirationyear', 'car_seccode'];
+            var form_valid = true;
+            
+            var $email = $this.find('#inf_emailaddress');
+            
+            if( !that.isEmail($email.val()) ){
+                that.setMsgError($email);
+                that.setMsgError($('#checkoutsubmit'), 'Oops, there\'s something wrong with your email. Please try again.');
+            }
+            
+            for(var i in not_empty){
+                var tmp = $this.find('#'+not_empty[i]);
+                if(tmp.length && (that.isEmpty(tmp.val()) || tmp.val()=='0')){
+                    form_valid = false;
+                    that.setMsgError(tmp);
+                }
+            }
+            
+            var $bill_same = $this.find('#bill_same');
+            if( $bill_same.attr('checked') != 'checked' ){
+                var not_empty_shp = ['bill_firstname', 'bill_lastname', 'bill_address', 'bill_city', 'bill_region', 'bill_country', 'bill_cp', 'bill_phonenumber'];
+                
+                for(var j in not_empty_shp){
+                    tmp = $this.find('#'+not_empty_shp[j]);
+                    if(tmp.length && (that.isEmpty(tmp.val()) || tmp.val()=='0')){
+                        form_valid = false;
+                        that.setMsgError(tmp);
+                    }
+                }
+            }
+            
+            var $cb_termns = $('#cb_termns');
+            if( $cb_termns.attr('checked') != 'checked' ){
+                that.setMsgError($('#checkoutsubmit'), 'You must to accept the Terms of Services');
+                form_valid = false;
+            }
+            
+            if(form_valid){
+                $.ajax($this.attr('action')+'/format/json', {type: 'post', data: $this.serialize()}).done(function(response){
+                    if(response.messages){
+                        $('span.error').remove();                        
+                        var obj = $('#checkoutsubmit');
+                        for(var i in response.messages){
+                            that.setMsgError(obj, response.messages[i]);
+                        }
+                    }else{
+                       if(response.ok){
+                           
+                           $('#linkprocessed').trigger('click');
+                           
+                           _gaq.push([
+                               '_addTrans',    
+                               response.data.transactionID, // transaction ID - required    
+                               'WeTheAdorned',  // affiliation or store name    
+                               response.data.total,          // total - required    
+                               '',           // tax    
+                               '',              // shipping    
+                               '',       // city    
+                               '',     // state or province    
+                               ''             // country  
+                           ]);
+                                                      
+                           _gaq.push(['_addItem',    
+                               response.data.transactionID,           // transaction ID - required    
+                               response.data.products[0].code,           // SKU/code - required    
+                               response.data.products[0].name,        // product name    
+                               '',   // category or variation    
+                               response.data.products[0].finalPrice,          // unit price - required    
+                               response.data.products[0].quantity               // quantity - required  
+                            ]);
+                           
+                           _gaq.push(['_trackTrans']); 
+                           
+                            
+                        }else{
+                            that.setMsgError(obj, 'We had a problem. Please review your information and try again');
+                        }
+                    }
+                })
+            }else{
+                that.setMsgError($('#checkoutsubmit'), 'You have empty fields');
+            }
+        });
+        
+        //efecto accordion
+        $('.acordion').click(function(){
+            var $this = $(this);
+            if($this.hasClass('lock')){
+                return false;
+            }
+            var div = $this.next();
+            if(div){
+                div.slideDown();                
+                $this.parent().removeClass('disabled');
+            }
+        });
+        
+        $('.paso1').click(function(){
+            var $this = $(this);
+            
+            if($this.html()=='Edit'){                                
+                $this.parent().find('.valores').css('display', 'none');
+                $this.parent().find('.inputs').css('display', 'block');
+                $this.html('JOIN AND COMPLETE FOLIO');
+            }else{            
+                $this.parent().find('.inputs').css('display', 'none');
+                $this.parent().find('.valores').css('display', 'inline-block')                
+                
+                $this.parent().find('input').each(function(){
+                    var span = $('#v'+this.id);
+                    if(span.length){
+                        span.html(this.value);
+                    }
+                })
+                
+                $('.paso2').show().parent().find('h2').removeClass('lock').trigger('click')
+                $this.html('Edit');
+                
+            }
+        })
+        $('.paso2').click(function(){
+            var $this = $(this);
+            if($this.html()=='Edit'){
+                $this.parent().find('.valores').css('display', 'none');
+                $this.parent().find('.inputs').css('display', 'block');
+                $this.html('Next');
+            }else{            
+               $this.parent().find('.inputs').css('display', 'none');
+                $this.parent().find('.valores').css('display', 'inline-block')         
+                
+                $this.parent().find('input,select').each(function(){
+                    var span = $('#v'+this.id);
+                    if(span.length){
+                        span.html($(this).val());
+                    }
+                })
+                
+                $('.paso3').show().parent().find('h2').removeClass('lock').trigger('click');
+                $this.html('Edit');
+            }
+        })
+        $('.paso3').click(function(){
+            var $this = $(this);
+            var cb = $('#bill_same');
+            if($this.html()=='Edit'){
+                $this.parent().find('.valores').css('display', 'none');
+                $this.parent().find('.inputs').css('display', 'block');                
+                $('#bill_same').attr('disabled', false);
+                $this.html('Next');
+            }else{            
+                $this.parent().find('.inputs').css('display', 'none');
+                
+                $('#bill_same').attr('disabled', 'disabled');
+                
+                if( cb.attr('checked') != 'checked' ){
+                    $this.parent().find('.valores').css('display', 'inline-block')         
+                    $this.parent().find('input,select').each(function(){
+                        var span = $('#v'+this.id);
+                        if(span.length){
+                            span.html($(this).val());
+                        }
+                    })
+                }                
+                $('.paso4').show().parent().find('h2').removeClass('lock').trigger('click');
+                $this.html('Edit');
+            }
+        })
+        
+        $('.paso4').click(function(){
+            var $this = $(this);
+            
+            if( $this.html()=='Edit' ){
+                $this.parent().find('.valores').css('display', 'none');
+                $this.parent().find('.inputs').css('display', 'block');                
+                $this.html('Next');
+            }else{            
+                $this.parent().find('.inputs').css('display', 'none');
+                $this.parent().find('.valores').css('display', 'inline-block')         
+                                    
+                $this.parent().find('input,select').each(function(){
+                    var span = $('#v'+this.id);
+                    if(span.length){
+                        span.html($(this).val());
+                    }
+                })
+                $('#checkoutsubmit').removeClass('disabled');
+                $('.addMembership ').removeClass('disabled');
+                $this.html('Edit');
+            }
+        })  
+        
+    }
+    
     this.checkoutForm = function(){
         $('#checkoutsubmit').click(function(e){
-            e.preventDefault();
+            e.preventDefault();            
             $('#frmcheckout').trigger('submit');
         })
     }
@@ -1072,10 +1381,10 @@ var WTA = (function(){
     }
     
     this.abandon = function(){
-        window.onbeforeunload = function(){
+        /*window.onbeforeunload = function(){
             $('#checkoutcancel').trigger('click');
             return "Would you like to receive offers from our products...";
-        }
+        }*/
     }
     
     this.initFormSubscriptions = function(){                        

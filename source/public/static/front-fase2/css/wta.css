@@ -664,19 +664,30 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 
 #contentBody.checkout form {width: 407px;}
 #contentBody.checkout form .section{margin: 0px 0 5px; font-size: 12px; border-width: 0px 0px 1px; border-style: dotted; border-color: #e0e0e0; padding-bottom: 10px; overflow: auto; }
-#contentBody.checkout form .section h2{margin: 0px; cursor: pointer}
+#contentBody.checkout form .section h2{margin: 0px; cursor: pointer; text-align: left}
 #contentBody.checkout form .section h2 span{line-height: 16px;}
 #contentBody.checkout form .section h2+div{display: none}
+#contentBody.checkout form .section h2+div.show{display: block}
 #contentBody.checkout form label{color: #070707; font-size: 12px; }
 #contentBody.checkout form label input{vertical-align: top; margin-right: 3px;}
-#contentBody.checkout form input[type=text]{border: 1px solid #d6d6d6; border-radius: 0px; font-size: 13px; padding: 4px 5px; background: #fff; color: #787878; margin-bottom: 0px; margin-top: 3px; box-shadow: none; font-weight: bold}
+#contentBody.checkout form input[type=text], #contentBody.checkout form input[type=password]{border: 1px solid #d6d6d6; border-radius: 0px; font-size: 13px; padding: 4px 5px; background: #fff; color: #787878; margin-bottom: 0px; margin-top: 3px; box-shadow: none; font-weight: bold}
 #contentBody.checkout form input[type=text], #contentBody.checkout form input[type=password]{width: 395px;}
 #contentBody.checkout form .medialinea{display: inline-block; width: 190px !important;}
 #contentBody.checkout .divcardexpiration{margin-top: 2px;}
 
 #contentBody.checkout form .disabled input{border: 0px solid ;}
 #contentBody.checkout form .section #inf_emailaddress{width: 313px;}
-.paso2, .paso3, .paso4{float: right; margin-top: 10px}
+.text-center{text-align: center}
+.paso1.center{float: none; margin: 10px auto 0; }
+
+/*#contentBody.checkout form .contactInfo.section .inputs{display: inline-block}*/
+
+.valores, .inputs{text-align: left}
+.valores{display: none; width: 340px;}
+
+#vfolio_email{ display: inline-block}
+
+span.paso2, span.paso3, span.paso4{float: right; margin-top: 10px; display: none }
 
 #contentBody.checkout .shoppingCart{display: block; position: static; background: #f8f8f8; color: #505050; padding: 5px 0;  box-shadow: 0 0 4px 2px #bbb; border-radius: 0px; }
 #contentBody.checkout .shoppingCart > div{max-height: none; overflow: visible; background: #fcfcfc;}
@@ -717,6 +728,9 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout .securityCode {font-size: 20px;  font-weight: bold}
 #contentBody.checkout .securityCode input{vertical-align: middle; margin-right: 10px}
 #contentBody.checkout .btn-gris{display: block; width: 250px; margin: 5px auto; text-align: center}
+#contentBody.checkout .btn-gris:hover{text-decoration: none}
+#contentBody.checkout .btn-gris.disabled{color: #BBB;}
+#contentBody.checkout .btn-gris.disabled:hover{color: #BBB !important;}
 
 
 .btn-gris{color: #FFF;text-shadow: 0px 0px 1px #555; text-transform: uppercase; padding: 8px 30px; border-radius: 3px; font-weight: normal; border: 0px;cursor: pointer;

@@ -336,11 +336,16 @@ class Application_Entity_Member extends Core_Entity {
         $result = $auth->authenticate($adapter);
         if ($result->isValid()) {
             $data = $adapter->getResultRowObject(null, 'member_password');
-
-
-            $this->getMembership();
-
-            $data->ejemplo = 'ssss';
+            
+            $this->_id = $data->member_id;
+            
+            $membership = $this->getMembership();
+            
+            $data->membership = false;
+            if($membership){
+                $data->membership = $membership;
+            }                
+            
             $auth->getStorage()->write($data);
 
             $modelMember = new Application_Model_Member();
@@ -472,7 +477,7 @@ class Application_Entity_Member extends Core_Entity {
 
     function getMembership(){
         $modelMemberShip = new Application_Model_Membership();
-        return $modelMemberShip->getMembershipActive($this->_id);
+        return $modelMemberShip->getMembershipByUser($this->_id);
     }
 
     function getCreditCard(){

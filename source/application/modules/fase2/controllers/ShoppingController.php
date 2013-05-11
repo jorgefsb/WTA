@@ -15,6 +15,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
                 ->addActionContext('removeitem', 'json')
                 ->addActionContext('changeitem', 'json')                
                 ->addActionContext('countcart', 'json')
+                ->addActionContext('addmembershiptocart', 'json')
                 ->initContext();        
                 
         $this->view->shipping = 5;
@@ -44,7 +45,10 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         
         $this->view->cart = $this->_session->cart;    
         
-        //print_r($this->view->cart);die();
+        $this->view->cartMembership = $this->_session->cartMembership;
+        
+        
+        //print_r($this->view->cartMembership);die();
         
     }
     
@@ -70,6 +74,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
+        $this->view->cartMembership = $this->_session->cartMembership;
         
         $_regions = new Application_Model_Regions();
         $this->view->regions = $_regions->listing(array(840));        
@@ -102,9 +107,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
             $this->view->shippingAddress = array();
             $this->view->billingInformation = array();
         }
-                
-        
-        
+                        
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
         
@@ -112,7 +115,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         $this->view->regions = $_regions->listing(array(840));        
         
         $this->view->shipping = 5;
-        
+        $this->view->invitation = $this->_session->invitation;
         /*
          * Tracking
          */
@@ -137,8 +140,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         //$this->_session->count++;
         
         $code = $this->getRequest()->getParam('code', 0);
-        
-        // PARA LA ETAPA ESPECIAL SOLO SE PUEDE COMPRAR DE A 1 PRODUCTO        
+                
         if ( !$this->_session->cart ){
             $this->_session->cart = array();        
         }
@@ -178,19 +180,28 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         
     }
     
+    
+    
     public function removeitemAction(){ 
         //$this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->_session->count++;
         
         $clave = $this->getRequest()->getParam('clave', 0);
+        $membership = $this->getRequest()->getParam('membership', 0);
         
-        foreach($this->_session->cart as $key=>$item){
-            if($item['clave'] == $clave){
-                
-                unset($this->_session->cart[$key]);
-                break;
+        if($clave){
+            foreach($this->_session->cart as $key=>$item){
+                if($item['clave'] == $clave){
+
+                    unset($this->_session->cart[$key]);
+                    break;
+                }
             }
+            $trackdata =array('code'=>$item['_id'], 'name'=>$item['_name']);
+        }elseif($membership){
+            $this->_session->cartMembership = null;
+            $trackdata = '';
         }
         
         $this->view->ok = 1;
@@ -200,7 +211,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
          */
         $this->_tackName = 'REMOVEPROD';
         $this->_tackUrl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-        $this->_tackData =array('code'=>$item['_id'], 'name'=>$item['_name']);
+        $this->_tackData =$trackdata;
         $this->_tackUrlRef = '';
         $this->_tackDate = '';
         
@@ -257,5 +268,28 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
     }
         
     
+    public function addmembershiptocartAction(){
+        //$this->view->isMember = true;
+        $this->_helper->layout->disableLayout();
+        //$this->_session->count++;
+        
+        
+        if ( !$this->_session->cartMembership ){
+            $this->_session->cartMembership = array();        
+        }
+        
+        $this->_session->cartMembership = $this->getRequest()->getParams();
+        
+        $this->view->ok = 1;
+        
+        /*
+         * Tracking
+         */
+        $this->_tackName = 'ADDMEMBERSHIP2CART';
+        $this->_tackUrl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+        $this->_tackUrlRef = '';
+        $this->_tackDate = '';
+        
+    }
 }
 

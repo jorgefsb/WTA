@@ -44,13 +44,13 @@
             <div class="precios">
                 <div>
                     <span>Guest price</span>
-                    <strong class="<?php echo ($this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_price'], 2); ?></strong>
+                    <strong class="<?php echo ($this->hasMembership) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_price'], 2); ?></strong>
                 </div>
                 
                 
                 <div >
                     <span>member price</span>
-                    <strong class="<?php echo (!$this->isMember) ? 'inactivo' : 'activo';?>">$<?php echo (int)$this->product['_priceMember']; ?></strong>
+                    <strong class="<?php echo (!$this->hasMembership) ? 'inactivo' : 'activo';?>">$<?php echo (int)$this->product['_priceMember']; ?></strong>
                 </div>
             </div>
             

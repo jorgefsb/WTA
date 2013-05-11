@@ -8,9 +8,9 @@
 class Application_Entity_Membership extends Core_Entity {
     const MENBERSHIPT_ACTIVE = 1;
     const MENBERSHIPT_EXPIRED = 2;
-    const MENBERSHIPT_SUSPENDED = 2;
-    const MENBERSHIPT_CANCELLED = 2;
-    const MENBERSHIPT_TERMINATED = 3;
+    const MENBERSHIPT_SUSPENDED = 3;
+    const MENBERSHIPT_CANCELLED = 4;
+    const MENBERSHIPT_TERMINATED = 5;
 
     protected $_id;
     protected $_membershipId;
@@ -108,17 +108,12 @@ class Application_Entity_Membership extends Core_Entity {
         }
     }
 
-    function active() {
+    function setStatus($status) {
         $modelMemberShip = new Application_Model_Membership();
-        $data['membership_member_status'] = self::MENBERSHIPT_ACTIVE;
+        $data['membership_member_status'] = $status;
         return $modelMemberShip->updateMembershipMember($data, $this->_id);
     }
 
-    function inactive() {
-        $modelMemberShip = new Application_Model_Membership();
-        $data['membership_member_status'] = self::MENBERSHIPT_INACTIVE;
-        return $modelMemberShip->updateMembershipMember($data, $this->_id);
-    }
 
     function getMembershipActive() {
         $modelMemberShip = new Application_Model_Membership();

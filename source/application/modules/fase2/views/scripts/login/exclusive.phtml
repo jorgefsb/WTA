@@ -2,9 +2,17 @@
     <div id="exclusive-stuff" class="popup">
         <div>
             <h1><img src="<?php echo STATIC_URL ?>/front-fase2/images/texts/exclusive-stuff.png" /></h1>
-            
-            <a class="btn btn-amarillo submit" href="">ACCEPT INVITATION AND JOIN</a>
+            <form id="formInvitation">
+                <input type="hidden" value="<?php echo $this->invitation['email']; ?>" name="email" />
+                <input type="hidden" value="<?php echo $this->invitation['password']; ?>" name="password" />
+            </form>
+            <a class="addMembership btn btn-amarillo submit" href="" data-form="formInvitation" >ACCEPT INVITATION AND JOIN</a>
         </div>
         <span class="closex">X</span>
     </div>
 </div>
+<script>
+    
+    WTA.addMembershipToCart();
+    
+</script>
