@@ -1,4 +1,4 @@
-<?php 
+<?php
     # Imprimimos el menu Change Section
 //    echo $this->partial('index/change_section.phtml', array('section'=>'Designers', 'menu'=>$this->menu));
 
@@ -6,8 +6,8 @@
 
 <?php
     $categorys = $this->categorys;
-    $category_active = $this->category_active;        
-    
+    $category_active = $this->category_active;
+
 ?>
 <?php /*
 <div id="change_category">
@@ -19,74 +19,74 @@
             <?php }else{ ?>
                 <option value="<?php echo $this->urlBase.urlencode(strtolower($cat));  ?>" ><?php echo $cat; ?></option>
             <?php } ?>
-        <?php endforeach; ?>        
+        <?php endforeach; ?>
     </select>
 </div>
- * 
+ *
  */ ?>
-<div  id="contentBody" class="designers" >        
-    
-    
-    
+<div  id="contentBody" class="designers" >
+
+
+
     <div  class="imgProd">
         <img src="<?php echo DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']; ?>" />
     </div>
-    
+
     <div class="info">
         <h1><?php echo $this->product['designer']['_name']; ?></h1>
         <h3>Article #<?php echo $this->product['_code']; ?></h3>
         <h2><?php echo $this->product['_name']; ?></h2>
-        
-        <a href="" class="details">Details</a> /         
+
+        <a href="" class="details">Details</a> /
         <a href="" class="detailsDesigner">Testimonials</a>
-        
+
         <div  class="details-content">
             <p>
             <?php echo $this->product['_description']; ?>
             </p>
-            
+
             <div class="precios">
                 <div>
                     <span>Guest price</span>
                     <strong class="<?php echo ($this->hasMembership) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_price'], 2); ?></strong>
                 </div>
-                
-                
+
+
                 <div >
                     <span>member price</span>
                     <strong class="<?php echo (!$this->hasMembership) ? 'inactivo' : 'activo';?>">$<?php echo (int)$this->product['_priceMember']; ?></strong>
                 </div>
             </div>
-            
+
         </div>
-        
+
         <div  class="detailsDesigner-content">
             <p>
             <?php echo $this->product['_descriptionDesigner']; ?>
             </p>
-            
+
         </div>
-        
-        
+
+
         <div class="btns-options" >
-            <a href="" class="btn addToCart" data-code="<?php echo $this->product['_id']; ?>">
+            <a href="" class="btn addToCart no-show-cart" data-code="<?php echo $this->product['_id']; ?>">
                 Add to my cart
             </a>
             <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwetheadorned.com%2F&media=<?php echo urldecode(DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']); ?>" class="pin-it-button btn" count-layout="horizontal">Pin It</a>
         </div>
-        
-        
+
+
     </div>
-    
-    
+
+
 </div>
 
-<?php 
+<?php
     # Imprimimos el Slider de productos
-    echo $this->partial('index/slider_products.phtml', 
-                                   array('section'=>'Exclusive Collections', 
-                                            'data'=>$this->sliderProducts , 
-                                            'url_base'=>$this->urlBase, 
+    echo $this->partial('index/slider_products.phtml',
+                                   array('section'=>'Exclusive Collections',
+                                            'data'=>$this->sliderProducts ,
+                                            'url_base'=>$this->urlBase,
                                             'title'=>$this->sliderProducts[0]['designer_name'].'’s '.$this->sliderProducts[0]['design_type_name'].' collection',
                                             'category'=>'design_type_name'
                                             ));

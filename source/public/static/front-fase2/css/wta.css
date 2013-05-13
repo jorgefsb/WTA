@@ -228,7 +228,7 @@ a.signout{margin:  0 auto;}
 .shoppingCart .prod > div{position: relative; }
 .shoppingCart .prod .info{text-align: left; padding: 0;}
 .shoppingCart .prod .dsc{display: block; margin-bottom: 10px;}
-.shoppingCart .prod .remove{background: #000; color: #fff; border-radius: 50px; display: inline-block; font-family: Arial; height: 18px; line-height: 1.3; width: 18px; position: absolute; right: 0px; top: 0px; }
+.shoppingCart .prod .remove{background: #000; color: #fff; border-radius: 50px; display: inline-block; font-family: Arial; height: 18px; line-height: 1.3; width: 18px; position: absolute; right: 0px; top: 0px; text-align: center}
 .shoppingCart .prod .remove:hover{text-decoration: none}
 .shoppingCart .prod input[type=text]{width: 20px; height: 12px; text-align: center; vertical-align: baseline; margin-bottom: 0px;}
 .shoppingCart .prod .prec1{font-size: 20px; font-family: 'Times New Roman'}
@@ -240,7 +240,12 @@ a.signout{margin:  0 auto;}
 .shoppingCart .prod label.size{margin-right: 5px; }
 .shoppingCart .save{text-align: center; color: #000; font-size: 16px; font-weight: bold; /*font-family: 'Times New Roman', Arial, Helvetica;*/ text-transform: uppercase}
 .shoppingCart .btns-checkout{text-align: center; margin: 10px auto;}
-.shoppingCart .btns-checkout .btn{padding: 5px 20px;  text-shadow: none}
+.shoppingCart .btns-checkout .btn{padding: 5px 20px;  text-shadow: none; margin: 2px auto;}
+.shoppingCart .btns-checkout .btn.wide{min-width: 250px}
+.shoppingCart .btns-checkout span{display: inline-block; width: 150px; text-align: center; }
+.shoppingCart .btns-checkout span.prec1{font-size: 18px}
+.shoppingCart .btns-checkout span.prec2{font-size: 24px}
+
 /*.shoppingCart > div{overflow: auto}
 .shoppingCart h3{font-size: 11px;  text-transform: uppercase; font-weight: normal; line-height: 16px; margin-left: 7px; margin-bottom: 0px;}
 .shoppingCart .prod{position: relative; padding-top: 35px; background: url('../images/line_slist.png') bottom center no-repeat;}
@@ -455,8 +460,8 @@ input[type=submit]:hover{background: #968453; }
 #formSignin input[type=submit]{margin-left:20px; vertical-align: bottom}
 .closex{position: absolute; top: 15px; right: 17px; cursor: pointer; width: auto !important; color: #999; font-size: 17px; font-weight: normal; font-family: Arial !important;}
 
-#signin input:-moz-placeholder, #signin input::-webkit-input-placeholder, #signin input:-ms-input-placeholder, 
-#passbeta input:-moz-placeholder, #passbeta input::-webkit-input-placeholder, #passbeta input:-ms-input-placeholder 
+#signin input:-moz-placeholder, #signin input::-webkit-input-placeholder, #signin input:-ms-input-placeholder,
+#passbeta input:-moz-placeholder, #passbeta input::-webkit-input-placeholder, #passbeta input:-ms-input-placeholder
 { color: #AAA;  }
 
 #signin input#firstname, #signin input#lastname, #signin input#password1, #signin input#password2{width: 120px; display: inline-block; margin-right: 7px;}
@@ -584,13 +589,13 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #membership p{padding: 0 35px; font-family: Georgia, Arial, Helvetica; font-size: 15px; line-height: 16px; }
 
 /*  SECCION  DE  COMING SOON */
-.comming_soon {    
+.comming_soon {
     color:#999;
     /*min-height: 253px;*/
     position: absolute;
     background-color: black;
     z-index: 1000;
-    padding: 10px;  
+    padding: 10px;
     border-radius: 10px;
     width: 536px;
     background: rgba(0,0,0,0.5);
@@ -790,7 +795,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
 @media (max-width: 1115px) {
     #contentBody .logo img{left: 5%; }
     #contentBody .logo p{width: 50%; margin: 0 auto}
-    
+
     #lissections > li {max-width: 140px;}
     #lissections > li > ul{top: 80px; }
     #lissections > li > ul > li > a { font-size: 12px; }
@@ -808,7 +813,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
 
 }
 @media (max-width: 932px) {
-    
+
     #logo-small {left: 0px; margin-left: 0px;}
 }
 
@@ -865,7 +870,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4b03d', end
     .shoppingCart .prod .info{min-height: 60px;}
 
     .shoppingCart .prod .controls{clear: both; text-align: center}
-    .shoppingCart .rowtotal  span{margin-left: 50px}        
+    .shoppingCart .rowtotal  span{margin-left: 50px}
     .shoppingCart .prod .prices {position: static; text-align: right}
 
     #scrollbar1 { width: 100%; clear: both; margin: 20px 0 10px; }

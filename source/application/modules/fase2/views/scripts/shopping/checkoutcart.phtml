@@ -1,10 +1,10 @@
 
     <h2>Shopping cart</h2>
-    <div class="shoppingCart"><!-- SHOPPING CART -->            
+    <div class="shoppingCart"><!-- SHOPPING CART -->
         <div>
             <h3>Order sumary <span class="linea-degr-right"></span></h3>
             &nbsp;&nbsp;&nbsp;&nbsp;Confirm your items before making the payment
-            
+
             <div class="head row-fluid">
                 <div class="span4 offset8">
                     Price
@@ -12,18 +12,21 @@
             </div>
 
             <?php
+                if(!$this->cart){
+                    $this->cart = array();
+                }
                 $total =0;
                 $totalGuest = 0;
                 foreach($this->cart as $key=>$prod){
                    $priceLocal = 0;
                     if($this->hasMembership){
-                        $priceLocal = $prod['_priceMember'] * (int)$prod['quantity'];                
+                        $priceLocal = $prod['_priceMember'] * (int)$prod['quantity'];
                     }else{
                         $priceLocal += $prod['_price'] * (int)$prod['quantity'];
                     }
                     $total += $priceLocal;
                     $totalGuest += $prod['_price'] * (int)$prod['quantity'];
-        ?>            
+        ?>
 
                     <div class="prod"><!-- PRODUCT -->
                         <div class="row-fluid">
@@ -35,23 +38,23 @@
                                 <span class="name">Item #<?php echo $prod['_code']; ?><strong> <em><?php echo $prod['_name']; ?></em></strong></span><br/>
                                 <span class="dsc"><?php echo $prod['designer']['_name']; ?></span>
 
-                                <?php 
+                                <?php
                                     if (!empty($prod['sizes'])) {
                                     ?>
                                     <label class="size">
-                                        RING SIZE: 
+                                        RING SIZE:
                                         <?php
                                         foreach ($prod['sizes'] as $size) {
                                             if ($prod['size_prod'] == $size['product_size_size_id']) {
                                                 echo '<span>'.$size['size_name'].'</span>';
                                                 break;
-                                            } 
+                                            }
                                         }
                                         ?>
                                     </label>
                                     <?php
-                                }             
-                                ?>         
+                                }
+                                ?>
                                 <label class="quantity">QTY <?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 0); ?></label>
                             </div>
 
@@ -64,10 +67,10 @@
                     </div>
                     <?php  if($key<count($this->cart)){ ?>
                         <div class="linea_separacion" >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </div>
-                    <?php } 
+                    <?php }
                 }
-                
-                
+
+
                 if($this->cartMembership){
                 ?>
                     <div class="prod"><!-- Product Free -->
@@ -107,15 +110,15 @@
                     </div>
 
                     <?php if( !empty($this->cart)){ ?>
-                    
+
                         <div class="btns-checkout">
                             <a href="/fase2/checkout" class="checkout btn btn-amarillo" >Check out as guest</a>
                             <div class="linea_horiz"></div>
-                        </div>                
+                        </div>
                     <?php } ?>
-                  <?php  
-                }                
-                
+                  <?php
+                }
+
         ?>
                         <div class="save">
                             <?php  if(!$this->hasMembership && $totalGuest-$total > 0){ ?>
@@ -124,7 +127,7 @@
                         </div>
         </div>
     </div>
-    
-    <script>    
+
+    <script>
         $('#total').html(<?php echo $total+$this->shipping; ?>);
     </script>

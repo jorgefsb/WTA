@@ -1,18 +1,18 @@
-<?php 
+<?php
     # Imprimimos el menu Change Section
 //    echo $this->partial('index/change_section.phtml', array('section'=>$this->product['actress']['_name'].' BOUTIQUE', 'menu'=>$this->menu));
-    
+
     $name = explode(' ',$this->product['actress']['_name']);
-    
+
 ?>
-    
+
 <div id="contentBody" class="boutique ajustar">
-    
+
     <?php if($this->no_mostrar==true){ ?>
     <div class="celebrity">
             <div  class="imgProd ">
                     <?php if( strpos(strtolower($this->product['actress']['_name']), 'ivana') !==FALSE){ ?>
-                        <img src="<?php echo STATIC_URL;?>/front-fase2/images/ivana.jpg" />                    
+                        <img src="<?php echo STATIC_URL;?>/front-fase2/images/ivana.jpg" />
                     <?php }else ?>
                     <?php if( strpos(strtolower($this->product['actress']['_name']), 'cameron') !==FALSE){ ?>
                         <img src="<?php echo STATIC_URL;?>/front-fase2/images/cameron.jpg" />
@@ -22,13 +22,13 @@
                     <?php } ?>
             </div>
             <div class="info">
-                <h1>                
+                <h1>
                     <span class="name1"><?php echo $name[0]; ?></span>
                     <span class="name2"><?php echo $name[1]; ?></span>
                 </h1>
                 <div  class="details-content">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu lectus id risus condimentum hendrerit. Pellentesque sagittis euismod odio eu consequat. Pellentesque ultrices elementum iaculis. Sed eget leo quis felis aliquet pharetra sed nec ipsum. Duis quis tempor augue. Suspendisse potenti. Donec convallis placerat elit quis elementum. Vivamus in ullamcorper arcu. Mauris tristique placerat est non dapibus. 
+                        <?php echo $this->product['actress']['_description']?>
                     </p>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <img src="<?php echo DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']; ?>" />
         <?php }?>
     </div>
-        
+
     <div class="info">
         <h1>
             <span class="name1"><?php echo $name[0]; ?></span>
@@ -49,9 +49,9 @@
         </h1>
         <h3><!-- span class="linea-degr-left"></span -->Article #<?php echo $this->product['_code']; ?><!-- span class="linea-degr-right"></span --></h3>
         <h2><?php echo $this->product['_name']; ?></h2>
-            
+
         <a href="" class="details">Details</a>
-        
+
         <div  class="details-content">
             <p>
                 <?php echo $this->product['_description']; ?>
@@ -62,46 +62,46 @@
                     <span>Guest price</span>
                     <strong class="<?php echo ($this->hasMembership) ? 'inactivo' : 'activo';?>">$<?php echo number_format($this->product['_price'], 2); ?></strong>
                 </div>
-                
-                
+
+
                 <div >
                     <span>member price</span>
                     <strong class="<?php echo (!$this->hasMembership) ? 'inactivo' : 'activo';?>">$<?php echo (int)$this->product['_priceMember']; ?></strong>
                 </div>
             </div>
         </div>
-        
-        
+
+
         <div class="btns-options" >
             <a href="" class="btn addToCart" data-code="<?php echo $this->product['_id']; ?>">
                 Add to my cart
             </a>
             <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwetheadorned.com%2F&media=<?php echo urldecode(DINAMIC_URL.'/product/'.$this->product['images'][0]['image_name']); ?>" class="pin-it-button btn" count-layout="horizontal">Pin It</a>
         </div>
-            
+
     </div>
     <?php } ?>
 </div>
 
-<?php 
-    /*echo $this->partial('index/slider_products_boutique.phtml', 
-                                    array('data'=>$this->sliderProducts, 
+<?php
+    /*echo $this->partial('index/slider_products_boutique.phtml',
+                                    array('data'=>$this->sliderProducts,
                                                 'title'=>$this->product['actress']['_name'].' BOUTIQUE',
                                                 'url_base'=>$this->urlBase
                                         )
                                     );*/
-        echo $this->partial('index/slider_products_boutique.phtml', 
-                                    array('section'=>'Boutique', 
-                                            'data'=>$this->sliderProducts, 
-                                            'url_base'=>$this->urlBase, 
+        echo $this->partial('index/slider_products_boutique.phtml',
+                                    array('section'=>'Boutique',
+                                            'data'=>$this->sliderProducts,
+                                            'url_base'=>$this->urlBase,
                                             'title'=>$this->product['actress']['_name'].' BOUTIQUE',
                                             'category'=>'collection_type_name'
                                             ));
 
-    
+
 ?>
-    
-<script> 
+
+<script>
     $('html, body').css('background-color','#000');
-    WTA.Exclusive();    
+    WTA.Exclusive();
 </script>
