@@ -1,0 +1,267 @@
+<?php
+    $member = $this->member;
+    $shpAdd = $this->shippingAddress;
+    $billinfo = $this->billingInformation;
+
+    $payment['card_number'] = '';
+    $payment['card_expirationmonth'] = '';
+    $payment['card_expirationyear'] = '';
+    $payment['card_seccode'] = '';
+
+    $email = '';
+    $pass = '';
+    if( $this->invitation ){
+         $email = $this->invitation['email'];
+         $pass = $this->invitation['password'];
+    }
+    
+    if( !empty($this->cartMembership) && count($this->cartMembership)>1){
+
+        $email = $this->cartMembership['folio_email'] ? $email : $this->cartMembership['email'];
+        $pass = $this->cartMembership['folio_password'] ? $email : $this->cartMembership['password'];
+
+        $shpAdd['_firstName'] = $this->cartMembership['shp_firstname'];
+        $shpAdd['_lastName'] = $this->cartMembership['shp_lastname'];
+        $shpAdd['_address'] = $this->cartMembership['shp_address'];
+        $shpAdd['_city'] = $this->cartMembership['shp_city'];
+        $shpAdd['_cp'] = $this->cartMembership['shp_cp'];
+        $shpAdd['_country'] = $this->cartMembership['shp_country'];
+        $shpAdd['_state'] = $this->cartMembership['shp_region'];
+        $shpAdd['_phoneNumber'] = $this->cartMembership['shp_phonenumber'];
+
+        $billinfo['_same'] = isset($this->cartMembership['bill_same']) ;
+
+        $billinfo['_firstName'] = $this->cartMembership['bill_firstname'];
+        $billinfo['_lastName'] = $this->cartMembership['bill_firstname'];
+        $billinfo['_address'] = $this->cartMembership['bill_address'];
+        $billinfo['_city'] = $this->cartMembership['bill_city'];
+        $billinfo['_cp'] = $this->cartMembership['bill_cp'];
+        $billinfo['_country'] = $this->cartMembership['bill_country'];
+        $billinfo['_state'] = $this->cartMembership['bill_region'];
+        $billinfo['_phoneNumber'] = $this->cartMembership['bill_phonenumber'];
+
+        $billinfo['_firstName'] = $this->cartMembership['bill_firstname'];
+        $billinfo['_lastName'] = $this->cartMembership['bill_firstname'];
+        $billinfo['_address'] = $this->cartMembership['bill_address'];
+        $billinfo['_city'] = $this->cartMembership['bill_city'];
+        $billinfo['_cp'] = $this->cartMembership['bill_cp'];
+        $billinfo['_country'] = $this->cartMembership['bill_country'];
+        $billinfo['_state'] = $this->cartMembership['bill_region'];
+        $billinfo['_phoneNumber'] = $this->cartMembership['bill_phonenumber'];
+
+
+    }
+?>
+
+<form name="frmcheckout" id="frmcheckout" action="/fase2/order/create" method="post">
+    <div class="section text-center">
+        <?php if( !$this->cartMembership || count($this->cartMembership)<=1 ){ ?>
+            <br/>
+            <div class="inputs show colums2">
+                <div>
+                    <h3>Welcome back, <br/>Login</h3>
+                    <input type="text" name="folio_email"  id="" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   /><br/>
+                    <input type="password" name="folio_password"  id="" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  /><br/>
+                    <span id="btnLogin" class="btn-amarillo ">Login</span>
+                </div>
+                <div>
+                    <h3>Join and create folio</h3>
+                    <input type="text" name="folio_email"  id="" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
+                    <input type="password" name="folio_password"  id="" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  /><br/>
+                    <span href="" id="btnAddMembership" class="liLight btn-amarillo  ">Become a member</span>
+                </div>
+
+                <?php /* <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" /> */ ?>
+            </div>
+            <div class="valores">
+                <span id="vfolio_email"><?php echo $email; ?></span>
+            </div>
+        <?php }else{ ?>
+            <h2>CUSTOMER FOLIO</h2>
+            <div class="inputs show">
+                <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
+                <input type="password" name="folio_password"  id="folio_password" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  />
+                <?php /* <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" /> */ ?>
+            </div>
+            <div class="valores">
+                <span id="vfolio_email"><?php echo $email; ?></span>
+            </div>
+            <span class="btn-amarillo paso paso1 center">JOIN AND COMPLETE FOLIO</span>
+        <?php } ?>
+    </div>
+
+    <div class="section">
+        <h2 class="acordion lock">SHIPPING INFORMATION</h2>
+        <div class="inputs">
+            <input type="text" name="shp_firstname"  id="shp_firstname" value="<?php echo isset($shpAdd['_firstName']) ? $shpAdd['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
+            <input type="text" name="shp_lastname"  id="shp_lastname" value="<?php echo isset($shpAdd['_lastName']) ? $shpAdd['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
+            <input type="text" name="shp_address"  id="shp_address" value="<?php echo isset($shpAdd['_address']) ? $shpAdd['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
+            <!-- input type="text" name="shp_address2"  id="shp_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/ -->
+            <input type="text" name="shp_city"  id="shp_city" value="<?php echo isset($shpAdd['_city']) ? $shpAdd['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>
+            <input type="text" name="shp_cp"  id="shp_cp" value="<?php echo isset($shpAdd['_zip']) ? $shpAdd['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>
+            <select id="shp_country" name="shp_country" class="regions" >
+                <!-- option value="0"> Country*</option -->
+                <?php foreach ($this->regions as $region): ?>
+                    <?php if ($region['country'] == $shpAdd['_country']) { ?>
+                        <option selected="selected" value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                    <?php } else { ?>
+                        <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                    <?php } ?>
+                <?php endforeach; ?>
+            </select>
+            <select id="shp_region" name="shp_region"  class="subregions" data-class="dropup" data-default="<?php echo isset($shpAdd['_state']) ? $shpAdd['_state'] : ''; ?>" >
+                <option value="0"> Region / State*</option>
+            </select>
+
+            <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="<?php echo isset($shpAdd['_phoneNumber']) ? $shpAdd['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
+        </div>
+        <div class="valores">
+            <span id="vshp_firstname"></span> <span id="vshp_lastname"></span><br/>
+            <span id="vshp_address"></span><br/>
+            <span id="vshp_city"></span> <span id="vshp_cp"></span><br/>
+            <span id="vshp_country"></span> <span id="vshp_region"></span><br/>
+            <span id="vshp_phonenumber"></span><br/>
+        </div>
+        <span class="btn-amarillo paso paso2">NEXT</span>
+    </div>
+
+    <div class="section">
+        <h2 class="acordion lock">BILLING INFORMATION</h2>
+        <div>
+            <label><input type="checkbox" name="bill_same" id="bill_same" value="1" <?php if (isset($billinfo['_same'])) {
+                    echo 'checked="checked"';
+                } ?> /> Same as my shipping address</label>
+
+            <div id="bill_same_content" class="inputs">
+                <input type="text" name="bill_firstname"  id="bill_firstname" value="<?php echo isset($billinfo['_firstName']) ? $billinfo['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
+                <input type="text" name="bill_lastname"  id="bill_lastname" value="<?php echo isset($billinfo['_lastName']) ? $billinfo['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
+                <input type="text" name="bill_address"  id="bill_address" value="<?php echo isset($billinfo['_address']) ? $billinfo['_address'] : ''; ?>" placeholder="Address*" title="Address"  class=""/>
+                <!-- input type="text" name="bill_address2"  id="bill_address2" value="" placeholder="Address continued (apartment, suite, unit, floor)" title="Address continued (apartment, suite, unit, floor)"  class=""/ -->
+                <input type="text" name="bill_city"  id="bill_city" value="<?php echo isset($billinfo['_city']) ? $billinfo['_city'] : ''; ?>" placeholder="City*" title="City"  class="medialinea"/>
+                <input type="text" name="bill_cp"  id="bill_cp" value="<?php echo isset($billinfo['_zip']) ? $billinfo['_zip'] : ''; ?>" placeholder="Postal Code*" title="Postal Code"  class="medialinea"/>
+                <select id="bill_country" name="bill_country" class="regions" >
+                    <!-- option value="0"> Country*</option -->
+                    <?php foreach ($this->regions as $region): ?>
+                        <?php if ($region['country'] == $billinfo['_country']) { ?>
+                            <option selected="selected" value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+                        <?php } else { ?>
+                            <option value="<?php echo $region['id'] ?>"><?php echo $region['country'] ?></option>
+    <?php } ?>
+<?php endforeach; ?>
+                </select>
+                <select id="bill_region" name="bill_region" class="subregions"  data-class="dropup" data-default="<?php echo isset($billinfo['_state']) ? $billinfo['_state'] : ''; ?>" >
+                    <option value="0"> Region / State*</option>
+                </select>
+
+                <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="<?php echo isset($billinfo['_phoneNumber']) ? $billinfo['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
+            </div>
+            <div  class="valores">
+                <span id="vbill_firstname"></span> <span id="vbill_lastname"></span><br/>
+                <span id="vbill_address"></span><br/>
+                <span id="vbill_city"></span> <span id="vbill_cp"></span><br/>
+                <span id="vbill_country"></span> <span id="vbill_region"></span><br/>
+                <span id="vbill_phonenumber"></span><br/>
+            </div>
+        </div>
+        <span class="btn-amarillo paso paso3">NEXT</span>
+    </div>
+
+    <div class="section select_sin_ancho" >
+        <h2 class="acordion lock">PAYMENT INFORMATION</h2>
+        <div class="inputs">
+            <input type="text" name="card_number"  id="card_number" value="<?php echo $payment['card_number']; ?>" placeholder="Card Number*" title="Card Number" />
+            <div class="divcardexpiration">
+                Card Expiration Date <br/>
+                <select id="card_expirationmonth" name="card_expirationmonth"  data-class="dropup" >
+                    <option value="0"> &nbsp;&nbsp;Select Month*&nbsp;&nbsp;</option>
+                    <?php
+                        for ($i = 1; $i <= 12; $i++){
+                            $selected = '';
+                            if($payment['card_expirationmonth'] == $i){
+                                $selected = 'selected="selected"';
+                            }
+                    ?>
+                        <option value="<?php echo $i; ?>" <?php echo $selected; ?> ><?php echo $i; ?></option>
+                    <?php
+                        }
+                        ?>
+                </select>
+                <select id="card_expirationyear" name="card_expirationyear"   data-class="dropup">
+                    <option value="0"> &nbsp;&nbsp;Select Year*&nbsp;&nbsp;</option>
+                    <?php
+                        for ($i = 2013; $i <= 2025; $i++){
+                            $selected = '';
+                            if($payment['card_expirationyear'] == $i){
+                                $selected = 'selected="selected"';
+                            }
+                    ?>
+                        <option value="<?php echo $i; ?>" <?php echo $selected; ?> ><?php echo $i; ?></option>
+                    <?php
+                        }
+                        ?>
+                </select><br/>
+            </div>
+            <div class="securityCode">
+                <input type="text" name="card_seccode"  id="card_seccode" value="<?php echo $payment['card_seccode']; ?>" placeholder="Security Code*" title="Security Code" class="medialinea" />
+<?php //what´s this <span class="icon-question-sign"></span>  ?>
+            </div>
+        </div>
+        <div class="valores">
+            <span id="vcard_number"></span><br/>
+            <span id="vcard_expirationmonth"></span>/<span id="vcard_expirationyear"></span><br/>
+            <span id="vcar_seccode"></span>
+        </div>
+        <span class="btn-amarillo paso paso4">NEXT</span>
+    </div>
+
+    <div class="total section">
+        <?php
+        $total = 0;
+        $nprod = count($this->cart);
+        if ($nprod) {
+            foreach ($this->cart as $index => $prod) {
+                if ($this->hasMembership) {
+                    $total += $prod['_priceMember'] * (int) $prod['quantity'];
+                } else {
+                    $total += $prod['_price'] * (int) $prod['quantity'];
+                }
+            }
+        }
+        ?>
+        <br/>
+        <table>
+            <tr>
+                <td>Shipping</td>
+                <td>$<?php echo $this->shipping; ?></td>
+            </tr>
+            <!-- tr>
+                <td>Tax</td>
+                <td>$0</td>
+            </tr -->
+            <tr>
+                <td colspan="3"><span class="linea_horiz"></span></td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr>
+                <td>
+                    Total
+                </td>
+                <td>
+                    $<?php echo (int) $total + (int) $this->shipping; ?>
+                </td>
+            </tr>
+        </table>
+        <label class="acept-terms">
+            <input type="checkbox" name="cb_terms" id="cb_termns" value="1" />
+            I have read the WTA customer agreement, and I agree to accept the
+            <a href="/fase2/terms-of-service" target="__blank">terms and conditions.</a>
+        </label>
+        <br/>
+        <div>
+            <a href="" id="checkoutsubmit" class="btn-gris btn-disabled">PLACE ORDER</a>
+            <a href="/fase2/checkout" id="" class="addMembership btn-gris btn-disabled" data-form="frmcheckout" data-redirect="<?php echo BASE_URL; ?>">ADD TO CART KEEP SHOPPING</a>
+        </div>
+
+    </div>
+
+</form>

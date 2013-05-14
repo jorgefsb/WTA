@@ -14,9 +14,11 @@ class Core_Controller_ActionDefault extends Core_Controller_Action {
         if (!isset($this->_session->_tracking)) {
             $this->_session->_tracking = new Core_Tracking();
         }
-        
+
         $this->_identity = $this->view->identity = Zend_Auth::getInstance()->getIdentity();
-        
+
+        $this->hasMembership = $this->view->hasMembership = false;
+
         if(!isset($this->_identity->member_id)){
             unset($this->_identity);
             unset($this->view->identity);
@@ -25,11 +27,11 @@ class Core_Controller_ActionDefault extends Core_Controller_Action {
                 $this->hasMembership = $this->view->hasMembership = true;
             }
         }
-        
+
     }
 
     public function preDispatch() {
-        
+
     }
 
     public function postDispatch() {

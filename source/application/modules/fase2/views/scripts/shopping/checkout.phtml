@@ -10,6 +10,34 @@
     }
 
 
+    if( !empty($this->cartMembership) && count($this->cartMembership)>1){
+
+        $email = $this->cartMembership['folio_email'];
+        $pass = $this->cartMembership['folio_password'];
+
+        $shpAdd['_firstName'] = $this->cartMembership['shp_firstname'];
+        $shpAdd['_lastName'] = $this->cartMembership['shp_lastname'];
+        $shpAdd['_address'] = $this->cartMembership['shp_address'];
+        $shpAdd['_city'] = $this->cartMembership['shp_city'];
+        $shpAdd['_cp'] = $this->cartMembership['shp_cp'];
+        $shpAdd['_country'] = $this->cartMembership['shp_country'];
+        $shpAdd['_state'] = $this->cartMembership['shp_region'];
+        $shpAdd['_phoneNumber'] = $this->cartMembership['shp_phonenumber'];
+
+        $billinfo['_same'] = $this->cartMembership['bill_same'] = 1 ;
+
+        $billinfo['_firstName'] = $this->cartMembership['bill_firstname'];
+        $billinfo['_lastName'] = $this->cartMembership['bill_firstname'];
+        $billinfo['_address'] = $this->cartMembership['bill_address'];
+        $billinfo['_city'] = $this->cartMembership['bill_city'];
+        $billinfo['_cp'] = $this->cartMembership['bill_cp'];
+        $billinfo['_country'] = $this->cartMembership['bill_country'];
+        $billinfo['_state'] = $this->cartMembership['bill_region'];
+        $billinfo['_phoneNumber'] = $this->cartMembership['bill_phonenumber'];
+
+    }
+
+
     # Imprimimos el menu Change Section
     //echo $this->partial('index/change_section.phtml', array('section'=>'Designers', 'menu'=>$this->menu));
 ?>
@@ -82,7 +110,7 @@
             <div class="section">
                 <h2 class="acordion lock">BILLING INFORMATION</h2>
                 <div>
-                    <label><input type="checkbox" name="bill_same" id="bill_same" value="" /> Same as my shipping address</label>
+                    <label><input type="checkbox" name="bill_same" id="bill_same" value="1" <?php if( isset($billinfo['_same']) ){ echo 'checked="checked"';} ?> /> Same as my shipping address</label>
 
                     <div id="bill_same_content" class="inputs">
                         <input type="text" name="bill_firstname"  id="bill_firstname" value="<?php echo isset($billinfo['_firstName']) ? $billinfo['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />

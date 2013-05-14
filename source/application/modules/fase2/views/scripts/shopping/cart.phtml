@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     $total = 0;
     $nprod = count($this->cart);
@@ -13,14 +13,14 @@
         $totalGuest = 0;
         foreach($this->cart as $key=>$prod){
             $priceLocal = 0;
-            if($this->hasMembership){
-                $priceLocal = $prod['_priceMember'] * (int)$prod['quantity'];                
+            if($this->hasMembership || $this->cartMembership){
+                $priceLocal = $prod['_priceMember'] * (int)$prod['quantity'];
             }else{
                 $priceLocal += $prod['_price'] * (int)$prod['quantity'];
             }
             $total += $priceLocal;
             $totalGuest += $prod['_price'] * (int)$prod['quantity'];
-?>            
+?>
 
             <div class="prod"><!-- PRODUCT -->
                 <div class="row-fluid">
@@ -32,12 +32,12 @@
                         <span class="name">Item #<?php echo $prod['_code']; ?><strong> <em><?php echo $prod['_name']; ?></em></strong></span><br/>
                         <span class="dsc"><?php echo $prod['designer']['_name']; ?></span>
 
-                        
-                        <?php 
+
+                        <?php
                             if( !empty($prod['sizes']) ){
                         ?>
                                 <label class="size" >
-                                    SIZE 
+                                    SIZE
                                     <select class="products_size">
                                         <?php
                                             foreach($prod['sizes'] as $size){
@@ -51,9 +51,9 @@
                                         </select>
                                     </label>
                         <?php
-                            }                    
-                        ?>                        
-                        <label class="quantity">QTY: <input type="text" data-code="<?php echo $prod['clave'] ?>" name="quantity" class="quantity" value="<?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 1); ?>" /></label>                                       
+                            }
+                        ?>
+                        <label class="quantity">QTY: <input type="text" data-code="<?php echo $prod['clave'] ?>" name="quantity" class="quantity" value="<?php echo (int) (isset($prod['quantity']) ? $prod['quantity'] : 1); ?>" /></label>
                     </div>
 
                     <div class="span4">
@@ -65,12 +65,12 @@
             </div>
             <?php if($key<count($this->cart)){ ?>
                 <div class="linea_separacion" >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </div>
-            <?php } ?>    
-                              
-<?php 
+            <?php } ?>
+
+<?php
         }
-        
-        
+
+
         if($this->cartMembership){
         ?>
             <div class="prod"><!-- Product Free -->
@@ -108,29 +108,29 @@
                     </div>
                 </div>
             </div>
-          <?php  
+          <?php
         }
-        
+
 ?>
                 <div class="btns-checkout">
                     <a href="/fase2/membership" class="checkout btn btn-amarillo" >Check out as member</a>
                     <div class="linea_horiz"></div>
-                </div>                
-                
+                </div>
+
                 <div class="save">
                     <?php  if(!$this->hasMembership && $totalGuest-$total > 0){ ?>
                         Our Exclusive Folio Members save $<?php echo $totalGuest-$total; ?>
                     <?php } ?>
                 </div>
-  
+
     <!-- div class="rowtotal">
         <span>Subtotal</span>
         <span class="ntotal">$<?php echo number_format($total,2); ?></span>
         <a href="/fase2/checkout" class="checkout btn" >Check out</a>
-    </div -->      
+    </div -->
 <?php
     }else{
-        
+
     }
 
 /*
@@ -138,7 +138,7 @@
 
     <div class="prices">
         <div>Guest price <strong class="prec1"><br/>$526.00</strong></div>
-        <div>Member price <strong class="prec2"><br/>$288.00</strong></div>                                        
+        <div>Member price <strong class="prec2"><br/>$288.00</strong></div>
     </div>
 
     <img src="<?php echo STATIC_URL . '/front/images/sp_prod2.png'; ?>" title="" alt="" />

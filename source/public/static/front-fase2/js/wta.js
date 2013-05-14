@@ -566,6 +566,11 @@ var WTA = (function(){
         $('.addMembership').click(function(e){
             e.preventDefault();
             var $this = $(this);
+
+            if($this.hasClass('btn-disabled')){
+                return false;
+            }
+
             var data = '';
             if($this.data('form')){
                 var $form = $('#'+$this.data('form'));
@@ -578,8 +583,8 @@ var WTA = (function(){
                 data: data
             }).done(function(response){
                 if(response.ok){
-                    if( $this.data('redirect') ){
-                        window.location.href = $this.data('redirect');
+                    if( $this.data('redirect') || response.redirect){
+                        window.location.href = $this.data('redirect') || response.redirect;
                     }else{
                         $('.closex').trigger('click');
                         that.updateCart(function(){$('#popupShoppinCart').slideDown();});
@@ -936,7 +941,7 @@ var WTA = (function(){
                     var valdefault = $destino.parent().find('input[type=hidden]').data('default');
                     var select = '';
                     for(var i in response.subregions){
-                        if(valdefault == response.subregions[i]['name']){
+                        if(valdefault == response.subregions[i]['id']){
                             select += '<li><a href="javascript:;" class="selected" data-value="' + response.subregions[i]['id'] + '">' + response.subregions[i]['name'] + '</a></li>'
                         }else{
                             select += '<li><a href="javascript:;" data-value="' + response.subregions[i]['id'] + '">' + response.subregions[i]['name'] + '</a></li>'
@@ -1158,8 +1163,8 @@ var WTA = (function(){
                         span.html($(this).val());
                     }
                 })
-                $('#checkoutsubmit').removeClass('disabled');
-                $('.addMembership ').removeClass('disabled');
+                $('#checkoutsubmit').removeClass('btn-disabled');
+                $('.addMembership ').removeClass('btn-disabled');
                 $this.html('Edit');
             }
         })
@@ -1373,8 +1378,8 @@ var WTA = (function(){
                         span.html($(this).val());
                     }
                 })
-                $('#checkoutsubmit').removeClass('disabled');
-                $('.addMembership ').removeClass('disabled');
+                $('#checkoutsubmit').removeClass('btn-disabled');
+                $('.addMembership ').removeClass('btn-disabled');
                 $this.html('Edit');
             }
         })
@@ -1384,7 +1389,9 @@ var WTA = (function(){
     this.checkoutForm = function(){
         $('#checkoutsubmit').click(function(e){
             e.preventDefault();
-            $('#frmcheckout').trigger('submit');
+            if(!$(this).hasClass('btn-disabled')){
+                $('#frmcheckout').trigger('submit');
+            }
         })
     }
 
@@ -1452,8 +1459,18 @@ var WTA = (function(){
         for(var i in data){
             var $input = $('#'+i);
             if( !$input.length ) continue;
-            if( $input.get(0).type && $input.get(0).type.toLowerCase() == 'checkbox' ){
-                $input
+            if( $input.get(0).type){
+                if($input.get(0).type.toLowerCase() == 'checkbox' ){
+                    $input.attr('checked', 'checked');
+                }else{
+                    $input.val(data[i]);
+                }
+            }else{
+                if( $input.get(0).toLowerCase() == 'select' ){
+                    $input.val(data[i]);
+                    $input.trigger('change');
+                }
+
             }
             $('#'+i).val(data[i]);
         }

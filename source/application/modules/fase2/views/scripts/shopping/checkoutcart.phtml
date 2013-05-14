@@ -19,7 +19,7 @@
                 $totalGuest = 0;
                 foreach($this->cart as $key=>$prod){
                    $priceLocal = 0;
-                    if($this->hasMembership){
+                    if($this->hasMembership || $this->cartMembership){
                         $priceLocal = $prod['_priceMember'] * (int)$prod['quantity'];
                     }else{
                         $priceLocal += $prod['_price'] * (int)$prod['quantity'];

@@ -107,6 +107,8 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         $this->view->headMeta()->appendName('description', trim(strip_tags($properties['_descriptionDesigner'])));
         //$this->view->isMember = true;
 
+        $this->view->hasMembership = ($this->hasMembership ? 1 : ($this->_session->cartMembership ? 1 : 0));
+
         /*
          * Tracking
          */
@@ -231,6 +233,8 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
                                             );
         $this->view->headMeta()->appendName('description', trim(strip_tags($properties['_description'])));
 
+        $this->view->hasMembership = ($this->hasMembership ? 1 : ($this->_session->cartMembership ? 1 : 0));
+
         //$this->view->isMember = true;
         /*
          * Tracking
@@ -292,6 +296,8 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
                                             );
         $this->view->headMeta()->appendName('description', $properties['actress']['_name'].' - '.trim(strip_tags($properties['_description'])));
 
+
+        $this->view->hasMembership = ($this->hasMembership ? 1 : ($this->_session->cartMembership ? 1 : 0));
         //$this->view->isMember = true;
         /*
          * Tracking
@@ -371,6 +377,8 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
                 break;
             }
         }
+
+        $this->view->hasMembership = ($this->hasMembership ? 1 : ($this->_session->cartMembership ? 1 : 0));
 
         $this->view->prev = $prev;
         $this->view->next = $next;

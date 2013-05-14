@@ -80,7 +80,6 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         $this->view->regions = $_regions->listing(array(840));
 
 
-
         /*
          * Tracking
          */
@@ -118,6 +117,13 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         $this->view->invitation = $this->_session->invitation;
 
         //print_r( $this->_session->cartMembership);die();
+
+        if ( !$this->_session->cartMembership ){
+            $this->_session->cartMembership = array(1);
+        }
+
+        //unset(   $this->_session->cartMembership);
+
         $this->view->cartMembership = $this->_session->cartMembership;
 
         /*
@@ -135,6 +141,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         $this->_helper->layout->disableLayout();
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
+        $this->view->cartMembership = $this->_session->cartMembership;
     }
 
 
@@ -286,7 +293,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         $this->_session->cartMembership = $this->getRequest()->getParams();
 
         $this->view->ok = 1;
-        $this->view->redirect = BASE_URL;
+        //$this->view->redirect = BASE_URL;
 
         /*
          * Tracking
