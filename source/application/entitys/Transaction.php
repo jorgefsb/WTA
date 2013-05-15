@@ -463,7 +463,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $_subscription->_startDate = date('Y-m-d');
         $_subscription->_totalOccurrences = '9999';
         $_subscription->_trialOccurrences = '3';
-        $_subscription->_amount = $this->_amount;
+        $_subscription->_amount = 20;
         $_subscription->_trialAmount = '0';
         
         $_subscription->_creditCardCardNumber = $dataCard['cardNumber'];
