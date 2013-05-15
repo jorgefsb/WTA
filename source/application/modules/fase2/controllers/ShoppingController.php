@@ -70,6 +70,10 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
             $this->view->billingInformation = array();
         }
 
+        if ($this->getRequest()->getParam('r', '') == 'm') { # r=m Remueve la membresia
+            $this->_session->cartMembership = null;
+        }
+        
         //$this->view->isMember = true;
 
         //$this->loadOptionsMenu();
@@ -79,7 +83,10 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         $_regions = new Application_Model_Regions();
         $this->view->regions = $_regions->listing(array(840));
 
+        $this->view->isCheckout = true;
 
+        $this->renderScript('shopping/membership.phtml');
+        
         /*
          * Tracking
          */
@@ -90,7 +97,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
 
     }
 
-    public function membershipAction(){
+    public function membershipAction(){        
         $this->view->headTitle('Membership');
         if($this->view->isMember){
             $member = new Application_Entity_Member();
@@ -106,21 +113,31 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
             $this->view->shippingAddress = array();
             $this->view->billingInformation = array();
         }
+        
+        $invitation = $this->getRequest()->getParam('invitation',0);
+        if( $invitation ){
+            $this->_session->invitation = array(
+                'email'=>$this->getRequest()->getParam('email'),
+                'password'=>$this->getRequest()->getParam('password'));
+        }        
 
         //$this->loadOptionsMenu();
         $this->view->cart = $this->_session->cart;
-
+        
         $_regions = new Application_Model_Regions();
         $this->view->regions = $_regions->listing(array(840));
 
-        $this->view->shipping = 5;
-        $this->view->invitation = $this->_session->invitation;
-
         //print_r( $this->_session->cartMembership);die();
 
-        if ( !$this->_session->cartMembership ){
+        if( $this->getRequest()->getParam('f', 0)>0){
+            $this->_session->invitation = array('email'=>'', 'password'=>'');
+            $this->_session->cartMembership = array(1);
+        }elseif ( !$this->_session->cartMembership ){
             $this->_session->cartMembership = array(1);
         }
+        
+        $this->view->shipping = 5;
+        $this->view->invitation = $this->_session->invitation;
 
         //unset(   $this->_session->cartMembership);
 
@@ -140,6 +157,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         //$this->view->isMember = true;
         $this->_helper->layout->disableLayout();
         //$this->loadOptionsMenu();
+        $this->view->shipping = 5;
         $this->view->cart = $this->_session->cart;
         $this->view->cartMembership = $this->_session->cartMembership;
     }

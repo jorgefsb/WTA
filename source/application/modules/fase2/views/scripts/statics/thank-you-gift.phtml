@@ -1,0 +1,35 @@
+<div <?php echo !$this->visible ? 'class="wLight"' : 'id="contentBody"'?>>
+
+    <div class="popup large patron-lineas " id="thanks-gift">
+        <?php echo !$this->visible ? '<div class="closex">X</div>' : ''?>
+        <div >
+            <!-- h2 class="">HOW IT WORKS</h2-->
+            <img src="<?php echo STATIC_URL ?>/front-fase2/images/logo-degradado.png" />
+            <h1 ><img src="<?php echo STATIC_URL ?>/front-fase2/images/texts/thank-you.png" /></h1>
+
+            <p >
+                As a thank you, we are throwing in a free gift            
+            </p>
+            <img src="<?php echo STATIC_URL; ?>/front-fase2/images/gift.png" />
+            <p>
+                <span class="small">RETAIL PRICE</span><br/>
+                <strong>$99.00</strong>
+            </p>
+            <!--p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam elit nunc, blandit sit amet tristique id, consectetur nec ligula. Ut fermentum suscipit dui, quis bibendum purus dictum sed.
+            </p -->
+            
+            <a href="/fase2/membership" class="btn btn-negro" id="btnAddMembership" data-form="">Continue</a>
+        </div>
+    </div>
+</div>
+<script> 
+    $('#btnAddMembership').click(function(e){
+        e.preventDefault();
+        $('#formJoin').submit();
+        return false;
+    })
+    
+    WTA.signin();    
+    WTA.addMembershipToCart();
+</script>

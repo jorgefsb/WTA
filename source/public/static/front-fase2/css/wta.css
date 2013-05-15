@@ -18,7 +18,7 @@ input:-moz-placeholder {   /* Older versions of Firefox */ font-family: copperpl
 input:-ms-input-placeholder { font-family: copperplate_gothic_lightRg, Georgia, Arial, Helvetica}
 input, textarea{font-family: Arial, Helvetica}
 
-html, body{background: #090909; padding: 0px}
+html, body{background: #090909; padding: 0px; height: 100%}
 
 html.white, body.white{background: #FFF;}
 body.white .navbar-inverse  .navbar-inner{background: #000;}
@@ -95,7 +95,7 @@ a.btn-amarillo:hover{background: #191919 !important; }
 
 /* FOOTER */
 /*#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px;}*/
-#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px; position: fixed; bottom: 0px; width: 100%; z-index: 5000}
+#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px; position: absolute; top: 100%; width: 100%; z-index: 5000}
 #footer .navbar-inner{font-size: 16px;  padding: 0 20px; background: #010101; }
 #footer .navbar .nav > li > a{color: #f0ce73; padding: 10px 7px; }
 #footer .navbar .nav > li > a:hover{color: #f0ce73; }
@@ -167,7 +167,7 @@ a.btn-amarillo:hover{background: #191919 !important; }
 */
 
 /* MENU SECCIONES HOME */
-#lissections {display: inline-block; text-align: left; margin-top: 80px; transition: all 500ms ease 0s}
+#lissections {display: inline-block; text-align: left; margin-top: 80px; transition: all 500ms ease 0s; min-width: 300px}
 #lissections > li {margin-top: 5px; transition: all 500ms ease 0s}
 ul.submenu{background: transparent url(../images/bg-menu.png) right top no-repeat; list-style: none; margin-left: 3px; padding: 7px 0px 0 0; border-radius: 3px; box-shadow: 0px 0px 2px 1px #41474e; position: relative; margin-top: 5px;  text-transform: uppercase; display: none; transition: width 500ms ease 0s; }
 ul.submenu:before{content: ""; background: url('../images/arrow-menu.png') no-repeat; position: absolute; top: -9px !important; left: 10px; width: 13px; height: 12px;}
@@ -309,7 +309,7 @@ a.signout{margin:  0 auto;}
 .linea-degr-right{background-position: right center; margin-left: 15px}
 
 
-#contentBody.home{text-align: left; min-height: 0px}
+#contentBody.home{text-align: left; min-height: 0px; }
 #contentBody.designers, #contentBody.exclusive, #contentBody.checkout, #contentBody.limited, #contentBody.itemlist{ background: #FFF /*url(../images/bg-white2.jpg)*/ center -40px; /*padding-top: 100px;*/ min-height: auto; position: relative; padding-bottom: 100px; padding-top: 55px;}
 #contentBody.limited{/*padding-top: 30px;*/}
 .imgProd { text-align: center; margin: 0 auto; width: 450px; margin: 0px 10px 10px 10px; display: inline-block; }
@@ -327,6 +327,10 @@ a.signout{margin:  0 auto;}
 .info .precios strong.activo{font-size: 35px; color: #b8b4ae; line-height: 36px}
 .info .details, .info .detailsDesigner, .info .liLight,  .info .available{font-size: 12px; /*font-style: italic;*/ color: #666;}
 .info .details-content{}
+.info .available{font-size: 14px; color: #555}
+
+#contentBody.limited .details{margin: 10px 0 5px; display: block}
+#contentBody.limited .details-content p{margin-top: 0px;}
 
 .gift .info p{width: 229px; margin-bottom: 10px; text-align: center}
 .gift .info .linea-degr-right, .gift .info .linea-degr-left {width: 60px; vertical-align: baseline;}
@@ -382,7 +386,7 @@ a.signout{margin:  0 auto;}
 #contentBody a.next3{left: 90%; background-position: -39px 0;  }
 
 /* PRODUCTS SLIDER*/
-#slider_products{position: fixed; width: 100%; /*margin-top: -175px;*/ z-index: 5000; overflow: hidden; bottom: 106px;}
+#slider_products{position: absolute; width: 100%; /*margin-top: -175px;*/ z-index: 5000; overflow: hidden; bottom: 0px;}
 #slider_products .bar{padding: 0 30px; background: #101010; color: #f0ce73; text-transform: uppercase;  line-height: 28px; font-size: 11px; cursor: pointer}
 #slider_products .bar .wetheadorned{position: absolute}
 #slider_products .bar .collectionsName{display: block; margin: 0 auto; width: 300px; text-align: center}
@@ -485,6 +489,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 .popup{background: transparent url('../images/bg-popup.png') center top no-repeat; width: 403px; height: 360px;  z-index: 1000; position: relative; padding-top: 1px; text-align: center; }
 .popup.large{background: transparent url('../images/bg-popup-large.png') center top no-repeat; width: 403px; height: 520px;  }
 .popup.wide{background: transparent url('../images/bg-popup-wide.png') center top no-repeat; width: 522px; height: 440px;  }
+.popup.big{background: transparent url('../images/bg-popup-big.png') center top no-repeat; width: 522px; height: 500px;  }
 .popup.gradient{
     text-align: left;
     height: auto;
@@ -566,10 +571,18 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #processed input{display: inline-block; font-size: 13px; padding: 3px; }
 #processed p.small{font-size: 15px; line-height: 22px; padding: 0px 31px}
 
+
+#congratulations {padding-top: 40px;}
+#congratulations h1{margin: 15px 20px 0px; }
+#congratulations p{color: #b89630; font-size: 24px; text-align: center; font-family: Georgia, 'Times New Roman', Arial; padding: 0px 15px;  line-height: 26px;}
+#congratulations .btn{margin: 5px auto; font-family: Georgia, 'Times New Roman', Arial;}
+#congratulations input{display: inline-block; font-size: 13px; padding: 3px; }
+#congratulations p.small{font-size: 15px; line-height: 22px; padding: 0px 31px}
+
 #susbcriptions{margin-bottom: 5px;}
 
 
-#signin, #membership {padding-top: 45px; color:#f0ce73;}
+#signin, #membership, #thanks-gift , #joinAndCreate {padding-top: 45px; color:#b89630;}
 #signin h1{ margin: 25px 20px; }
 #signin h1 img, #membership h1 img{margin-top: -4px}
 #signin .forgot{font-size: 12px; color:#f0ce73; display: block; margin: 25px auto 10px}
@@ -583,11 +596,18 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #reserved4members form a.btn-amarillo{margin: 15px auto 0; padding: 5px 10px}
 
 #exclusive-stuff{padding-top: 45px; color:#f0ce73;}
-#exclusive-stuff h1{ margin: 5px 20px 80px; padding: 10px 0}
+#exclusive-stuff h1{ margin: 10px 20px 25px; padding: 10px 0}
 #exclusive-stuff .btn-amarillo{padding: 5px 10px;}
 
-#membership h1 { margin: 16px 20px 10px; }
-#membership p{padding: 0 35px; font-family: Georgia, Arial, Helvetica; font-size: 15px; line-height: 16px; }
+#thanks-gift h1, #membership h1 { margin: 16px 20px 10px; }
+#thanks-gift p, #membership p{padding: 0 35px; font-family: Georgia, Arial, Helvetica; font-size: 18px; line-height: 19px; }
+#thanks-gift p{font-size: 16px;}
+#thanks-gift .small{font-size: 12px;}
+
+#joinAndCreate{}
+#joinAndCreate h1{ margin: 25px 20px; }
+#joinAndCreate label{margin: 0x;}
+#joinAndCreate .btn{width: 270px;}
 
 /*  SECCION  DE  COMING SOON */
 .comming_soon {
@@ -668,7 +688,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout  .imgPrincipal{text-align: center; margin-top: 20px}
 #contentBody.checkout  .imgPrincipal img{max-height: 267px;}
 
-#contentBody.checkout form {width: 407px; margin: 0 auto}
+#contentBody.checkout form#frmcheckout {width: 407px; margin: 0 auto}
 #contentBody.checkout form .section{margin: 0px 0 5px; font-size: 12px; border-width: 0px 0px 1px; border-style: dotted; border-color: #e0e0e0; padding-bottom: 10px; overflow: auto; }
 #contentBody.checkout form .section h2{margin: 0px; cursor: pointer; text-align: left}
 #contentBody.checkout form .section h2 span{line-height: 16px;}

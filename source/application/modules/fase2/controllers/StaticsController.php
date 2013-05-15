@@ -238,6 +238,14 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
         }
 
     }
+    
+    public function thankYouGiftAction(){
+        $this->_helper->layout->disableLayout();
+    }
+    
+    public function joinAndCreateAction(){
+        $this->_helper->layout->disableLayout();
+    }
 
 
 }

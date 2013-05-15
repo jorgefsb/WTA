@@ -206,11 +206,13 @@ class Application_Entity_Transaction extends Core_Entity {
         }
     }
 
-    function addMembership(Application_Entity_Membership $membership) {
+    function addMembership($membership) {
         $transactionDetails = new Application_Model_TransactionDetails();
-        $data['membership_member_id'] = $membership->getPropertie('_id');
+        $data['membership_member_id'] = $membership['id'];
         $data['product_type_id'] = self::TYPE_MENBERSHIP;
-        $data['amount'] = $membership->getPropertie('_price');
+        $data['transaction_detail_final_price'] = $membership['price'];
+        $data['transaction_details_amount'] = $membership['price'];
+        $data['transaction_details_product_cant'] = $membership['quantity']; 
         $data['transaction_id'] = $this->_id;
         return $transactionDetails->insert($data);
     }
@@ -273,18 +275,244 @@ class Application_Entity_Transaction extends Core_Entity {
         $modelTransaction = new Application_Model_Transaction();
         return $modelTransaction->listProducts($this->_id);
     }
+    
+    
+    public function listMemberships(){
+        $modelTransaction = new Application_Model_Transaction();
+        return $modelTransaction->listMemberships($this->_id);
+    }
 
     /*
      * Send Subscription to payment gateway
      */
-    public function sendSubscription2PG(){
+    public function sendSubscription2PG($dataCard){
 
         // Creamos el pago por 3 meses de la membresia
         // Si pasa lo suscribimos
         // 
+        $customerProfileId = 0;
+        $_customerAddressId = 0;
+        $_customerPaymentProfileId = 0;
+        
+        
+        # Usuario Miembro 
+        $_member = new Application_Entity_Member();
+        $_member->identify($this->_member);
+        
+        $_member->loadProfile();
 
+        $customerProfileId = $_member->getPropertie('_customerProfileId');
+        
+        if($customerProfileId){
+        
+            $shippingAddress = $_member->getPropertie('_shippingAddress');
+            $billingInformation = $_member->getPropertie('_billingInformation');
 
+            if( !empty($shippingAddress)){
+                $_customerAddressId =$shippingAddress[0]['_customerAddressId'];
+            }
+            if( !empty($billingInformation)){
+                $_customerPaymentProfileId = $billingInformation[0]['_customerPaymentProfileId'];
+            }
+        }
+        
+        
+        
+        
+        
+        $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE);
+        
+        $_customer = $_transaction->customer();        
+        
+         #Llenamos los datos del comprador
+         $_customer->_email = $this->_mail;
 
+         
+        $_country = new Application_Model_Regions();
+        $_state = new Application_Model_SubRegions();
+         
+        #Llenamos los datos de shipping
+        $sha_state = $_state->getSubRegion($this->_shiAddSubregionId);
+        $sha_country = $_country->getRegion($this->_shiAddRegionId);
+
+        $_shpAdd = $_customer->shippingAddress();
+        $_shpAdd->_customerProfileId = $customerProfileId;
+        $_shpAdd->_customerAddressId = $_customerAddressId;
+        $_shpAdd->_firstName = $this->_shiAddFirstName;
+        $_shpAdd->_lastName = $this->_shiAddLastName;
+        $_shpAdd->_address = $this->_shiAddAddAddres;
+        $_shpAdd->_city = $this->_shiAddCity;
+        $_shpAdd->_state = $sha_state['name'];
+        $_shpAdd->_zip = $this->_shiAddPostalCode;
+        $_shpAdd->_country = $sha_country['country'];
+        $_shpAdd->_phoneNumber = $this->_shiAddPhoneNumber;
+
+        #Llenamos los datos de billing
+
+        $billa_state = $_state->getSubRegion($this->_billAddSubregionId);
+        $billa_country = $_country->getRegion($this->_billAddRegionId);
+
+        $_billInfo = $_customer->billingInformation();
+        $_billInfo->_customerPaymentProfileId = $_customerPaymentProfileId;
+        $_billInfo->_customerProfileId = $customerProfileId;
+        $_billInfo->_firstName = $this->_billAddFirstName;
+        $_billInfo->_lastName = $this->_billAddLastName;
+        $_billInfo->_address = $this->_billAddAddAddres;
+        $_billInfo->_city = $this->_billAddCity;
+        $_billInfo->_state = $billa_state['name'];
+        $_billInfo->_zip = $this->_billAddPostalCode;
+        $_billInfo->_country = $billa_country['country'];
+        $_billInfo->_phoneNumber = $this->_billAddPhoneNumber;
+        $_billInfo->_cardNumber = $dataCard['cardNumber'];
+        $_billInfo->_expirationDate = $dataCard['expirationDate'];
+        $_billInfo->_cardCode = $dataCard['cardCode'];
+        
+        if($customerProfileId){
+            if(!$_shpAdd->commit()){
+                $this->_message = $error_message = Payment_Transaction_Authorize::getDescriptionCode($_shpAdd->getError());
+                return false;
+            }
+            if(!$_billInfo->commit()){
+                $this->_message = Payment_Transaction_Authorize::getDescriptionCode($_billInfo->getError());
+                return false;
+            }
+            
+            $_payment->_customerProfileId = $customerProfileId;
+            $_payment->_customerPaymentProfileId = $_customerPaymentProfileId;
+            $_payment->_customerShippingAddressId = $_customerAddressId;
+            
+        }else{
+            $customerProfileId = $_customer->commit();
+
+            if( !$customerProfileId ){
+                //print_r($_transaction->getLastExecution());die();
+                $error=$_customer->getError();
+                $error_message = Payment_Transaction_Authorize::getDescriptionCode($error);
+                $this->_message = 'We had a problem. '.$error_message;            
+                return false;
+            }else{
+                $_member->setPropertie('_customerProfileId', $customerProfileId);
+                $_member->update();
+            }
+            
+            $customerProfileId = $_customer->_customerProfileId;
+            $_customerPaymentProfileId = $_customer->_customerPaymentProfileIds[0];
+            $_customerAddressId = $_customer->_customerShippingAddressIds[0];
+            
+        }
+        
+        $memberships = $this->listMemberships();
+        
+        /*
+         * 
+         *  Aqui se llenan los datos para el pago de los primero 3 meses
+         * 
+         */
+        $_payment = $_customer->payment();   
+        
+        
+        $_payment->_customerProfileId = $customerProfileId;
+        $_payment->_customerPaymentProfileId = $_customerPaymentProfileId;
+        $_payment->_customerShippingAddressId = $_customerAddressId;
+        
+        $_payment->addProduct('M02', 'WTA Membership', 'Recurring monthly membership',1, $memberships[0]['transaction_detail_final_price']*3);
+        //$_id, $_name, $_description, $_quantity, $_unitPrice
+
+        $_payment->_amount = $memberships[0]['transaction_detail_final_price']*3;
+        
+        if($_payment->commit()===true){
+            $modelTransaction = new Application_Model_Transaction();
+
+            $modelTransaction->update(array(
+                'transaction_code_payment'=>$_payment->_profileTransactionId,
+                'transaction_payment_date'=>date('Y-m-d H:i:s'),
+                'tansaction_state_id'=>  self::TRANSACTION_PAID
+            ), $this->_id);
+
+            $this->identify($this->_id);
+
+            $file =$this->createPdf();
+
+            /*
+             * Enviamos el correo con la nota de pago de la membresia
+             */
+            $this->sendPurchaseConfirmMail($file);
+
+            $this->_message = 'Payment Successful';
+            //return $_payment->_profileTransactionId;
+        }else{
+            $error=$_payment->getError();
+            $error_message = Payment_Transaction_Authorize::getDescriptionCode($error);
+
+            //echo print_r($_transaction->getLastExecution());
+            
+            if($error && $error_message){
+                $this->_message = 'We had a problem. '.$error_message;
+            }else{
+                $this->_message = 'We had a problem width your card. Please enter a new one, or review your information and try again. (Error code: '.$error.')';
+            }
+            return false;
+        }
+        
+        
+        $_subscription = $_customer->subscription();
+        
+        $_subscription->_name = 'WTA Membership';
+        $_subscription->_intervalLength = '1';
+        $_subscription->_intervalUnit = 'months';
+        $_subscription->_startDate = date('Y-m-d');
+        $_subscription->_totalOccurrences = '9999';
+        $_subscription->_trialOccurrences = '3';
+        $_subscription->_amount = $this->_amount;
+        $_subscription->_trialAmount = '0';
+        
+        $_subscription->_creditCardCardNumber = $dataCard['cardNumber'];
+        $_subscription->_creditCardExpirationDate = $dataCard['expirationDate'];
+        $_subscription->_creditCardCardCode = $dataCard['cardCode'];
+        
+        $_subscription->_orderInvoiceNumber = '';
+        $_subscription->_orderDescription = 'Recurring monthly membership';
+        $_subscription->_customerPhoneNumber = $this->_shiAddPhoneNumber;
+        $_subscription->_customerFaxNumber = '';
+        
+        $_subscription->_billToFirstName =  $this->_billAddFirstName;
+        $_subscription->_billToLastName = $this->_billAddLastName;
+        $_subscription->_billToCompany = '';
+        $_subscription->_billToAddress = $this->_billAddAddAddres;
+        $_subscription->_billToCity = $this->_billAddCity;
+        $_subscription->_billToState = $billa_state['name'];
+        $_subscription->_billToZip = $this->_billAddPostalCode;
+        $_subscription->_billToCountry = $billa_country['country'];;        
+        
+        $_subscription->_shipToFirstName = $this->_shiAddFirstName;
+        $_subscription->_shipToLastName = $this->_shiAddLastName;
+        $_subscription->_shipToCompany = '';
+        $_subscription->_shipToAddress = $this->_shiAddAddAddres;
+        $_subscription->_shipToCity =  $this->_shiAddCity;
+        $_subscription->_shipToState = $sha_state['name'];
+        $_subscription->_shipToZip = $this->_shiAddPostalCode;
+        $_subscription->_shipToCountry = $sha_country['country'];
+        
+        if( $_subscription->commit() ){                       
+            
+            $inserted = $_member->addMembership(array(
+                    'membership_id'=>$memberships[0]['membership_member_id'],
+                    'membership_member_start_date'=>date('Y-m-d h:i:s'),
+                    'membership_member_price'=>20,
+                    'membership_member_status'=>1,
+                    'membership_member_isfree'=>0,
+                    'transaction_id'=>$_subscription->_subscriptionId                
+                ));
+            if( !$inserted ){
+                $this->_message = 'We had a problem in the activation of the membership.';
+                return false;
+            }            
+            return $_subscription->_subscriptionId;
+        }else{
+            $error=$_subscription->getError();
+            $this->_message = 'Error: '.Payment_Transaction_Authorize::getDescriptionCode($error);
+        }
+        return false;             
     }
 
     /*
@@ -419,10 +647,10 @@ class Application_Entity_Transaction extends Core_Entity {
 
             $customerProfileId = $_customer->commit();
 
-            if($customerProfileId){
-                if(!$this->_member){
-
-                }
+            if(!$customerProfileId){
+                $error=$_customer->getError();
+                $this->_message = 'Order:'.Payment_Transaction_Authorize::getDescriptionCode($error);
+                return false;
             }
 
             $_payment->_customerProfileId = $_customer->_customerProfileId;
@@ -523,6 +751,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $a_country_bil = $_country->getRegion($this->_billAddRegionId);
 
         $products = $this->listProducts();
+        $memberships = $this->listMemberships();
 
         $html = '<html>
                         <head>
@@ -608,9 +837,22 @@ class Application_Entity_Transaction extends Core_Entity {
                                                     <td style="width: 50px; text-align: center">Taxable</td>
                                                     <td style="width: 60px; text-align: right">Unit Price</td>
                                                     <td style="width: 60px; text-align: right">Item Total</td>
-                                                </tr>';
+                                                </tr>';                                                
+                                                if ($memberships) {
+                                                    foreach ($memberships as $mem) {
+                                                        $html .= '<tr>
+                                                                        <td style="width: 40px;">WTA Membership</td>
+                                                                        <td style=" width: 190px; text-align: left" >Recurring monthly membership</td>
+                                                                        <td style=" width: 50px; text-align: center">'.$mem['transaction_details_product_cant'] .'</td>
+                                                                        <td style=" width: 40px; text-align: center">N</td>
+                                                                        <td style="width: 40px; text-align: right">US $ '.number_format($mem['transaction_detail_final_price'],2) .'</td>
+                                                                        <td style="width: 40px; text-align: right">US $ '.number_format($mem['transaction_details_amount'],2) .'</td>
+                                                                    </tr>';
+                                                    }
+                                                }
+        
                                                 if ($products) {
-                                                    foreach ($products as $prod) {
+                                                    foreach ($products as $prod) {                                                        
                                                         $html .= '<tr>
                                                                         <td style="width: 40px;">'.$prod['product_code'] .'</td>
                                                                         <td style=" width: 190px; text-align: left" >'.$prod['product_name'].' '.$prod['product_size'] .'</td>
@@ -618,7 +860,7 @@ class Application_Entity_Transaction extends Core_Entity {
                                                                         <td style=" width: 40px; text-align: center">N</td>
                                                                         <td style="width: 40px; text-align: right">US $ '.number_format($prod['transaction_detail_final_price'],2) .'</td>
                                                                         <td style="width: 40px; text-align: right">US $ '.number_format($prod['transaction_details_amount'],2) .'</td>
-                                                                    </tr>';
+                                                                    </tr>';                                                        
                                                     }
                                                 }
                                                 $html .= '<tr><td>&nbsp;</td></tr>

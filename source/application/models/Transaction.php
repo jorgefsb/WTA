@@ -29,9 +29,17 @@ class Application_Model_Transaction extends Core_Model {
      * Guarda los cambios en la base de datos de forma permanente
      */
     public function commit(){
-        $this->_tableTransaction->getAdapter()->commit();
+        $this->_tableTransaction->getAdapter()->commit();        
     }
 
+    
+    /*
+     * DEshace los cambios
+     */
+    public function rollBack(){
+        $this->_tableTransaction->getAdapter()->rollBack();
+    }
+    
     /**
      * metodo getTransaction(), devuelve todos los datos de un Transaction
      * @param $idTransaction    id de la Transaction  
@@ -178,6 +186,19 @@ class Application_Model_Transaction extends Core_Model {
         $smt->closeCursor();        
         return $result; 
     }
+    
+    
+    function listMemberships($idTransaction){
+        $smt = $this->_tableTransactionDetails
+                ->select()                
+                ->where('transaction_id = ?', $idTransaction)
+                ->where('product_type_id = ?', 1)
+                ->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();        
+        return $result; 
+    }
+    
 
 }
 

@@ -443,36 +443,12 @@ class Application_Entity_Member extends Core_Entity {
         return $modelMember->update($data, $this->_id);
     }
 
-    /*
-    function addMembership($membership_id) {
-        $membership = new Application_Entity_Membership();
-        $membership->identify($membership_id);
-
-        $dataMembership = $membership->getProperties();
-
-
-        $transacction = new Application_Entity_Transaction();
-        $transacction->setPropertie('_member', $this->_id);
-        if ($dataMembership['membership_isfree'] == 1) {
-            $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_PAID);
-            $transacction->setPropertie('_amount', '0');
-        } else {
-            $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_OUTSTANDING);
-            $transacction->setPropertie('_amount', $dataMembership['membership_price']);
-        }
-        $transacction->createTransaction();
-        $membership->setPropertie('_membershipId', $dataMembership['membership_id']);
-        $membership->setPropertie('_price', $dataMembership['membership_price']);
-        $membership->setPropertie('_memberId', $this->_id);
-        $membership->setPropertie('_isfree', $dataMembership['membership_isfree']);
-        $membership->insert();
-        if ($dataMembership['membership_isfree'] == 1) {
-            $modelMember = new Application_Model_Member();
-            $data['member_membership_free'] = '1';
-            $modelMember->update($data, $this->_id);
-        }
-        $transacction->addMembership($membership);
-    }*/
+    
+    function addMembership($data) {
+        $modelMembership = new Application_Model_Membership();
+        $data['member_id'] = $this->_id;
+        return $modelMembership->insertMembershipMember($data);
+    }
 
 
     function getMembership(){

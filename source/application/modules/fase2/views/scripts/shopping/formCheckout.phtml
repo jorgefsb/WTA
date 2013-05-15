@@ -18,13 +18,13 @@
     if( !empty($this->cartMembership) && count($this->cartMembership)>1){
 
         $email = $this->cartMembership['folio_email'] ? $email : $this->cartMembership['email'];
-        $pass = $this->cartMembership['folio_password'] ? $email : $this->cartMembership['password'];
+        $pass = $this->cartMembership['folio_password'] ? $pass : $this->cartMembership['password'];
 
         $shpAdd['_firstName'] = $this->cartMembership['shp_firstname'];
         $shpAdd['_lastName'] = $this->cartMembership['shp_lastname'];
         $shpAdd['_address'] = $this->cartMembership['shp_address'];
         $shpAdd['_city'] = $this->cartMembership['shp_city'];
-        $shpAdd['_cp'] = $this->cartMembership['shp_cp'];
+        $shpAdd['_zip'] = $this->cartMembership['shp_cp'];
         $shpAdd['_country'] = $this->cartMembership['shp_country'];
         $shpAdd['_state'] = $this->cartMembership['shp_region'];
         $shpAdd['_phoneNumber'] = $this->cartMembership['shp_phonenumber'];
@@ -35,40 +35,58 @@
         $billinfo['_lastName'] = $this->cartMembership['bill_firstname'];
         $billinfo['_address'] = $this->cartMembership['bill_address'];
         $billinfo['_city'] = $this->cartMembership['bill_city'];
-        $billinfo['_cp'] = $this->cartMembership['bill_cp'];
+        $billinfo['_zip'] = $this->cartMembership['bill_cp'];
         $billinfo['_country'] = $this->cartMembership['bill_country'];
         $billinfo['_state'] = $this->cartMembership['bill_region'];
         $billinfo['_phoneNumber'] = $this->cartMembership['bill_phonenumber'];
 
-        $billinfo['_firstName'] = $this->cartMembership['bill_firstname'];
-        $billinfo['_lastName'] = $this->cartMembership['bill_firstname'];
-        $billinfo['_address'] = $this->cartMembership['bill_address'];
-        $billinfo['_city'] = $this->cartMembership['bill_city'];
-        $billinfo['_cp'] = $this->cartMembership['bill_cp'];
-        $billinfo['_country'] = $this->cartMembership['bill_country'];
-        $billinfo['_state'] = $this->cartMembership['bill_region'];
-        $billinfo['_phoneNumber'] = $this->cartMembership['bill_phonenumber'];
+        
+        $payment['card_number'] = $this->cartMembership['card_number'];
+        $payment['card_expirationmonth'] = $this->cartMembership['card_expirationmonth'];
+        $payment['card_expirationyear'] = $this->cartMembership['card_expirationyear'];
+        $payment['card_seccode'] = $this->cartMembership['card_seccode'];
 
 
     }
-?>
+?>  
 
-<form name="frmcheckout" id="frmcheckout" action="/fase2/order/create" method="post">
-    <div class="section text-center">
-        <?php if( !$this->cartMembership || count($this->cartMembership)<=1 ){ ?>
+    <?php if( $this->isCheckout ){ ?>
+    
+    <form name="frmcheckout" id="frmcheckout" action="/fase2/membership/create" method="post">
+        <div class="section text-center">
+            <h2>GUEST CHECKOUT</h2>
+            <div class="inputs show">
+                <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
+                <input type="password" name="folio_password"  id="folio_password" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  />
+                <?php /* <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" /> */ ?>
+            </div>
+            <div class="valores">
+                <span id="vfolio_email"><?php echo $email; ?></span>
+            </div>
+            <span class="btn-amarillo paso paso1 center" alt="CONTINUE AS GUEST">CONTINUE AS GUEST</span>
+        </div>
+                
+        <?php }elseif( (!$this->cartMembership || count($this->cartMembership)<=1) && !$this->invitation ){ ?>    
+
+        <div class="section text-center">
             <br/>
             <div class="inputs show colums2">
                 <div>
-                    <h3>Welcome back, <br/>Login</h3>
-                    <input type="text" name="folio_email"  id="" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   /><br/>
-                    <input type="password" name="folio_password"  id="" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  /><br/>
-                    <span id="btnLogin" class="btn-amarillo ">Login</span>
+                    <form id="formSignin" action="/member/login" name="signin" method="post">
+                        <h3>Welcome back, <br/>Login</h3>
+                        <input type="text" name="email"  id="" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   /><br/>
+                        <input type="password" name="password"  id="" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  /><br/>
+                        <a class="btn-amarillo submit">Login</a>
+                    </form>
                 </div>
                 <div>
-                    <h3>Join and create folio</h3>
-                    <input type="text" name="folio_email"  id="" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
-                    <input type="password" name="folio_password"  id="" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  /><br/>
-                    <span href="" id="btnAddMembership" class="liLight btn-amarillo  ">Become a member</span>
+                    <form id="formJoin" action="" name="register" method="post">
+                        <h3>Join and create<br/> folio</h3>
+                        <input type="hidden" name="invitation"  id="" value="1" />
+                        <input type="text" name="email"  id="" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
+                        <input type="password" name="password"  id="" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  /><br/>
+                        <a href="/fase2/statics/thank-you-gift" class="liLight btn-amarillo">Become a member</a>
+                    </form>
                 </div>
 
                 <?php /* <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" /> */ ?>
@@ -76,7 +94,13 @@
             <div class="valores">
                 <span id="vfolio_email"><?php echo $email; ?></span>
             </div>
+        </div>
+<form name="frmcheckout" id="frmcheckout" action="/fase2/membership/create" method="post">
+    
         <?php }else{ ?>
+    
+    <form name="frmcheckout" id="frmcheckout" action="/fase2/membership/create" method="post">
+        <div class="section text-center">
             <h2>CUSTOMER FOLIO</h2>
             <div class="inputs show">
                 <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
@@ -86,12 +110,14 @@
             <div class="valores">
                 <span id="vfolio_email"><?php echo $email; ?></span>
             </div>
-            <span class="btn-amarillo paso paso1 center">JOIN AND COMPLETE FOLIO</span>
+            <span class="btn-amarillo paso paso1 center" alt="JOIN AND COMPLETE FOLIO">JOIN AND COMPLETE FOLIO</span>
+        </div>
+                
         <?php } ?>
-    </div>
+    
 
     <div class="section">
-        <h2 class="acordion lock">SHIPPING INFORMATION</h2>
+        <h2 class="acordion lock">SHIPPING ADDRESS</h2>
         <div class="inputs">
             <input type="text" name="shp_firstname"  id="shp_firstname" value="<?php echo isset($shpAdd['_firstName']) ? $shpAdd['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
             <input type="text" name="shp_lastname"  id="shp_lastname" value="<?php echo isset($shpAdd['_lastName']) ? $shpAdd['_lastName'] : ''; ?>" placeholder="Last Name" title="Last Name"  class="medialinea"/>
@@ -126,7 +152,7 @@
     </div>
 
     <div class="section">
-        <h2 class="acordion lock">BILLING INFORMATION</h2>
+        <h2 class="acordion lock">BILLING ADDRESS</h2>
         <div>
             <label><input type="checkbox" name="bill_same" id="bill_same" value="1" <?php if (isset($billinfo['_same'])) {
                     echo 'checked="checked"';
@@ -167,7 +193,7 @@
     </div>
 
     <div class="section select_sin_ancho" >
-        <h2 class="acordion lock">PAYMENT INFORMATION</h2>
+        <h2 class="acordion lock">PAYMENT METHOD</h2>
         <div class="inputs">
             <input type="text" name="card_number"  id="card_number" value="<?php echo $payment['card_number']; ?>" placeholder="Card Number*" title="Card Number" />
             <div class="divcardexpiration">
@@ -209,7 +235,7 @@
         <div class="valores">
             <span id="vcard_number"></span><br/>
             <span id="vcard_expirationmonth"></span>/<span id="vcard_expirationyear"></span><br/>
-            <span id="vcar_seccode"></span>
+            <span id="card_seccode"></span>
         </div>
         <span class="btn-amarillo paso paso4">NEXT</span>
     </div>
@@ -217,10 +243,16 @@
     <div class="total section">
         <?php
         $total = 0;
-        $nprod = count($this->cart);
+        $nprod = count($this->cart);   
+        $membership = 0;
+        if($this->cartMembership){
+            $membership = 60;
+        }
+        $shipping = 0;
         if ($nprod) {
+            $shipping = $this->shipping;
             foreach ($this->cart as $index => $prod) {
-                if ($this->hasMembership) {
+                if($this->hasMembership || $this->cartMembership){
                     $total += $prod['_priceMember'] * (int) $prod['quantity'];
                 } else {
                     $total += $prod['_price'] * (int) $prod['quantity'];
@@ -232,7 +264,7 @@
         <table>
             <tr>
                 <td>Shipping</td>
-                <td>$<?php echo $this->shipping; ?></td>
+                <td id="shipping">$<?php echo $shipping; ?></td>
             </tr>
             <!-- tr>
                 <td>Tax</td>
@@ -246,8 +278,8 @@
                 <td>
                     Total
                 </td>
-                <td>
-                    $<?php echo (int) $total + (int) $this->shipping; ?>
+                <td id="total">
+                    $<?php echo (int) $total + (int)$shipping +$membership; ?>
                 </td>
             </tr>
         </table>

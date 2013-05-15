@@ -14,8 +14,8 @@
         <h3>Article #<?php echo $this->product['_code']; ?></h3>
         <h2><?php echo $this->product['designer']['_name']; ?></h2>
         
-        <a href="" class="details">Details</a> /
-        <a  class="available"><?php echo $this->product['_cantLimitedQuantity'] - $this->product['_cantBuy']?> units available to members only</a>        
+        <a  class="available">Available exclusively to members only <br/><?php echo $this->product['_cantLimitedQuantity'] - $this->product['_cantBuy']?> units</a>        <br/>
+        <a href="" class="details">Details</a> 
         
         <div  class="details-content">
             <p>

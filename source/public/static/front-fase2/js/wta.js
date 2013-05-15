@@ -28,6 +28,7 @@ var WTA = (function(){
     var that = this;
     var jqxhr_active = true;
     var ajaxQueue = [];
+    var error = '';
 
     this.ajaxStatus = function(status){
         that.jqxhr_active = status;
@@ -248,7 +249,8 @@ var WTA = (function(){
                     }else{
                         $wLight.css("top",'70px');
                     }
-                    $wLight.find('.closex, .continue').click( function(){
+                    $wLight.find('.closex, .continue').click( function(e){
+                        e.preventDefault();
                         $('.wLight').fadeOut().delay(500).remove();
                         $('#overlay').fadeOut();
                     });
@@ -563,7 +565,7 @@ var WTA = (function(){
     }
 
     this.addMembershipToCart = function(){
-        $('.addMembership').click(function(e){
+        $('.addMembership').unbind('click').click(function(e){
             e.preventDefault();
             var $this = $(this);
 
@@ -1173,7 +1175,11 @@ var WTA = (function(){
 
     }
 
-
+    /*
+     * 
+     * Este es el que funciona para new member y checkout a partir de la Fase2
+     * 
+     */
     this.membership = function(){
         $('#bill_same').change(function(){
             if(this.checked){
@@ -1212,6 +1218,7 @@ var WTA = (function(){
             }
 
             var $bill_same = $this.find('#bill_same');
+            $bill_same.attr('disabled', false);
             if( $bill_same.attr('checked') != 'checked' ){
                 var not_empty_shp = ['bill_firstname', 'bill_lastname', 'bill_address', 'bill_city', 'bill_region', 'bill_country', 'bill_cp', 'bill_phonenumber'];
 
@@ -1236,8 +1243,10 @@ var WTA = (function(){
                         $('span.error').remove();
                         var obj = $('#checkoutsubmit');
                         for(var i in response.messages){
-                            that.setMsgError(obj, response.messages[i]);
+                            //that.setMsgError(obj, response.messages[i]);
+                            that.setError(response.messages[i]);
                         }
+                        $('#linkerror').trigger('click');
                     }else{
                        if(response.ok){
 
@@ -1268,7 +1277,7 @@ var WTA = (function(){
 
 
                         }else{
-                            that.setMsgError(obj, 'We had a problem. Please review your information and try again');
+                            //that.setMsgError(obj, 'We had a problem. Please review your information and try again');
                         }
                     }
                 })
@@ -1296,7 +1305,7 @@ var WTA = (function(){
             if($this.html()=='Edit'){
                 $this.parent().find('.valores').css('display', 'none');
                 $this.parent().find('.inputs').css('display', 'block');
-                $this.html('JOIN AND COMPLETE FOLIO');
+                $this.html($this.attr('alt'));
             }else{
                 $this.parent().find('.inputs').css('display', 'none');
                 $this.parent().find('.valores').css('display', 'inline-block')
@@ -1476,7 +1485,14 @@ var WTA = (function(){
         }
     }
 
-
+    this.setError = function(msg){
+        that.error = msg;
+    }
+    
+    
+    this.getError = function(msg){
+        return that.error;
+    }
 
     return this;
 

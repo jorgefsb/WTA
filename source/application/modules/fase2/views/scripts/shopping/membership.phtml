@@ -17,20 +17,21 @@
 
         <!-- FORM CHECKOUT -->
         <?php
-            echo $this->partial('shopping/formCheckout.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>$this->cartMembership , 'shippingAddress'=>$this->shippingAddress, 'billingInformation'=>$this->billingInformation, 'invitation'=>$this->invitation));
+            echo $this->partial('shopping/formCheckout.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>$this->cartMembership , 'shippingAddress'=>$this->shippingAddress, 'billingInformation'=>$this->billingInformation, 'invitation'=>$this->invitation, 'regions'=>$this->regions, 'isCheckout'=>$this->isCheckout ?$this->isCheckout:0));
         ?>
 
     </div>
 
     <div id="checkout-cart">
         <?php
-            echo $this->partial('shopping/checkoutcart.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>$this->cartMembership));
+            echo $this->partial('shopping/checkoutcart.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>$this->cartMembership, 'isCheckout'=>$this->isCheckout ?$this->isCheckout:0));
         ?>
     </div>
 
 </div>
-<a href="/fase2/order/processed" class="liLight" id="linkprocessed"></a>
-<a href="/fase2/order/error" class="liLight" id="linkerror"></a>
+<a href="/fase2/membership/processed" class="liLight" id="linkprocessed"></a>
+<a href="/fase2/membership/congratulations" class="liLight" id="linkcongratulations"></a>
+<a href="/fase2/membership/error" class="liLight" id="linkerror"></a>
 <a href="/fase2/before-you-go" id="checkoutcancel" ></a>
 
 <script>

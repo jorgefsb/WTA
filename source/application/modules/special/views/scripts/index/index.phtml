@@ -51,7 +51,10 @@
                         </div>
                     </div>                    
                     <?php if( $prod['_cantLimitedQuantity']==0 ){ ?>
-                        <img src="<?php echo STATIC_URL?>/front-beta/images/soldout.png" class="soldout" width="80" height="80" />
+                        <!-- img src="<?php echo STATIC_URL?>/front-beta/images/soldout.png" class="soldout" width="80" height="80" / -->
+                        <a href="" class="btn btn-negro " class="disabled" onclick="return false;">
+                            SOLD OUT
+                        </a>
                     <?php }else{ ?>
                         <a href="" class="btn btn-negro addToCart" data-code="<?php echo $prod['_id']; ?>" data-redirect="/special/checkout" onClick="_gaq.push(['_trackEvent', 'Special', 'Click', '<?php echo $prod['_name']; ?>']);">
                             BUY NOW

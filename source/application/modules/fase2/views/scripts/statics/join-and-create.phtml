@@ -1,0 +1,30 @@
+<div class="wLight">
+    <div id="joinAndCreate" class="popup large ">
+        <div>
+            <img src="<?php echo STATIC_URL ?>/front-fase2/images/logo-degradado.png" />
+            <h1><img src="<?php echo STATIC_URL ?>/front-fase2/images/texts/welcome.png" /></h1>
+            
+            <form id="formJoin" action="/fase2/membership" name="register" method="post">
+                <p>Join and create folio</p>
+                <input type="hidden" id="invitation" name="invitation" value="1"/>
+                <label>                                        
+                    <input type="text" id="email" name="email" placeholder="Email address" class="" />
+                </label>
+                <label>
+                    <input type="password" id="password" name="password"  placeholder="Password"   />
+                </label>
+                <br/>
+                <a class="btn btn-amarillo submit"  href="" >BECOME A MEMBER</a>
+            </form>
+
+        </div>
+        <span class="closex">X</span>
+    </div>
+</div>
+<script> 
+    $('#formJoin .submit').click(function(e){
+        e.preventDefault();
+        $('#formJoin').submit();
+        return false;
+    })
+</script>

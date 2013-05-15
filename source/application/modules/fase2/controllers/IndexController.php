@@ -423,6 +423,9 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         $this->_session->cart = array();
         $this->_session->_tracking->clear();
         $this->_session->authBeta = 0;
+        $this->_session->invitation = null;
+        $this->_session->cartMembership = null;
+        $this->redirect('/');
     }
 
 

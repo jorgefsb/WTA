@@ -82,7 +82,7 @@ class Payment_Transaction_Authorize_Subscription extends Payment_Subscription {
                             <address>{$this->_shipToAddress}</address>
                             <city>{$this->_shipToCity}</city>
                             <state>{$this->_shipToState}</state>
-                            <zip>{$this->$this->_shipToZip}</zip>
+                            <zip>{$this->_shipToZip}</zip>
                             <country>{$this->_shipToCountry}</country>
                         </shipTo>
                     </subscription>";
@@ -126,27 +126,8 @@ class Payment_Transaction_Authorize_Subscription extends Payment_Subscription {
             $this->_errorMsg = $this->_authorize->getErrorMsg();
             return false; //Error
         }else{
-            $strdirectResponse = $xml_response->directResponse;
-            $directResponse= explode(',', $strdirectResponse);
-            $this->_isEdited = false;
-            
-            if($directResponse[0]==1){
-                $this->_profileTransactionId = $directResponse[6];
-                return true;
-            }elseif($directResponse[0]==2){
-                $this->_error = 'Decline';
-                $this->_errorMsg = $directResponse[3];
-                return false;
-            }elseif($directResponse[0]==3){
-                $this->_error = 'Error';
-                $this->_errorMsg = $directResponse[3];
-                return false;
-            }elseif($directResponse[0]==4){
-                $this->_error = 'Held for Review';
-                $this->_errorMsg = $directResponse[3];
-                return false;
-            }
-
+            $this->_subscriptionId = $xml_response->subscriptionId;
+            return true;
         }
         return false;
     }
@@ -168,18 +149,6 @@ class Payment_Transaction_Authorize_Subscription extends Payment_Subscription {
     }
 
 
-    
-    public function addProduct($_id, $_name, $_description, $_quantity, $_unitPrice){
-        $product = array(
-            'itemId'=>$_id,
-            'name'=>$_name,
-            'description'=>$_description,
-            'quantity'=>$_quantity,
-            'unitPrice'=>$_unitPrice
-        );
-        $this->_items[] = $product;
-    }
-    
     
 }
 

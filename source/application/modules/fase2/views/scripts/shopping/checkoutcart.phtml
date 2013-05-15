@@ -12,11 +12,16 @@
             </div>
 
             <?php
+                $shipping = 0;
+                $membership = 0;
                 if(!$this->cart){
                     $this->cart = array();
+                }else{
+                    $shipping = $this->shipping;
                 }
                 $total =0;
                 $totalGuest = 0;
+                $totalMember = 0;
                 foreach($this->cart as $key=>$prod){
                    $priceLocal = 0;
                     if($this->hasMembership || $this->cartMembership){
@@ -26,6 +31,7 @@
                     }
                     $total += $priceLocal;
                     $totalGuest += $prod['_price'] * (int)$prod['quantity'];
+                    $totalMember += $prod['_priceMember'] * (int)$prod['quantity'];
         ?>
 
                     <div class="prod"><!-- PRODUCT -->
@@ -72,6 +78,7 @@
 
 
                 if($this->cartMembership){
+                    $membership = 60;
                 ?>
                     <div class="prod"><!-- Product Free -->
                         <div class="row-fluid">
@@ -112,22 +119,37 @@
                     <?php if( !empty($this->cart)){ ?>
 
                         <div class="btns-checkout">
-                            <a href="/fase2/checkout" class="checkout btn btn-amarillo" >Check out as guest</a>
+                            <?php if( !$this->isCheckout ){ ?>                                
+                                <a href="/fase2/checkout?r=m" class="btn btn-amarillo" >Checkout as guest instead</a>
+                            <?php } ?>
                             <div class="linea_horiz"></div>
                         </div>
                     <?php } ?>
                   <?php
+                }else{
+                    ?>
+                    <div class="btns-checkout">
+                        <?php if( $this->isCheckout ){ ?>
+                            <a href="/fase2/statics/join-and--create" class="btn btn-amarillo liLight" >join and create folio</a>
+                        <?php }else{ ?>
+                            <a href="/fase2/checkout?r=m" class="btn btn-amarillo" >Checkout as guest instead</a>
+                        <?php } ?>
+                        <div class="linea_horiz"></div>
+                    </div>
+                    
+                    <?php
                 }
 
         ?>
                         <div class="save">
-                            <?php  if(!$this->hasMembership && $totalGuest-$total > 0){ ?>
-                                Our Exclusive Folio Members save $<?php echo $totalGuest-$total; ?>
+                            <?php  if($totalGuest-$totalMember > 0){ ?>
+                                Our Exclusive Folio Members save $<?php echo $totalGuest-$totalMember; ?>
                             <?php } ?>
                         </div>
         </div>
     </div>
 
     <script>
-        $('#total').html(<?php echo $total+$this->shipping; ?>);
+        $('#shipping').html( '$<?php echo $shipping; ?>');
+        $('#total').html( '$<?php echo $total+$shipping+$membership; ?>');
     </script>
