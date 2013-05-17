@@ -146,6 +146,7 @@ class Payment_Transaction_Authorize {
     }
     
     static function getDescriptionCode($code){
+        $code = trim($code);
         switch ($code){
             case 'I00001':
                 return 'Successful';

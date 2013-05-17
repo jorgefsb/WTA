@@ -53,7 +53,7 @@
     <?php if( $this->isCheckout ){ ?>
     
     <form name="frmcheckout" id="frmcheckout" action="/fase2/membership/create" method="post">
-        <div class="section text-center">
+        <div class="section text-center group">
             <h2>GUEST CHECKOUT</h2>
             <div class="inputs show">
                 <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
@@ -68,7 +68,7 @@
                 
         <?php }elseif( (!$this->cartMembership || count($this->cartMembership)<=1) && !$this->invitation ){ ?>    
 
-        <div class="section text-center">
+        <div class="section text-center group">
             <br/>
             <div class="inputs show colums2">
                 <div>
@@ -100,7 +100,7 @@
         <?php }else{ ?>
     
     <form name="frmcheckout" id="frmcheckout" action="/fase2/membership/create" method="post">
-        <div class="section text-center">
+        <div class="section text-center group">
             <h2>CUSTOMER FOLIO</h2>
             <div class="inputs show">
                 <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
@@ -116,7 +116,7 @@
         <?php } ?>
     
 
-    <div class="section">
+    <div class="section group">
         <h2 class="acordion lock">SHIPPING ADDRESS</h2>
         <div class="inputs">
             <input type="text" name="shp_firstname"  id="shp_firstname" value="<?php echo isset($shpAdd['_firstName']) ? $shpAdd['_firstName'] : ''; ?>" placeholder="First Name" title="First Name"  class="medialinea" />
@@ -151,7 +151,7 @@
         <span class="btn-amarillo paso paso2">NEXT</span>
     </div>
 
-    <div class="section">
+    <div class="section group">
         <h2 class="acordion lock">BILLING ADDRESS</h2>
         <div>
             <label><input type="checkbox" name="bill_same" id="bill_same" value="1" <?php if (isset($billinfo['_same'])) {
@@ -192,7 +192,7 @@
         <span class="btn-amarillo paso paso3">NEXT</span>
     </div>
 
-    <div class="section select_sin_ancho" >
+    <div class="section select_sin_ancho group" >
         <h2 class="acordion lock">PAYMENT METHOD</h2>
         <div class="inputs">
             <input type="text" name="card_number"  id="card_number" value="<?php echo $payment['card_number']; ?>" placeholder="Card Number*" title="Card Number" />

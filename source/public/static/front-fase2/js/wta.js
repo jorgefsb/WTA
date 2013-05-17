@@ -68,7 +68,7 @@ var WTA = (function(){
         })
 
         var timeGift =null;
-        $('.getafgt, #popupgift').hover(function(){
+        /*$('.getafgt, #popupgift').hover(function(){
             $('#popupgift').stop(true, true).slideDown();
             clearTimeout(timeGift);
         },function(){
@@ -77,7 +77,7 @@ var WTA = (function(){
             },500);
         })
 
-        $('#popupgift').slideUp();
+        $('#popupgift').slideUp();*/
     };
 
     this.Exclusive = function(){
@@ -421,7 +421,7 @@ var WTA = (function(){
                                     html += '<a class="checkout btn btn-amarillo wide" href="/fase2/checkout">Check out as guest instead</a> <span class="prec1">$'+response.product['_price']+'</span>';
                                     html += '<div class="linea_horiz"></div>';
                                     html += '</div>';
-                                    html += '<div class="save">Our Exclusive Folio Members save '+(response.product['_price']-response.product['_priceMember'])+'</div>'
+                                    html += '<div class="save">Our Exclusive Folio Members save $'+(response.product['_price']-response.product['_priceMember'])+'</div>'
                                     return html;
                                 }).find('.remove').click(function(e){
                                     e.preventDefault();

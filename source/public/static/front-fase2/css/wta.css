@@ -11,6 +11,11 @@
     font-style: normal;
 
 }
+
+.group:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+.group { display: inline-block; clear: both; }
+/* start commented backslash hack \*/ * html .group { height: 1%; } .group { display: block; } /* close commented backslash hack */
+
 *,  button, select {font-family: copperplate_gothic_lightRg, Georgia, Arial, Helvetica}
 input::-webkit-input-placeholder {	font-family: copperplate_gothic_lightRg, Georgia, Arial, Helvetica}
 input::-moz-placeholder { font-family: copperplate_gothic_lightRg, Georgia, Arial, Helvetica}
@@ -689,7 +694,7 @@ input.error, .btn-group.error{border: 1px solid #a03333 !important}
 #contentBody.checkout  .imgPrincipal img{max-height: 267px;}
 
 #contentBody.checkout form#frmcheckout {width: 407px; margin: 0 auto}
-#contentBody.checkout form .section{margin: 0px 0 5px; font-size: 12px; border-width: 0px 0px 1px; border-style: dotted; border-color: #e0e0e0; padding-bottom: 10px; overflow: auto; }
+#contentBody.checkout form .section{margin: 0px 0 5px; font-size: 12px; border-width: 0px 0px 1px; border-style: dotted; border-color: #e0e0e0; padding-bottom: 10px; }
 #contentBody.checkout form .section h2{margin: 0px; cursor: pointer; text-align: left}
 #contentBody.checkout form .section h2 span{line-height: 16px;}
 #contentBody.checkout form .section h2+div{display: none}
