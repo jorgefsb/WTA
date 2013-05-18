@@ -729,6 +729,7 @@ class Application_Entity_Transaction extends Core_Entity {
 
         $objMail = new Core_Mail();
         $objMail->addDestinatario($this->_mail);
+        $objMail->addDestinatario('tim@wetheadorned.com');
         $objMail->setAsunto('Thank you for your recent purchase from WeTheAdorned.');
 
         $objMail->addAdjunto($file);
