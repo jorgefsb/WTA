@@ -235,6 +235,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
         }
 
         $this->view->ok = 1;
+        $this->view->count = count($this->_session->cart);
 
         /*
          * Tracking

@@ -36,7 +36,8 @@ a.disabled, a.disabled:hover{/*color: #555 !important;*/ cursor: default}
 
 #overlay{background: url('../images/pattern-overlay.png'); width: 100%; height: 100%; position: fixed; display: none; z-index: 9000;}
 
-#header .navbar-inner > a.logo{margin: 10px 20px; display: inline-block}
+#header .navbar-inner > a.logo{margin: 8px 20px 0; display: inline-block}
+#header .navbar-inner > a.logo img{height: 42px}
 
 .navbar-inverse  .navbar-inner{margin-left: 0; background: #0c0c0c; background: rgba(11, 11, 11, .8);  border: 0px; filter: none; border-radius: 0px; color: #f0ce73;}
 .navbar-inner{padding: 0px;}
@@ -66,7 +67,7 @@ a.disabled, a.disabled:hover{/*color: #555 !important;*/ cursor: default}
 #header .frase{ font-size: 16px;}
 #header .nav{margin-left: 10px; }
 #header .pull-right{margin-right: 10px; }
-#header .navbar .nav > li > a{ color: #f0ce73; font-size: 16px; padding: 10px 15px; line-height: 57px;}
+#header .navbar .nav > li > a{ color: #f0ce73; font-size: 16px; margin-top: 5px; padding: 0px 15px 0; line-height: 50px;}
 
 #header .navbar-inner  .btn, a.btn-negro{background: #191919; box-shadow: none; text-shadow: none;  color: #f0ce73;}
 #header .navbar .nav > li > a.btn{ display: inline-block; font-size: 14px; line-height: 12px; padding: 0px 5px; line-height: 31px}
@@ -100,7 +101,7 @@ a.btn-amarillo:hover{background: #191919 !important; }
 
 /* FOOTER */
 /*#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px;}*/
-#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px; position: absolute; top: 100%; width: 100%; z-index: 5000}
+#footer{padding: 0 0px 0 0px; background: #010101;  /*min-height: 90px;*/ position: absolute; top: 100%; width: 100%; z-index: 5000}
 #footer .navbar-inner{font-size: 16px;  padding: 0 20px; background: #010101; }
 #footer .navbar .nav > li > a{color: #f0ce73; padding: 10px 7px; }
 #footer .navbar .nav > li > a:hover{color: #f0ce73; }
@@ -111,7 +112,7 @@ a.btn-amarillo:hover{background: #191919 !important; }
 #footer .contactus{text-transform: uppercase; color: #FFF; margin-left: 10px; font-size: 11px; text-decoration: none}
 #footer .contactus:hover {color: #f0ce73;}
 
-#footer blockquote{color: #f0ce73; border: 0px; text-align: center; font-size: 10px; margin-top: 10px; text-transform: uppercase; font-weight: bold}
+#footer blockquote{color: #f0ce73; border: 0px; text-align: center; font-size: 10px; margin: 0px ; text-transform: uppercase; font-weight: bold}
 
 .footer_fecha{text-align: right}
 

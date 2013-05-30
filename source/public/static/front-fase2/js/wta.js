@@ -411,7 +411,7 @@ var WTA = (function(){
                                     html += '<div class="span8 info">';
                                     html += '<span class="name">Item '+response.product['_code']+'<strong> <em>'+response.product['_name']+'</em></strong></span><br>';
                                     html += '<span class="dsc">'+response.product['designer']['_name']+'</span>';
-                                    html += '<a href="/shopping/removeitem/clave/835/format/json" class="remove">X</a>';
+                                    html += '<a href="/shopping/removeitem/clave/'+response.product['clave']+'/format/json" class="remove">X</a>';
                                     html += '</div>';
                                     html += '</div>';
                                     html += '</div>';
@@ -428,7 +428,11 @@ var WTA = (function(){
                                     $.ajax({
                                         url: $(this).attr('href')
                                     }).done(function(response){
-                                        that.updateCart();
+                                        if(response.count>0){
+                                            that.updateCart();
+                                        }else{
+                                            $('#popupShoppinCart').find('.closex').trigger('click');
+                                        }
                                     });
                                 });
                                 $('#popupShoppinCart').fadeIn();
@@ -491,7 +495,11 @@ var WTA = (function(){
                 $.ajax({
                     url: $(this).attr('href')
                 }).done(function(response){
-                    that.updateCart();
+                    if(response.count>0){
+                        that.updateCart();
+                    }else{                        
+                        $('#popupShoppinCart').find('.closex').trigger('click');
+                    }
                 });
             });
 

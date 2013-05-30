@@ -69,7 +69,7 @@ a:hover{ color: #fee7a4 !important}
 
 /* FOOTER */
 /*#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px;}*/
-#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px; position: fixed; bottom: 0px; width: 100%; z-index: 5000}
+#footer{padding: 0 0px 0 0px; background: #010101;  min-height: 90px; position: absolute; bottom: -110px; width: 100%; z-index: 5000}
 #footer .navbar-inner{font-size: 16px;  padding: 0 20px; background: #010101; }
 #footer .navbar .nav > li > a{color: #f0ce73; padding: 10px 7px; }
 #footer .navbar .nav > li > a:hover{color: #f0ce73; }
