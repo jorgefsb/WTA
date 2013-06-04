@@ -247,7 +247,7 @@ var WTA = (function(){
                     if( $link.data('top')){
                         $wLight.css("top",$link.data('top'));
                     }else{
-                        $wLight.css("top",'70px');
+                        $wLight.css("top",'52px');
                     }
                     $wLight.find('.closex, .continue').click( function(e){
                         e.preventDefault();
@@ -669,7 +669,7 @@ var WTA = (function(){
         var $slider_products = $('#slider_products');
         var isboutique = $('#contentBody').hasClass('boutique');
         //if( !isboutique){
-            $('BODY').append($slider_products);
+            //$('BODY').append($slider_products);
 //        }
 
         var $slider = $('#slider');

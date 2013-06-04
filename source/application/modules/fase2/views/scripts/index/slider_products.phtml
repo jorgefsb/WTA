@@ -27,7 +27,7 @@ $_urlBase = $this->url_base;
                         (empty($this->category) ? '' : urlencode(strtolower($product[$this->category])) . '/')
                         . $product['product_slug']
                         ?>">
-                                <img src="<?php echo DINAMIC_URL . '/product/thumbs/' . $product['image']; ?>" />
+                                <img src="<?php echo DINAMIC_URL . '/product/thumbnails/' . $product['image']; ?>" />
                             </a>
                             <a href="<?php
                             echo $_urlBase .
