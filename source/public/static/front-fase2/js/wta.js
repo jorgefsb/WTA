@@ -675,7 +675,7 @@ var WTA = (function(){
         var $slider = $('#slider');
 
         $slider.carouFredSel({
-            auto: false,
+            auto: true,
             responsive: true,
             width: '100%',
             scroll: 1,
@@ -748,15 +748,15 @@ var WTA = (function(){
 
         $('#prev2').click(function(e){
             e.preventDefault();
-            $('#slider').trigger('prev', {items:1});
+            $('#slider').trigger('prev', {items:1}).trigger('pause');
         });
         $('#next2').click(function(e){
             e.preventDefault();
-            $('#slider').trigger('next', {items:1});
+            $('#slider').trigger('next', {items:1}).trigger('pause');;
         });
 
         //if( !isboutique){
-            setTimeout(function(){
+            timeOcultar = setTimeout(function(){
                 bar.trigger('click');
             }, 1500)
         //}
