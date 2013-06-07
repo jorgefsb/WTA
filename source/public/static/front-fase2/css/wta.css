@@ -401,7 +401,8 @@ a.signout{margin:  0 auto;}
 #slider_products .slider-content div.collectionsName span{color: #f0ce73; text-transform: uppercase; line-height: 26px; border-bottom: 1px solid #FFF; font-size: 11px; font-weight: bold; display: block; margin-bottom: 10px;}
 #slider_products .slider-content div.collectionsName p{font-size: 11px; color: #968453}
 #slider_products #slider-div{display: block; margin-left: 50px; /*margin-top: -75px;*/ margin-right: 40px;  padding: 10px; position: relative}
-#slider_products #slider li{display:  inline-block; min-height: 130px;}
+#slider_products #slider li{display:  inline-block; min-height: 160px;}
+#slider_products #slider li img{max-height: 160px; max-width: 160px}
 #slider_products #slider li a.dsc{display: inline-block; min-width: 130px; max-width: 200px; margin-left: 15px; vertical-align: middle; color: #f0ce73; font-size: 13px; }
 #slider_products #slider li a.dsc strong{font-style: italic; display: inline-block; width: 120px;}
 #slider_products #slider li a.dsc span{display: block; line-height: 14px; font-size: 11px; margin-top: 2px;}
