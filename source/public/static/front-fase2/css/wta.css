@@ -77,7 +77,7 @@ a.btn{transition: all 500ms ease 0s;}
 a.btn:hover{background-color: #3d3d3d !important}
 a:hover{ color: #fee7a4 !important;  }
 
-a.btn-amarillo{
+#contentBody .info .btns-options a, a.btn-amarillo{
     transition: none !important;
     padding: 5px 3px;
     color: #FFF;
@@ -91,7 +91,7 @@ a.btn-amarillo{
     background: linear-gradient(to bottom, #d8b74e 0%,#c89a30 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8b74e', endColorstr='#c89a30',GradientType=0 );
 }
-a.btn-amarillo:hover{background: #191919 !important; }
+#contentBody .info .btns-options a:hover, a.btn-amarillo:hover{background: #191919 !important; }
 
 
 .iconCart{ background: transparent url(../images/icon-cart.png) 0px -1px no-repeat; width: 24px; height: 22px; display: inline-block; vertical-align: middle}
@@ -415,7 +415,8 @@ a.signout{margin:  0 auto;}
 #contentBody.boutique .info .btns-options a{box-shadow: none; text-shadow: none; font-size: 12px; }
 #contentBody > .btns-options {position: absolute; top: 30px; right: 10%; }
 #contentBody .info .btns-options {margin-top: 10px; }
-#contentBody .info .btns-options a{color: #fcd279; background: #101010; min-width: 80px; box-shadow: 1px 1px 2px #999; font-family: Georgia, Arial, Helvetica; font-weight: bold; text-transform: uppercase; line-height: 15px; padding: 3px 30px; margin: 0 17px;}
+/*/#contentBody .info .btns-options a{color: #fcd279; background: #101010; min-width: 80px; box-shadow: 1px 1px 2px #999; font-family: Georgia, Arial, Helvetica; font-weight: bold; text-transform: uppercase; line-height: 15px; padding: 3px 30px; margin: 0 17px;}*/
+#contentBody .info .btns-options a{min-width: 80px; box-shadow: 1px 1px 2px #999; font-family: Georgia, Arial, Helvetica; font-weight: bold; text-transform: uppercase; line-height: 15px; padding: 3px 30px; margin: 0 17px;}
 #contentBody .info .btns-options a.big{padding: 10px 12px;  font-size: 13px; border-radius: 7px; }
 
 

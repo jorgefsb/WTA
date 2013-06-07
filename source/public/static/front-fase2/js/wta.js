@@ -675,7 +675,7 @@ var WTA = (function(){
         var $slider = $('#slider');
 
         $slider.carouFredSel({
-            auto: true,
+            auto: {timeoutDuration: 2000},
             responsive: true,
             width: '100%',
             scroll: 1,
@@ -752,13 +752,14 @@ var WTA = (function(){
         });
         $('#next2').click(function(e){
             e.preventDefault();
-            $('#slider').trigger('next', {items:1}).trigger('pause');;
+            $('#slider').trigger('next', {items:1}).trigger('pause');
         });
-
+        var nlis = $('#slider').find('li').length;
         //if( !isboutique){
             timeOcultar = setTimeout(function(){
                 bar.trigger('click');
-            }, 1500)
+                $('#slider').trigger('pause')
+            }, 2400*(nlis+1))
         //}
     }
     /********************************* SLIDER PRODUCTOS *************************************/
