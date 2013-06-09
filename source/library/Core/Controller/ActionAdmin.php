@@ -18,8 +18,10 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
             if(!isset($this->_identityUserAdmin->user_id)){
                 
             }
+            
             $container = new Zend_Navigation($this->_sessionAdmin->navigator);
             $acl = new Application_Entity_AclAdmin();
+            
             $arrayRoles = Application_Entity_AclAdmin::$arrayRole;
             $role = $arrayRoles[isset($this->_identityUserAdmin->user_type_id)?$this->_identityUserAdmin->user_type_id:0];
             $this->view->navigation($container)
@@ -66,6 +68,18 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'order' => 2
                 
             ),
+            
+            array(
+                'label' => 'Designers',
+                'id' => 'designer',
+                'module' => 'admin',
+                'controller' => 'designer',
+                'action' => 'index',
+                'resource' => 'designer',
+                'order' => 3
+                
+            ),
+            
             array(
                 'label' => 'Celebrity',
                 'id' => 'actress',
@@ -73,7 +87,7 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'controller' => 'actress',
                 'action' => 'index',
                 'resource' => 'actress',
-                'order' => 3
+                'order' => 4
                 
             ),
             array(
@@ -83,7 +97,7 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'controller' => 'orders',
                 'action' => 'index',
                 'resource' => 'orders',
-                'order' => 4
+                'order' => 5
             ),
             array(
                 'label' => 'Members',
@@ -91,7 +105,7 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'module' => 'admin',
                 'controller' => 'members',
                 'resource' => 'members',
-                'order' => 5
+                'order' => 6
             )/*,
             array(
                 'label' => 'Shopping reports',
@@ -99,9 +113,10 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'module' => 'admin',
                 'resource' => 'shopping-reports',
                 'controller' => 'shopping-reports',
-                'order' => 6
+                'order' => 7
             ),*/
         );
+        
         $this->setRegisterNavigation($container);
     }
      protected function setRegisterNavigation(array $navigator) {

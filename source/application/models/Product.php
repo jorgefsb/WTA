@@ -225,7 +225,7 @@ class Application_Model_Product extends Core_Model {
                         array('pr' => $this->_tableProduct->getName()), '')
                 ->joinInner(array('de'=>$this->_tableDesigner->getName() ), 'pr.product_designer = de.designer_id', 'de.designer_name')
                 ->joinInner(array('det'=>$this->_tableDesignerType->getName() ), 'pr.product_design_type = det.design_type_id', 'det.design_type_name')
-                ->where('pr.product_public = 1 and pr.product_delete <> 1')
+                ->where('pr.product_public = 1 and pr.product_delete <> 1 AND designer_delete = 0')
                 ->group(array('product_designer', 'product_design_type'))
                 ->order(array('designer_name DESC','design_type_name'))
                 ->query();

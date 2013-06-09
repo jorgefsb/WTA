@@ -9,6 +9,7 @@ class Application_Entity_Designer extends Core_Entity {
 
     protected $_id;
     protected $_name;
+    protected $_delete;
     /**
      * __Construct         
      *
@@ -25,7 +26,7 @@ class Application_Entity_Designer extends Core_Entity {
     private function asocParams($data) {
         $this->_id = $data['designer_id'];
         $this->_name = $data['designer_name'];
-        
+        $this->_delete = $data['designer_delete'];
     }
 
     /*
@@ -38,6 +39,7 @@ class Application_Entity_Designer extends Core_Entity {
     function identify($idDesigner) {
         $modelDesigner = new Application_Model_Designer();
         $data = $modelDesigner->getDesigner($idDesigner);
+        
         if ($data != '') {
             $this->asocParams($data);
         }
@@ -53,6 +55,7 @@ class Application_Entity_Designer extends Core_Entity {
     function setParamsDataBase() {
         $data['designer_id'] = $this->_id;
         $data['designer_name'] = $this->_name;
+        $data['designer_delete'] = $this->_delete;
         return $this->cleanArray($data);
     }
 
@@ -70,11 +73,15 @@ class Application_Entity_Designer extends Core_Entity {
      * @return 
      */
 
-    function createDesigner($password) {
+    function createDesigner() {
         $modelDesigner = new Application_Model_Designer();
+        
+        $data = $this->setParamsDataBase();
         $id = $modelDesigner->insert($data);
+        
         if ($id != false) {
             $this->_id = $id;
+            $this->update();
             $this->_message = 'Registration ok';
             return true;
         } else {
@@ -83,6 +90,10 @@ class Application_Entity_Designer extends Core_Entity {
         }
     }
 
-    
-
+    function delete() {
+        $modelDesigner = new Application_Model_Designer();
+        $data['designer_delete'] = 1;
+        $this->_message = 'satisfactory record';
+        return $modelDesigner->update($data, $this->_id);
+    }
 }

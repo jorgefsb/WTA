@@ -17,6 +17,7 @@ class Application_Model_Designer extends Core_Model {
                 ->where('designer_id =?', $idDesigner)
                 ->query();
         $result = $smt->fetch();
+        
         $smt->closeCursor();
         return $result;
     }
@@ -29,6 +30,7 @@ class Application_Model_Designer extends Core_Model {
     public function listing() {
         $smt = $this->_tableDesigner
                 ->select()
+                ->where('designer_delete = 0')
                 ->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();
@@ -62,9 +64,6 @@ class Application_Model_Designer extends Core_Model {
             return false;
         }
     }
-    
-    
-    
 
 }
 

@@ -177,6 +177,7 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
         if (empty($module) || !isset($dirs[$module])) {
             $module = $this->getFrontController()->getDispatcher()->getDefaultModule();
         }
+        
         $baseDir = dirname($dirs[$module]) . DIRECTORY_SEPARATOR . 'views';
         if (!file_exists($baseDir) || !is_dir($baseDir)) {
             require_once 'Zend/Controller/Exception.php';
