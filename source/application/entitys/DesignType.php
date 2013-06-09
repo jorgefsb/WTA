@@ -85,6 +85,10 @@ class Application_Entity_DesignType extends Core_Entity {
         return $modelDesignType->listing();
     }
 
-    
+    function delete() {
+        $modelDesignType = new Application_Model_DesignType();
+        $this->_message = 'deleted record';
+        return $modelDesignType->delete($this->_id);
+    }
 
 }

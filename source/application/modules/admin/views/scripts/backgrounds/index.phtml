@@ -1,0 +1,74 @@
+<div class="box span12">
+    <div class="box-header well" data-original-title>
+        <h2>Home Background List</h2>
+    </div>
+    <div class="box-content">
+<a class="btn btn-small btn-primary" href="/admin/backgrounds/new">New Background</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Img
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+    </thead>
+<?php foreach($this->listingBackgrounds as $index): ?>
+    <tr>
+        <td>
+            <?php echo $index['background_name']; ?>
+        </td>
+        <td>
+            <?php if($index['background_public'] == 1){ ?>
+            <samp class="label label-success">Public</samp>
+            <?php } else { ?>
+            <samp class="label">Inactive</samp>
+            <?php } ?>
+        </td>
+        <td>
+           <img  src="<?php echo DINAMIC_URL . '/background/mini/' . $index['background_image']; ?>"/>
+        </td>
+        <td>
+            <a class="btn btn-mini btn-info" href="/admin/backgrounds/up/id/<?php echo $index['background_id']; ?>"><span class="icon-arrow-up icon-white"></span> Up</a>
+            <a class="btn btn-mini btn-info" href="/admin/backgrounds/down/id/<?php echo $index['background_id']; ?>"><span class="icon-arrow-down icon-white"></span> Down</a>
+            <a class="btn btn-mini btn-info" href="/admin/backgrounds/edit/id/<?php echo $index['background_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+            <a class="btn btn-mini btn-info btn-setting deleteAction" id="deleteAction" href="/admin/backgrounds/delete/id/<?php echo $index['background_id']; ?>"><span class="icon-trash icon-white"></span> Delete</a>
+            <?php if($index['background_public'] == 1){ ?>
+            <a class="btn btn-mini btn-info" href="/admin/backgrounds/unpublish/id/<?php echo $index['background_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublish</a>
+            <?php } else { ?>
+            <a class="btn btn-mini btn-info" href="/admin/backgrounds/publish/id/<?php echo $index['background_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
+            <?php } ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php
+        echo $this->paginationControl($this->listingBackgrounds, 'Sliding', '/paginatorcontrol/backgrounds.phtml');
+        ?>
+</div>
+</div>
+
+
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Delete</h3>
+    </div>
+    <div class="modal-body">
+        Want to remove this home background
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" id="yesDelete" data-dismiss="modal">Yes</a>
+        <a href="#" class="btn" data-dismiss="modal">No</a>
+
+    </div>
+</div>

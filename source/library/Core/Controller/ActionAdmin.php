@@ -70,6 +70,28 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
             ),
             
             array(
+                'label' => 'Home Backgrounds',
+                'id' => 'backgrounds',
+                'module' => 'admin',
+                'controller' => 'backgrounds',
+                'action' => 'index',
+                'resource' => 'backgrounds',
+                'order' => 3
+                
+            ),
+            
+            array(
+                'label' => 'Design Types',
+                'id' => 'designtypes',
+                'module' => 'admin',
+                'controller' => 'designtypes',
+                'action' => 'index',
+                'resource' => 'designtypes',
+                'order' => 3
+                
+            ),
+            
+            array(
                 'label' => 'Designers',
                 'id' => 'designer',
                 'module' => 'admin',

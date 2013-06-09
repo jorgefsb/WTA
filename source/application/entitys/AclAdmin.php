@@ -22,15 +22,17 @@ class Application_Entity_AclAdmin extends Zend_Acl {
         $this->add(new Zend_Acl_Resource('logout'));
         $this->add(new Zend_Acl_Resource('index'));
         $this->add(new Zend_Acl_Resource('product'));
+        $this->add(new Zend_Acl_Resource('backgrounds'));
         $this->add(new Zend_Acl_Resource('actress'));
         $this->add(new Zend_Acl_Resource('designer'));
+        $this->add(new Zend_Acl_Resource('designtypes'));
         $this->add(new Zend_Acl_Resource('orders'));
         $this->add(new Zend_Acl_Resource('members'));
         $this->add(new Zend_Acl_Resource('shopping-reports'));
         $this->add(new Zend_Acl_Resource('user-management'));
 
 // assign privileges
-        $this->allow('ContentManager', array('logout','index','product','actress','designer','profiler'));
+        $this->allow('ContentManager', array('logout','index','product','actress','designer','designtypes','backgrounds','profiler'));
         $this->allow('Admin', array('orders','members','shopping-reports','user-management'));
         $this->allow('SuperAdmin', array('orders','members','shopping-reports','user-management'));
     }

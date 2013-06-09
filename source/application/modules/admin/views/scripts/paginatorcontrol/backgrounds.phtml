@@ -9,7 +9,7 @@
         <ul>
         <!-- Previous page link -->
         <?php if (isset($this->previous)): ?>
-            <li class="prev"><a  href="/admin/designer?page=<?php echo $this->previous; ?>">
+            <li class="prev"><a  href="/admin/backgrounds?page=<?php echo $this->previous; ?>">
                 &lt; Previous
             </a></li>
         <?php else: ?>
@@ -19,7 +19,7 @@
         <!-- Numbered page links -->
         <?php foreach ($this->pagesInRange as $page): ?>
             <?php if ($page != $this->current): ?>
-                <li><a href="/admin/designer?page=<?php echo $page ?>">
+                <li><a href="/admin/backgrounds?page=<?php echo $page ?>">
                     <?php echo $page; ?>
                 </a></li>
             <?php else: ?>
@@ -28,7 +28,7 @@
         <?php endforeach; ?>
         <!-- Next page link -->
         <?php if (isset($this->next)): ?>
-            <li class="nex"><a   href="/admin/designer?page=<?php echo $this->next; ?>">
+            <li class="nex"><a   href="/admin/backgrounds?page=<?php echo $this->next; ?>">
                 Next &gt;
             </a></li>
         <?php else: ?>

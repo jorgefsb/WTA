@@ -10,6 +10,17 @@
         <th>
             Name
         </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Description
+        </th>
+        <!--
+        <th>
+            Img
+        </th>
+        -->
     </tr>
     </thead>
 <?php foreach($this->listing as $index): ?>
@@ -18,14 +29,34 @@
             <?php echo $index['designer_name']; ?>
         </td>
         <td>
+            <?php if($index['designer_public'] == 1){ ?>
+            <samp class="label label-success">Public</samp>
+            <?php } else { ?>
+            <samp class="label">Inactive</samp>
+            <?php } ?>
+        </td>
+        <td>
+            <?php echo $index['designer_description']; ?>
+        </td>
+        <!--
+        <td>
+           <img  src="<?php echo DINAMIC_URL . '/designer/mini/' . $index['designer_image']; ?>"/>
+        </td>
+        -->
+        <td>
             <a class="btn btn-mini btn-info" href="/admin/designer/edit/id/<?php echo $index['designer_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
             <a class="btn btn-mini btn-info btn-setting deleteAction" id="deleteAction" href="/admin/designer/delete/id/<?php echo $index['designer_id']; ?>"><span class="icon-trash icon-white"></span> Delete</a>
+            <?php if($index['designer_public'] == 1){ ?>
+            <a class="btn btn-mini btn-info" href="/admin/designer/unpublish/id/<?php echo $index['designer_id']; ?>"><span class="icon-eye-close icon-white"></span> Unpublish</a>
+            <?php } else { ?>
+            <a class="btn btn-mini btn-info" href="/admin/designer/publish/id/<?php echo $index['designer_id']; ?>"><span class="icon-eye-open icon-white"></span> Publish</a>
+            <?php } ?>
         </td>
     </tr>
 <?php endforeach; ?>
 </table>
 <?php
-        echo $this->paginationControl($this->listing, 'Sliding', '/paginatorcontrol/actress.phtml');
+        echo $this->paginationControl($this->listing, 'Sliding', '/paginatorcontrol/designer.phtml');
         ?>
 </div>
 </div>

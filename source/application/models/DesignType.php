@@ -49,6 +49,16 @@ class Application_Model_DesignType extends Core_Model {
         }
     }
     
+    public function delete($idDesignType) {
+        if ($idDesignType != '') {
+            $where = $this->_tableDesignType->getAdapter()
+                    ->quoteInto('design_type_id =?', $idDesignType);
+            return $this->_tableDesignType->delete($where);
+        } else {
+            return false;
+        }
+    }
+    
     public function listing() {
         
          $smt = $this->_tableDesignType

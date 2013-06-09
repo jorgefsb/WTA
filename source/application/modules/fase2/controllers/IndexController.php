@@ -41,9 +41,18 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         return $menu;
     }
 
+    private function loadBackgrounds(){
+        $_background = new Application_Entity_Background();
+        
+        $backgrounds = $_background->listingActiveBackgrounds();
+        
+        $this->view->backgrounds = $backgrounds;
+    }
+
 
     public function indexAction(){
         $this->loadOptionsMenu();
+        $this->loadBackgrounds();
 
         /*
          * Tracking

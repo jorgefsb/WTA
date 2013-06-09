@@ -6,6 +6,50 @@
  * @author nazart jara
  */
 class Application_Entity_Image extends Core_Entity {
+    const TIPE_IMAGE_BACKGROUND = 'background';
+    static $BACKGROUND_REDIMENCION_THUMBNAILS = array(
+        'name' => 'thumbnails',
+        'width' => 368,
+        'height' => 419
+    );
+    static $BACKGROUND_REDIMENCION_MOBILE = array(
+        'name' => 'mobile',
+        'width' => 311,
+        'height' => 354
+    );
+    static $BACKGROUND_REDIMENCION_MINI = array(
+        'name' => 'mini',
+        'width' => 50,
+        'height' => 50
+    );
+    static $BACKGROUND_REDIMENCION_ORIGIN = array(
+        'name' => 'background',
+        'width' => 0,
+        'height' => 0
+    );
+    
+    const TIPE_IMAGE_DESIGNER = 'designer';
+    static $DESIGNER_REDIMENCION_THUMBNAILS = array(
+        'name' => 'thumbnails',
+        'width' => 368,
+        'height' => 419
+    );
+    static $DESIGNER_REDIMENCION_MOBILE = array(
+        'name' => 'mobile',
+        'width' => 311,
+        'height' => 354
+    );
+    static $DESIGNER_REDIMENCION_MINI = array(
+        'name' => 'mini',
+        'width' => 50,
+        'height' => 50
+    );
+    static $DESIGNER_REDIMENCION_ORIGIN = array(
+        'name' => 'designer',
+        'width' => 0,
+        'height' => 0
+    );
+        
     const TIPE_IMAGE_PRODUCT = 'product';
     static $PRODUCT_REDIMENCION_ORIGIN = array(
         'name' => 'product',
@@ -98,6 +142,14 @@ class Application_Entity_Image extends Core_Entity {
             case self::TIPE_IMAGE_CELEBRITY:
                 $this->_type = self::TIPE_IMAGE_CELEBRITY;
                 $this->_redimencionOrigin = self::$CELEBRITY_REDIMENCION_ORIGIN;
+                break;
+            case self::TIPE_IMAGE_DESIGNER:
+                $this->_type = self::TIPE_IMAGE_DESIGNER;
+                $this->_redimencionOrigin = self::$DESIGNER_REDIMENCION_ORIGIN;
+                break;
+            case self::TIPE_IMAGE_BACKGROUND:
+                $this->_type = self::TIPE_IMAGE_BACKGROUND;
+                $this->_redimencionOrigin = self::$BACKGROUND_REDIMENCION_ORIGIN;
                 break;
             case self::TIPE_IMAGE_PRODUCTCELEBRITY:
                 $this->_type = self::TIPE_IMAGE_PRODUCTCELEBRITY;

@@ -1,0 +1,47 @@
+<div class="box span12">
+    <div class="box-header well" data-original-title>
+        <h2>Design Types List</h2>
+    </div>
+    <div class="box-content">
+<a class="btn btn-small btn-primary" href="/admin/designtypes/new">New Design Type</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Name
+        </th>
+    </tr>
+    </thead>
+<?php foreach($this->listing as $index): ?>
+    <tr>
+        <td>
+            <?php echo $index['design_type_name']; ?>
+        </td>
+        <td>
+            <a class="btn btn-mini btn-info" href="/admin/designtypes/edit/id/<?php echo $index['design_type_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+            <a class="btn btn-mini btn-info btn-setting deleteAction" id="deleteAction" href="/admin/designtypes/delete/id/<?php echo $index['design_type_id']; ?>"><span class="icon-trash icon-white"></span> Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php
+        echo $this->paginationControl($this->listing, 'Sliding', '/paginatorcontrol/actress.phtml');
+        ?>
+</div>
+</div>
+
+
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Delete</h3>
+    </div>
+    <div class="modal-body">
+        Want to remove this design type
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" id="yesDelete" data="X" data-dismiss="modal">Yes</a>
+        <a href="#" class="btn" data-dismiss="modal">No</a>
+    </div>
+</div>
