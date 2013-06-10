@@ -48,6 +48,8 @@
             <a class="btn btn-info" href="/admin/members/active/id/<?php echo $index['member_id']; ?>"><span class="icon-eye-open icon-white"></span> Active</a>
             <?php } ?>
             <a class="btn btn-info" href="/admin/members/edit/id/<?php echo $index['member_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+            <a class="btn btn-info" href="/admin/members/shipping/id/<?php echo $index['member_id']; ?>"><span class="icon-edit icon-white"></span> Shipping Edit</a>
+            <a class="btn btn-info" href="/admin/members/billing/id/<?php echo $index['member_id']; ?>"><span class="icon-edit icon-white"></span> Billing Edit</a>
             <a class="btn btn-info" href="/admin/orders?menbers%5B%5D=<?php echo $index['member_id']; ?>"><span class="icon-shopping-cart icon-white"></span> View Orders</a>
             <a href="#" id="<?php echo $index['member_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn btn-info btn-setting">View more</a>
             

@@ -100,6 +100,132 @@ class Admin_MembersController extends Core_Controller_ActionAdmin {
         $this->view->form = $form;
     }
 
+    public function shippingAction(){
+        
+        $member = new Application_Entity_Member();
+        $member->identify($this->getRequest()->getParam('id'));
+        
+        $form = new Application_Form_ShippingAddressForm();
+        $form->setAction('/admin/members/shipping/id/'.$this->getRequest()->getParam('id'));
+        
+        if($this->getRequest()->isPost()){
+            $formValues = $this->getRequest()->getPost();
+            
+            if( $form->isValid($formValues) ){        
+                $saved = $member->saveShippingAddress(array(
+                                                            '_customerAddressId'=>$form->getValue('id'),
+                                                            '_firstName'=>$form->getValue('firstName'),
+                                                            '_lastName'=>$form->getValue('lastName'),
+                                                            '_address'=>$form->getValue('address'),
+                                                            '_city'=>$form->getValue('city'),
+                                                            '_state'=>$form->getValue('state'),
+                                                            '_zip'=>$form->getValue('zip'),
+                                                            '_country'=>$form->getValue('country'),
+                                                            '_phoneNumber'=>$form->getValue('phoneNumber')
+                                                        ));
+                
+                if($saved){                    
+                    $this->getMessenger()->info($member->getMessage());
+                    $this->_redirect('/admin/members');
+                }else{
+                    $this->getMessenger()->info($member->getMessage());                    
+                }
+                
+            }else{
+                $form->populate($formValues);            
+            }
+        }
+        else{
+            $member->loadProfile();
+            
+            $shippingAddress = $member->getPropertie('_shippingAddress');
+
+            $populate = array();
+            if(!empty($shippingAddress)){
+                foreach($shippingAddress[0] as $key=>$value){
+                    $populate[preg_replace('/^_/', '', $key)] = $value;
+                }
+            
+                $populate['id']=$shippingAddress[0]['_customerAddressId'];
+            }
+            
+            $form->populate($populate);   
+        }
+        
+        $this->view->form = $form;
+    }
+
+    public function billingAction(){
+        
+        $member = new Application_Entity_Member();
+        $member->identify($this->getRequest()->getParam('id'));
+        
+        $form = new Application_Form_BillingInformationForm();
+        $form->setAction('/admin/members/billing/id/'.$this->getRequest()->getParam('id'));
+        
+        if( $this->getRequest()->isPost()){
+            $formValues = $this->getRequest()->getPost();
+            
+            if(!$form->getValue('id')>0){
+                $form->getElement('cardNumber')->setRequired(false);
+                $form->getElement('expirationDate')->setRequired(false);
+                $form->getElement('cardCode')->setRequired(false);
+            }
+            
+            if( $form->isValid($formValues) ){
+                $saved = $member->saveBillingInformation(array(
+                                                                '_customerPaymentProfileId'=>$form->getValue('id'),
+                                                                '_firstName'=>$form->getValue('firstName'),
+                                                                '_lastName'=>$form->getValue('lastName'),
+                                                                '_address'=>$form->getValue('address'),
+                                                                '_city'=>$form->getValue('city'),
+                                                                '_state'=>$form->getValue('state'),
+                                                                '_zip'=>$form->getValue('zip'),
+                                                                '_country'=>$form->getValue('country'),
+                                                                '_phoneNumber'=>$form->getValue('phoneNumber'),
+                                                                '_cardNumber'=>$form->getValue('cardNumber'),
+                                                                '_expirationDate'=>$form->getValue('expirationDate')
+                                                                //'_cardCode'=>$form->getValue('cardCode')
+                                                            ));
+                
+                if($saved){                    
+                    $this->getMessenger()->info($member->getMessage());
+                    $this->_redirect('/admin/members');
+                }else{
+                    echo $member->getMessage();
+                    $this->getMessenger()->info($member->getMessage());                    
+                }
+                
+            }else{
+                $form->populate($formValues);            
+            }
+        }else{
+            $member->loadProfile();
+
+            $billingInformation = $member->getPropertie('_billingInformation');
+
+            $populate = array();
+            if(!empty($billingInformation)){
+                foreach($billingInformation[0] as $key=>$value){
+                    $populate[preg_replace('/^_/', '', $key)] = $value;
+                }
+
+                $populate['id']=$billingInformation[0]['_customerPaymentProfileId'];
+                
+                $form->getElement('cardNumber')->setAttrib('style', 'display:none')->setLabel('');
+                $form->getElement('expirationDate')->setAttrib('style', 'display:none')->setLabel('');
+                $form->getElement('cardCode')->setAttrib('style', 'display:none')->setLabel('');
+            }else{
+                
+            }
+            
+            $form->populate($populate);
+            
+        }
+        
+        $this->view->form = $form;
+    }
+
     public function downloadAction(){
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
