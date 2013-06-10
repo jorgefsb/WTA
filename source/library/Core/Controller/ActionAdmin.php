@@ -35,9 +35,6 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                         ->setModuleName('admin')
                         ->setControllerName('noautorize');
             }
-            
-            //print_r($this->_identityUserAdmin);
-            //echo $this->getRequest()->getControllerName();
         }
         $this->view->headTitle()->setSeparator(' - ');
         $this->view->headTitle('WTA Admin!');
@@ -70,24 +67,41 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
             ),
             
             array(
+                'label' => 'Celebrity',
+                'id' => 'actress',
+                'module' => 'admin',
+                'controller' => 'actress',
+                'action' => 'index',
+                'resource' => 'actress',
+                'order' => 3
+                
+            ),
+            array(
+                'label' => 'Orders',
+                'id' => 'order-list',
+                'module' => 'admin',
+                'controller' => 'orders',
+                'action' => 'index',
+                'resource' => 'orders',
+                'order' => 4
+            ),
+            array(
+                'label' => 'Members',
+                'id' => 'members',
+                'module' => 'admin',
+                'controller' => 'members',
+                'resource' => 'members',
+                'order' => 5
+            ),
+            
+            array(
                 'label' => 'Home Backgrounds',
                 'id' => 'backgrounds',
                 'module' => 'admin',
                 'controller' => 'backgrounds',
                 'action' => 'index',
                 'resource' => 'backgrounds',
-                'order' => 3
-                
-            ),
-            
-            array(
-                'label' => 'Design Types',
-                'id' => 'designtypes',
-                'module' => 'admin',
-                'controller' => 'designtypes',
-                'action' => 'index',
-                'resource' => 'designtypes',
-                'order' => 3
+                'order' => 6
                 
             ),
             
@@ -98,37 +112,22 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'controller' => 'designer',
                 'action' => 'index',
                 'resource' => 'designer',
-                'order' => 3
+                'order' => 7
                 
             ),
             
             array(
-                'label' => 'Celebrity',
-                'id' => 'actress',
+                'label' => 'Design Types',
+                'id' => 'designtypes',
                 'module' => 'admin',
-                'controller' => 'actress',
+                'controller' => 'designtypes',
                 'action' => 'index',
-                'resource' => 'actress',
-                'order' => 4
+                'resource' => 'designtypes',
+                'order' => 8
                 
-            ),
-            array(
-                'label' => 'Orders',
-                'id' => 'order-list',
-                'module' => 'admin',
-                'controller' => 'orders',
-                'action' => 'index',
-                'resource' => 'orders',
-                'order' => 5
-            ),
-            array(
-                'label' => 'Members',
-                'id' => 'members',
-                'module' => 'admin',
-                'controller' => 'members',
-                'resource' => 'members',
-                'order' => 6
-            )/*,
+            )
+             
+            /*,
             array(
                 'label' => 'Shopping reports',
                 'id' => 'shopping-reports',

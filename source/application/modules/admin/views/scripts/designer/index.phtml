@@ -36,14 +36,6 @@
             <?php } ?>
         </td>
         <td>
-            <?php echo $index['designer_description']; ?>
-        </td>
-        <!--
-        <td>
-           <img  src="<?php echo DINAMIC_URL . '/designer/mini/' . $index['designer_image']; ?>"/>
-        </td>
-        -->
-        <td>
             <a class="btn btn-mini btn-info" href="/admin/designer/edit/id/<?php echo $index['designer_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
             <a class="btn btn-mini btn-info btn-setting deleteAction" id="deleteAction" href="/admin/designer/delete/id/<?php echo $index['designer_id']; ?>"><span class="icon-trash icon-white"></span> Delete</a>
             <?php if($index['designer_public'] == 1){ ?>

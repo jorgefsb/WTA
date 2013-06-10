@@ -37,25 +37,6 @@ class Admin_DesignerController extends Core_Controller_ActionAdmin
                 $designer->setPropertie('_public', $form->getValue('public'));
                 $designer->createDesigner();
                 
-                /*
-                $filter = new Core_SeoUrl();
-                $extension = pathinfo($form->getElement('img')->getFileName(), PATHINFO_EXTENSION);
-                $nameImg = mt_rand(10, 999) . '_' . urlencode($filter->urlFriendly($form->getValue('name'), '-'));
-                $element = $form->getElement('img');
-                if ($extension != '') {
-                    $element->addFilter(
-                            'Rename', array(
-                        'target' =>
-                        $element->getDestination() . '/' . $nameImg . '.' . $extension
-                            )
-                    );
-                    $element->receive();
-                }
-                
-                $temp = $element->getDestination() . '/' . $nameImg . '.' . $extension;
-                $designer->addImage($temp, $nameImg . '.' . $extension);
-                */
-                
                 $this->_flashMessenger->addMessage($designer->getMessage());
                 $this->_redirect('/admin/designer/');
             }
@@ -76,9 +57,6 @@ class Admin_DesignerController extends Core_Controller_ActionAdmin
         $arrayPopulate['public'] = $properties['_public'];
         $form->populate($arrayPopulate);
         
-        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_DESIGNER);
-        $image->setPropertie('_idTable', $designer->getPropertie('_id'));
-        $image->identify();
         if($this->getRequest()->isPost()){
             if($form->isValid($this->getRequest()->getParams())){
                 $designer->setPropertie('_name', $form->getValue('name'));
@@ -86,34 +64,6 @@ class Admin_DesignerController extends Core_Controller_ActionAdmin
                 $designer->setPropertie('_public', $form->getValue('public'));
                 $designer->update();
                 
-                /*
-                $filter = new Core_SeoUrl();
-                if(is_string($form->getElement('img')->getFileName()) &&
-                        $form->getElement('img')->getFileName()!=''){
-                $extension = pathinfo($form->getElement('img')->getFileName(), PATHINFO_EXTENSION);
-                }else{
-                    $extension='';
-                }
-                $nameImg = mt_rand(10, 999) . '_' . urlencode($filter->urlFriendly($form->getValue('name'), '-'));
-                $element = $form->getElement('img');
-                if ($extension != '') {
-                    $element->addFilter(
-                            'Rename', array(
-                        'target' =>
-                        $element->getDestination() . '/' . $nameImg . '.' . $extension
-                            )
-                    );
-                    $element->receive();
-                }
-                
-                $designer->editImg(
-                        $image->getPropertie('_id'), 
-                        $extension!=''?($element->getDestination() . '/' . $nameImg . '.' . $extension):'',
-                        $extension!=''?($nameImg . '.' . $extension):''
-                    );
-                */    
-                    
-                    
                 $this->_flashMessenger->addMessage($designer->getMessage());
                 $this->_redirect('/admin/designer');
             }

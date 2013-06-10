@@ -14,22 +14,6 @@ class Application_Form_CreateDesignerForm extends Core_Form {
                             'maxlength' => '200',
                             'size' => '40'
                 )));
-        /*
-        $element = new Zend_Form_Element_File('img');
-        $element->setLabel('Upload an image:')
-                ->setDestination(APPLICATION_PATH.
-                        '/../public/dinamic/temp/');
-        $element->addValidator('Count', false, 1);
-        //$element->addValidator('Size', false, 502400);
-        $element->addValidator('Extension', false, 'jpg,png');
-        $this->addElement($element);
-        */
-        $this->addElement(new Zend_Form_Element_Textarea('description',
-                        array(
-                            'label' => 'Description',
-                            'rows'=>4,'cols'=>24,
-                            'style'=>'margin: 0px 0px 9px; width: 391px; height: 91px;',
-                )));
         
         $this->addElement(new Zend_Form_Element_Submit('Save',
                         array('attribs' => array(

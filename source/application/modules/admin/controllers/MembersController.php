@@ -70,6 +70,129 @@ class Admin_MembersController extends Core_Controller_ActionAdmin {
         $this->_helper->json($array);
     }
     
+    public function editAction(){
+        $member = new Application_Entity_Member();
+        $member->identify($this->getRequest()->getParam('id'));
+        
+        $form = new Application_Form_CreateMemberForm();
+        $form->setAction('/admin/members/edit/id/'.$this->getRequest()->getParam('id'));
+        
+        $properties = $member->getProperties();
+        $arrayPopulate['name'] = $properties['_name'];
+        $arrayPopulate['last_name'] = $properties['_lastName'];
+        $arrayPopulate['mail'] = $properties['_mail'];
+        $arrayPopulate['active'] = $properties['_active'];
+        $form->populate($arrayPopulate);
+        
+        if($this->getRequest()->isPost()){
+            if($form->isValid($this->getRequest()->getParams())){
+                $member->setPropertie('_name', $form->getValue('name'));
+                $member->setPropertie('_lastName', $form->getValue('last_name'));
+                $member->setPropertie('_mail', $form->getValue('mail'));
+                $member->setPropertie('_active', $form->getValue('active'));
+                $member->update();
+                
+                $this->_flashMessenger->addMessage($member->getMessage());
+                $this->_redirect('/admin/members');
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
+    public function downloadAction(){
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        
+        $members = Application_Entity_Member::listing();
+        
+        require_once APPLICATION_PATH.'/../library/phpexcel/PHPExcel.php';
+        require_once APPLICATION_PATH.'/../library/phpexcel/PHPExcel/Writer/Excel2007.php';
+        
+        $objPHPExcel = new PHPExcel();
+        
+        $negrita = array('font' => array('bold' => true), 'alignment' => array('wrap' => true,'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER));
+
+        $normal = array('alignment' => array('wrap' => false));
+        
+        $style_num = array(
+                            'font' => array(
+                                                'color' => array('rgb' => '000000'),
+                                                'bold' => false,
+                                           ),
+                            'alignment' => array(
+                                                    'wrap'       => true,
+                                                    'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                                                    'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+                                                ),
+                          );
+        
+        //Definir propiedades del objeto
+        $objPHPExcel->getProperties()->setCreator("WTA System");
+        $objPHPExcel->getProperties()->setLastModifiedBy("WTA System");
+        $objPHPExcel->getProperties()->setTitle("Members Report");
+        $objPHPExcel->getProperties()->setSubject("Members Report");
+        $objPHPExcel->getProperties()->setDescription("This document is a list of exported members of WTA system.");
+        
+        $objPHPExcel->setActiveSheetIndex(0);
+            
+        $letters = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","AA","AB","AC","AD","AE","AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO","AP","AQ","AR","AS","AT","AU","AV","AW","AX","AY","AZ");
+        $titles = array(
+                            "member_id" => "Id",
+                            "member_name" => "Fisrt Name",
+                            "member_last_name" => "Last Name",
+                            "member_mail" => "E-mail",
+                            //"member_password" => "Password",
+                            "member_link_confirm" => "Link Confirm",
+                            "member_id_confirm" => "Id Confirm",
+                            "member_create_date" => "Created Date",
+                            "member_confirm_date" => "Confirm Date",
+                            "member_active" => "Is Active",
+                            "member_confirm" => "Confirm",
+                            "member_avatar" => "Avatar",
+                            //"member_password_reset" => "Password Reset",
+                            "member_membership_free" => "Membership Free",
+                            "member_last_date_login" => "Last Date Login",
+                            "member_customerProfileId" => "Customer Profile Id"
+                        );
+                        
+        $n = 0;
+        if($titles) foreach($titles as $key => $value){
+            $objPHPExcel->getActiveSheet()->SetCellValue($letters[$n]."1", $value);
+            $objPHPExcel->getActiveSheet()->getColumnDimension($letters[$n])->setAutoSize(true);
+            $objPHPExcel->getActiveSheet()->getStyle($letters[$n]."1")->applyFromArray($negrita);
+            $n++;
+        }
+        
+        $row = 2;
+        if(!empty($members)) foreach($members as $member){
+            $n = 0;
+            
+            if($titles) foreach($titles as $key => $value){
+                $objPHPExcel->getActiveSheet()->SetCellValue($letters[$n].$row, $member[$key]);
+                $objPHPExcel->getActiveSheet()->getColumnDimension($letters[$n])->setAutoSize(true);
+                $n++;
+            }
+            
+            $row++;
+        }
+        
+        $objPHPExcel->getActiveSheet()->setTitle('Members');
+        
+        $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+        
+        header('content-type: application/zip');
+        header('content-disposition: inline; filename="members.xlsx"');
+        
+        $objWriter->save('php://output');
+        
+        //if(!empty($members)) foreach($members as $member){
+        //    echo $member["member_name"]." ".$member["member_last_name"]."<br>";
+        //}
+        
+        die();
+    }
+    
     /*
      *  Se sustituye por la informacion traida del servicio de pago
      * 
