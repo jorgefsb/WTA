@@ -9,6 +9,7 @@ class Application_Entity_Transaction extends Core_Entity {
     const TRANSACTION_OUTSTANDING = 1;
     const TRANSACTION_PAID = 2;
     const TRANSACTION_REMOVED = 3;
+    const TRANSACTION_RETURNED = 4;
 
     const TYPE_MENBERSHIP = 1;
     const TYPE_PRODUCT = 2;
@@ -239,6 +240,11 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['tansaction_state_id'] = self::TRANSACTION_PAID;
         $modelTransaction->update($data, $this->_id);
     }
+    function returned() {
+        $modelTransaction = new Application_Model_Transaction();
+        $data['tansaction_state_id'] = self::TRANSACTION_RETURNED;
+        $modelTransaction->update($data, $this->_id);
+    }
     function delivered() {
         $modelTransaction = new Application_Model_Transaction();
         $data['transaction_delivered'] = self::DELIVERID;
@@ -250,6 +256,17 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_delivered'] = self::UNDELIVERID;
         $data['transaction_delivered_date'] = NULL;
         $modelTransaction->update($data, $this->_id);
+    }
+
+    function shipping($id) {
+        $transactionDetails = new Application_Model_TransactionDetails();
+        $data['transaction_shipped'] = 1;
+        $transactionDetails->update($data, $id);
+    }
+    function unshipping($id) {
+        $transactionDetails = new Application_Model_TransactionDetails();
+        $data['transaction_shipped'] = 0;
+        $transactionDetails->update($data, $id);
     }
 
     function saveTracking($aTraking){

@@ -8,69 +8,87 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
 
     public function indexAction() {
         $this->view->headScript()->appendScript('
-    $(document).ready(function(){
-        $(".btn-setting").click(function(evento){
-        var request = $(this).attr("id");
-        var requestTitle = $(this).attr("title");
-            $.ajax({
-                type: "POST",
-                url: "/admin/orders/get-order-information?transaction="+request,
-                data: { id: $(this).id }
-            }).done(function(response) {
-                $("#myModal").find(".modal-body").html(response);
-            });
-        });
-        
-        $(".btn-tracking").click(function(e){
-            e.preventDefault();
-            $("#myModalTracking").modal("show");
-            var request = $(this).attr("id");
-            var requestTitle = $(this).attr("title");
-            $.ajax({
-                type: "POST",
-                url: "/admin/orders/get-tracking?transaction="+request,
-                data: { id: $(this).id }
-            }).done(function(response) {
-                $("#myModalTracking").find(".modal-body").html(response);
-            });
-        }); 
-
-    });
-');
-        $this->view->headScript()->appendScript('
-    $(document).ready(function(){
-    
-        $("#countries").change(function(evento){
-        
-        $.ajax({
-                type: "POST",
-                url: "/admin/orders/get-state?country="+$(this).attr("value"),
-                data: { id: $(this).id }
-            }).done(function(data) {
-                $("#state").empty();
-                $.each(data, function(index, value) { 
-                    $("#state").append("<option value=\'"+value["id"]+"\'>"+value["name"]+"</option>");
+            $(document).ready(function(){
+                $(".btn-setting").click(function(evento){
+                var request = $(this).attr("id");
+                var requestTitle = $(this).attr("title");
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/orders/get-order-information?transaction="+request,
+                        data: { id: $(this).id }
+                    }).done(function(response) {
+                        $("#myModal").find(".modal-body").html(response);
+                    });
                 });
-                $("#state").trigger("liszt:updated");
+                
+                $(".btn-tracking").click(function(e){
+                    e.preventDefault();
+                    $("#myModalTracking").modal("show");
+                    var request = $(this).attr("id");
+                    var requestTitle = $(this).attr("title");
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/orders/get-tracking?transaction="+request,
+                        data: { id: $(this).id }
+                    }).done(function(response) {
+                        $("#myModalTracking").find(".modal-body").html(response);
+                    });
+                }); 
+        
+                $(".btn-returning").click(function(e){
+                    e.preventDefault();
+                    $("#myModalReturn").modal("show");
+                });
             });
-            
-        });
-    });
-');
+        ');
         $this->view->headScript()->appendScript('
-    $(document).ready(function(){
-    $("#filter").css("display", "none");
-    $("#plusFilter").click(function () {        
-        $("#filter").toggle("slow",function(){
-         if($("#filter").css("display") == "none"){
-        $("#plusFilter").attr("class", "icon-plus");
-        }else{
-        $("#plusFilter").attr("class", "icon-minus");
-        }
-      });
-    }); 
-    });
-');
+            $(document).ready(function(){
+            
+                $("#countries").change(function(evento){
+                
+                $.ajax({
+                        type: "POST",
+                        url: "/admin/orders/get-state?country="+$(this).attr("value"),
+                        data: { id: $(this).id }
+                    }).done(function(data) {
+                        $("#state").empty();
+                        $.each(data, function(index, value) { 
+                            $("#state").append("<option value=\'"+value["id"]+"\'>"+value["name"]+"</option>");
+                        });
+                        $("#state").trigger("liszt:updated");
+                    });
+                    
+                });
+            });
+        ');
+        
+        $this->view->headScript()->appendScript('
+            $(document).ready(function(){
+            $("#filter").css("display", "none");
+            $("#plusFilter").click(function () {        
+                $("#filter").toggle("slow",function(){
+                 if($("#filter").css("display") == "none"){
+                $("#plusFilter").attr("class", "icon-plus");
+                }else{
+                $("#plusFilter").attr("class", "icon-minus");
+                }
+              });
+            }); 
+            });
+        ');
+        
+        $this->view->headScript()->appendScript('
+            $(document).ready(function(){
+                $(".btn-returning").click(function(evento){
+                    $("#yesReturn").attr("data",$(this).attr("href"));    
+                });
+                
+                $("#yesReturn").click(function(evento){
+                    window.location.href = $(this).attr("data");
+                });
+            });
+        ');
+        
         $modelRegions = new Application_Model_Regions();
         $arrayData = $this->getRequest()->getQuery();
         
@@ -183,6 +201,13 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $array = $modelRegions->listingSubregions($idRegion);
         $this->_helper->json($array);
     }
+    
+    public function returningAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->identify($this->getParam('id'));
+        $transaction->returned();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
 
     public function deliveredAction() {
         $transaction = new Application_Entity_Transaction();
@@ -198,6 +223,16 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $this->_redirect($_SERVER['HTTP_REFERER']);
     }
 
-    
+    public function shippingAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->shipping($this->getParam('id'));
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function unshippingAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->unshipping($this->getParam('id'));
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
     
 }

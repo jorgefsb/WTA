@@ -115,12 +115,13 @@ class Application_Model_Transaction extends Core_Model {
                     'trs.tansaction_state_name',
                     'tr.transaction_delivered',
                     'tr.transaction_delivered_date',
-                    'product' => new Zend_Db_Expr("GROUP_CONCAT(concat(pr.product_name,'|',trd.transaction_details_product_cant,'|',trd.transaction_details_product_price,'|',trd.transaction_details_product_price_member,'|',coalesce(trd.product_size, ''),'|',coalesce(pr.product_code, '')) SEPARATOR '[]')"),
+                    'product' => new Zend_Db_Expr("GROUP_CONCAT(concat(pr.product_name,'|',trd.transaction_details_product_cant,'|',trd.transaction_details_product_price,'|',trd.transaction_details_product_price_member,'|',coalesce(trd.product_size, ''),'|',coalesce(pr.product_code, ''),'|',coalesce(trd.transaction_shipped, ''),'|',coalesce(trd.transaction_details_id, '')) SEPARATOR '[]')"),
                 ))
                 ->join(array('trd' => $this->_tableTransactionDetails->getName()), 'trd.transaction_id=tr.transaction_id', '')
                 ->join(array('trs' => $this->_tableTransactionState->getName()), 'trs.tansaction_state_id=tr.tansaction_state_id', '')
                 ->join(array('pr' => $this->_tableProduct->getName()), 'pr.product_id=trd.product_id', '')
                 ->joinLeft(array('mem' => $this->_tableMemeber->getName()), 'mem.member_id=tr.member_id', '')
+                ->order('pr.product_name ASC')
                 ->order('tr.transaction_id DESC')
                 ->group('tr.transaction_id');
         foreach($filtro as $index=>$value){
