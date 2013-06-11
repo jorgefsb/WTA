@@ -3,16 +3,9 @@
 
     <div class="sAbout popup gradient">
         <?php echo !$this->visible ? '<div class="closex">X</div>' : ''?>
-        <div>
+        <div style="width: 650px; height: 620px;">
             <h2>ABOUT WE THE ADORNED</h2>
-            <p>                
-                <br/>
-                Fashion jewelry designers Tim McElwee and Cyia Batten joined forces in 2004 to create the coveted jewelry line T.Cyia that has been featured on celebs and style icons worldwide. They’re at it again with a dynamic vision to change the way designers and fashion aficionados worldwide shop for and purchase jewelry online. Launched in Hollywood, California in February 2013, WeTheAdorned offers members the most exclusive limited quantity and seasonal collection from the hottest independent jewelry designs curated by the world’s most fashionable celebrities at EXTRAORDINARY prices with no compromise on quality -- EVER! That’s our member guarantee. You won’t find our collections anywhere else. <br/><br/>
-                Contact your Personal Stylist:<br/>
-                Via email: <br/>
-                <a href="mailto:stylists@wetheadorned.com">stylists@wetheadorned.com</a>
-            </p>            
-            <!-- a href="/about-us" class="leer_mas">learn more about us</a -->
+            <?php echo $this -> content["content_body"]; ?>
         </div>
     </div>
 

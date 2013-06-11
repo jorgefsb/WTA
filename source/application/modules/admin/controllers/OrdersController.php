@@ -90,7 +90,10 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         ');
         
         $modelRegions = new Application_Model_Regions();
+        $request = $this->getRequest();
         $arrayData = $this->getRequest()->getQuery();
+        
+        $this->view->urlDownload = str_replace("orders", "orders/download", $_SERVER['REQUEST_URI']);
         
         if( empty($arrayData) ){
             $arrayData['status'][] = Application_Entity_Transaction::TRANSACTION_PAID;
@@ -233,6 +236,241 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $transaction = new Application_Entity_Transaction();
         $transaction->unshipping($this->getParam('id'));
         $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+    
+    public function createExcel(){
+        
+    }
+    
+    public function downloadAction() {
+        
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        
+        $modelRegions = new Application_Model_Regions();
+        $request = $this->getRequest();
+        $arrayData = $this->getRequest()->getQuery();
+        
+        if( empty($arrayData) ){
+            $arrayData['status'][] = Application_Entity_Transaction::TRANSACTION_PAID;
+        }
+        
+        if (isset($arrayData['fromDate']) && $arrayData['fromDate'] != '') {
+            $data = explode('/', $arrayData['fromDate']);
+            $arrayData['fromDate'] = $data[2] . '-' . $data[0] . '-' . $data[1];
+        } else {
+            unset($arrayData['fromDate']);
+        }
+        if (isset($arrayData['toDate']) && $arrayData['toDate'] != '') {
+            $data = explode('/', $arrayData['toDate']);
+            $arrayData['toDate'] = $data[2] . '-' . $data[0] . '-' . $data[1];
+        } else {
+            unset($arrayData['toDate']);
+        }
+        if (!(isset($arrayData['countries']) && $arrayData['countries'] != '')) {
+            unset($arrayData['countries']);
+        }
+        
+        $orders = Application_Entity_Transaction::listOrders($arrayData);
+        
+        require_once APPLICATION_PATH.'/../library/phpexcel/PHPExcel.php';
+        require_once APPLICATION_PATH.'/../library/phpexcel/PHPExcel/Writer/Excel2007.php';
+        
+        $excel = new PHPExcel();
+        
+        $negrita = array('font' => array('bold' => true), 'alignment' => array('wrap' => true,'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER));
+        $normal = array('alignment' => array('wrap' => false));
+        $style_num = array(
+                            'font' => array(
+                                                'color' => array('rgb' => '000000'),
+                                                'bold' => false,
+                                           ),
+                            'alignment' => array(
+                                                    'wrap'       => true,
+                                                    'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                                                    'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+                                                ),
+                          );
+                          
+        $styleBorder = array(
+          'borders' => array(
+            'allborders' => array(
+              'style' => PHPExcel_Style_Border::BORDER_THIN
+            )
+          )
+        );
+        
+        //Definir propiedades del objeto
+        $properties = $excel->getProperties();
+        
+        $properties->setCreator("WTA System");
+        $properties->setLastModifiedBy("WTA System");
+        $properties->setTitle("Orders Report");
+        $properties->setSubject("Orders Report");
+        $properties->setDescription("This document is a list of exported orders of WTA system.");
+        $sheet = $excel->getActiveSheet();
+            
+        $letters = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","AA","AB","AC","AD","AE","AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO","AP","AQ","AR","AS","AT","AU","AV","AW","AX","AY","AZ");
+        
+        $order_titles = array(
+                            "transaction_id" => "Order Id",
+                            "transaction_payment_date" => "Date",
+                            "transaction_amount" => "Amount",
+                            //"transaction_user_menbership" => "User Membership",
+                            //"member_id" => "Member Id",
+                            "member_name" => "Member Name",
+                            "member_last_name" => "Member Last Name",
+                            "transaction_register_date" => "Created Date",
+                            //"tansaction_state_id" => "State Id",
+                            "tansaction_state_name" => "State Name",
+                            //"transaction_delivered" => "Delivered",
+                            "transaction_delivered_date" => "Delivered Date"
+                        );
+        
+        $n = 0;
+        $row = 1;
+        
+        if($order_titles) foreach($order_titles as $key => $value){
+            $sheet->SetCellValue($letters[$n].$row, $value);
+            $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+            $sheet->getStyle($letters[$n].$row)->applyFromArray($negrita);
+            $n++;
+        }
+        
+        $product_titles = array(
+                            5 => "Code",
+                            0 => "Product",
+                            1 => "Quantity",
+                            2 => "G. Price",
+                            3 => "M. Price",
+                            4 => "Size",
+                            6 => "Shipped"
+                        );
+        
+        if($product_titles) foreach($product_titles as $key => $value){
+            $sheet->SetCellValue($letters[$n].$row, $value);
+            $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+            $sheet->getStyle($letters[$n].$row)->applyFromArray($negrita);
+            $n++;
+        }
+        
+        $row++;
+        
+        if(!empty($orders)) foreach($orders as $order){
+            $n = 0;
+            $arrayProducts = explode('[]', $order['product']);
+            foreach ($arrayProducts as $p) {
+                if($order_titles) foreach($order_titles as $key => $value){
+                    $sheet->SetCellValue($letters[$n].$row, $order[$key]);
+                    $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+                    $n++;
+                }
+                
+                $product = explode('|', $p);
+                
+                if($product_titles) foreach($product_titles as $key => $value){
+                    $sheet->SetCellValue($letters[$n].$row, $product[$key]);
+                    $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+                    $n++;
+                }
+                
+                $last = $n;
+                
+                $n = 0;
+                $row++;    
+            }
+        }
+ 
+        $sheet->getStyle('A1:'.$letters[$last - 1].($row - 1))->applyFromArray($styleBorder);
+        
+        $sheet->setTitle('Orders');
+        
+        $excel->createSheet();
+        
+        $excel->setActiveSheetIndex(1);
+        $sheet = $excel->getActiveSheet();
+            
+        $row = 2;
+        if(!empty($orders)) foreach($orders as $order){
+            $n = 1;
+            
+            $start = $letters[$n].$row;
+            
+            if($order_titles) foreach($order_titles as $key => $value){
+                $sheet->SetCellValue($letters[$n].$row, $value);
+                $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+                $sheet->getStyle($letters[$n].$row)->applyFromArray($negrita);
+                
+                $sheet->SetCellValue($letters[$n].($row + 1), $order[$key]);
+                $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+                $n++;
+            }
+            
+            $row++;
+            $row++;
+            
+            $product_titles = array(
+                            5 => "Code",
+                            0 => "Product",
+                            1 => "Quantity",
+                            2 => "G. Price",
+                            3 => "M. Price",
+                            4 => "Size",
+                            6 => "Shipped"
+                        );
+        
+            $row++;
+            
+            $n = 2;
+            if($product_titles) foreach($product_titles as $key => $value){
+                $sheet->SetCellValue($letters[$n].$row, $value);
+                $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+                $sheet->getStyle($letters[$n].$row)->applyFromArray($negrita);
+                $n++;
+            }
+            
+            $row++;
+            
+            $n = 2;
+            $arrayProducts = explode('[]', $order['product']);
+            foreach ($arrayProducts as $p) {
+                $product = explode('|', $p);
+                
+                if($product_titles) foreach($product_titles as $key => $value){
+                    $sheet->SetCellValue($letters[$n].$row, $product[$key]);
+                    $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+                    $n++;
+                }
+                
+                $last = $n;
+                
+                $n = 2;
+                $row++;    
+            }
+            
+            $end = $letters[$last - 1].$row;
+            
+            $sheet->getStyle($start.':'.$end)->applyFromArray($styleBorder);
+            
+            $row++;
+            $row++;
+        }
+        
+        $sheet->setTitle('Detailed Orders');
+        
+        $excel->setActiveSheetIndex(0);
+        $objWriter = new PHPExcel_Writer_Excel2007($excel);
+        
+        header('content-type: application/zip');
+        header('content-disposition: inline; filename="orders.xlsx"');
+        
+        $objWriter->save('php://output');
+        
+        //if(!empty($members)) foreach($members as $member){
+        //    echo $member["member_name"]." ".$member["member_last_name"]."<br>";
+        //}
+        
+        die();
     }
     
 }

@@ -1,0 +1,50 @@
+<div class="box span12">
+    <div class="box-header well" data-original-title>
+        <h2>Dynamic Pages List</h2>
+    </div>
+    <div class="box-content">
+<!-- <a class="btn btn-small btn-primary" href="/admin/contents/new">New Dinamic Page</a> -->
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Code
+        </th>
+        <th>
+            Options
+        </th>
+    </tr>
+    </thead>
+<?php foreach($this->listingContents as $index): ?>
+    <tr>
+        <td>
+            <?php echo $index['content_code']; ?>
+        </td>
+        <td>
+            <a class="btn btn-mini btn-info" href="/admin/contents/edit/id/<?php echo $index['content_id']; ?>"><span class="icon-edit icon-white"></span> Edit</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php
+        echo $this->paginationControl($this->listingContents, 'Sliding', '/paginatorcontrol/content.phtml');
+        ?>
+</div>
+</div>
+
+
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Delete</h3>
+    </div>
+    <div class="modal-body">
+        Want to remove this dynamic content
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" id="yesDelete" data-dismiss="modal">Yes</a>
+        <a href="#" class="btn" data-dismiss="modal">No</a>
+
+    </div>
+</div>

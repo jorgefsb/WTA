@@ -51,6 +51,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
 
 
     public function indexAction(){
+        
         $this->loadOptionsMenu();
         $this->loadBackgrounds();
 

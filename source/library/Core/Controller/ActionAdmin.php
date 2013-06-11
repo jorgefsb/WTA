@@ -125,6 +125,17 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'resource' => 'designtypes',
                 'order' => 8
                 
+            ),
+            
+            array(
+                'label' => 'Dynamic Contents',
+                'id' => 'contents',
+                'module' => 'admin',
+                'controller' => 'contents',
+                'action' => 'index',
+                'resource' => 'contents',
+                'order' => 9
+                
             )
              
             /*,

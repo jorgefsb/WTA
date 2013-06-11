@@ -1,15 +1,15 @@
+<div <?php echo !$this->visible ? 'class="wLight"' : 'id="contentBody"'?>>
 
-<div class="wLight no-border" >
-   <div class="comming_soon">
-          <div class="contenido" >
-                <div class="closex">X</div>
-                <div class="leyenda" >
-                    Busted! You found one of our works in progress. Circle back later. We’re on it.
-                </div>
-          </div>
-
-       
-
+    <div class="popup big patron-lineas " id="membership">
+        <?php echo !$this->visible ? '<div class="closex">X</div>' : ''?>
+        <div >
+            <!-- h2 class="">HOW IT WORKS</h2-->
+            <img src="<?php echo STATIC_URL ?>/front-fase2/images/logo-degradado.png" />
+            <h1 >Coming Soon</h1>
+            <br/>
+            <div style="padding: 0px 30px;"><?php echo $this -> content["content_body"]; ?></div>
+            <br/>
+            <a href="/fase2/membership?f=1" class="btn btn-amarillo">JOIN AND COMPLETE FOLIO</a>
+        </div>
     </div>
-
 </div>

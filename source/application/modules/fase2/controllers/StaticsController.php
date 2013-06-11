@@ -95,6 +95,8 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
         $this->view->visible = true;
         $this->view->headScript()->appendScript('document.location.href = "'.BASE_URL.'#about-wta";');
 
+        $contentEntity = new Application_Entity_Content();
+        $this->view->content = $contentEntity->getByCode("about-wta");
 
         if( $this->getRequest()->isXmlHttpRequest()  ){
             $this->_helper->layout->disableLayout();
@@ -123,7 +125,9 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
 
     public function comingsoonAction(){
         $this->_helper->layout->disableLayout();
-
+        
+        $contentEntity = new Application_Entity_Content();
+        $this->view->content = $contentEntity->getByCode("coming-soon");
     }
 
     public function termsAction(){
@@ -139,6 +143,8 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
         $this->view->headTitle('Rewarding Our Members');
         $this->view->headMeta()->appendName('description', 'WeTheAdorned places a serious emphasis on rewarding its members for referral memberships. 1. Exclusive Access. 2. Member Pricing. 3. Only Members get paid for sharing. 4. Referral Rewards. 5. And don’t forget about the free gift.');
 
+        $contentEntity = new Application_Entity_Content();
+        $this->view->content = $contentEntity->getByCode("rewarding-our-members");
 
     }
 
@@ -165,7 +171,9 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
 
         $this->view->visible = true;
         $this->view->headScript()->appendScript('document.location.href = "'.BASE_URL.'#how-it-works";');
-
+        
+        $contentEntity = new Application_Entity_Content();
+        $this->view->content = $contentEntity->getByCode("how-it-works");
 
         if( $this->getRequest()->isXmlHttpRequest()  ){
             $this->_helper->layout->disableLayout();
@@ -182,6 +190,8 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
         $this->view->visible = true;
         $this->view->headScript()->appendScript('document.location.href = "'.BASE_URL.'#benefits-of-membership";');
 
+        $contentEntity = new Application_Entity_Content();
+        $this->view->content = $contentEntity->getByCode("why-membership");
 
         if( $this->getRequest()->isXmlHttpRequest()  ){
             $this->_helper->layout->disableLayout();
@@ -198,7 +208,9 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
         $this->view->visible = true;
         $this->view->headScript()->appendScript('document.location.href = "'.BASE_URL.'#benefits-of-membership";');
 
-
+        $contentEntity = new Application_Entity_Content();
+        $this->view->content = $contentEntity->getByCode("why-join");
+        
         if( $this->getRequest()->isXmlHttpRequest()  ){
             $this->_helper->layout->disableLayout();
             $this->view->visible = false;
