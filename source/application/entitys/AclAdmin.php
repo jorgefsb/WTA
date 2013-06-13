@@ -27,13 +27,14 @@ class Application_Entity_AclAdmin extends Zend_Acl {
         $this->add(new Zend_Acl_Resource('designer'));
         $this->add(new Zend_Acl_Resource('designtypes'));
         $this->add(new Zend_Acl_Resource('contents'));
+        $this->add(new Zend_Acl_Resource('subscriptions'));
         $this->add(new Zend_Acl_Resource('orders'));
         $this->add(new Zend_Acl_Resource('members'));
         $this->add(new Zend_Acl_Resource('shopping-reports'));
         $this->add(new Zend_Acl_Resource('user-management'));
 
 // assign privileges
-        $this->allow('ContentManager', array('logout','index','product','actress','designer','designtypes','backgrounds','contents','profiler'));
+        $this->allow('ContentManager', array('logout','index','product','actress','designer','designtypes','backgrounds','contents','subscriptions','profiler'));
         $this->allow('Admin', array('orders','members','shopping-reports','user-management'));
         $this->allow('SuperAdmin', array('orders','members','shopping-reports','user-management'));
     }

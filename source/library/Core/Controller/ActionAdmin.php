@@ -136,6 +136,17 @@ class Core_Controller_ActionAdmin extends Core_Controller_Action {
                 'resource' => 'contents',
                 'order' => 9
                 
+            ),
+            
+            array(
+                'label' => 'Subscriptions',
+                'id' => 'subscriptions',
+                'module' => 'admin',
+                'controller' => 'subscriptions',
+                'action' => 'download',
+                'resource' => 'subscriptions',
+                'order' => 10
+                
             )
              
             /*,
