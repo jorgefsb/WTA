@@ -8,8 +8,7 @@
 class Application_Entity_Transaction extends Core_Entity {
     const TRANSACTION_OUTSTANDING = 1;
     const TRANSACTION_PAID = 2;
-    const TRANSACTION_REMOVED = 3;
-    const TRANSACTION_RETURNED = 4;
+    const TRANSACTION_CLOSED = 3;
 
     const TYPE_MENBERSHIP = 1;
     const TYPE_PRODUCT = 2;
@@ -240,11 +239,18 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['tansaction_state_id'] = self::TRANSACTION_PAID;
         $modelTransaction->update($data, $this->_id);
     }
-    function returned() {
+    function closed() {
         $modelTransaction = new Application_Model_Transaction();
-        $data['tansaction_state_id'] = self::TRANSACTION_RETURNED;
+        $data['tansaction_state_id'] = self::TRANSACTION_CLOSED;
         $modelTransaction->update($data, $this->_id);
     }
+    
+    function opened() {
+        $modelTransaction = new Application_Model_Transaction();
+        $data['tansaction_state_id'] = self::TRANSACTION_PAID;
+        $modelTransaction->update($data, $this->_id);
+    }
+    
     function delivered() {
         $modelTransaction = new Application_Model_Transaction();
         $data['transaction_delivered'] = self::DELIVERID;
@@ -268,6 +274,28 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_shipped'] = 0;
         $transactionDetails->update($data, $id);
     }
+    
+    function returning($id) {
+        $transactionDetails = new Application_Model_TransactionDetails();
+        $data['transaction_returned'] = 1;
+        $transactionDetails->update($data, $id);
+    }
+    function unreturning($id) {
+        $transactionDetails = new Application_Model_TransactionDetails();
+        $data['transaction_returned'] = 0;
+        $transactionDetails->update($data, $id);
+    }
+    
+    function refunding($id) {
+        $transactionDetails = new Application_Model_TransactionDetails();
+        $data['transaction_refunded'] = 1;
+        $transactionDetails->update($data, $id);
+    }
+    function unrefunding($id) {
+        $transactionDetails = new Application_Model_TransactionDetails();
+        $data['transaction_refunded'] = 0;
+        $transactionDetails->update($data, $id);
+    }
 
     function saveTracking($aTraking){
         $modelTraking = new Application_Model_Tracking();
@@ -281,6 +309,11 @@ class Application_Entity_Transaction extends Core_Entity {
     static function listOrders($filtro=array()) {
         $modelTransaction = new Application_Model_Transaction();
         return $modelTransaction->listOrdens($filtro);
+    }
+    
+    static function listDetailedOrders($filtro=array()) {
+        $modelTransaction = new Application_Model_Transaction();
+        return $modelTransaction->listDetailedOrders($filtro);
     }
 
     static function listOrdensUsers() {

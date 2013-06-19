@@ -66,8 +66,7 @@
                         $state = array(
                             Application_Entity_Transaction::TRANSACTION_OUTSTANDING => 'OUTSTANDING',
                             Application_Entity_Transaction::TRANSACTION_PAID => 'PAID',
-                            Application_Entity_Transaction::TRANSACTION_REMOVED => 'REFUNDED',
-                            Application_Entity_Transaction::TRANSACTION_RETURNED => 'RETURNED'
+                            Application_Entity_Transaction::TRANSACTION_CLOSED=> 'CLOSED'
                         );
                         ?>
                         <?php foreach ($state as $index => $value): ?>
@@ -98,6 +97,28 @@
                         <?php endforeach; ?>
 
                     </div>  
+                    
+                    <div class="container-fluid">
+                        <div class="span2">
+                            <h4>Order by</h4>
+                        </div>
+
+                        <?php
+                        $orders = array(
+                            'id_order' => 'ID',
+                            'product_order' => 'Product',
+                            'status_order' => 'Status'
+                        );
+                        ?>
+                        <?php foreach ($orders as $index => $value): ?>
+                            <div class="span3">
+                                <label>
+                                    <input <?php echo $index == $this->orderby  ? 'checked="checked"' : '' ?> type="radio" name="orderby" value="<?php echo $index ?>"><?php echo $value; ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+
+                    </div>
 
                     <div style="text-align: right">
                         <a href="/admin/orders"  class="btn" >Cancel Filter</a>
@@ -117,20 +138,20 @@
                         Member
                     </th>
                     <th>
-                        Status
-                    </th>
-                    <th>
                         Product
                     </th>
                     <th>
-                        Create Date
+                        Status
                     </th>
+                    <!--
                     <th>
                         Delivered
                     </th>
+                    
                     <th>
                         Delivered Date
                     </th>
+                    -->
                 </tr>
             </thead>
             <?php foreach ($this->orders as $index): $priceTotal = 0; ?>
@@ -170,15 +191,15 @@
                                     <th>
                                         Size
                                     </th>
-                                    <th>
-                                        Shipped
+                                    <th colspan="2" style="text-align: center">
+                                        Status
                                     </th>
                                 </tr>
                             </thead>
                             <?php $np = 0; $ns = 0;
                             foreach ($arrayProducts as $index2) {
                                 $np++;
-                                $product = explode('|', $index2);
+                                $product = explode('|', $index2); $nx = 0;
                                 ?>
                                 <tr>
                                     <td>
@@ -214,13 +235,55 @@
                                     <td >
                                         <?php echo $product[4]; ?>
                                     </td>
+                                    <?php 
+                                        $status = "No shipped";
+                                        
+                                        if($product[6] == 1){
+                                            $ns++;
+                                            $nx++;
+                                            
+                                            if($product[8] == 1){
+                                                $status = "Refunded";
+                                            }
+                                            else{
+                                                if($product[7] == 1){
+                                                    $status = "Returned";
+                                                }
+                                                else{
+                                                    $status = "Shipped";
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            if($product[8] == 1){
+                                                $status = "Refunded";
+                                                $nx++;
+                                            }
+                                        }
+                                    ?>
+                                    <td>
+                                        <?php echo $status; ?>
+                                    </td>    
+                                    <?php if($index['tansaction_state_id'] != 3){ ?>
                                     <th style="text-align: center; vertical-align: middle;">
                                         <?php if($product[6] == 0){ ?>
-                                            <a href="/admin/orders/shipping?id=<?php echo $product[7]; ?>" class="btn btn-mini btn-info shipping"> <span class="icon-time icon-white"></span></a>
-                                        <?php } else { $ns++; ?>
-                                            <a href="/admin/orders/unshipping?id=<?php echo $product[7]; ?>" class="btn btn-mini btn-success unshipping"> <span class="icon-ok icon-white"></span></a>
+                                            <a href="/admin/orders/shipping?id=<?php echo $product[9]; ?>" class="btn btn-mini btn-success shipping" style="margin: 2px;"></span> Shipped</a><br>
+                                        <?php } else { ?>
+                                            <?php if($product[7] == 0){ ?>
+                                                <a href="/admin/orders/returning?id=<?php echo $product[9]; ?>" class="btn btn-mini btn-success unshipping" style="margin: 2px;"></span> Returned</a><br>
+                                            <?php } else { ?>
+                                                <a href="/admin/orders/unreturning?id=<?php echo $product[9]; ?>" class="btn btn-mini btn-success unshipping" style="margin: 2px;"></span> Unreturned</a><br>
+                                            <?php } ?>
+                                        <?php } ?>
+                                        
+                                        <?php if($index['tansaction_state_id'] == 2 && $product[8] == 0){ ?>
+                                            <a href="/admin/orders/refunding?id=<?php echo $product[9]; ?>" class="btn btn-mini btn-info shipping" style="margin: 2px;"></span> Refunded</a>
+                                        <?php } ?>
+                                        <?php if($index['tansaction_state_id'] == 2 && $product[8] == 1){ ?>
+                                            <a href="/admin/orders/unrefunding?id=<?php echo $product[9]; ?>" class="btn btn-mini btn-info shipping" style="margin: 2px;"></span> Unrefunded</a>
                                         <?php } ?>
                                     </th>
+                                    <?php } ?>
                                 </tr>
 
                                 <?php
@@ -229,12 +292,22 @@
                             ?>
                             <tr>
                                 <td colspan="3" >
-                                    <i><strong><?php echo $ns; ?> of <?php echo $np; ?> items shipped</strong></i>
+                                    <i><strong><?php echo $ns; ?> of <?php echo $np; ?> items shipped</strong>
+                                    <?php if($nx == $np && $index['tansaction_state_id'] == 2 && $index['transaction_delivered'] != 1){ ?>
+                                    <span style="padding: 5px; float: right;">
+                                        <a href="/admin/orders/closed?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info"> <span class="icon-arrow-up icon-white"></span>Closed</a>
+                                    </span>
+                                    <?php } ?>
+                                    <?php if($index['tansaction_state_id'] == 3){ ?>
+                                    <span style="padding: 5px; float: right;">
+                                        <a href="/admin/orders/opened?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info"> <span class="icon-arrow-down icon-white"></span>Reopen</a>
+                                    </span>
+                                    <?php } ?>
                                 </td >
                                 <td  style="background-color: #DD5600; color: #ffffff; text-align: right" >
                                     Total: &nbsp;   
                                 </td>
-                                <td colspan="3" style="background-color: #DD5600; color: #ffffff;  text-align: right">
+                                <td colspan="5" style="background-color: #DD5600; color: #ffffff;  text-align: right">
                                     $<?php echo $priceTotal; ?>
                                 </td>
                             </tr>
@@ -243,6 +316,7 @@
                     <td>
                         <?php echo $index['transaction_payment_date']; ?>
                     </td>
+                    <!--
                     <td>
                         <?php
                         $arrayEstatus = array('No', 'Yes');
@@ -254,19 +328,23 @@
                         echo $index['transaction_delivered_date'];
                         ?> 
                     </td>
+                    -->
                     <td>
+                        <!--
                         <?php if ($index['tansaction_state_id'] == 2) { ?>
                             <?php if ($index['transaction_delivered'] == 1) { ?>
                                 <a href="/admin/orders/undelivered?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info"> <span class="icon-arrow-down icon-white"></span>Undelivered</a>
-
                             <?php } else { ?>
                                 <a href="/admin/orders/delivered?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info"> <span class="icon-arrow-up icon-white"></span>Delivered</a>
                             <?php } ?>
                             <br /><br />
                         <?php } ?>
+                        -->
+                        <!--
                         <?php if ($index['tansaction_state_id'] != 4) { ?>
                             <a href="/admin/orders/returning?id=<?php echo $index['transaction_id']; ?>" class="btn btn-mini btn-info btn-returning"> <span class="icon-arrow-left icon-white"></span>Returned</a><br/><br />
                         <?php } ?>
+                        -->
                         <a href="#" id="<?php echo $index['transaction_id']; ?>" title="<?php echo $index['member_name']; ?> <?php echo $index['member_last_name']; ?>" class="btn btn-mini btn-info btn-setting">
                             View information
                         </a>

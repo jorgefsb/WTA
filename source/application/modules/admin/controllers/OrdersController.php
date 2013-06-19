@@ -128,6 +128,8 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
             unset($arrayData['countries']);
         }
         
+        $this->view->orderby = isset($arrayData["orderby"]) ? $arrayData["orderby"] : "id_order";
+        
         $this->view->orders = Application_Entity_Transaction::listOrders($arrayData);
         $this->view->userOrders = Application_Entity_Transaction::listOrdensUsers();
         $this->view->country = $modelRegions->listing(array(840));
@@ -205,17 +207,28 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $this->_helper->json($array);
     }
     
-    public function returningAction() {
-        $transaction = new Application_Entity_Transaction();
-        $transaction->identify($this->getParam('id'));
-        $transaction->returned();
-        $this->_redirect($_SERVER['HTTP_REFERER']);
-    }
 
     public function deliveredAction() {
         $transaction = new Application_Entity_Transaction();
         $transaction->identify($this->getParam('id'));
         $transaction->delivered();
+        $transaction->closed();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+    
+    public function closedAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->identify($this->getParam('id'));
+        $transaction->delivered();
+        $transaction->closed();
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+    
+    public function openedAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->identify($this->getParam('id'));
+        $transaction->undelivered();
+        $transaction->opened();
         $this->_redirect($_SERVER['HTTP_REFERER']);
     }
 
@@ -235,6 +248,30 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
     public function unshippingAction() {
         $transaction = new Application_Entity_Transaction();
         $transaction->unshipping($this->getParam('id'));
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+    
+    public function returningAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->returning($this->getParam('id'));
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function unreturningAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->unreturning($this->getParam('id'));
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+    
+    public function refundingAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->refunding($this->getParam('id'));
+        $this->_redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function unrefundingAction() {
+        $transaction = new Application_Entity_Transaction();
+        $transaction->unrefunding($this->getParam('id'));
         $this->_redirect($_SERVER['HTTP_REFERER']);
     }
     
@@ -271,7 +308,9 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
             unset($arrayData['countries']);
         }
         
-        $orders = Application_Entity_Transaction::listOrders($arrayData);
+        $orders = Application_Entity_Transaction::listDetailedOrders($arrayData);
+        
+        //Zend_Debug::dump($orders); die();
         
         require_once APPLICATION_PATH.'/../library/phpexcel/PHPExcel.php';
         require_once APPLICATION_PATH.'/../library/phpexcel/PHPExcel/Writer/Excel2007.php';
@@ -324,7 +363,27 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
                             //"tansaction_state_id" => "State Id",
                             "tansaction_state_name" => "State Name",
                             //"transaction_delivered" => "Delivered",
-                            "transaction_delivered_date" => "Delivered Date"
+                            "transaction_delivered_date" => "Delivered Date",
+                            "transaction_shi_add_first_name" => "Shipping First Name",
+                            "transaction_shi_add_last_name" => "Shipping Last Name",
+                            "transaction_shi_add_addres" => "Shipping Address",
+                            "transaction_shi_add_addres_continued" => "Shipping Address Continued",
+                            "transaction_shi_add_postal_code" => "Shipping Postal Code",
+                            "transaction_shi_add_region_id" => "Shipping Region",
+                            "transaction_shi_add_subregion_id" => "Shipping Subregion",
+                            "transaction_shi_add_city" => "Shipping City",
+                            "transaction_shi_add_phone_number" => "Shipping Phone Number",
+                            "transaction_bill_add_first_name" => "Billing First Name",
+                            "transaction_bill_add_last_name" => "Billing Last Name",
+                            "transaction_bill_add_addres" => "Billing Address",
+                            "transaction_bill_add_addres_continued" => "Billing Address Continued",
+                            "transaction_bill_add_postal_code" => "Billing Postal Code",
+                            "transaction_bill_add_region_id" => "Billing Region",
+                            "transaction_bill_add_subregion_id" => "Billing Subregion",
+                            "transaction_bill_add_city" => "Billing City",
+                            "transaction_bill_add_phone_number" => "Billing Phone Number",
+                            "transaction_mail" => "Email Contact",
+                            "transaction_contact_name" => "Name Contact"
                         );
         
         $n = 0;
@@ -337,6 +396,8 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
             $n++;
         }
         
+        
+        
         $product_titles = array(
                             5 => "Code",
                             0 => "Product",
@@ -344,7 +405,9 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
                             2 => "G. Price",
                             3 => "M. Price",
                             4 => "Size",
-                            6 => "Shipped"
+                            6 => "Shipped",
+                            7 => "Returned",
+                            8 => "Refunded"
                         );
         
         if($product_titles) foreach($product_titles as $key => $value){
@@ -357,11 +420,35 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
         $row++;
         
         if(!empty($orders)) foreach($orders as $order){
+            
             $n = 0;
             $arrayProducts = explode('[]', $order['product']);
+            
             foreach ($arrayProducts as $p) {
+                
                 if($order_titles) foreach($order_titles as $key => $value){
-                    $sheet->SetCellValue($letters[$n].$row, $order[$key]);
+                    
+                    $value = $order[$key];
+                    
+                    if($key == "transaction_shi_add_region_id" || $key == "transaction_bill_add_region_id"){
+                        if($order[$key]>0){
+                            $_country = new Application_Model_Regions();
+                            $country = $_country->getRegion($order[$key]);
+                            
+                            $value = $country["country"];
+                        }
+                    }
+                    
+                    if($key == "transaction_shi_add_subregion_id" || $key == "transaction_bill_add_subregion_id"){
+                        if($order[$key]>0){
+                            $_state = new Application_Model_SubRegions();
+                            $state = $_state->getSubRegion($order[$key]);
+                            
+                            $value = $state["name"];
+                        }
+                    }
+                    
+                    $sheet->SetCellValue($letters[$n].$row, $value);
                     $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
                     $n++;
                 }
@@ -381,82 +468,9 @@ class Admin_OrdersController extends Core_Controller_ActionAdmin {
             }
         }
  
-        $sheet->getStyle('A1:'.$letters[$last - 1].($row - 1))->applyFromArray($styleBorder);
+        //$sheet->getStyle('A1:'.$letters[$last - 1].($row - 1))->applyFromArray($styleBorder);
         
         $sheet->setTitle('Orders');
-        
-        $excel->createSheet();
-        
-        $excel->setActiveSheetIndex(1);
-        $sheet = $excel->getActiveSheet();
-            
-        $row = 2;
-        if(!empty($orders)) foreach($orders as $order){
-            $n = 1;
-            
-            $start = $letters[$n].$row;
-            
-            if($order_titles) foreach($order_titles as $key => $value){
-                $sheet->SetCellValue($letters[$n].$row, $value);
-                $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
-                $sheet->getStyle($letters[$n].$row)->applyFromArray($negrita);
-                
-                $sheet->SetCellValue($letters[$n].($row + 1), $order[$key]);
-                $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
-                $n++;
-            }
-            
-            $row++;
-            $row++;
-            
-            $product_titles = array(
-                            5 => "Code",
-                            0 => "Product",
-                            1 => "Quantity",
-                            2 => "G. Price",
-                            3 => "M. Price",
-                            4 => "Size",
-                            6 => "Shipped"
-                        );
-        
-            $row++;
-            
-            $n = 2;
-            if($product_titles) foreach($product_titles as $key => $value){
-                $sheet->SetCellValue($letters[$n].$row, $value);
-                $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
-                $sheet->getStyle($letters[$n].$row)->applyFromArray($negrita);
-                $n++;
-            }
-            
-            $row++;
-            
-            $n = 2;
-            $arrayProducts = explode('[]', $order['product']);
-            foreach ($arrayProducts as $p) {
-                $product = explode('|', $p);
-                
-                if($product_titles) foreach($product_titles as $key => $value){
-                    $sheet->SetCellValue($letters[$n].$row, $product[$key]);
-                    $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
-                    $n++;
-                }
-                
-                $last = $n;
-                
-                $n = 2;
-                $row++;    
-            }
-            
-            $end = $letters[$last - 1].$row;
-            
-            $sheet->getStyle($start.':'.$end)->applyFromArray($styleBorder);
-            
-            $row++;
-            $row++;
-        }
-        
-        $sheet->setTitle('Detailed Orders');
         
         $excel->setActiveSheetIndex(0);
         $objWriter = new PHPExcel_Writer_Excel2007($excel);

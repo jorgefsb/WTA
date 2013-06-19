@@ -121,10 +121,6 @@ class Application_Entity_Image extends Core_Entity {
                 $this->_type = self::TIPE_IMAGE_CELEBRITY;
                 $this->_redimencionOrigin = self::$CELEBRITY_REDIMENCION_ORIGIN;
                 break;
-            case self::TIPE_IMAGE_DESIGNER:
-                $this->_type = self::TIPE_IMAGE_DESIGNER;
-                $this->_redimencionOrigin = self::$DESIGNER_REDIMENCION_ORIGIN;
-                break;
             case self::TIPE_IMAGE_BACKGROUND:
                 $this->_type = self::TIPE_IMAGE_BACKGROUND;
                 $this->_redimencionOrigin = self::$BACKGROUND_REDIMENCION_ORIGIN;

@@ -162,7 +162,7 @@ class Application_Entity_Background extends Core_Entity {
     }
 
     function editImg($idImage, $temp, $name, $descripcion='') {
-        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_CELEBRITY);
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_BACKGROUND);
         $image->identify($idImage);
 
         if ($temp != '' && $name != '') {

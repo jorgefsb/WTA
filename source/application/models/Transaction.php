@@ -97,26 +97,16 @@ class Application_Model_Transaction extends Core_Model {
         }
     }
 
-    function listOrdens($filtro=array()) {
+    function listDetailedOrders($filtro=array()) {
         $smt = $this->_tableTransaction
                 ->getAdapter()
                 ->select()
-                ->from(array('tr' => $this->_tableTransaction->getName()), array(
-                    'tr.transaction_payment_date',
-                    'tr.transaction_amount',
-                    'tr.transaction_id',
-                    'tr.transaction_user_menbership',
-                    'tr.member_id',
-                    'mem.member_name',
-                    'mem.member_last_name',
-                    'tr.transaction_amount',
-                    'tr.transaction_register_date',
-                    'tr.tansaction_state_id',
-                    'trs.tansaction_state_name',
-                    'tr.transaction_delivered',
-                    'tr.transaction_delivered_date',
-                    'product' => new Zend_Db_Expr("GROUP_CONCAT(concat(pr.product_name,'|',trd.transaction_details_product_cant,'|',trd.transaction_details_product_price,'|',trd.transaction_details_product_price_member,'|',coalesce(trd.product_size, ''),'|',coalesce(pr.product_code, ''),'|',coalesce(trd.transaction_shipped, ''),'|',coalesce(trd.transaction_details_id, '')) SEPARATOR '[]')"),
-                ))
+                ->from(array('tr' => $this->_tableTransaction->getName()),
+                        array("tr.*",
+                            'mem.member_name',
+                            'mem.member_last_name',
+                            'trs.tansaction_state_name',
+                            'product' => new Zend_Db_Expr("GROUP_CONCAT(concat(pr.product_name,'|',trd.transaction_details_product_cant,'|',trd.transaction_details_product_price,'|',trd.transaction_details_product_price_member,'|',coalesce(trd.product_size, ''),'|',coalesce(pr.product_code, ''),'|',coalesce(trd.transaction_shipped, ''),'|',coalesce(trd.transaction_returned, ''),'|',coalesce(trd.transaction_refunded, ''),'|',coalesce(trd.transaction_details_id, '')) SEPARATOR '[]')")))
                 ->join(array('trd' => $this->_tableTransactionDetails->getName()), 'trd.transaction_id=tr.transaction_id', '')
                 ->join(array('trs' => $this->_tableTransactionState->getName()), 'trs.tansaction_state_id=tr.tansaction_state_id', '')
                 ->join(array('pr' => $this->_tableProduct->getName()), 'pr.product_id=trd.product_id', '')
@@ -149,6 +139,86 @@ class Application_Model_Transaction extends Core_Model {
                     break;
             }
         }
+        $smt = $smt->query();
+        $result = $smt->fetchAll();
+        $smt->closeCursor();
+        return $result;
+    }
+
+    function listOrdens($filtro=array()) {
+        $smt = $this->_tableTransaction
+                ->getAdapter()
+                ->select()
+                ->from(array('tr' => $this->_tableTransaction->getName()), array(
+                    'tr.transaction_payment_date',
+                    'tr.transaction_amount',
+                    'tr.transaction_id',
+                    'tr.transaction_user_menbership',
+                    'tr.member_id',
+                    'mem.member_name',
+                    'mem.member_last_name',
+                    'tr.transaction_amount',
+                    'tr.transaction_register_date',
+                    'tr.tansaction_state_id',
+                    'trs.tansaction_state_name',
+                    'tr.transaction_delivered',
+                    'tr.transaction_delivered_date',
+                    'product' => new Zend_Db_Expr("GROUP_CONCAT(concat(pr.product_name,'|',trd.transaction_details_product_cant,'|',trd.transaction_details_product_price,'|',trd.transaction_details_product_price_member,'|',coalesce(trd.product_size, ''),'|',coalesce(pr.product_code, ''),'|',coalesce(trd.transaction_shipped, ''),'|',coalesce(trd.transaction_returned, ''),'|',coalesce(trd.transaction_refunded, ''),'|',coalesce(trd.transaction_details_id, '')) SEPARATOR '[]')"),
+                ))
+                ->join(array('trd' => $this->_tableTransactionDetails->getName()), 'trd.transaction_id=tr.transaction_id', '')
+                ->join(array('trs' => $this->_tableTransactionState->getName()), 'trs.tansaction_state_id=tr.tansaction_state_id', '')
+                ->join(array('pr' => $this->_tableProduct->getName()), 'pr.product_id=trd.product_id', '')
+                ->joinLeft(array('mem' => $this->_tableMemeber->getName()), 'mem.member_id=tr.member_id', '')
+                ->group('tr.transaction_id');
+                
+          
+        if(!isset($filtro["orderby"])){
+            $filtro["orderby"] = "id_order";
+        }
+                
+        foreach($filtro as $index=>$value){
+            switch ($index) {
+                case 'fromDate':
+                     $smt = $smt->where('transaction_register_date >=?',$value);
+                    break;
+                case 'toDate':
+                    $smt = $smt->where('transaction_register_date <=?',$value);
+                    break;
+                case 'menbers':
+                    $smt = $smt->where('tr.member_id in ('.implode(',',$value).')');
+                    break;
+                case 'status':
+                    $smt = $smt->where('tr.tansaction_state_id in ('.implode(',',$value).')');
+                    break;
+                case 'stateDelivered':
+                    $smt = $smt->where('tr.transaction_delivered in ('.implode(',',$value).')');
+                    break;
+                case 'countries':
+                    $smt = $smt->where('tr.transaction_shi_add_region_id =?',$value);
+                    break;
+                case 'state':
+                    $smt = $smt->where('tr.transaction_shi_add_subregion_id =?',$value);
+                    break;
+                    
+                case 'orderby': {
+                    switch($value){
+                        case 'product_order': 
+                            $smt->order('pr.product_name ASC');
+                            $smt->order('tr.transaction_id DESC');
+                        break;
+                        case 'status_order': 
+                            $smt->order('trs.tansaction_state_name ASC');
+                            $smt->order('tr.transaction_id DESC');
+                        break;
+                        case 'id_order':
+                            $smt->order('tr.transaction_id DESC');
+                        break;
+                    }
+                    break;
+                }
+            }
+        }
+        
         $smt = $smt->query();
         $result = $smt->fetchAll();
         $smt->closeCursor();

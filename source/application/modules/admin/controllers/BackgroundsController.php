@@ -65,9 +65,10 @@ class Admin_BackgroundsController extends Core_Controller_ActionAdmin
         $arrayPopulate['name'] = $properties['_name'];
         $arrayPopulate['public'] = $properties['_public'];
         $form->populate($arrayPopulate);
-        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_CELEBRITY);
+        $image = new Application_Entity_Image(Application_Entity_Image::TIPE_IMAGE_BACKGROUND);
         $image->setPropertie('_idTable', $background->getPropertie('_id'));
         $image->identify();
+        
         if($this->getRequest()->isPost()){
             if($form->isValid($this->getRequest()->getParams())){
                 $filter = new Core_SeoUrl();
@@ -88,9 +89,12 @@ class Admin_BackgroundsController extends Core_Controller_ActionAdmin
                     );
                     $element->receive();
                 }
+                
+                //Zend_Debug::dump($image); die();
                 $background->setPropertie('_name', $form->getValue('name'));
                 $background->setPropertie('_public', $form->getValue('public'));
                 $background->update();
+                
                 $background->editImg(
                         $image->getPropertie('_id'), 
                         $extension!=''?($element->getDestination() . '/' . $nameImg . '.' . $extension):'',
