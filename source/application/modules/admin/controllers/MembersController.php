@@ -254,13 +254,16 @@ class Admin_MembersController extends Core_Controller_ActionAdmin {
                           );
         
         //Definir propiedades del objeto
-        $objPHPExcel->getProperties()->setCreator("WTA System");
-        $objPHPExcel->getProperties()->setLastModifiedBy("WTA System");
-        $objPHPExcel->getProperties()->setTitle("Members Report");
-        $objPHPExcel->getProperties()->setSubject("Members Report");
-        $objPHPExcel->getProperties()->setDescription("This document is a list of exported members of WTA system.");
+        $properties = $objPHPExcel->getProperties();
+        
+        $properties->setCreator("WTA System");
+        $properties->setLastModifiedBy("WTA System");
+        $properties->setTitle("Members Report");
+        $properties->setSubject("Members Report");
+        $properties->setDescription("This document is a list of exported members of WTA system.");
         
         $objPHPExcel->setActiveSheetIndex(0);
+        $sheet = $objPHPExcel->getActiveSheet();
             
         $letters = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","AA","AB","AC","AD","AE","AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO","AP","AQ","AR","AS","AT","AU","AV","AW","AX","AY","AZ");
         $titles = array(
@@ -282,11 +285,51 @@ class Admin_MembersController extends Core_Controller_ActionAdmin {
                             "member_customerProfileId" => "Customer Profile Id"
                         );
                         
+        $shipping_titles = array(
+                            //"_customerAddressId" => "Customer Address Id",
+                            "_firstName" => "Shipping First Name",
+                            "_lastName" => "Shipping Confirm Date",
+                            "_address" => "Shipping Address",
+                            "_city" => "Shipping City",
+                            "_state" => "Shipping State",
+                            "_zip" => "Shipping Zip",
+                            "_country" => "Shipping Country",
+                            "_phoneNumber" => "Shipping Phone Number"
+                        );
+                        
+        $billing_titles = array(
+                            //"_customerPaymentProfileId" => "Customer Payment Profile Id",
+                            "_firstName" => "Billing First Name",
+                            "_lastName" => "Billing Confirm Date",
+                            "_address" => "Billing Address",
+                            "_city" => "Billing City",
+                            "_state" => "Billing State",
+                            "_zip" => "Billing Zip",
+                            "_country" => "Billing Country",
+                            "_phoneNumber" => "Billing Phone Number",
+                            "_cardNumber" => "Billing Phone Number",
+                            "_expirationDate" => "Billing Phone Number"
+                        );
+                        
         $n = 0;
         if($titles) foreach($titles as $key => $value){
-            $objPHPExcel->getActiveSheet()->SetCellValue($letters[$n]."1", $value);
-            $objPHPExcel->getActiveSheet()->getColumnDimension($letters[$n])->setAutoSize(true);
-            $objPHPExcel->getActiveSheet()->getStyle($letters[$n]."1")->applyFromArray($negrita);
+            $sheet->SetCellValue($letters[$n]."1", $value);
+            $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+            $sheet->getStyle($letters[$n]."1")->applyFromArray($negrita);
+            $n++;
+        }
+        
+        if($shipping_titles) foreach($shipping_titles as $key => $value){
+            $sheet->SetCellValue($letters[$n]."1", $value);
+            $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+            $sheet->getStyle($letters[$n]."1")->applyFromArray($negrita);
+            $n++;
+        }
+        
+        if($billing_titles) foreach($billing_titles as $key => $value){
+            $sheet->SetCellValue($letters[$n]."1", $value);
+            $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+            $sheet->getStyle($letters[$n]."1")->applyFromArray($negrita);
             $n++;
         }
         
@@ -294,16 +337,38 @@ class Admin_MembersController extends Core_Controller_ActionAdmin {
         if(!empty($members)) foreach($members as $member){
             $n = 0;
             
+            $memberEntity = new Application_Entity_Member();
+            $memberEntity->identify($member["member_id"]);
+            $profile = $memberEntity->loadProfile();
+            
             if($titles) foreach($titles as $key => $value){
-                $objPHPExcel->getActiveSheet()->SetCellValue($letters[$n].$row, $member[$key]);
-                $objPHPExcel->getActiveSheet()->getColumnDimension($letters[$n])->setAutoSize(true);
+                $sheet->SetCellValue($letters[$n].$row, $member[$key]);
+                $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
                 $n++;
+            }
+            
+            if(!empty($profile["shipping"])){
+                
+                if($shipping_titles) foreach($shipping_titles as $key => $value){
+                    $sheet->SetCellValue($letters[$n].$row, $profile["shipping"][0][$key]);
+                    $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+                    $n++;
+                }
+            }
+            
+            if(!empty($profile["billing"])){
+                
+                if($billing_titles) foreach($billing_titles as $key => $value){
+                    $sheet->SetCellValue($letters[$n].$row, $profile["billing"][0][$key]);
+                    $sheet->getColumnDimension($letters[$n])->setAutoSize(true);
+                    $n++;
+                }
             }
             
             $row++;
         }
         
-        $objPHPExcel->getActiveSheet()->setTitle('Members');
+        $sheet->setTitle('Members');
         
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
         

@@ -485,6 +485,7 @@ class Application_Entity_Member extends Core_Entity {
         $this->_shippingAddress = $shpAdd;
         $this->_billingInformation= $paymeth;
 
+        return array("shipping" => $shpAdd, "billing" => $paymeth);
     }
 
     public function saveShippingAddress($data){
