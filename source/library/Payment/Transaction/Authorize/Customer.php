@@ -40,7 +40,11 @@ class Payment_Transaction_Authorize_Customer extends Payment_Customer{
     public function identify($customerProfileId){
         $this->_customerProfileId = $customerProfileId;
         
-        $xml_customer = $this->_authorize->commit('getCustomerProfileRequest', '<customerProfileId>'.$customerProfileId.'</customerProfileId>');       
+        $xml_customer = $this->_authorize->commit('getCustomerProfileRequest', '<customerProfileId>'.$customerProfileId.'</customerProfileId>');
+        
+        if(!$xml_customer){
+            return;
+        }       
         
         $_customerPaymentProfileIds = array();
         if( is_object($xml_customer)){            

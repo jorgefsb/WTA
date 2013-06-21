@@ -469,7 +469,7 @@ class Application_Entity_Member extends Core_Entity {
             $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE );
             $customer = $_transaction->customer();
             $customer->identify($this->_customerProfileId);
-
+            
             $shippings = $customer->getListShippingAddress();
             $billings = $customer->getListBillingInformation();
 
