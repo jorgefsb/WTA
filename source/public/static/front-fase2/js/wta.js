@@ -1211,7 +1211,8 @@ var WTA = (function(){
                                             /*'card_name',*/ 'card_number', 'card_expirationmonth', 'card_expirationyear', 'car_seccode'];
             var form_valid = true;
 
-            var $email = $this.find('#inf_emailaddress');
+            var $email = $this.find('#folio_email');
+            //var $email = $this.find('#inf_emailaddress');
 
             if( !that.isEmail($email.val()) ){
                 that.setMsgError($email);

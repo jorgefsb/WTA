@@ -26,6 +26,7 @@ class Fase2_OrderController extends Core_Controller_ActionDefault
     public function createAction(){
 
         $shipping_charge = 5; // $5 dollares de envio
+        $tax_rate = 0.07;
 
         if ($this->getRequest()->isXmlHttpRequest()) {
             unset($this->view->identity);
@@ -142,7 +143,8 @@ class Fase2_OrderController extends Core_Controller_ActionDefault
 
 
                 $transacction->setPropertie('_shiAmount', $shipping_charge);
-                $transacction->setPropertie('_amount', $total+$shipping_charge);
+                $transacction->setPropertie('_taxAmount', ($total+$shipping_charge) * $tax_rate);
+                $transacction->setPropertie('_amount', ($total+$shipping_charge) * (1 + $tax_rate));
 
                 $transacction->initTransactionDb();
                 if( $transacction->createTransaction() ){
