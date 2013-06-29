@@ -1,0 +1,37 @@
+<?php Load::lib("html") ?>
+<?php Load::lib("formulario") ?>
+<?php Load::lib("formato") ?>
+<?php
+    header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+    header("Content-type:   application/x-msexcel; charset=utf-8");
+    header("Content-Disposition: attachment; filename=cupones.xls"); 
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Cache-Control: private",false);
+?>
+<table cellpadding="0" cellspacing="0" border="1" class="table table-bordered table-striped display" id="reporte" width="100%">
+    <thead>
+        <tr role="row">
+            <th>Id</th>
+            <th>Clave</th>
+            <th>Nombre</th>
+            <th>Fecha de Registro</th>
+            <th>Fecha de Vigencia</th>
+            <th>Activo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if($cupones){ ?>
+            <?php foreach($cupones as $cupon){ ?>
+                <tr>
+                    <td align="center"><?php echo utf8_decode($cupon->id) ?></td>
+                    <td align="center"><?php echo utf8_decode($cupon->clave) ?></td>
+                    <td align="center"><?php echo utf8_decode($cupon->nombre) ?></td>
+                    <td align="center"><?php echo utf8_decode($cupon->fecha_registro) ?></td>
+                    <td align="center"><?php echo utf8_decode($cupon->fecha_vigencia) ?></td>
+                    <td align="center"><?php echo utf8_decode($cupon->activo) ?></td>
+                </tr>
+            <?php } ?>
+        <?php } ?>
+    </tbody>
+</table>

@@ -195,7 +195,7 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
             ));
 
             if (!$paymentId) {
-                $this->view->messages = array('error' => '---'.$transacction->getMessage());
+                $this->view->messages = array('error' => $transacction->getMessage());
             } else {
                 $this->hasMembership = true;
                 
@@ -228,7 +228,7 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
         $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_OUTSTANDING);
         $transacction->setPropertie('_codePayment', '');
         $transacction->setPropertie('_delivered', Application_Entity_Transaction::UNDELIVERID);
-        $transacction->setPropertie('_userMenbership', $this->hasMembership);
+        $transacction->setPropertie('_userMenbership', (int)$this->hasMembership);
         $transacction->setPropertie('_deliveredDate', '');
 
         $transacction->setPropertie('_contactName', $formValues['shp_firstname'].' '.$formValues['shp_lastname']);

@@ -370,9 +370,6 @@ class Application_Entity_Transaction extends Core_Entity {
         }
         
         
-        
-        
-        
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE);
         
         $_customer = $_transaction->customer();        
@@ -468,10 +465,10 @@ class Application_Entity_Transaction extends Core_Entity {
         $_payment->_customerPaymentProfileId = $_customerPaymentProfileId;
         $_payment->_customerShippingAddressId = $_customerAddressId;
         
-        $_payment->addProduct('M02', 'WTA Membership', 'Recurring monthly membership',1, $memberships[0]['transaction_detail_final_price']*3);
+        $_payment->addProduct('M02', 'WTA Membership', 'Recurring monthly membership',1, $memberships[0]['transaction_detail_final_price']);
         //$_id, $_name, $_description, $_quantity, $_unitPrice
 
-        $_payment->_amount = $memberships[0]['transaction_detail_final_price']*3;
+        $_payment->_amount = $memberships[0]['transaction_detail_final_price'];
         
         if($_payment->commit()===true){
             $modelTransaction = new Application_Model_Transaction();
