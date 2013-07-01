@@ -264,7 +264,11 @@
         <table>
             <tr>
                 <td>Shipping</td>
-                <td id="shipping">$<?php echo $shipping; ?></td>
+                <td id="shipping">$<?php echo number_format($shipping,2); ?></td>
+            </tr>
+            <tr>
+                <td><br>Tax</td>
+                <td id="taxes"><br>$<?php echo number_format(((int) $total + (int)$shipping) * $this->tax_rate,2); ?></td>
             </tr>
             <!-- tr>
                 <td>Tax</td>
@@ -279,7 +283,7 @@
                     Total
                 </td>
                 <td id="total">
-                    $<?php echo (int) $total + (int)$shipping +$membership; ?>
+                    $<?php echo number_format((((int) $total + (int)$shipping ) * (1+$this->tax_rate)) + $membership, 2); ?>
                 </td>
             </tr>
         </table>

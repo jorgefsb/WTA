@@ -17,14 +17,14 @@
 
         <!-- FORM CHECKOUT -->
         <?php
-            echo $this->partial('shopping/formCheckout.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>$this->cartMembership , 'shippingAddress'=>$this->shippingAddress, 'billingInformation'=>$this->billingInformation, 'invitation'=>$this->invitation, 'regions'=>$this->regions, 'isCheckout'=>$this->isCheckout ?$this->isCheckout:0));
+            echo $this->partial('shopping/formCheckout.phtml', array('tax_rate' => $this -> tax_rate,'cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>$this->cartMembership , 'shippingAddress'=>$this->shippingAddress, 'billingInformation'=>$this->billingInformation, 'invitation'=>$this->invitation, 'regions'=>$this->regions, 'isCheckout'=>$this->isCheckout ?$this->isCheckout:0));
         ?>
 
     </div>
 
     <div id="checkout-cart">
         <?php
-            echo $this->partial('shopping/checkoutcart.phtml', array('cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>$this->cartMembership, 'isCheckout'=>$this->isCheckout ?$this->isCheckout:0));
+            echo $this->partial('shopping/checkoutcart.phtml', array('tax_rate' => $this -> tax_rate,'cart'=>$this->cart, 'shipping'=>$this->shipping, 'cartMembership'=>$this->cartMembership, 'isCheckout'=>$this->isCheckout ?$this->isCheckout:0));
         ?>
     </div>
 

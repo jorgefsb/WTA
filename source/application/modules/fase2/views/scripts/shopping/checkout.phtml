@@ -204,6 +204,13 @@
                         <td>Shipping</td>
                         <td>$<?php echo $this->shipping; ?></td>
                     </tr>
+                    <tr>
+                        <td colspan="3"><span class="linea_horiz"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td id="taxes">$<?php echo number_format(((int) $total + (int)$shipping) * $this->tax_rate, 2); ?></td>
+                    </tr>
                     <!-- tr>
                         <td>Tax</td>
                         <td>$0</td>
@@ -213,13 +220,13 @@
                     </tr>
                     <tr><td colspan="3">&nbsp;</td></tr>
                     <tr>
-                        <td>
-                            Total
-                        </td>
-                        <td>
-                            $<?php echo (int)$total+(int)$this->shipping; ?>
-                        </td>
-                    </tr>
+                <td>
+                    Total
+                </td>
+                <td id="total">
+                    $<?php echo (((int) $total + (int)$shipping ) * (1+$tax_rate)); ?>
+                </td>
+            </tr>
                 </table>
                 <label class="acept-terms">
                     <input type="checkbox" name="cb_terms" id="cb_termns" value="1" />

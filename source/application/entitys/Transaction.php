@@ -46,6 +46,7 @@ class Application_Entity_Transaction extends Core_Entity {
     protected $_contactName;
 
     protected $_shiAmount;
+    protected $_taxAmount;
 
     /**
      * __Construct
@@ -108,6 +109,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $this->_billAddPhoneNumber = $data['transaction_bill_add_phone_number'];
 
         $this->_shiAmount = $data['transaction_shi_amount'];
+        $this->_taxAmount = $data['transaction_tax_amount'];
 
         $this->_cardNumber = $data['transaction_card_number'];
         $this->_mail = $data['transaction_mail'];
@@ -168,6 +170,7 @@ class Application_Entity_Transaction extends Core_Entity {
         $data['transaction_bill_add_phone_number'] = $this->_billAddPhoneNumber;
 
         $data['transaction_shi_amount'] = $this->_shiAmount;
+        $data['transaction_tax_amount'] = $this->_taxAmount;
 
         $data['transaction_card_number'] = $this->_cardNumber;
 
@@ -367,9 +370,6 @@ class Application_Entity_Transaction extends Core_Entity {
         }
         
         
-        
-        
-        
         $_transaction = new Payment_Transaction(Payment_Transaction::PAYMENT_SERVICE_AUTHORIZE);
         
         $_customer = $_transaction->customer();        
@@ -465,10 +465,10 @@ class Application_Entity_Transaction extends Core_Entity {
         $_payment->_customerPaymentProfileId = $_customerPaymentProfileId;
         $_payment->_customerShippingAddressId = $_customerAddressId;
         
-        $_payment->addProduct('M02', 'WTA Membership', 'Recurring monthly membership',1, $memberships[0]['transaction_detail_final_price']*3);
+        $_payment->addProduct('M02', 'WTA Membership', 'Recurring monthly membership',1, $memberships[0]['transaction_detail_final_price']);
         //$_id, $_name, $_description, $_quantity, $_unitPrice
 
-        $_payment->_amount = $memberships[0]['transaction_detail_final_price']*3;
+        $_payment->_amount = $memberships[0]['transaction_detail_final_price'];
         
         if($_payment->commit()===true){
             $modelTransaction = new Application_Model_Transaction();
@@ -671,7 +671,7 @@ class Application_Entity_Transaction extends Core_Entity {
         // Costo del envio
         $_payment->_shippingAmount = $this->_shiAmount;
         $_payment->_shippingName = 'Shipping Cost';
-
+        
         $_payment->_amount = $this->_amount;
         $_payment->_cardCode = $dataCard['cardCode'];
 
@@ -922,6 +922,14 @@ class Application_Entity_Transaction extends Core_Entity {
                                                                 <td>&nbsp;</td>
                                                                 <td style="color: #333; font-size: 12px; font-weight: normal; text-align: right">Shipping:</td>
                                                                 <td style="color: #333; font-size: 12px; font-weight: bold; text-align: right">$ '.number_format($this->_shiAmount, 2) .'</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td>&nbsp;</td>
+                                                                <td style="color: #333; font-size: 12px; font-weight: normal; text-align: right">Tax:</td>
+                                                                <td style="color: #333; font-size: 12px; font-weight: bold; text-align: right">$ '.number_format($this->_taxAmount, 2) .'</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>&nbsp;</td>

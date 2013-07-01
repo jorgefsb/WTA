@@ -189,7 +189,7 @@
     font-size: 18px;
 }
 .affiliates-content .listado{ 	 		
-    color: #787878;
+    color: #AAAAAA;
     margin:20px 0px 40px 20px;
 }
 
@@ -241,8 +241,7 @@
 
 }
 p.parrafos{
-    color:#6e6e6e;
-
+    color: #AAAAAA;
 }
 
 .help-content .navbar.navbar-inverse{
@@ -269,7 +268,7 @@ p.parrafos{
 }
 
 .terms-content{
-    color:#787878;
+    color:#AAAAAA;
 }
 .terms-content .pos-titulo{
     color:#c5c5c5;

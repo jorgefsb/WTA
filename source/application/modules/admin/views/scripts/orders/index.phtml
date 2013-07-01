@@ -291,7 +291,7 @@
                             }
                             ?>
                             <tr>
-                                <td colspan="3" >
+                                <td colspan="3" rowspan="4">
                                     <i><strong><?php echo $ns; ?> of <?php echo $np; ?> items shipped</strong>
                                     <?php if($nx == $np && $index['tansaction_state_id'] == 2 && $index['transaction_delivered'] != 1){ ?>
                                     <span style="padding: 5px; float: right;">
@@ -304,11 +304,35 @@
                                     </span>
                                     <?php } ?>
                                 </td >
+                                <td style="text-align: right" >
+                                    Subtotal: &nbsp;   
+                                </td>
+                                <td colspan="5" style="text-align: right">
+                                    $<?php echo number_format($priceTotal,2); ?> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right" >
+                                    Shipping: &nbsp;   
+                                </td>
+                                <td colspan="5" style="text-align: right">
+                                    $<?php echo number_format($index['transaction_shi_amount'],2); ?> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right" >
+                                    Tax: &nbsp;   
+                                </td>
+                                <td colspan="5" style="text-align: right">
+                                    $<?php echo number_format($index['transaction_tax_amount'],2); ?> 
+                                </td>
+                            </tr>
+                            <tr>
                                 <td  style="background-color: #DD5600; color: #ffffff; text-align: right" >
                                     Total: &nbsp;   
                                 </td>
                                 <td colspan="5" style="background-color: #DD5600; color: #ffffff;  text-align: right">
-                                    $<?php echo $priceTotal; ?>
+                                    $<?php echo number_format($index['transaction_amount'],2); ?>
                                 </td>
                             </tr>
                         </table>

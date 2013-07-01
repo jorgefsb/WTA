@@ -114,6 +114,7 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
             if ($entityMember->autentificate( $formValues['folio_email'], $formValues['folio_password']) ) {
                 $this->getNavigationMember();
                 $this->_identity = Zend_Auth::getInstance()->getIdentity();
+                $this->isMember = true;
             }else{
                 $this->view->messages = array('error' =>'Error Logon');
             }
@@ -214,10 +215,10 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
     private function createOrderProducts(Application_Entity_Transaction $transacction, $formValues){
         
         $shipping_charge = 5;
+        $tax_rate = 0.07;
         
-        if($this->isMember){                                                                                       
+        if($this->isMember){
             if( isset($this->_identity->member_id)){
-
                 $transacction->setPropertie('_member', $this->_identity->member_id);
             }
         }
@@ -227,7 +228,7 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
         $transacction->setPropertie('_state', Application_Entity_Transaction::TRANSACTION_OUTSTANDING);
         $transacction->setPropertie('_codePayment', '');
         $transacction->setPropertie('_delivered', Application_Entity_Transaction::UNDELIVERID);
-        $transacction->setPropertie('_userMenbership', $this->hasMembership);
+        $transacction->setPropertie('_userMenbership', (int)$this->hasMembership);
         $transacction->setPropertie('_deliveredDate', '');
 
         $transacction->setPropertie('_contactName', $formValues['shp_firstname'].' '.$formValues['shp_lastname']);
@@ -303,7 +304,8 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
 
 
         $transacction->setPropertie('_shiAmount', $shipping_charge);
-        $transacction->setPropertie('_amount', $total+$shipping_charge);
+        $transacction->setPropertie('_taxAmount', ($total+$shipping_charge) * $tax_rate);
+        $transacction->setPropertie('_amount', ($total+$shipping_charge) * (1 + $tax_rate));
 
         $transacction->initTransactionDb();
         if( $transacction->createTransaction() ){

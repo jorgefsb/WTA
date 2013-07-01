@@ -151,5 +151,6 @@
 
     <script>
         $('#shipping').html( '$<?php echo $shipping; ?>');
-        $('#total').html( '$<?php echo $total+$shipping+$membership; ?>');
+        $('#taxes').html( '$<?php echo number_format((($total+$shipping)*($this->tax_rate)), 2); ?>');
+        $('#total').html( '$<?php echo number_format((($total+$shipping)*(1+$this->tax_rate))+$membership, 2); ?>');
     </script>

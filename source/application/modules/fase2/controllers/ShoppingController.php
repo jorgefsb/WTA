@@ -2,7 +2,6 @@
 
 class Fase2_ShoppingController extends Core_Controller_ActionDefault
 {
-
     public function init() {
         parent::init();
 
@@ -19,6 +18,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
                 ->initContext();
 
         $this->view->shipping = 5;
+        $this->view->tax_rate = 0.07;
 
     }
 

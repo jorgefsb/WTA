@@ -151,6 +151,8 @@ class Application_Model_Transaction extends Core_Model {
                 ->select()
                 ->from(array('tr' => $this->_tableTransaction->getName()), array(
                     'tr.transaction_payment_date',
+                    'tr.transaction_tax_amount',
+                    'tr.transaction_shi_amount',
                     'tr.transaction_amount',
                     'tr.transaction_id',
                     'tr.transaction_user_menbership',
