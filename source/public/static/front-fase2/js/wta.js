@@ -214,16 +214,23 @@ var WTA = (function(){
     }
 
     this.lightbox = function(){
-
+/*
         $('#overlay').click(function(){
             $('.wLight .closex').trigger('click');
-        })
+        })*/
 
         $('.liLight').unbind('click').click( function(event){
             $('#overlay').css('background-color', 'transparent');
             var $link = $(this);
             var url = this.href;
             event.preventDefault();
+
+
+            if( !$link.hasClass('popup-modal') ){                
+                $('#overlay').click(function(){
+                    $('.wLight .closex').trigger('click');
+                })
+            }
 
             var data = '';
             if($link.hasClass('submit') && $link.data('form')){
