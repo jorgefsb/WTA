@@ -228,6 +228,10 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
         $this->_helper->layout->disableLayout();
     }
 
+    public function welcomeAction(){
+        $this->_helper->layout->disableLayout();
+    }
+    
     public function subscriptionAction(){
 
         $this->_helper->layout->disableLayout();
@@ -240,7 +244,8 @@ class Fase2_StaticsController extends Core_Controller_ActionDefault
                 $_subscription = new Application_Entity_SubscriptionMail();
                 $_subscription->setPropertie('_email', $email );
                 $_subscription->createSubscription();
-
+                
+                $this->_session->isSubscribed = true;
                 $this->_helper->json(array('ok'=>1));
             }else{
                 $this->_helper->json(array('error'=>0));

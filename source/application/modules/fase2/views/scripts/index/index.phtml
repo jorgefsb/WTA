@@ -105,3 +105,12 @@
         });
                             
 </script>
+<a href="/fase2/statics/welcome" id="welcome" class="liLight popup-modal" ></a>
+<script>
+    <?php if( $this->isSubscribed != true){ ?>
+        $(document).ready(function(){
+            $('#welcome').trigger('click');
+        })    
+    <?php } ?>
+    
+</script>

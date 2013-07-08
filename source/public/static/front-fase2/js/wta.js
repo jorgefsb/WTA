@@ -1466,7 +1466,7 @@ var WTA = (function(){
                 }
             ).done(function(response){
                     if(response.ok){
-                        $('.closex').trigger('click');
+                        $('.popup .closex').trigger('click');
                     }else{
                         alert('Error');
                     }

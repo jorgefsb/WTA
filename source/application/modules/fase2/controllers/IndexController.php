@@ -5,13 +5,13 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
 
     public function init() {
         parent::init();
-
+                
         $this->_helper->layout->setLayout('layout-fase2');
 
         //$this->view->isMember = Zend_Auth::getInstance()->hasIdentity();
 
         if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
-            $this->redirect('/beta');
+         //   $this->redirect('/beta');
         }
 
         //$action = $this->_getParam('action','');
@@ -55,6 +55,8 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         $this->loadOptionsMenu();
         $this->loadBackgrounds();
 
+        $this->view->isSubscribed = $this->_session->isSubscribed;
+        
         /*
          * Tracking
          */
