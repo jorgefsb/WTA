@@ -37,12 +37,12 @@
         <!-- h3>Article #<?php echo $this->product['_code']; ?></h3 -->
         <h2><?php echo $this->product['_name']; ?></h2>
 
-        <a href="" class="details">Details</a> /
-        <a href="" class="detailsDesigner">Testimonials</a>
+        <a href="" class="details">Details</a>
+        <!-- a href="" class="detailsDesigner">Testimonials</a -->
 
         <div  class="details-content">
             <p>
-            <?php echo $this->product['_description']; ?>
+            <?php echo $this->product['_descriptionDesigner']; ?>
             </p>
 
             <div class="precios">
@@ -59,14 +59,14 @@
             </div>
 
         </div>
-
-        <div  class="detailsDesigner-content">
+<?php /*
+        <!--div  class="detailsDesigner-content">
             <p>
             <?php echo $this->product['_descriptionDesigner']; ?>
             </p>
 
-        </div>
-
+        </div -->
+*/ ?>
 
         <div class="btns-options" >
             <a href="" class="btn addToCart no-show-cart" data-code="<?php echo $this->product['_id']; ?>">
