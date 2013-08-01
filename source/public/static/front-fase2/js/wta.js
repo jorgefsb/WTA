@@ -1208,7 +1208,7 @@ var WTA = (function(){
         $('#frmcheckout').submit(function(e){
             e.preventDefault();
             var $this = $(this);
-
+            
             $('span.error').remove();
             $this.find('.error').removeClass('error');
 
@@ -1253,9 +1253,24 @@ var WTA = (function(){
                 that.setMsgError($('#checkoutsubmit'), 'You must to accept the Terms of Services');
                 form_valid = false;
             }
+            
+                 
+            if( $this.hasClass('processing') ){
+                alert('Transaction in Progress.');
+                return false;
+            }
+
 
             if(form_valid){
+                
+                $this.addClass('processing');
+                $('#checkoutsubmit').html('Transaction in Progress'); // Regresamos el boton con el texto original                
+                
                 $.ajax($this.attr('action')+'/format/json', {type: 'post', data: $this.serialize()}).done(function(response){
+                    
+                    $this.removeClass('processing');
+                    
+                    
                     if(response.messages){
                         $('span.error').remove();
                         var obj = $('#checkoutsubmit');
@@ -1266,6 +1281,8 @@ var WTA = (function(){
                         $('#linkerror').trigger('click');
                     }else{
                        if(response.ok){
+
+                            $('#checkoutsubmit').parent().hide(); // ocultamos botones
 
                            $('#linkprocessed').trigger('click');
 
@@ -1300,6 +1317,11 @@ var WTA = (function(){
                 })
             }else{
                 that.setMsgError($('#checkoutsubmit'), 'You have empty fields');
+                
+                $this.removeClass('processing');
+                $('#checkoutsubmit').html('PLACE ORDER'); // Regresamos el boton con el texto original
+                
+                
             }
         });
 
@@ -1459,6 +1481,9 @@ var WTA = (function(){
     }
 
     this.initFormSubscriptions = function(){
+        $('#susbcriptions').submit(function(e){
+            e.preventDefault();
+        })
         $('#saveSubscription').click(function(e){
             e.preventDefault();
             var $email = $('#input_suscription');
