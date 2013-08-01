@@ -8,64 +8,93 @@
     $payment['card_expirationyear'] = '';
     $payment['card_seccode'] = '';
 
+    
+        
     $email = '';
     $pass = '';
-    if( $this->invitation ){
-         $email = $this->invitation['email'];
-         $pass = $this->invitation['password'];
+    if( $member ){
+        $email = $member->member_mail;
+        
+/*        if( $billinfo['_cardNumber'] ){
+            $payment['card_number'] = $billinfo['_cardNumber'];
+            $payment['card_expirationmonth'] = 'XX';
+            $payment['card_expirationyear'] = 'XX';
+            $payment['card_seccode'] = 'XXX';
+        }        */
+    }else{
+        if( $this->invitation ){
+             $email = $this->invitation['email'];
+             $pass = $this->invitation['password'];
+        }
+
+        if( !empty($this->cartMembership) && count($this->cartMembership)>1){
+
+            $email = $this->cartMembership['folio_email'] ? $email : $this->cartMembership['email'];
+            $pass = $this->cartMembership['folio_password'] ? $pass : $this->cartMembership['password'];
+
+            $shpAdd['_firstName'] = $this->cartMembership['shp_firstname'];
+            $shpAdd['_lastName'] = $this->cartMembership['shp_lastname'];
+            $shpAdd['_address'] = $this->cartMembership['shp_address'];
+            $shpAdd['_city'] = $this->cartMembership['shp_city'];
+            $shpAdd['_zip'] = $this->cartMembership['shp_cp'];
+            $shpAdd['_country'] = $this->cartMembership['shp_country'];
+            $shpAdd['_state'] = $this->cartMembership['shp_region'];
+            $shpAdd['_phoneNumber'] = $this->cartMembership['shp_phonenumber'];
+
+            $billinfo['_same'] = isset($this->cartMembership['bill_same']) ;
+
+            $billinfo['_firstName'] = $this->cartMembership['bill_firstname'];
+            $billinfo['_lastName'] = $this->cartMembership['bill_firstname'];
+            $billinfo['_address'] = $this->cartMembership['bill_address'];
+            $billinfo['_city'] = $this->cartMembership['bill_city'];
+            $billinfo['_zip'] = $this->cartMembership['bill_cp'];
+            $billinfo['_country'] = $this->cartMembership['bill_country'];
+            $billinfo['_state'] = $this->cartMembership['bill_region'];
+            $billinfo['_phoneNumber'] = $this->cartMembership['bill_phonenumber'];
+
+
+            $payment['card_number'] = $this->cartMembership['card_number'];
+            $payment['card_expirationmonth'] = $this->cartMembership['card_expirationmonth'];
+            $payment['card_expirationyear'] = $this->cartMembership['card_expirationyear'];
+            $payment['card_seccode'] = $this->cartMembership['card_seccode'];
+
+
+        }
     }
     
-    if( !empty($this->cartMembership) && count($this->cartMembership)>1){
-
-        $email = $this->cartMembership['folio_email'] ? $email : $this->cartMembership['email'];
-        $pass = $this->cartMembership['folio_password'] ? $pass : $this->cartMembership['password'];
-
-        $shpAdd['_firstName'] = $this->cartMembership['shp_firstname'];
-        $shpAdd['_lastName'] = $this->cartMembership['shp_lastname'];
-        $shpAdd['_address'] = $this->cartMembership['shp_address'];
-        $shpAdd['_city'] = $this->cartMembership['shp_city'];
-        $shpAdd['_zip'] = $this->cartMembership['shp_cp'];
-        $shpAdd['_country'] = $this->cartMembership['shp_country'];
-        $shpAdd['_state'] = $this->cartMembership['shp_region'];
-        $shpAdd['_phoneNumber'] = $this->cartMembership['shp_phonenumber'];
-
-        $billinfo['_same'] = isset($this->cartMembership['bill_same']) ;
-
-        $billinfo['_firstName'] = $this->cartMembership['bill_firstname'];
-        $billinfo['_lastName'] = $this->cartMembership['bill_firstname'];
-        $billinfo['_address'] = $this->cartMembership['bill_address'];
-        $billinfo['_city'] = $this->cartMembership['bill_city'];
-        $billinfo['_zip'] = $this->cartMembership['bill_cp'];
-        $billinfo['_country'] = $this->cartMembership['bill_country'];
-        $billinfo['_state'] = $this->cartMembership['bill_region'];
-        $billinfo['_phoneNumber'] = $this->cartMembership['bill_phonenumber'];
-
-        
-        $payment['card_number'] = $this->cartMembership['card_number'];
-        $payment['card_expirationmonth'] = $this->cartMembership['card_expirationmonth'];
-        $payment['card_expirationyear'] = $this->cartMembership['card_expirationyear'];
-        $payment['card_seccode'] = $this->cartMembership['card_seccode'];
-
-
-    }
+    
 ?>  
 
     <?php if( $this->isCheckout ){ ?>
     
     <form name="frmcheckout" id="frmcheckout" action="/fase2/membership/create" method="post">
-        <div class="section text-center group">
-            <h2>GUEST CHECKOUT</h2>
-            <div class="inputs show">
-                <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
-                <input type="password" name="folio_password"  id="folio_password" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  />
-                <?php /* <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" /> */ ?>
-            </div>
-            <div class="valores">
-                <span id="vfolio_email"><?php echo $email; ?></span>
-            </div>
-            <span class="btn-amarillo paso paso1 center" alt="CONTINUE AS GUEST">CONTINUE AS GUEST</span>
-        </div>
-                
+                    <?php if( !$this->hasMembership ){ ?>
+                            <div class="section text-center group">
+                                <h2>GUEST CHECKOUT</h2>
+                                <div class="inputs show">
+                                    <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" placeholder="Email Address" title="Email Address"   />
+                                    <input type="password" name="folio_password"  id="folio_password" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  />
+                                    <?php /* <input type="text" name="inf_emailaddress"  id="inf_emailaddress" value="<?php echo $member ? $member->member_mail : ''; ?>" placeholder="Email address" title="Email address" /> */ ?>
+                                </div>
+                                <div class="valores">
+                                    <span id="vfolio_email"><?php echo $email; ?></span>
+                                </div>
+                                <span class="btn-amarillo paso paso1 center" alt="CONTINUE AS GUEST">CONTINUE AS GUEST</span>
+                            </div>
+                    <?php }else{ ?>
+                            <div class="section text-center group">
+                                <h2>MEMBER CHECKOUT</h2>
+                                <div class="inputs show">
+                                    <input type="text" name="folio_email"  id="folio_email" value="<?php echo $email; ?>" readonly="readonly" placeholder="Email Address" title="Email Address"   />
+                                    <!-- input type="password" name="folio_password"  id="folio_password" value="<?php echo $pass; ?>" placeholder="Password" title="Password"  / -->
+                                </div>
+                                <div class="valores">
+                                    <span id="vfolio_email"><?php echo $email; ?></span>
+                                </div>
+                                <span class="btn-amarillo paso paso1 center" alt="CONTINUE AS GUEST">NEXT</span>
+                            </div>
+
+                    <?php } ?>
         <?php }elseif( (!$this->cartMembership || count($this->cartMembership)<=1) && !$this->invitation ){ ?>    
 
         <div class="section text-center group">
@@ -210,6 +239,9 @@
                         <option value="<?php echo $i; ?>" <?php echo $selected; ?> ><?php echo $i; ?></option>
                     <?php
                         }
+                        if($payment['card_expirationmonth'] == 'XX'){
+                            echo '<option value="XX"  selected="selected" >XX</option>';
+                        }
                         ?>
                 </select>
                 <select id="card_expirationyear" name="card_expirationyear"   data-class="dropup">
@@ -223,6 +255,9 @@
                     ?>
                         <option value="<?php echo $i; ?>" <?php echo $selected; ?> ><?php echo $i; ?></option>
                     <?php
+                        }                        
+                        if($payment['card_expirationyear'] == 'XX'){
+                            echo '<option value="XX" selected="selected" >XX</option>';
                         }
                         ?>
                 </select><br/>

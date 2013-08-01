@@ -29,6 +29,8 @@ var WTA = (function(){
     var jqxhr_active = true;
     var ajaxQueue = [];
     var error = '';
+    var txtContinue = 'continue';
+    var fncContinue = null;
 
     this.ajaxStatus = function(status){
         that.jqxhr_active = status;
@@ -261,6 +263,18 @@ var WTA = (function(){
                         $('.wLight').fadeOut().delay(500).remove();
                         $('#overlay').fadeOut();
                     });
+                    //var txtButton = 'continue';
+                    //var fncContinue = null;
+                    var btnContinue = $wLight.find('.continue');
+                    if( that.fncContinue ){
+                        btnContinue.unbind('click').click( function(e){
+                            e.preventDefault();
+                            eval('var obj = '+that.fncContinue+'; obj()');
+                        });                        
+                    }
+                    btnContinue.html(that.txtContinue);
+                                                            
+                    
                     $('html, body').animate({'scrollTop': 0}, 500)
                     setTimeout(function(){$wLight.find('.scrollbar').mCustomScrollbar();},1000);
                 }
@@ -1276,7 +1290,7 @@ var WTA = (function(){
                         var obj = $('#checkoutsubmit');
                         for(var i in response.messages){
                             //that.setMsgError(obj, response.messages[i]);
-                            that.setError(response.messages[i]);
+                            that.setError(response.messages[i], response.txtButton||null, response.fncButton||null );
                         }
                         $('#linkerror').trigger('click');
                     }else{
@@ -1527,8 +1541,10 @@ var WTA = (function(){
         }
     }
 
-    this.setError = function(msg){
+    this.setError = function(msg, txtButton,  fncButton){
         that.error = msg;
+        that.txtContinue = txtButton || 'continue';
+        that.fncContinue = fncButton || null;
     }
     
     

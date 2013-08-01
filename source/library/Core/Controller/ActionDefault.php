@@ -30,6 +30,7 @@ class Core_Controller_ActionDefault extends Core_Controller_Action {
             $this->view->isMember = $this->isMember = true;
             if(isset($this->_identity->membership) && !empty($this->_identity->membership)){
                 $this->hasMembership = $this->view->hasMembership = true;
+                $this->_session->cartMembership = null;
             }
         }
 

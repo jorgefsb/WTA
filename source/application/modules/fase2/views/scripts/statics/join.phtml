@@ -8,8 +8,9 @@
             <h1 ><img src="<?php echo STATIC_URL ?>/front-fase2/images/texts/why-join.png" /></h1>
             
             <?php echo $this -> content["content_body"]; ?>
-            
-            <a href="/fase2/membership?f=1" class="btn btn-amarillo">JOIN AND COMPLETE FOLIO</a>
+            <?php if( !$this->hasMembership ){ ?>
+                <a href="/fase2/membership?f=1" class="btn btn-amarillo">JOIN AND COMPLETE FOLIO</a>
+            <?php } ?>
         </div>
     </div>
 </div>

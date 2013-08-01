@@ -76,68 +76,69 @@
                     <?php }
                 }
 
+                if( !$this->hasMembership ){
+                    if($this->cartMembership){
+                        $membership = 60;
+                    ?>
+                        <div class="prod"><!-- Product Free -->
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <img src="<?php echo STATIC_URL; ?>/front-fase2/images/gift.png" />
+                                </div>
 
-                if($this->cartMembership){
-                    $membership = 60;
-                ?>
-                    <div class="prod"><!-- Product Free -->
-                        <div class="row-fluid">
-                            <div class="span2">
-                                <img src="<?php echo STATIC_URL; ?>/front-fase2/images/gift.png" />
-                            </div>
+                                <div class="span6 info">
+                                    <span class="name"><strong>Free Gift</strong></span><br/>
+                                    <label class="quantity">QTY 1</label>
+                                </div>
 
-                            <div class="span6 info">
-                                <span class="name"><strong>Free Gift</strong></span><br/>
-                                <label class="quantity">QTY 1</label>
-                            </div>
-
-                            <div class="span4">
-                                <div><strong class="prec1"><br/>FREE</strong></div>
-                                <a href="/shopping/removeitem/membership/1/format/json" class="remove" >X</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="linea_separacion" >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </div>
-                    <div class="prod"><!-- Membership -->
-                        <div class="row-fluid">
-                            <div class="span2">
-                                <img src="<?php echo STATIC_URL; ?>/front-fase2/images/membresia.png" />
-                            </div>
-
-                            <div class="span6 info">
-                                <span class="name"><strong>3 month</strong></span><br/>
-                                <span class="dsc">Exclusive access</span>
-                            </div>
-
-                            <div class="span4">
-                                <div><strong class="prec1"><br/>$60</strong></div>
-                                <a href="/shopping/removeitem/membership/1/format/json" class="remove" >X</a>
+                                <div class="span4">
+                                    <div><strong class="prec1"><br/>FREE</strong></div>
+                                    <a href="/shopping/removeitem/membership/1/format/json" class="remove" >X</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="linea_separacion" >- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - </div>
+                        <div class="prod"><!-- Membership -->
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <img src="<?php echo STATIC_URL; ?>/front-fase2/images/membresia.png" />
+                                </div>
 
-                    <?php if( !empty($this->cart)){ ?>
+                                <div class="span6 info">
+                                    <span class="name"><strong>3 month</strong></span><br/>
+                                    <span class="dsc">Exclusive access</span>
+                                </div>
 
+                                <div class="span4">
+                                    <div><strong class="prec1"><br/>$60</strong></div>
+                                    <a href="/shopping/removeitem/membership/1/format/json" class="remove" >X</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <?php if( !empty($this->cart)){ ?>
+
+                            <div class="btns-checkout">
+                                <?php if( !$this->isCheckout ){ ?>                                
+                                    <a href="/fase2/checkout?r=m" class="btn btn-amarillo" >Checkout as guest instead</a>
+                                <?php } ?>
+                                <div class="linea_horiz"></div>
+                            </div>
+                        <?php } ?>
+                      <?php
+                    }else{
+                        ?>
                         <div class="btns-checkout">
-                            <?php if( !$this->isCheckout ){ ?>                                
+                            <?php if( $this->isCheckout ){ ?>
+                                <a href="/fase2/statics/join-and--create" class="btn btn-amarillo liLight" >join and create folio</a>
+                            <?php }else{ ?>
                                 <a href="/fase2/checkout?r=m" class="btn btn-amarillo" >Checkout as guest instead</a>
                             <?php } ?>
                             <div class="linea_horiz"></div>
                         </div>
-                    <?php } ?>
-                  <?php
-                }else{
-                    ?>
-                    <div class="btns-checkout">
-                        <?php if( $this->isCheckout ){ ?>
-                            <a href="/fase2/statics/join-and--create" class="btn btn-amarillo liLight" >join and create folio</a>
-                        <?php }else{ ?>
-                            <a href="/fase2/checkout?r=m" class="btn btn-amarillo" >Checkout as guest instead</a>
-                        <?php } ?>
-                        <div class="linea_horiz"></div>
-                    </div>
-                    
-                    <?php
+
+                        <?php
+                    }
                 }
 
         ?>

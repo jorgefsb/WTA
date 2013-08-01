@@ -38,6 +38,7 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
 
                 $transacction->setPropertie('_member', '');
                 $transacction->setPropertie('_userMenbership', 0);
+                
                 if($this->isMember){                                                           
                             
                     if( isset($this->_identity->member_id)){
@@ -56,7 +57,9 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
                         //$transacction->setPropertie('_member', $entity_member->getPropertie('_id')); Esto solo aplicaba en casos especiales
                         //$transacction->setPropertie('_userMenbership', 1);
 
-                        $this->view->messages = array('error'=>'You need to sign in before continuing');
+                        $this->view->messages = array('error'=>'Your email is already associated with an account');
+                        $this->view->txtButton = 'Sign in';
+                        $this->view->fncButton = 'function(){$(\'#link-sign-in\').trigger(\'click\')}';
                         return;
                     }
 

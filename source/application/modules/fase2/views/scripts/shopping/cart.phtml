@@ -110,13 +110,22 @@
             </div>
           <?php
         }
-
+            if( !$this->hasMembership ){
 ?>
                 <div class="btns-checkout">
                     <a href="/fase2/membership" class="checkout btn btn-amarillo" >Check out as member</a>
                     <div class="linea_horiz"></div>
                 </div>
-
+<?php
+            }else{
+?>
+                <div class="btns-checkout">
+                    <a href="/fase2/checkout" class="checkout btn btn-amarillo" >Checkout</a>
+                    <div class="linea_horiz"></div>
+                </div>
+<?php                
+            }
+?>
                 <div class="save">
                     <?php  if(!$this->hasMembership && $totalGuest-$total > 0){ ?>
                         Our Exclusive Folio Members save $<?php echo $totalGuest-$total; ?>

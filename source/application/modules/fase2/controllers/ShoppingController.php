@@ -60,7 +60,7 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
             $member->identify($this->_identity->member_id);
             $member->loadProfile();
             $shippingAddress = $member->getPropertie('_shippingAddress');
-            $billingInformation = $member->getPropertie('_billingInformation');
+            $billingInformation = $member->getPropertie('_billingInformation');            
 
             $this->view->member =  $this->_identity;
             $this->view->shippingAddress = $shippingAddress[0];
@@ -99,13 +99,18 @@ class Fase2_ShoppingController extends Core_Controller_ActionDefault
 
     public function membershipAction(){        
         $this->view->headTitle('Membership');
+        
+        if( $this->hasMembership ){
+            $this->redirect('/fase2/checkout');
+        }
+        
         if($this->view->isMember){
             $member = new Application_Entity_Member();
             $member->identify($this->_identity->member_id);
             $member->loadProfile();
             $shippingAddress = $member->getPropertie('_shippingAddress');
             $billingInformation = $member->getPropertie('_billingInformation');
-
+            
             $this->view->member =  $this->_identity;
             $this->view->shippingAddress = $shippingAddress[0];
             $this->view->billingInformation = $billingInformation[0];

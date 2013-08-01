@@ -9,7 +9,9 @@
 
             <?php echo $this -> content["content_body"]; ?>
             <br/>
+            <?php if( !$this->hasMembership ){ ?>
             <a href="/fase2/membership?f=1" class="btn btn-amarillo">JOIN AND COMPLETE FOLIO</a>
+            <?php } ?>
         </div>
     </div>
 </div>

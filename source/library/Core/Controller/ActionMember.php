@@ -11,7 +11,7 @@ class Core_Controller_ActionMember extends Core_Controller_Action {
         
         if( !$this->_identity || !property_exists($member, 'member_id')){
             if(!$this->_identity){
-                if($this->getRequest()->getControllerName() != 'login'){
+                if($this->getRequest()->getControllerName() != 'login' && $this->getRequest()->getControllerName() != 'recovery-account'){
                     $this->redirect('/member/login');
                 }
             }else{
