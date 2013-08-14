@@ -164,8 +164,9 @@
                     <?php } ?>
                 <?php endforeach; ?>
             </select>
+            
             <select id="shp_region" name="shp_region"  class="subregions" data-class="dropup" data-default="<?php echo isset($shpAdd['_state']) ? $shpAdd['_state'] : ''; ?>" >
-                <option value="0"> Region / State*</option>
+                <option value="<?php echo isset($shpAdd['_state']) ? $shpAdd['_state']. '" selected' : '0'; ?>"> Region / State*</option>
             </select>
 
             <input type="text" name="shp_phonenumber"  id="shp_phonenumber" value="<?php echo isset($shpAdd['_phoneNumber']) ? $shpAdd['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>
@@ -205,7 +206,7 @@
 <?php endforeach; ?>
                 </select>
                 <select id="bill_region" name="bill_region" class="subregions"  data-class="dropup" data-default="<?php echo isset($billinfo['_state']) ? $billinfo['_state'] : ''; ?>" >
-                    <option value="0"> Region / State*</option>
+                    <option value="<?php echo isset($billinfo['_state']) ? $billinfo['_state']. '" selected' : '0'; ?>"> Region / State*</option>
                 </select>
 
                 <input type="text" name="bill_phonenumber"  id="bill_phonenumber" value="<?php echo isset($billinfo['_phoneNumber']) ? $billinfo['_phoneNumber'] : ''; ?>" placeholder="Phone number*" title="Phone number"  class=""/>

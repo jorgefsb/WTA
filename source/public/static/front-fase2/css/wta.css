@@ -12,6 +12,8 @@
 
 }
 
+#loading-gif{position: fixed; top: 50%; left: 50%; margin-left: 21px; margin-top: -21px; z-index: 500; display: none}
+
 .group:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
 .group { display: inline-block; clear: both; }
 /* start commented backslash hack \*/ * html .group { height: 1%; } .group { display: block; } /* close commented backslash hack */
@@ -173,7 +175,7 @@ a:hover{ color: #fee7a4 !important;  }
 */
 
 /* MENU SECCIONES HOME */
-#lissections {display: inline-block; text-align: left; margin-top: 80px; transition: all 500ms ease 0s; min-width: 300px}
+#lissections {display: inline-block; text-align: left; margin-top: 80px; transition: all 500ms ease 0s; min-width: 300px; background: rgba(0,0,0,.05)}
 #lissections > li {margin-top: 5px; transition: all 500ms ease 0s}
 ul.submenu{background: transparent url(../images/bg-menu.png) right top no-repeat; list-style: none; margin-left: 3px; padding: 7px 0px 0 0; border-radius: 3px; box-shadow: 0px 0px 2px 1px #41474e; position: relative; margin-top: 5px;  text-transform: uppercase; display: none; transition: width 500ms ease 0s; }
 ul.submenu:before{content: ""; background: url('../images/arrow-menu.png') no-repeat; position: absolute; top: -9px !important; left: 10px; width: 13px; height: 12px;}
@@ -237,7 +239,7 @@ a.signout{margin:  0 auto;}
 .shoppingCart .prod .dsc{display: block; margin-bottom: 10px;}
 .shoppingCart .prod .remove{background: #000; color: #fff; border-radius: 50px; display: inline-block; font-family: Arial; height: 18px; line-height: 1.3; width: 18px; position: absolute; right: 0px; top: 0px; text-align: center}
 .shoppingCart .prod .remove:hover{text-decoration: none}
-.shoppingCart .prod input[type=text]{width: 20px; height: 12px; text-align: center; vertical-align: baseline; margin-bottom: 0px;}
+.shoppingCart .prod input[type=text]{width: 20px; /*height: 12px;*/ text-align: center; vertical-align: baseline; margin-bottom: 0px;}
 .shoppingCart .prod .prec1{font-size: 20px; font-family: 'Times New Roman'}
 .shoppingCart .prod a.btn{transition: none; padding: 0px 8px; font-size: 11px}
 .shoppingCart .prod a.btn:hover{background: none}

@@ -968,12 +968,12 @@ var WTA = (function(){
         $('.regions').change(function(){
             var $this = $(this);
             $.ajax('regions/states/format/json/region/'+$this.val()).done(function(response){
-                if(response.subregions){
-                    var $destino = $this.parent().parent().find('.subregions');
+                if(response.subregions){                    
+                    var $destino = $this.parent().parent().find('.subregions');                    
                     var valdefault = $destino.parent().find('input[type=hidden]').data('default');
                     var select = '';
-                    for(var i in response.subregions){
-                        if(valdefault == response.subregions[i]['id']){
+                    for(var i in response.subregions){                    
+                        if(valdefault == response.subregions[i]['name']){
                             select += '<li><a href="javascript:;" class="selected" data-value="' + response.subregions[i]['id'] + '">' + response.subregions[i]['name'] + '</a></li>'
                         }else{
                             select += '<li><a href="javascript:;" data-value="' + response.subregions[i]['id'] + '">' + response.subregions[i]['name'] + '</a></li>'
@@ -1278,12 +1278,13 @@ var WTA = (function(){
             if(form_valid){
                 
                 $this.addClass('processing');
+                $('#loading-gif').css('display', 'block');
                 $('#checkoutsubmit').html('Transaction in Progress'); // Regresamos el boton con el texto original                
                 
                 $.ajax($this.attr('action')+'/format/json', {type: 'post', data: $this.serialize()}).done(function(response){
                     
                     $this.removeClass('processing');
-                    
+                    $('#loading-gif').css('display', 'none');
                     
                     if(response.messages){
                         $('span.error').remove();
@@ -1312,14 +1313,18 @@ var WTA = (function(){
                                ''             // country
                            ]);
 
-                           _gaq.push(['_addItem',
-                               response.data.transactionID,           // transaction ID - required
-                               response.data.products[0].code,           // SKU/code - required
-                               response.data.products[0].name,        // product name
-                               '',   // category or variation
-                               response.data.products[0].finalPrice,          // unit price - required
-                               response.data.products[0].quantity               // quantity - required
-                            ]);
+                           if(response.data.products){
+                               for(var i in response.data.products){
+                                    _gaq.push(['_addItem',
+                                            response.data.transactionID,           // transaction ID - required
+                                            response.data.products[i].code,           // SKU/code - required
+                                            response.data.products[i].name,        // product name
+                                            '',   // category or variation
+                                            response.data.products[i].finalPrice,          // unit price - required
+                                            response.data.products[i].quantity               // quantity - required
+                                         ]);
+                               }
+                           }
 
                            _gaq.push(['_trackTrans']);
 
@@ -1333,6 +1338,7 @@ var WTA = (function(){
                 that.setMsgError($('#checkoutsubmit'), 'You have empty fields');
                 
                 $this.removeClass('processing');
+                $('#loading-gif').css('display', 'none');
                 $('#checkoutsubmit').html('PLACE ORDER'); // Regresamos el boton con el texto original
                 
                 
@@ -1562,21 +1568,30 @@ var WTA = (function(){
  */
 jQuery(function($){
     $.bootstrap_selects = function(){
-            $('select').each(function(i, e){
+            $('select').each(function(i, e){ 
                     if (!($(e).data('convert') == 'no')) {
                             $(e).hide().wrap('<div class="btn-group ' + $(e).data('class') + '" id="select-group-' + i + '" />');
+                            var options = ''
+                            var selected = null;
+                            $(e).find('option').each(function(o,q) {
+                                    options += '<li><a href="javascript:;" data-value="' + $(q).attr('value') + '" data-text="' + $(q).attr('value') + '">' + $(q).text() + '</a></li>';
+                                    if ($(q).attr('selected')){selected = '.dropdown-menu li:eq(' + o + ') a';};
+                            });
                             var select = $('#select-group-' + i);
                             var current = ($(e).val()) ? $(e).find('option:selected').text(): '&nbsp;';
-                            select.html('<input type="hidden" value="' + $(e).val() + '" name="' + $(e).attr('name') + '" id="' + $(e).attr('id') + '" class="' + $(e).attr('class') + '" data-default="'+$(e).data('default')+'" /><a class="btn dropdown-toggle" data-toggle="dropdown"  href="javascript:;">' + current + '</a><a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="caret"></span></a><ul class="dropdown-menu"></ul>');
+                            select.html('<input type="hidden" value="' + $(e).val() + '" name="' + $(e).attr('name') + '" id="' + $(e).attr('id') + '" class="' + $(e).attr('class') + '" data-default="'+$(e).val()+'" /><a class="btn dropdown-toggle" data-toggle="dropdown"  href="javascript:;">' + current + '</a><a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="caret"></span></a><ul class="dropdown-menu"></ul>');
 
-                            $(e).find('option').each(function(o,q) {
-                                    select.find('.dropdown-menu').append('<li><a href="javascript:;" data-value="' + $(q).attr('value') + '">' + $(q).text() + '</a></li>');
-                                    if ($(q).attr('selected')){select.find('.dropdown-menu li:eq(' + o + ')').click();};
-                            });
+                            select.find('.dropdown-menu').append(options);
+                            if (selected){select.find(selected).click();};
+
                             select.find('.dropdown-menu a').click(function() {
                                     select.find('input[type=hidden]').val($(this).data('value')).trigger('change');
                                     select.find('.btn:eq(0)').text($(this).text());
                             });
+                            /*var ddefault = select.find('input[name=' + $(e).attr('name') + ']').data('default');
+                            if(ddefault){
+                                select.find('.dropdown-menu a[data-text='+ddefault+']').click();
+                            }*/
                     }
             });
     };
