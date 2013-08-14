@@ -5,7 +5,7 @@
                 <div class="closex">X</div>
                 <h1 ><img src="<?php echo STATIC_URL ?>/front-fase2/images/texts/thank-you.png" /></h1> 
                 <br/>
-                <p>
+                <p id="msgSuccess">
                     Your Order Has been<br/>
                     processed for one of our<br/>
                     limited quantity selection. <br/>
@@ -21,3 +21,10 @@
     </div>
 
 </div>
+
+<script>
+    var error = WTA.getError();
+    if(error){
+        document.getElementById('msgSuccess').innerHTML = error;
+    }
+</script>

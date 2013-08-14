@@ -1287,6 +1287,7 @@ var WTA = (function(){
                     $('#loading-gif').css('display', 'none');
                     
                     if(response.messages){
+                        $('#checkoutsubmit').html('PLACE ORDER'); // Regresamos el boton con el texto original
                         $('span.error').remove();
                         var obj = $('#checkoutsubmit');
                         for(var i in response.messages){
@@ -1295,39 +1296,75 @@ var WTA = (function(){
                         }
                         $('#linkerror').trigger('click');
                     }else{
-                       if(response.ok){
-
+                       if(response.ok || response.membership_ok){
+                           
                             $('#checkoutsubmit').parent().hide(); // ocultamos botones
 
-                           $('#linkprocessed').trigger('click');
+                           
+                           if(response.ok){
+                                _gaq.push([
+                                    '_addTrans',
+                                    response.data.transactionID, // transaction ID - required
+                                    'WeTheAdorned',  // affiliation or store name
+                                    response.data.total,          // total - required
+                                    '',           // tax
+                                    '',              // shipping
+                                    '',       // city
+                                    '',     // state or province
+                                    ''             // country
+                                ]);
 
-                           _gaq.push([
-                               '_addTrans',
-                               response.data.transactionID, // transaction ID - required
-                               'WeTheAdorned',  // affiliation or store name
-                               response.data.total,          // total - required
-                               '',           // tax
-                               '',              // shipping
-                               '',       // city
-                               '',     // state or province
-                               ''             // country
-                           ]);
-
-                           if(response.data.products){
-                               for(var i in response.data.products){
-                                    _gaq.push(['_addItem',
-                                            response.data.transactionID,           // transaction ID - required
-                                            response.data.products[i].code,           // SKU/code - required
-                                            response.data.products[i].name,        // product name
-                                            '',   // category or variation
-                                            response.data.products[i].finalPrice,          // unit price - required
-                                            response.data.products[i].quantity               // quantity - required
-                                         ]);
+                                if(response.data.products){
+                                    for(var i in response.data.products){
+                                         _gaq.push(['_addItem',
+                                                 response.data.transactionID,           // transaction ID - required
+                                                 response.data.products[i].code,           // SKU/code - required
+                                                 response.data.products[i].name,        // product name
+                                                 '',   // category or variation
+                                                 response.data.products[i].finalPrice,          // unit price - required
+                                                 response.data.products[i].quantity               // quantity - required
+                                              ]);
+                                    }
+                                }
+                                _gaq.push(['_trackTrans']);
+                           }
+                           if(response.membership_ok){                               
+                                _gaq.push([
+                                    '_addTrans',
+                                    response.membership_data.transactionID, // transaction ID - required
+                                    'WeTheAdorned',  // affiliation or store name
+                                    response.membership_data.total,          // total - required
+                                    '',           // tax
+                                    '',              // shipping
+                                    '',       // city
+                                    '',     // state or province
+                                    ''             // country
+                                ]);
+                                
+                                if(response.membership_data.products){
+                                    for(var i in response.membership_data.products){
+                                         _gaq.push(['_addItem',
+                                                 response.membership_data.transactionID,           // transaction ID - required
+                                                 response.membership_data.products[i].code,           // SKU/code - required
+                                                 response.membership_data.products[i].name,        // product name
+                                                 '',   // category or variation
+                                                 response.membership_data.products[i].finalPrice,          // unit price - required
+                                                 response.membership_data.products[i].quantity               // quantity - required
+                                              ]);
+                                    }
+                                }
+                                _gaq.push(['_trackTrans']);                                
+                           }
+                           if(response.ok && response.membership_ok){
+                               that.setError("Your membership and order have been received.");
+                           }else{
+                               if(response.name){
+                                   that.setError("Thank you "+response.name+".<br/> Your order has been received.");
+                               }else{
+                                   that.setError("Thank you! Your order has been received.");
                                }
                            }
-
-                           _gaq.push(['_trackTrans']);
-
+                           $('#linkprocessed').trigger('click');
 
                         }else{
                             //that.setMsgError(obj, 'We had a problem. Please review your information and try again');

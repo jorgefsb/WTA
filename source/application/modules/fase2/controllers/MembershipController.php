@@ -115,13 +115,15 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
             
                     
             if ($entityMember->autentificate( $formValues['folio_email'], $formValues['folio_password']) ) {
+                //$this->view->debug['autentificado'] = 1; //debug
                 $this->getNavigationMember();
                 $this->_identity = Zend_Auth::getInstance()->getIdentity();
                 $this->isMember = true;
             }else{
                 $this->view->messages = array('error' =>'Error Logon');
+                return false;
             }
-            
+            //$this->view->debug['member'] = $this->_identity; // debug
             $transacction->setPropertie('_member', $entityMember->getPropertie('_id'));
             
         }elseif( $this->hasMembership ){
@@ -204,6 +206,12 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
                 
                 $this->view->membership_ok = 1;
                 $this->view->membership_data = array(
+                    'products'    =>  array( array(
+                                                'code'=>'MEMB',
+                                                'name'=>'Membership',
+                                                'quantity'=>1,
+                                                'finalPrice'=>$uniPrice,
+                                            )),
                     'transactionID' => $paymentId,
                     'total' => $total
                 );
@@ -329,6 +337,7 @@ class Fase2_MembershipController extends Core_Controller_ActionDefault
             if(!$paymentId){
                 $this->view->messages = array('error'=>$transacction->getMessage());
             }else{
+                $this->view->name = $formValues['shp_firstname'].' '.$formValues['shp_lastname'];
                 $this->view->ok =1;
                 $this->view->data = array(
                     'products'    =>  $products,
