@@ -11,7 +11,7 @@ class Fase2_IndexController extends Core_Controller_ActionDefault
         //$this->view->isMember = Zend_Auth::getInstance()->hasIdentity();                
 
         if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
-         //   $this->redirect('/beta');
+            $this->redirect('/beta');
         }
         //die($this->hasMembership);
         //$action = $this->_getParam('action','');

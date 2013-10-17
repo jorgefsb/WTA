@@ -13,9 +13,9 @@ class Fase2_OrderController extends Core_Controller_ActionDefault
         //$this->isMember = Zend_Auth::getInstance()->hasIdentity();
         //$this->view->isMember = $this->isMember;
 
-        //if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
-          //  $this->redirect('/beta');
-        //}
+        if( !Zend_Auth::getInstance()->hasIdentity() && !$this->_session->authBeta){
+            $this->redirect('/beta');
+        }
 
         $this->_helper->contextSwitch()
                 ->addActionContext('create', 'json')

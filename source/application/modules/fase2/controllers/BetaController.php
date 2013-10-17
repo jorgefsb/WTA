@@ -49,7 +49,7 @@ class Fase2_BetaController extends Core_Controller_ActionDefault
         $code = $this->getParam('password',0);
 
 
-        if( 'EARLY BIRD' == strtoupper($code)){
+        if( 'WTA2014' == strtoupper($code)){
             $this->view->ok =1;
             $this->_session->authBeta = 1;
         }else{
